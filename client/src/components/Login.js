@@ -8,7 +8,6 @@ function Login({ onLogin }) {
 
 	const [errors, setErrors] = useState([])
 
-
 	function handleChange(e) {
 		setFormData({
 			...formData,
@@ -17,28 +16,30 @@ function Login({ onLogin }) {
 	}
 
 	function handleSubmit(e) {
-		    e.preventDefault();
-		    fetch("/login", {
-		      method: "POST",
-		      headers: {
-		        "Content-Type": "application/json",
-		      },
-		      body: JSON.stringify(formData),
-		    })
-		      .then((r) => r.json())
-		      .then((data) => {
-		        if(data.errors) setErrors(data.errors)
-						else {
-							onLogin(data)
-							setErrors([])
-						}
-					});  }
+		e.preventDefault();
+		fetch("/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+		.then((r) => r.json())
+		.then((data) => {
+			if(data.errors) setErrors(data.errors)
+			else {
+				onLogin(data)
+				setErrors([])
+			}
+		});  
+	}
 
 	return (
 		<div>
 			{errors?errors.map(e => <div style={{ color: "red" }} >{e}</div>):null}
 			<form onSubmit={handleSubmit}>
 				<input
+					className="centered-in-div" 
 					type="text"
 					id="username"
 					value={formData.username}
@@ -47,6 +48,7 @@ function Login({ onLogin }) {
 				/>
         <div style={{ paddingTop: 10 }} />
 				<input
+					className="centered-in-div" 
 					type="text"
 					id="password"
 					value={formData.password}
@@ -54,10 +56,10 @@ function Login({ onLogin }) {
 					onChange={handleChange}
 				/>
         <div style={{ paddingTop: 10 }} />
-				<button type="submit">Login</button>
+				<button type="submit" className="centered-in-div" >Login</button>
 			</form>
 		</div>
   );
-	}
+}
 
 export default Login

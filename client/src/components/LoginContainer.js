@@ -13,15 +13,23 @@ function LoginContainer({ onLogin }) {
 		<Fragment>
 			{ hasAccount ? 
 				<div style={{ padding: 15 }} >
-					<Login onHandleClick={handleClick} onLogin={onLogin} />
-					<div style={{ paddingTop: 10, paddingBottom: 10 }} >or</div>
-					<button onClick={handleClick} >Signup for a New Account</button>
+					<Login onLogin={onLogin} />
+					<div className="txt-centered-in-div" >or</div>
+					<button 
+						onClick={handleClick} 
+						className="centered-in-div" 
+					// 	style={{
+					// 		display: "block",
+					// 		marginLeft: "auto",
+					// 		marginRight: "auto"
+					// }}
+					>Signup for a New Account</button>
 				</div>
 			:
 				<div style={{ padding: 15 }} >
 					<Signup onLogin={onLogin} />
-					<div style={{ paddingTop: 10, paddingBottom: 10 }} >or</div>
-					<button onClick={handleClick} >Login</button>
+					<div className="txt-centered-in-div" >or</div>
+					<button onClick={handleClick} className="centered-in-div" >Login to Your Account</button>
 				</div>
 			}
 		</Fragment>

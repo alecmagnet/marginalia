@@ -31,7 +31,7 @@ function App() {
           <button onClick={handleLogout} >Logout</button>
         </div>
       :
-        <div >
+        <div className="centered-in-window" >
           <LoginContainer onLogin={onLogin} />
         </div>
       }

@@ -13,7 +13,6 @@ function Signup({ onLogin }) {
 
 	const [errors, setErrors] = useState([])
 
-
 	function handleChange(e) {
 		setFormData({
 			...formData,
@@ -30,26 +29,33 @@ function Signup({ onLogin }) {
       },
       body: JSON.stringify(formData),
     })
-      .then((r) => r.json())
-      .then((data) => {
-        if(data.errors) setErrors(data.errors)
-				else onLogin(data)
-				setErrors([])
-			});
+		.then((r) => r.json())
+		.then((data) => {
+			if(data.errors) setErrors(data.errors)
+			else onLogin(data)
+			setErrors([])
+		});
   }
 
 	return (
-		<div>
-			{errors?errors.map(e => <div style={{ color: "red" }} >{e}</div>):null}
-			<form onSubmit={handleSubmit}>
+		<div >
+			{errors ? errors.map(e => <div style={{ color: "red" }} >{e}</div>) : null}
+			<form 
+				onSubmit={handleSubmit}
+				style = {{ 
+					// height: 220, 
+					width: 156 
+				}}
+			>
 				<input
+					style={{ marginTop: 5 }}
 					type="text"
 					id="username"
 					value={formData.username}
 					placeholder={"username"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
+        <div style={{ padding: 5 }} />
 				<input
 					type="text"
 					id="fullname"
@@ -57,7 +63,7 @@ function Signup({ onLogin }) {
 					placeholder={"full name"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
+        <div style={{ padding: 5 }} />
 				<input
 					type="text"
 					id="password"
@@ -65,15 +71,14 @@ function Signup({ onLogin }) {
 					placeholder={"password"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
+        <div style={{ padding: 5 }} />
 				<input
 					type="date"
 					id="birthdate"
 					value={formData.birthdate}
-					// placeholder={"bio"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
+        <div style={{ padding: 5 }} />
 				<input
 					type="text"
 					id="image"
@@ -81,7 +86,7 @@ function Signup({ onLogin }) {
 					placeholder={"profile picture url"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
+        <div style={{ padding: 5 }} />
 				<input
 					type="text"
 					id="bio"
@@ -89,8 +94,16 @@ function Signup({ onLogin }) {
 					placeholder={"bio"}
 					onChange={handleChange}
 				/>
-        <div style={{ paddingTop: 10 }} />
-				<button type="submit">Signup</button>
+        <div style={{ padding: 5 }} />
+				<button 
+					type="submit"
+					className="centered-in-div" 
+					// style={{
+					// 	display: "block",
+  				// 	marginLeft: "auto",
+  				// 	marginRight: "auto"
+					// }}
+				>Signup</button>
 			</form>
 		</div>
   );
