@@ -43,7 +43,6 @@ function Signup({ onLogin }) {
 			<form 
 				onSubmit={handleSubmit}
 				style = {{ 
-					// height: 220, 
 					width: 156 
 				}}
 			>
@@ -98,11 +97,6 @@ function Signup({ onLogin }) {
 				<button 
 					type="submit"
 					className="centered-in-div" 
-					// style={{
-					// 	display: "block",
-  				// 	marginLeft: "auto",
-  				// 	marginRight: "auto"
-					// }}
 				>Signup</button>
 			</form>
 		</div>

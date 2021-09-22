@@ -18,11 +18,6 @@ function LoginContainer({ onLogin }) {
 					<button 
 						onClick={handleClick} 
 						className="centered-in-div" 
-					// 	style={{
-					// 		display: "block",
-					// 		marginLeft: "auto",
-					// 		marginRight: "auto"
-					// }}
 					>Signup for a New Account</button>
 				</div>
 			:
