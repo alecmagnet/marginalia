@@ -64,7 +64,7 @@ function Signup({ onLogin }) {
 				/>
         <div style={{ padding: 5 }} />
 				<input
-					type="text"
+					type="password"
 					id="password"
 					value={formData.password}
 					placeholder={"password"}

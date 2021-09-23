@@ -1,6 +1,7 @@
 import { useState, Fragment } from 'react'
 import '../App.css';
 import LoginContainer from './LoginContainer';
+import TestFormNewText from './TestFormNewText'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -29,6 +30,7 @@ function App() {
         <div>
           <h1>Welcome, {user.username}</h1>
           <button onClick={handleLogout} >Logout</button>
+          <TestFormNewText />
         </div>
       :
         <div className="centered-in-window" >

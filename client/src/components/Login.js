@@ -49,7 +49,7 @@ function Login({ onLogin }) {
         <div style={{ paddingTop: 10 }} />
 				<input
 					className="centered-in-div" 
-					type="text"
+					type="password"
 					id="password"
 					value={formData.password}
 					placeholder={"password"}
