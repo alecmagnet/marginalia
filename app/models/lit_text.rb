@@ -1,0 +1,2 @@
+class LitText < ApplicationRecord
+end

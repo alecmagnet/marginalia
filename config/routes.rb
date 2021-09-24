@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lit_texts, only: [:index, :show, :create, :update]
   resources :users, only: [:index, :show, :update, :destroy]
 
   post "/signup", to: "users#create"
