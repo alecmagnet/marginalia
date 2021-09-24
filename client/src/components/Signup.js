@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from 'react-router-dom'
 
 function Signup({ onLogin }) {
   const [formData, setFormData] = useState({
@@ -42,6 +43,7 @@ function Signup({ onLogin }) {
 			{errors ? errors.map(e => <div style={{ color: "red" }} >{e}</div>) : null}
 			<form 
 				onSubmit={handleSubmit}
+				className="centered-in-div" 
 				style = {{ 
 					width: 156 
 				}}
@@ -99,6 +101,8 @@ function Signup({ onLogin }) {
 					className="centered-in-div" 
 				>Signup</button>
 			</form>
+        <div style={{ padding: 5 }} />
+				<Link to='/'>Already have an account? Log in</Link>
 		</div>
   );
 }

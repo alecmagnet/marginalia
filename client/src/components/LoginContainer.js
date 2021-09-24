@@ -1,4 +1,4 @@
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // import { useState, Fragment } from "react"
 import Login from './Login'
 import Signup from './Signup'
@@ -15,13 +15,13 @@ function LoginContainer({ onLogin }) {
 			<Route exact path='/'>
 				<div style={{ padding: 15 }} >
 					<Login onLogin={onLogin} />
-					<Link to='/signup'>Don't have an account? Sign up</Link>
+					{/* <Link to='/signup'>Don't have an account? Sign up</Link> */}
 				</div>
 			</Route>
 			<Route exact path='/signup'>
 				<div style={{ padding: 15 }} >
 					<Signup onLogin={onLogin} />
-					<Link to='/'>Already have an account? Log in</Link>
+					{/* <Link to='/'>Already have an account? Log in</Link> */}
 				</div>
 			</Route>
 			{/* { hasAccount ? 

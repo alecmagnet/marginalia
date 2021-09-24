@@ -1,15 +1,18 @@
 import { useState, useEffect, Fragment } from 'react'
 import { Switch, Route } from 'react-router';
 import '../App.css';
+import LitTextsContainer from './LitTextsContainer';
 import LitTextShow from './LitTextShow';
 import LoginContainer from './LoginContainer';
 // import TestFormNewText from './TestFormNewText'
 import Navbar from './Navbar';
+import UsersContainer from './UsersContainer'
+import UserShow from './UserShow';
 
 function App() {
   const [user, setUser] = useState(null)
-  const [allUsers, setAllUsers] = useState(null)
-  const [litTexts, setLitTexts] = useState(null)
+  const [allUsers, setAllUsers] = useState([])
+  const [litTexts, setLitTexts] = useState([])
 
   // CHECKS TO SEE IF A USER IS ALREADY LOGGED IN
   useEffect(() => {
@@ -54,19 +57,44 @@ function App() {
 
   return (
     <Fragment>
-      <Navbar onLogout={onLogout} user={user} />
+      <Navbar 
+        onLogout={onLogout} 
+        user={user} 
+        allUsers={allUsers}
+      />
       {user && litTexts ?
         <div>
           <Switch>
             <Route exact path='/'>
               <h1>This is the homepage. I don't know what goes here yet...</h1>
             </Route>
+
             <Route exact path='/texts'>
-              <LitTextShow litText={litTexts[0]} />
+              <LitTextsContainer
+                user={user}
+                litTexts={litTexts} />
             </Route>
+
+            <Route exact path='/texts/:id'>
+              <LitTextShow
+                // litText={litTexts[0]}
+                user={user}
+                litTexts={litTexts} />
+            </Route>
+
             <Route exact path='/users'>
-              <h1>All Users</h1>
+              <h1>UsersContainer</h1>
+              <UsersContainer 
+                user={user}
+                allUsers={allUsers} />
             </Route>
+
+            <Route exact path='/users/:id'>
+              <UserShow
+                user={user}
+                allUsers={allUsers} />
+            </Route>
+
             {/* <TestFormNewText /> */}
           </Switch>
         </div>
