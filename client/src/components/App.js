@@ -1,8 +1,10 @@
 import { useState, useEffect, Fragment } from 'react'
+import { Switch, Route } from 'react-router';
 import '../App.css';
 import LitTextShow from './LitTextShow';
 import LoginContainer from './LoginContainer';
 // import TestFormNewText from './TestFormNewText'
+import Navbar from './Navbar';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -49,24 +51,24 @@ function App() {
     setUser(null)
   }
 
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-    }).then((r) => 
-      // console.log(r)
-      // r.errors ? console.log(r.errors) : onLogout
-      onLogout()
-    )
-  }
 
   return (
     <Fragment>
+      <Navbar onLogout={onLogout} user={user} />
       {user && litTexts ?
         <div>
-          <h1>Welcome, {user.username}</h1>
-          <button onClick={handleLogout} >Logout</button>
-          <LitTextShow litText={litTexts[0]} />
-          {/* <TestFormNewText /> */}
+          <Switch>
+            <Route exact path='/'>
+              <h1>This is the homepage. I don't know what goes here yet...</h1>
+            </Route>
+            <Route exact path='/texts'>
+              <LitTextShow litText={litTexts[0]} />
+            </Route>
+            <Route exact path='/users'>
+              <h1>All Users</h1>
+            </Route>
+            {/* <TestFormNewText /> */}
+          </Switch>
         </div>
       :
         <div className="centered-in-window" >
