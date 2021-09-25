@@ -1,7 +1,15 @@
 
 
-FROM UserShow:
 
+
+
+FROM CommentShow
+	<p style={{ fontSize: 10 }} ><em>posted: {comment.created_at}</em></p>
+	{comment.created_at === comment.updated_at ? null : <span style={{ fontSize: 10, paddingLeft: 20 }} ><em>updated: {comment.updated_at}</em></span>}
+
+
+
+FROM UserShow
 	let showBio = ""
 	bio ? showBio = `${bio.slice(0, 30)}...` : showBio = ""
 

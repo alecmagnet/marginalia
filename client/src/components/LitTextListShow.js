@@ -16,7 +16,7 @@ export default function LitTextListShow({ litText }) {
 
 	return (
 		<div style={{ padding: 10 }} >
-				<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
+			<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
 				<Link to={`/texts/${id}`}><h3>{title}</h3></Link>
 				<p>by {author}</p>
 				<p>{pubdate}</p>

@@ -83,6 +83,7 @@ function App() {
               <LitTextShow
                 // litText={litTexts[0]}
                 user={user}
+                allUsers={allUsers}
                 litTexts={litTexts} />
             </Route>
 
