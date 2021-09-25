@@ -16,6 +16,13 @@ function LitTextShow({ litTexts, user, allUsers }) {
 		setListComments([data, ...listComments])
 	}
 
+	const onDeleteComment = (data) => {
+		let filteredComments = listComments.filter(com => com.id !== data)
+		setListComments(filteredComments)
+		// appOnDeleteComment(data)
+	}
+
+
 	return (
 		<Fragment>
 			{litText ? 
@@ -25,7 +32,7 @@ function LitTextShow({ litTexts, user, allUsers }) {
 					<div>{parsedContent}</div>
 					<p><em>{litText.pubdate}</em></p>
 					<CommentNewForm user={user} lit_text_id={litText.id} parent_comment_id={null} onAddComment={onAddComment} />
-					<CommentsList comments={listComments} user={user} allUsers={allUsers} /> 
+					<CommentsList comments={listComments} user={user} allUsers={allUsers} onDeleteComment={onDeleteComment} /> 
 				</div>
 			: <h3>We're sorry, there is no such text</h3>}
 		</Fragment>
