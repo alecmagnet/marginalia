@@ -1,9 +1,9 @@
-import ComRepShow from "./ComRepShow"
+import ReplyContainer from "./ReplyContainer"
 
 export default function RepliesList({ replies, user, allUsers }) {
 
-	const renderReplies = replies.map ((r) => {
-		return(<div style={{ paddingLeft: 40, paddingBottom: 10 }} ><ComRepShow key={r.id} comment={r} user={user} allUsers={allUsers} /></div>)})	
+	const renderReplies = replies.map ((r) =>
+	<ReplyContainer key={r.id} comment={r} user={user} allUsers={allUsers} />)	
 
 	return(
 		<div style={{ padding: 10 }} >
