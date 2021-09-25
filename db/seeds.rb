@@ -19,25 +19,26 @@ User.create(username: 'Alec', fullname: 'Alec Magnet', password: '123', bio: 'I 
 4.times do
 	username=Faker::Twitter.unique.screen_name
 	fullname=Faker::FunnyName.unique.name
-	birthdate=Faker::Date.between(from: '1940-01-01', to: '2006-12-31')
 	image=Faker::Avatar.image
 	bio=Faker::Lorem.paragraph
-	User.create(username: username, password: '123', fullname: fullname, birthdate: birthdate, image: image, bio: bio)
+	User.create(username: username, password: '123', fullname: fullname, image: image, bio: bio)
 end
 
 9.times do
 	user_id=User.ids.sample
 	lit_text_id=LitText.ids.sample
 	content=Faker::Lorem.paragraph
-	Comment.create(user_id: user_id, lit_text_id: lit_text_id, content: content)
+	Comment.create(user_id: user_id, lit_text_id: lit_text_id, content: content, deleted:false)
 end
 
-7.times do
+12.times do
 	user_id=User.ids.sample
-	lit_text_id=LitText.ids.sample
-	parent_comment_id=Comment.ids.sample
+	parent_comment=Comment.all.sample
+	lit_text_id=parent_comment.lit_text_id
 	content=Faker::Lorem.paragraph
-	Comment.create(user_id: user_id, lit_text_id: lit_text_id, parent_comment_id: parent_comment_id, content: content)
+	Comment.create(user_id: user_id, lit_text_id: lit_text_id, parent_comment: parent_comment, content: content, deleted:false)
 end
 
 puts 'Finished seeding'
+
+

@@ -51,7 +51,7 @@ export default function CommentNewForm({ user, lit_text_id, parent_comment_id, o
 						style={{ width: "75%" }}
 					/></label>
 					<div style={{ height: 7 }} />
-					<button floated="right" primary type='submit'>Post</button>
+					<button floated="right" type='submit'>Post</button>
 				</form>
 			</div>
     </div>

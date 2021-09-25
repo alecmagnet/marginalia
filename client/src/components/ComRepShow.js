@@ -39,9 +39,9 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 			<TimeAgoContainer created_at={comment.created_at} updated_at={comment.updated_at} />
 			{parseInt(commentUser.id) === parseInt(user.id) ? 
 			<p style={{ color: "purple" }} >
+				<em>*Add edit button here*   </em> 
 				<button onClick={onDeleteClick} >Delete</button>
-				<em>**Add edit and delete buttons here**</em></p> 
-			: null}
+			</p> : null}
 		</div>	
 	)
 }

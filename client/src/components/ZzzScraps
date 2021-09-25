@@ -2,6 +2,19 @@
 
 
 
+
+FROM seeds.rb 
+	7.times do
+		parent_comment_id=Comment.ids.sample
+		user_id=User.ids.sample
+		lit_text_id=LitText.ids.sample
+		content=Faker::Lorem.paragraph
+		Comment.create(user_id: user_id, lit_text_id: lit_text_id, parent_comment_id: parent_comment_id, content: content, deleted:false)
+	end
+
+
+
+
 FROM ReplyShow
 	export default function ReplyShow({ reply, user, allUsers }) {
 
@@ -19,9 +32,11 @@ FROM ReplyShow
 
 
 
+
 FROM CommentShow
 	<p style={{ fontSize: 10 }} ><em>posted: {comment.created_at}</em></p>
 	{comment.created_at === comment.updated_at ? null : <span style={{ fontSize: 10, paddingLeft: 20 }} ><em>updated: {comment.updated_at}</em></span>}
+
 
 
 
@@ -31,9 +46,11 @@ FROM UserShow
 
 
 
+
 FROM LitTextListShow
 	const rawContent = content ? content.slice(0, 100) : ""
 	const showContent = rawContent.replace(/(<([^>]+)>)/gi, " ")
+
 
 
 
