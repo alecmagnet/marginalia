@@ -56,6 +56,24 @@ function App() {
     setUser(null)
   }
 
+  // function appOnAddComment(data) {
+  //   setPosts([data, ...posts])
+  // }
+  
+  // function appOnEditPost(data) {
+  //   let editedPostArr = posts.filter(post => parseInt(post.id) !== parseInt(data.id))
+  //   setPosts([data, ...editedPostArr])
+  // }
+  
+  // function appOnDeletePost(data) {
+  //   let newArr = posts.filter(post => post.id !== data)
+  //   setPosts(newArr)
+  // }
+
+  // function updateUser(data) {
+  //   setUser(data)
+  // }
+
 
   return (
     <Fragment>
@@ -81,7 +99,7 @@ function App() {
 
             <Route exact path='/texts/:id'>
               <LitTextShow
-                // litText={litTexts[0]}
+                // appOnAddComment={appOnAddComment}
                 user={user}
                 allUsers={allUsers}
                 litTexts={litTexts} />

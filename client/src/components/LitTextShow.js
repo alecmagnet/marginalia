@@ -1,12 +1,20 @@
 import parse from 'html-react-parser'
 import { useParams } from 'react-router-dom'
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import CommentsList from './CommentsList'
+import CommentNewForm from './CommentNewForm.js'
 
 function LitTextShow({ litTexts, user, allUsers }) {
 	const params = useParams()
 	const litText = litTexts.filter((text) => parseInt(text.id) === parseInt(params.id))[0]
+	const [listComments, setListComments] = useState(litText.comments)
 	const parsedContent = litText ? parse(`${litText.content}`) : ""
+
+
+	function onAddComment(data) {
+		// appOnAddComment(data)
+		setListComments([data, ...listComments])
+	}
 
 	return (
 		<Fragment>
@@ -16,7 +24,8 @@ function LitTextShow({ litTexts, user, allUsers }) {
 					<h4>{litText.author}</h4>
 					<div>{parsedContent}</div>
 					<p><em>{litText.pubdate}</em></p>
-					<CommentsList comments={litText.comments} user={user} allUsers={allUsers} /> 
+					<CommentNewForm user={user} lit_text_id={litText.id} parent_comment_id={null} onAddComment={onAddComment} />
+					<CommentsList comments={listComments} user={user} allUsers={allUsers} /> 
 				</div>
 			: <h3>We're sorry, there is no such text</h3>}
 		</Fragment>

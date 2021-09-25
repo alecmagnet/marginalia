@@ -8,7 +8,6 @@ export default function CommentsList({ comments, user, allUsers }) {
 
 	return (
 		<div>
-			<h2>Comments</h2>
 			{renderComments}
 		</div>
 	)

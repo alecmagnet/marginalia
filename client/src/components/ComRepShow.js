@@ -1,7 +1,7 @@
 import TimeAgoContainer from "./TimeAgoContainer"
 
-export default function ComRepShow({ comment, allUsers, user }) {
-	const commentUser = allUsers.find((u) => parseInt(u.id) === parseInt(comment.user_id))
+export default function ComRepShow({ comment, allUsers, user, commentUser }) {
+	// const commentUser = allUsers.find((u) => parseInt(u.id) === parseInt(comment.user_id))
 
 	return (
 		<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
