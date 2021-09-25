@@ -15,6 +15,7 @@ function LitTextShow({ litTexts, user, allUsers }) {
 					<h3>{litText.title}</h3>
 					<h4>{litText.author}</h4>
 					<div>{parsedContent}</div>
+					<p><em>{litText.pubdate}</em></p>
 					<CommentsList comments={litText.comments} user={user} allUsers={allUsers} /> 
 				</div>
 			: <h3>We're sorry, there is no such text</h3>}
