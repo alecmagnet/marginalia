@@ -23,21 +23,26 @@ function LitTextShow({ litTexts, user, allUsers }) {
 	}
 
 
-	return (
-		<Fragment>
-			{litText ? 
-				<div style={{padding: 50}} >
-					<h3>{litText.title}</h3>
-					<h4>{litText.author}</h4>
-					<div>{parsedContent}</div>
-					<p><em>{litText.pubdate}</em></p>
-					<CommentNewForm user={user} lit_text_id={litText.id} parent_comment_id={null} onAddComment={onAddComment} />
-					<CommentsList comments={listComments} user={user} allUsers={allUsers} onDeleteComment={onDeleteComment} /> 
-				</div>
-			: <h3>We're sorry, there is no such text</h3>}
-		</Fragment>
-
-	)
+	if (allUsers.length > 0) {
+		return (
+			<Fragment>
+				{litText ? 
+					<div style={{padding: 50}} >
+						<h3>{litText.title}</h3>
+						<h4>{litText.author}</h4>
+						<div>{parsedContent}</div>
+						<p><em>{litText.pubdate}</em></p>
+						<CommentNewForm user={user} lit_text_id={litText.id} parent_comment_id={null} onAddComment={onAddComment} />
+						<CommentsList comments={listComments} user={user} allUsers={allUsers} onDeleteComment={onDeleteComment} /> 
+					</div>
+				: <h3>We're sorry, there is no such text</h3>}
+			</Fragment>
+		)
+	} else {
+		return (
+			<h1>Loading...</h1>
+		)
+	}
 }
 
 export default LitTextShow
