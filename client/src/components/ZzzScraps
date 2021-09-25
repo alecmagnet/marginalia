@@ -2,6 +2,22 @@
 
 
 
+FROM ReplyShow
+	export default function ReplyShow({ reply, user, allUsers }) {
+
+		const replyUser = allUsers.find((u) => parseInt(u.id) === parseInt(reply.user_id))
+
+		return(
+			<div style={{ padding: 10 }} >
+				<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
+					<h4>{replyUser.username}</h4>
+							
+				</div>
+			</div>
+		)
+	}
+
+
 
 FROM CommentShow
 	<p style={{ fontSize: 10 }} ><em>posted: {comment.created_at}</em></p>
