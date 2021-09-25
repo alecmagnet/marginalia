@@ -4,10 +4,12 @@ import '../App.css';
 import LitTextsContainer from './LitTextsContainer';
 import LitTextShow from './LitTextShow';
 import LoginContainer from './LoginContainer';
-// import TestFormNewText from './TestFormNewText'
 import Navbar from './Navbar';
 import UsersContainer from './UsersContainer'
 import UserShow from './UserShow';
+// import TestParseLitText from './TestParseLitText';
+// import TestFormNewText from './TestFormNewText'
+
 
 function App() {
   const [user, setUser] = useState(null)
@@ -66,7 +68,9 @@ function App() {
         <div>
           <Switch>
             <Route exact path='/'>
-              <h1>This is the homepage. I don't know what goes here yet...</h1>
+              <><h1>This is the homepage. I don't know what goes here yet...</h1>
+                {/* <TestParseLitText /> */}
+                </>
             </Route>
 
             <Route exact path='/texts'>

@@ -10,7 +10,7 @@ function LitTextShow({ litTexts }) {
 	return (
 		<Fragment>
 			{litText ? 
-				<div>
+				<div style={{padding: 50}} >
 					<h3>{litText.title}</h3>
 					<h4>{litText.author}</h4>
 					<div>{parsedContent}</div>

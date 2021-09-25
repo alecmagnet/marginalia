@@ -3,7 +3,8 @@ import UserListShow from "./UserListShow";
 
 export default function UsersList({ user, allUsers }) {
 
-	const renderUsers = allUsers.map((u => <UserListShow key={u.id} showUser={u} currentUser={user} />))
+	const otherUsers = allUsers.filter((u) => u.id !== user.id)
+	const renderUsers = otherUsers.map((u => <UserListShow key={u.id} showUser={u} />))
 
 	return (
 		<div>

@@ -61,8 +61,4 @@ class UsersController < ApplicationController
 		User.find(params[:id])
 	end
 
-	def find_session_user
-		User.find_by(id: session[:user_id])
-	end
-
 end

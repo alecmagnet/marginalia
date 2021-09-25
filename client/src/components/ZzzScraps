@@ -7,6 +7,11 @@ FROM UserShow:
 
 
 
+FROM LitTextListShow
+	const rawContent = content ? content.slice(0, 100) : ""
+	const showContent = rawContent.replace(/(<([^>]+)>)/gi, " ")
+
+
 
 FROM LitTextShow
 	// import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
