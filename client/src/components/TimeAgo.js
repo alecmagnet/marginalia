@@ -4,9 +4,7 @@ export default function TimeAgo({ time }) {
 
 	const timeNow = new Date().getTime()
 	const timeThen = new Date(time).getTime()
-	console.log("TimeAgo:timeThen", timeThen, "timeNow", timeNow)
 	const timeDiff = parseInt((timeNow - timeThen)) / 1000
-	console.log("timeDiff", timeDiff)
 	const timeDisplayMins = parseInt(timeDiff/60)
 	const timeDisplayHours = parseInt(timeDiff/3600)
 	const timeDisplayDays = parseInt(timeDiff/(86400))
