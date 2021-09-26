@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
 	# DELETE /comments/:id
 	def destroy
 		comment = find_comment
-		if comment.replies.length > 0
+		if comment.replies.length > 0 || comment.parent_comment_id
 			comment.update!(deleted: true)
 			render json: comment, status: :ok
 		else
