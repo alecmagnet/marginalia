@@ -1,6 +1,23 @@
 
 
 
+------------
+
+
+FROM TimeAgoContainer.js 
+	if (created_at === updated_at) {
+		secondTerm = null
+	} else if (isDeleted) {
+		secondTerm = <em>, deleted: <TimeAgo time={updated_at} />
+				</em> 
+	} else {
+		secondTerm = <em>, updated: <TimeAgo time={updated_at} />
+				</em>
+	}
+
+
+
+------------
 
 
 FROM seeds.rb 
@@ -13,6 +30,7 @@ FROM seeds.rb
 	end
 
 
+------------
 
 
 FROM ReplyShow
@@ -31,13 +49,19 @@ FROM ReplyShow
 	}
 
 
+------------
 
 
 FROM CommentShow
 	<p style={{ fontSize: 10 }} ><em>posted: {comment.created_at}</em></p>
 	{comment.created_at === comment.updated_at ? null : <span style={{ fontSize: 10, paddingLeft: 20 }} ><em>updated: {comment.updated_at}</em></span>}
 
+	*
 
+	const filteredReplies = replies.filter((r) => parseInt(r.user_id) === parseInt(commentUser.id))
+	
+
+------------
 
 
 FROM UserShow
@@ -45,6 +69,7 @@ FROM UserShow
 	bio ? showBio = `${bio.slice(0, 30)}...` : showBio = ""
 
 
+------------
 
 
 FROM LitTextListShow
@@ -52,6 +77,7 @@ FROM LitTextListShow
 	const showContent = rawContent.replace(/(<([^>]+)>)/gi, " ")
 
 
+------------
 
 
 FROM LitTextShow

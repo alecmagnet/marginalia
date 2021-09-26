@@ -16,7 +16,7 @@ export default function TimeAgo({ time }) {
 		if (timeDiff < 300) {
 			return('just now')
 		} else if (timeDiff < 3600) {
-			return(`${timeDisplayMins} minutes ago`)		
+			return(`${timeDisplayMins} mins ago`)		
 		} else if (timeDiff < 7200) {
 			return("1 hour ago")
 		} else if (timeDiff < 86400) {

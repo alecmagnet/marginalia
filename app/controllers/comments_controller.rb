@@ -22,15 +22,19 @@ class CommentsController < ApplicationController
 	def update
 		comment = find_comment
 		comment.update!(comment_params)
-		render json: comment, status: :accepted
+		render json: comment, status: :ok
 	end
 
 	# DELETE /comments/:id
 	def destroy
 		comment = find_comment
-		comment.destroy
-		session.delete :comment_id
-		head :no_content
+		if comment.replies.length > 0
+			comment.update!(deleted: true)
+			render json: comment, status: :ok
+		else
+			# comment.destroy
+			head :no_content
+		end
 	end
 
 	private

@@ -5,4 +5,5 @@ class CommentSerializer < ActiveModel::Serializer
   has_one :user
   has_one :lit_text
   has_one :parent_comment
+  has_many :replies
 end
