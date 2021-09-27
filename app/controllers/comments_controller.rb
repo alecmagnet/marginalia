@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
 			comment.update!(deleted: true)
 			render json: comment, status: :ok
 		else
-			# comment.destroy
+			comment.destroy
 			head :no_content
 		end
 	end
