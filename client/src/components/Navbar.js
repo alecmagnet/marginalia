@@ -20,7 +20,7 @@ function Navbar({ onLogout, user, allUsers }) {
 			{user ? 
 				<Fragment>
 					<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} >
-						<span style={{'paddingLeft':15, 'paddingRight':15}}>Welcome, <Link to={`/x-users/${user.id}`} >{user.fullname}</Link></span>
+						<span style={{'paddingLeft':15, 'paddingRight':15}}>Welcome, <Link to={`/users/${user.id}`} >{user.fullname}</Link></span>
 						<button onClick={handleLogout}>Logout</button>
 					</span>				
 				</Fragment>

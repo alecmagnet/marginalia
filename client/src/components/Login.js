@@ -29,8 +29,8 @@ function Login({ onLogin }) {
 		.then((data) => {
 			if(data.errors) setErrors(data.errors)
 			else {
-				onLogin(data)
 				setErrors([])
+				onLogin(data)
 			}
 		});  
 	}

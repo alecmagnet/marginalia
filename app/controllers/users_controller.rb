@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.permit(:username, :password, :fullname, :image, :birthdate, :bio)
+		params.permit(:username, :password, :fullname, :image, :bio)
 		.with_defaults(image: "../../img/owl-wizard-avatar.jpeg")
 		
 	end
