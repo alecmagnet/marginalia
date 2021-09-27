@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
 	private
 
 	def comment_params
-		params.permit(:user_id, :lit_text_id, :parent_comment_id, :content, :rating ).with_defaults(rating: 0)
+		params.permit(:user_id, :lit_text_id, :parent_comment_id, :content, :rating, :deleted ).with_defaults(rating: 0, deleted: false)
 	end
 
 	def find_comment

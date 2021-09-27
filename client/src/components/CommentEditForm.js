@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 
-export default function CommentEditForm({ comment, onEditComment, editButtonClick, wrapSetErrors, changeDummyState }) {
+export default function CommentEditForm({ comment, onEditComment, editButtonClick, wrapSetErrors, changeDummyState, forceRender }) {
 	const [formData, setFormData] = useState(comment)
 
   function handleChange(e) {
@@ -26,9 +26,11 @@ export default function CommentEditForm({ comment, onEditComment, editButtonClic
 			console.log("EditForm:data", data)
 			onEditComment(data)
 			editButtonClick((prevState) => !prevState)
-			changeDummyState()
+			// changeDummyState()
+			// forceRender()
 		})
-		.catch((error) => wrapSetErrors(error))
+		.catch((errors) => console.log(errors))
+		// .catch((errors) => wrapSetErrors(errors))
 	}
 
 	return (

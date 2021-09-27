@@ -15,6 +15,12 @@ function App() {
   const [user, setUser] = useState(null)
   const [allUsers, setAllUsers] = useState([])
   const [litTexts, setLitTexts] = useState([])
+  const [changeState, setChangeState] = useState(false)
+
+  	function forceRender(){
+		setChangeState(!changeState)
+	}
+
 
   // CHECKS TO SEE IF A USER IS ALREADY LOGGED IN
   useEffect(() => {
@@ -100,6 +106,7 @@ function App() {
             <Route exact path='/texts/:id'>
               <LitTextShow
                 // appOnAddComment={appOnAddComment}
+                forceRender={forceRender}
                 user={user}
                 allUsers={allUsers}
                 litTexts={litTexts} />
