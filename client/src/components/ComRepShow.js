@@ -2,7 +2,7 @@ import { useState } from "react"
 import TimeAgoContainer from "./TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
 
-export default function ComRepShow({ comment, user, commentUser, onDeleteComment }) {
+export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [errors, setErrors] = useState([])
 
@@ -48,7 +48,9 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 	}
 
 	function onEditComment(data) {
+		console.log("onEditComment:data", data)
 		setStateComment(data)
+		console.log("onEditComment:stateComment", stateComment)
 	}
 
 	function wrapSetErrors(data){
@@ -65,7 +67,10 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 			<h4>{renderComment.fullname}</h4>
 			{renderComment.deleted ? null : <div>@{renderComment.username}</div>}
 			<p>{renderComment.content}</p>	
-			<TimeAgoContainer created_at={renderComment.created_at} updated_at={renderComment.updated_at} isDeleted={renderComment.deleted} />
+			<TimeAgoContainer 
+				created_at={renderComment.created_at} 
+				updated_at={renderComment.updated_at} 
+				isDeleted={renderComment.deleted} />
 			{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
 			<div>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
@@ -77,6 +82,7 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 						onEditComment={onEditComment}
 						editButtonClick={editButtonClick}
 						wrapSetErrors={wrapSetErrors}
+						changeDummyState={changeDummyState}
 					/> : null}
 			</div> : null}
 		</div>	

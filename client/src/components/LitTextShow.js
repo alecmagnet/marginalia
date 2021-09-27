@@ -10,6 +10,10 @@ function LitTextShow({ litTexts, user, allUsers }) {
 	const [listComments, setListComments] = useState(litText.comments)
 	const parsedContent = litText ? parse(`${litText.content}`) : ""
 
+	const [dummyState, setDummyState] = useState(false)
+	function changeDummyState(){
+		setDummyState(!dummyState)
+	}
 
 	function onAddComment(data) {
 		// appOnAddComment(data)
@@ -33,7 +37,7 @@ function LitTextShow({ litTexts, user, allUsers }) {
 						<div>{parsedContent}</div>
 						<p><em>{litText.pubdate}</em></p>
 						<CommentNewForm user={user} lit_text_id={litText.id} parent_comment_id={null} onAddComment={onAddComment} />
-						<CommentsList comments={listComments} user={user} allUsers={allUsers} onDeleteComment={onDeleteComment} /> 
+						<CommentsList comments={listComments} user={user} allUsers={allUsers} onDeleteComment={onDeleteComment} changeDummyState={changeDummyState} /> 
 					</div>
 				: <h3>We're sorry, there is no such text</h3>}
 			</Fragment>
