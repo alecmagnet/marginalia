@@ -98,7 +98,8 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 					<CommentEditForm 
 						forceRender={forceRender}
 						comment={renderComment}
-						onEditComment={handleEditComment}
+						handleEditComment={handleEditComment}
+						onEditComment={onEditComment}
 						editButtonClick={editButtonClick}
 						wrapSetErrors={wrapSetErrors}
 						changeDummyState={changeDummyState}
