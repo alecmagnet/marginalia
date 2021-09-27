@@ -105,7 +105,6 @@ function App() {
 
             <Route exact path='/texts/:id'>
               <LitTextShow
-                // appOnAddComment={appOnAddComment}
                 forceRender={forceRender}
                 user={user}
                 allUsers={allUsers}

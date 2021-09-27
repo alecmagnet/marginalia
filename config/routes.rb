@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comment_com_types
+  resources :com_types
   resources :comments
   resources :lit_texts, only: [:index, :show, :create, :update]
   resources :users, only: [:index, :show, :update, :destroy]
