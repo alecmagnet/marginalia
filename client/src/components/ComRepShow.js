@@ -2,6 +2,7 @@ import { useState } from "react"
 // import { useState, useRef } from "react"
 import TimeAgoContainer from "./TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
+import CommentType from "./CommentType"
 
 export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState, forceRender, onEditComment }) {
 	const [editClicked, setEditClicked] = useState(false)
@@ -18,7 +19,8 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 		updated_at: stateComment.updated_at,
 		parent_comment_id: stateComment.parent_comment_id,
 		deleted: stateComment.deleted,
-		id: stateComment.id
+		id: stateComment.id,
+		com_types: stateComment.com_types
 	}
 
 	const skull = <span role="img" aria-label="skull and ghost"> 💀 👻 </span>
@@ -31,7 +33,8 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 		updated_at: stateComment.updated_at,
 		parent_comment_id: stateComment.parent_comment_id,
 		deleted: true,
-		id: stateComment.id
+		id: stateComment.id,
+		com_types: []
 	}
 
 	const commentInitialState = comment.deleted ? deletedComment : showComment
@@ -75,10 +78,13 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 
 
 	return (
-		<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
+		<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative" }} >
 			<div style={{ backgroundColor: "lightgray", padding: 3}} >
 				<div><b>{renderComment.fullname}</b></div>
-				{renderComment.deleted ? null : <div>@{renderComment.username}</div>}
+				{renderComment.deleted ? null : 
+					<div>@{renderComment.username}</div>}
+				{renderComment.deleted ? null : 
+					<CommentType comTypes={renderComment.com_types} />}
 			</div>
 			<p>
 				<span style={{ fontSize: 10 }} >(
