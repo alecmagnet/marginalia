@@ -3,7 +3,7 @@ class LitTextsController < ApplicationController
 	# GET /lit_texts
 	def index
 		lit_texts = LitText.all
-		render json: lit_texts, status: :ok
+		render json: lit_texts, include: ['comments.com_types'], status: :ok
 	end
 
 	# GET /lit_texts/:id
