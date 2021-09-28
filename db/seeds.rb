@@ -38,7 +38,7 @@ User.create(username: 'alec', fullname: 'Alec Magnet', password: '123', bio: 'I 
 end
 
 # Update usernames
-User.find(2).update(username: "giant_squid", image: "https://shop.pbs.org/graphics/products/zoom/HX6482_NEW_1.jpg")
+User.find(2).update(username: "giant_squid", image: "https://cdn.drawception.com/drawings/VSHjORJLoF.png")
 User.find(3).update(username: "book_wyrm", image: "https://i.pinimg.com/originals/43/d9/01/43d9012b7c7715d9b60d57fb6e4094e8.jpg")
 User.find(4).update(username: "wyverary", image: "http://www.thanate.com/misc/lj/wyverary01.jpg")
 User.find(5).update(username: "reading_rainbow", image: "https://pbs.twimg.com/profile_images/1232393967859326976/OAnm8b39_400x400.jpg")

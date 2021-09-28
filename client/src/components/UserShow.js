@@ -18,11 +18,13 @@ function UserShow({ user, allUsers }) {
 		setEditClicked(!editClicked)
 	}
 
+	// const renderLitTexts = user.comments ? user.comments.map((c) => console.log(c)) : null
+
 	return (
 		<Fragment>
 			{showUser ?
-				<div>
-					<img src={showUser.image} alt={`${showUser.fullname}'s avatar'`} style={{ width: 300 }} />
+				<div className="centered-in-window" style={{ textAlign: "center" }} >
+					<img src={showUser.image} alt={`${showUser.fullname}'s avatar'`} style={{ width: 300, height: 300 }} />
 					<h2>{showUser.fullname}</h2>
 					<h3><em>@{showUser.username}</em></h3>
 					<p>Bio: {showUser.bio}</p> 

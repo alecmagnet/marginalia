@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react'
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import '../App.css';
 import LitTextsContainer from './LitTextsContainer';
 import LitTextShow from './LitTextShow';
@@ -103,12 +103,13 @@ function App() {
                   </div>
                 </div>
               </div>
-          </Route>
+            </Route>
 
             <Route exact path='/texts'>
               <LitTextsContainer
                 user={user}
-                litTexts={litTexts} />
+                litTexts={litTexts} 
+              />
             </Route>
 
             <Route exact path='/texts/:id'>
@@ -116,16 +117,19 @@ function App() {
                 forceRender={forceRender}
                 user={user}
                 allUsers={allUsers}
-                litTexts={litTexts} />
+                litTexts={litTexts} 
+              />
             </Route>
 
             <Route exact path='/users'>
               <h1>UsersContainer</h1>
               <UsersContainer 
                 user={user}
-                allUsers={allUsers} />
+                allUsers={allUsers} 
+              />
             </Route>
 
+            <Redirect from="/x-users/:id" to="/users/:id" />
             <Route exact path='/users/:id'>
               <UserShow
                 user={user}
