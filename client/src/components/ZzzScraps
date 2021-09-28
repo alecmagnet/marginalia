@@ -1,6 +1,41 @@
 
 
 
+
+
+
+
+------------
+
+
+FROM CommentNewForm
+	function handleCheck(e) {
+		if (comTypes.includes(parseInt(e.target.value))) {
+			setComTypes((prevState) => {
+				let newArr = prevState.filter((c) => parseInt(c.id) !== parseInt(e.target.value))
+				return [...newArr]
+			})
+			// let filteredComTypes = comTypes.filter((c) => parseInt(c.id) !== parseInt(e.target.value))
+			// setComTypes([...filteredComTypes])
+			// setFormData({
+			// 	...formData,
+			// 	com_type_ids: filteredComTypes,
+			// })
+		console.log("did include", comTypes)
+		} else {
+			// let addedComTypes = comTypes.push(parseInt(e.target.value))
+			setComTypes((prevState) => [...prevState, parseInt(e.target.value)])
+			// setFormData({
+			// 	...formData,
+			// 	com_type_ids: addedComTypes,
+			// })
+		console.log("did not include", comTypes)
+		}
+		// console.log("end", comTypes)
+	}
+
+
+
 ------------
 
 

@@ -25,10 +25,10 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 		com_types: stateComment.com_types
 	}
 
-	const skull = <span role="img" aria-label="skull and ghost"> 💀 👻 </span>
+	const ghost = <span role="img" aria-label="ghost"> 💀 👻 </span>
 
 	const deletedComment = {
-		fullname: skull,
+		fullname: ghost,
 		username: "",
 		content: <em>this comment was deleted by user </em>,
 		created_at: stateComment.created_at,
@@ -90,10 +90,10 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 					<CommentType comTypes={renderComment.com_types} />}
 			</div>
 			<p>
-				<span style={{ fontSize: 10 }} >(
+				{/* <span style={{ fontSize: 10 }} >(
 					<span>id: {renderComment.id}</span>
 					{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
-				</span>
+				</span> */}
 				{renderComment.content}
 			</p>	
 			<TimeAgoContainer 
