@@ -4,15 +4,15 @@ export default function CommentType({ comTypes }) {
 	const renderTypes = comTypes.map((c) => {
 		if (parseInt(c.id) === 1) {
 			return (
-				<span style={{ color: "darkslateblue", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
+				<span key={c.id} style={{ color: "darkslateblue", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
 			)
 		} else if (parseInt(c.id) === 2){
 			return(
-				<span style={{ color: "darkslategrey", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
+				<span key={c.id} style={{ color: "darkslategrey", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
 			)
 		} else {
 			return (
-				<span style={{ color: "purple", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
+				<span key={c.id} style={{ color: "purple", backgroundColor: "cornsilk", padding: 3, marginLeft: 5 }} >{c.name}</span>
 			)
 		}
 	})

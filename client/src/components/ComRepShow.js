@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, Fragment } from "react"
 // import { useState, useRef } from "react"
 import TimeAgoContainer from "./TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
@@ -6,6 +6,7 @@ import CommentType from "./CommentType"
 
 export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState, forceRender, onEditComment }) {
 	const [editClicked, setEditClicked] = useState(false)
+	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
 
 	const [stateComment, setStateComment] = useState(comment)
@@ -55,11 +56,6 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 		.catch((errors) => setErrors(errors))
 	}
 
-	// function updateCommentState(data) {
-	// 	ref.current = data
-	// 	setStateComment(data)
-	// }
-
 	function handleEditComment(data) {
 		console.log("onEditComment:data", data)
 		setStateComment(data)
@@ -76,6 +72,10 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 		setEditClicked(!editClicked)
 	}
 
+	function replyButtonClick() {
+		setReplyClicked(!replyClicked)
+	}
+
 
 	return (
 		<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative" }} >
@@ -88,29 +88,37 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 			</div>
 			<p>
 				<span style={{ fontSize: 10 }} >(
-				<span>id: {renderComment.id}</span>
-				{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) </span>
-				{renderComment.content}</p>	
+					<span>id: {renderComment.id}</span>
+					{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
+				</span>
+				{renderComment.content}
+			</p>	
 			<TimeAgoContainer 
 				created_at={renderComment.created_at} 
 				updated_at={renderComment.updated_at} 
-				isDeleted={renderComment.deleted} />
-			{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
+				isDeleted={renderComment.deleted} 
+			/>
 			<div>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
-				<button onClick={editButtonClick} >Edit</button>
-				<button onClick={handleDelete} style={{marginLeft: 6}} >Delete</button>
-				{editClicked ? 
-					<CommentEditForm 
-						forceRender={forceRender}
-						comment={renderComment}
-						handleEditComment={handleEditComment}
-						onEditComment={onEditComment}
-						editButtonClick={editButtonClick}
-						wrapSetErrors={wrapSetErrors}
-						changeDummyState={changeDummyState}
-					/> : null}
-			</div> : null}
+				{!renderComment.parent_comment_id && !renderComment.deleted ?
+						<button onClick={replyButtonClick} >Reply</button> : null}
+				{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
+				<Fragment>
+							<button onClick={editButtonClick} style={{ position: "absolute", right: 65 }} >Edit</button>
+							<button onClick={handleDelete} style={{ position: "absolute", right: 5, marginLeft: 6} } >Delete</button>
+						{editClicked ? 
+							<CommentEditForm 
+								forceRender={forceRender}
+								comment={renderComment}
+								handleEditComment={handleEditComment}
+								onEditComment={onEditComment}
+								editButtonClick={editButtonClick}
+								wrapSetErrors={wrapSetErrors}
+								changeDummyState={changeDummyState}
+							/> : null}
+					</Fragment>
+				 : <button style={{ visibility: "hidden" }} ></button>}
+			</div>
 		</div>	
 	)
 }
