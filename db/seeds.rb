@@ -15,10 +15,11 @@ LitText.create(title: 'Lana Turner has collapsed', author: 'Frank O\'Hara', pubd
 LitText.create(title: 'Bee! I’m expecting you!', author: 'Emily Dickinson', pubdate: 1886, prose: false, content:'<p>Bee! I’m expecting you!<br/>Was saying Yesterday<br/>To Somebody you know<br/>That you were due—</p><p>The Frogs got Home last Week—<br/>Are settled, and at work—<br/>Birds, mostly back—<br/>The Clover warm and thick—</p><p>You’ll get my Letter by<br/>The seventeenth; Reply<br/>Or better, be with me—<br/>Yours, Fly.</p>')
 puts 'Seeded lit_texts...'
 
-User.create(username: 'Alec', fullname: 'Alec Magnet', password: '123', bio: 'I made this site!')
+# Create first user
+User.create(username: 'alec', fullname: 'Alec Magnet', password: '123', bio: 'I made this site!', image: 'https://ak1.ostkcdn.com/images/products/is/images/direct/cb4bb9ec6f979b10ea692f6d016c0ea5455e9551')
 
 # Create other users
-4.times do
+5.times do
 	fullname=Faker::FunnyName.unique.name
 	# username=[giant_squid, book_wyrm, mega_flora, reading_rainbow]
 	username=Faker::Twitter.unique.screen_name
@@ -28,11 +29,13 @@ User.create(username: 'Alec', fullname: 'Alec Magnet', password: '123', bio: 'I 
 end
 
 # Update usernames
-User.find(2).update(username: "giant_squid")
-User.find(3).update(username: "book_wyrm")
-User.find(4).update(username: "wyverary")
-User.find(5).update(username: "reading_rainbow")
+User.find(2).update(username: "giant_squid", image: "https://shop.pbs.org/graphics/products/zoom/HX6482_NEW_1.jpg")
+User.find(3).update(username: "book_wyrm", image: "https://i.pinimg.com/originals/43/d9/01/43d9012b7c7715d9b60d57fb6e4094e8.jpg")
+User.find(4).update(username: "wyverary", image: "http://www.thanate.com/misc/lj/wyverary01.jpg")
+User.find(5).update(username: "reading_rainbow", image: "https://pbs.twimg.com/profile_images/1232393967859326976/OAnm8b39_400x400.jpg")
+User.find(6).update(username: "wol", image: "https://shop.pbs.org/graphics/products/zoom/HX6482_NEW_1.jpg")
 puts 'Seeded Users...'
+
 
 # Create parent_comments
 9.times do

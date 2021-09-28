@@ -38,16 +38,17 @@ export default function UserEditForm({ user, updateUser }){
 						onChange={handleChange}
 						style={{ width: "75%" }}
 					/></label>
-					<label><p><b>Bio</b></p>
+					<label><p><b>Profile Picture</b></p>
 					<textarea 
 						value={formData.image} 
+						placeholder="add image url"
 						id="image"
 						name="image"
 						onChange={handleChange}
 						style={{ width: "75%" }}
 					/></label>
 					<div style={{ height: 7 }} />
-					<button floated="right" type='submit'>Post</button>
+					<button floated="right" type='submit'>Submit</button>
 				</form>
 			</div>
     </div>
