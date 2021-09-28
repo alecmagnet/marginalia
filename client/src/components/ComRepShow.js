@@ -100,24 +100,28 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 			/>
 			<div>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
-				{!renderComment.parent_comment_id && !renderComment.deleted ?
-						<button onClick={replyButtonClick} >Reply</button> : null}
-				{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
-				<Fragment>
-							<button onClick={editButtonClick} style={{ position: "absolute", right: 65 }} >Edit</button>
-							<button onClick={handleDelete} style={{ position: "absolute", right: 5, marginLeft: 6} } >Delete</button>
-						{editClicked ? 
-							<CommentEditForm 
-								forceRender={forceRender}
-								comment={renderComment}
-								handleEditComment={handleEditComment}
-								onEditComment={onEditComment}
-								editButtonClick={editButtonClick}
-								wrapSetErrors={wrapSetErrors}
-								changeDummyState={changeDummyState}
-							/> : null}
-					</Fragment>
-				 : <button style={{ visibility: "hidden" }} ></button>}
+				<div style={{ position: "relative" }}>
+					{!renderComment.parent_comment_id && !renderComment.deleted ?
+						<button onClick={replyButtonClick} >Reply</button> 
+					: null}
+					{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
+						<Fragment>
+							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
+							<button onClick={handleDelete} style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
+						</Fragment>
+					: <button style={{ visibility: "hidden" }} ></button>}
+				</div>
+				{editClicked ? 
+					<CommentEditForm 
+						forceRender={forceRender}
+						comment={renderComment}
+						handleEditComment={handleEditComment}
+						onEditComment={onEditComment}
+						editButtonClick={editButtonClick}
+						wrapSetErrors={wrapSetErrors}
+						changeDummyState={changeDummyState}
+					/> 
+				: null}
 			</div>
 		</div>	
 	)
