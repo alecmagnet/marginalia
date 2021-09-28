@@ -63,14 +63,18 @@ function LitTextShow({ litTexts, user, allUsers, forceRender }) {
 							user={user} 
 							lit_text_id={litText.id} 
 							parent_comment_id={null} 
-							onAddComment={onAddComment} />
+							onAddComment={onAddComment} 
+						/>
 						<CommentsList comments={listComments} 
 							onEditComment={onEditComment}
 							forceRender={forceRender}
 							changeDummyState={changeDummyState}
 							user={user} 
 							allUsers={allUsers} 
-							onDeleteComment={onDeleteComment} /> 
+							onAddComment={onAddComment} 
+							onDeleteComment={onDeleteComment} 
+							lit_text_id={litText.id} 
+						/> 
 					</div>
 				: <h3>We're sorry, there is no such text. <Link to='/texts'>Go Back</Link></h3>}
 			</Fragment>

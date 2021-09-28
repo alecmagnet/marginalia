@@ -3,8 +3,9 @@ import { useState, Fragment } from "react"
 import TimeAgoContainer from "./TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
+import CommentNewForm from "./CommentNewForm"
 
-export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState, forceRender, onEditComment }) {
+export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState, forceRender, onEditComment, onAddComment, lit_text_id }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
@@ -70,10 +71,12 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
+		setReplyClicked(false)
 	}
 
 	function replyButtonClick() {
 		setReplyClicked(!replyClicked)
+		setEditClicked(false)
 	}
 
 
@@ -122,6 +125,15 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 						changeDummyState={changeDummyState}
 					/> 
 				: null}
+				{replyClicked ? 
+					<CommentNewForm 
+						user={user} 
+						lit_text_id={lit_text_id} 
+						parent_comment_id={comment.id} 
+						onAddComment={onAddComment} 						
+					/>
+				: null}
+
 			</div>
 		</div>	
 	)

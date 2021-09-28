@@ -1,6 +1,6 @@
 import ComRepShow from "./ComRepShow";
 
-export default function ReplyContainer({ comment, user, allUsers, onDeleteComment, forceRender, onEditComment }) {
+export default function ReplyContainer({ comment, user, allUsers, onDeleteComment, forceRender, onEditComment, onAddComment, lit_text_id }) {
 	const replyUser = allUsers.find((u) => parseInt(u.id) === parseInt(comment.user_id))
 
 	return(
@@ -13,6 +13,9 @@ export default function ReplyContainer({ comment, user, allUsers, onDeleteCommen
 				user={user} 
 				allUsers={allUsers} 
 				commentUser={replyUser} 
-				onDeleteComment={onDeleteComment} />
+				onDeleteComment={onDeleteComment} 
+				onAddComment={onAddComment}	
+				lit_text_id={lit_text_id}
+			/>
 		</div>)
 }
