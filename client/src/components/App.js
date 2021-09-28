@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react'
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Link } from 'react-router-dom';
 import '../App.css';
 import LitTextsContainer from './LitTextsContainer';
 import LitTextShow from './LitTextShow';
@@ -92,10 +92,18 @@ function App() {
         <div>
           <Switch>
             <Route exact path='/'>
-              <><h1>This is the homepage. I don't know what goes here yet...</h1>
-                {/* <TestParseLitText /> */}
-                </>
-            </Route>
+              <div className="centered-in-window" >
+                <div className="centered-in-div" >
+                  <h1>Welcome to Marginalia</h1>
+                  <div className="centered-in-div" style={{ width: "75%" }} >
+                    <Link to='/texts'><div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative", textAlign: "center" }} ><h1>Browse Texts</h1></div></Link>
+                    <p />
+                    <Link to='/users'><div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative", textAlign: "center" }} ><h1>Browse Users</h1></div></Link>
+                    {/* <TestParseLitText /> */}
+                  </div>
+                </div>
+              </div>
+          </Route>
 
             <Route exact path='/texts'>
               <LitTextsContainer
