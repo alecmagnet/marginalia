@@ -49,6 +49,10 @@ function LitTextShow({ litTexts, user, allUsers, forceRender }) {
 		setListComments(filteredComments)
 	}
 
+	function replyButtonClick() {
+		console.log("replyButtonClick should NOT have fired from LitTextShow")
+	}
+
 
 	if (allUsers.length > 0) {
 		return (
@@ -64,6 +68,7 @@ function LitTextShow({ litTexts, user, allUsers, forceRender }) {
 							lit_text_id={litText.id} 
 							parent_comment_id={null} 
 							onAddComment={onAddComment} 
+							replyButtonClick={replyButtonClick}
 						/>
 						<CommentsList comments={listComments} 
 							onEditComment={onEditComment}

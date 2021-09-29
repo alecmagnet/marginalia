@@ -130,7 +130,8 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 						user={user} 
 						lit_text_id={lit_text_id} 
 						parent_comment_id={comment.id} 
-						onAddComment={onAddComment} 						
+						onAddComment={onAddComment}
+						replyButtonClick={replyButtonClick} 						
 					/>
 				: null}
 

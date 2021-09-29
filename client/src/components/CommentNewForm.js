@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function CommentNewForm({ user, lit_text_id, parent_comment_id, onAddComment }) {
+export default function CommentNewForm({ user, lit_text_id, parent_comment_id, onAddComment, replyButtonClick }) {
   const [formData, setFormData] = useState({
 		user_id: user.id,
 		lit_text_id: lit_text_id,
@@ -50,7 +50,8 @@ export default function CommentNewForm({ user, lit_text_id, parent_comment_id, o
 			setFormData({
 				...formData,
 				content: ""
-		})
+			})
+			if (parent_comment_id) replyButtonClick((prevState) => !prevState)
     });
   }
   
