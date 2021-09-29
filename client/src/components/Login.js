@@ -37,7 +37,7 @@ function Login({ onLogin }) {
 
 	return (
 		<div>
-			{errors?errors.map(e => <div style={{ color: "red" }} >{e}</div>):null}
+			{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
 			<form onSubmit={handleSubmit}>
 				<input
 					className="centered-in-div" 

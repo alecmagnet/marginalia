@@ -7,7 +7,6 @@ function Signup({ onLogin }) {
 		password: "",
 		fullname: "",
 		image: "",
-		birthdate: "",
 		bio: "",
 		// usertype: ""
 	});
@@ -33,8 +32,10 @@ function Signup({ onLogin }) {
 		.then((r) => r.json())
 		.then((data) => {
 			if(data.errors) setErrors(data.errors)
-			else onLogin(data)
-			setErrors([])
+			else {
+				setErrors([])
+				onLogin(data)
+			}
 		});
   }
 
@@ -70,13 +71,6 @@ function Signup({ onLogin }) {
 					id="password"
 					value={formData.password}
 					placeholder={"password"}
-					onChange={handleChange}
-				/>
-        <div style={{ padding: 5 }} />
-				<input
-					type="date"
-					id="birthdate"
-					value={formData.birthdate}
 					onChange={handleChange}
 				/>
         <div style={{ padding: 5 }} />

@@ -11,7 +11,7 @@ function Navbar({ onLogout, user, allUsers }) {
 	return (
 		<header style={{ backgroundColor: "Gainsboro", 'paddingTop':5, 'paddingBottom':5 }} >
 			<Link to='/' style={{ 'paddingLeft':15, 'paddingRight':15, fontSize:30 }} >Marginalia</Link>
-			{allUsers ?
+			{user && allUsers ?
 				<Fragment>
 					<Link to='/users'>Users</Link>
 					<Link to='/texts' style={{ 'paddingLeft':15}} >Texts</Link>
@@ -25,7 +25,7 @@ function Navbar({ onLogout, user, allUsers }) {
 					</span>				
 				</Fragment>
 			:
-				<h1>Please login</h1>
+				<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} ><b><Link to='/'>Please login</Link></b></span>
 			}
 		</header>
 	)

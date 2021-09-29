@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react'
-import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import { Switch, Route, Link, useHistory, Redirect } from 'react-router-dom';
 import '../App.css';
 import LitTextsContainer from './LitTextsContainer';
 import LitTextShow from './LitTextShow';
@@ -21,6 +21,7 @@ function App() {
 		setChangeState(!changeState)
 	}
 
+  let history = useHistory()
 
   // CHECKS TO SEE IF A USER IS ALREADY LOGGED IN
   useEffect(() => {
@@ -56,11 +57,13 @@ function App() {
     setUser(newUser)
     fetchingLitTexts()
     fetchingUsers()
+    history.push('/')
   }
 
   function onLogout() {
     setUser(null)
-  }
+    history.push('/')
+ }
 
   // function appOnAddComment(data) {
   //   setPosts([data, ...posts])

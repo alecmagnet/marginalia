@@ -78,7 +78,7 @@ puts 'Seeded unique comment_com_types...'
 	com_type_id=typesArr.sample	
 	CommentComType.create(comment_id: comment_id, com_type_id: com_type_id)
 end
-puts 'Seeded multiple comment_com_types...'
+puts 'Seeded multiple comment_com_type associations...'
 
 # Create associations to com_type Answer for replies to comments with com_type Question
 questions = Comment.includes(:com_types).where('com_types.id = ?', 2).references(:com_types)

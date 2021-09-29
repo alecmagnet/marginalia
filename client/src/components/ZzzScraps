@@ -129,3 +129,26 @@ FROM LitTextShow
 
 	{/* <p>{rawContent}</p> */}
 
+
+------------
+
+
+FROM Signup
+
+			{ hasAccount ? 
+				<div style={{ padding: 15 }} >
+				<Login onLogin={onLogin} />
+				<div className="txt-centered-in-div" >or</div>
+				<button 
+				onClick={handleClick} 
+				className="centered-in-div" 
+				>Signup for a New Account</button>
+				</div>
+				:
+				<div style={{ padding: 15 }} >
+				<Signup onLogin={onLogin} />
+				<div className="txt-centered-in-div" >or</div>
+				<button onClick={handleClick} className="centered-in-div" >Login to Your Account</button>
+				</div>
+			}
+
