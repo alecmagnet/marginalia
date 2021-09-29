@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 require 'bcrypt'
 
@@ -47,7 +40,7 @@ puts 'Seeded Users...'
 
 
 # Create parent_comments
-9.times do
+14.times do
 	user_id=User.ids.sample
 	lit_text_id=LitText.ids.sample
 	content=Faker::Lorem.paragraph(sentence_count: 2..6)
@@ -55,7 +48,7 @@ puts 'Seeded Users...'
 end
 
 # Create replies
-12.times do
+14.times do
 	user_id=User.ids.sample
 	parent_comment=Comment.all.sample
 	lit_text_id=parent_comment.lit_text_id
@@ -68,16 +61,17 @@ puts 'Seeded comments...'
 ComType.create(name: "Reading")
 ComType.create(name: "Question")
 ComType.create(name: "Footnote")
+ComType.create(name: "Answer")
 puts 'Seeded com_types...'
 
 Comment.find_each do |comment|
-	com_type_id=ComType.ids.sample
+	com_type_id=[1, 2, 3].sample
 	CommentComType.create(comment_id: comment.id, com_type_id: com_type_id)
 end
 puts 'Seeded unique comment_com_types...'
 
 #Create some multiple associations
-5.times do
+10.times do
 	comment_id=Comment.ids.sample
 	comment = Comment.find(comment_id)
 	typesArr=[1, 2, 3].select {|num| num != comment.com_types.first.id}
@@ -85,5 +79,18 @@ puts 'Seeded unique comment_com_types...'
 	CommentComType.create(comment_id: comment_id, com_type_id: com_type_id)
 end
 puts 'Seeded multiple comment_com_types...'
+
+# Create associations to com_type Answer for replies to comments with com_type Question
+questions = Comment.includes(:com_types).where('com_types.id = ?', 2).references(:com_types)
+id_arr = questions.map { |q| q.id }
+q_resp = Comment.all.select { |c| id_arr.include? c.parent_comment_id }
+q_resp.each do |r|
+	ct_id_arr = r.com_types.map { |c| c.id }
+	if !ct_id_arr.include? 4
+		CommentComType.create(comment_id: r.id, com_type_id: 4)
+	end
+end
+
+puts 'Seeded answers to questions...'
 
 puts 'Finished seeding'
