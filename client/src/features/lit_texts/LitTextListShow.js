@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import TotalCommentsAndReplies from './TotalCommentsAndReplies'
+import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 
 export default function LitTextListShow({ litText }) {
 	const { title, author, pubdate, content, id, prose } = litText

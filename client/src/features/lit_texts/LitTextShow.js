@@ -1,28 +1,17 @@
 import parse from 'html-react-parser'
 import { useParams, Link } from 'react-router-dom'
-// import { Fragment, useState } from "react"
-import { Fragment, useState, useRef } from "react"
-// import { Fragment, useState, useEffect } from "react"
-import CommentsList from './CommentsList'
-import CommentNewForm from './CommentNewForm.js'
+import { Fragment, useState } from "react"
+import CommentsList from '../comments/CommentsList'
+import CommentNewForm from '../comments/CommentNewForm.js'
 
-function LitTextShow({ litTexts, user, allUsers, forceRender }) {
+function LitTextShow({ litTexts, user, allUsers }) {
 	const params = useParams()
 	const litText = litTexts.filter((text) => parseInt(text.id) === parseInt(params.id))[0]
 	const newestFirst = litText.comments.sort((a, b) => b.id - a.id)
 	const [listComments, setListComments] = useState(newestFirst)
 	const parsedContent = litText ? parse(`${litText.content}`) : ""
 
-	// useEffect(() => {
-	// 	setListComments(litText.comments)
-	// }, [litText])
-
-	const ref = useRef(listComments)
-
-	const [dummyState, setDummyState] = useState(false)
-	function changeDummyState(){
-		setDummyState(!dummyState)
-	}
+	
 
 	function onAddComment(data) {
 		setListComments([data, ...listComments])
@@ -31,7 +20,6 @@ function LitTextShow({ litTexts, user, allUsers, forceRender }) {
 	function onEditComment(data) {
 		let editComments = listComments.filter((c) => parseInt(c.id) !== parseInt(data.id))
 		let newArr = [data, ...editComments]
-		ref.current = newArr
 		let toLogNewArr = newArr.filter((c) => parseInt(c.id) === parseInt(data.id))
 		console.log("LitText:newArr", toLogNewArr)
 		// setListComments(newArr)
@@ -72,8 +60,6 @@ function LitTextShow({ litTexts, user, allUsers, forceRender }) {
 						/>
 						<CommentsList comments={listComments} 
 							onEditComment={onEditComment}
-							forceRender={forceRender}
-							changeDummyState={changeDummyState}
 							user={user} 
 							allUsers={allUsers} 
 							onAddComment={onAddComment} 

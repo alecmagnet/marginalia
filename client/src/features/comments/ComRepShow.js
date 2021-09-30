@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react"
 // import { useState, useRef } from "react"
-import TimeAgoContainer from "./TimeAgoContainer"
+import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"

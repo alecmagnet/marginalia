@@ -1,12 +1,12 @@
 import { useState, useEffect, Fragment } from 'react'
 import { Switch, Route, Link, useHistory, Redirect } from 'react-router-dom';
-import '../App.css';
-import LitTextsContainer from './LitTextsContainer';
-import LitTextShow from './LitTextShow';
-import LoginContainer from './LoginContainer';
-import Navbar from './Navbar';
-import UsersContainer from './UsersContainer'
-import UserShow from './UserShow';
+import './App.css';
+import LitTextsContainer from './features/lit_texts/LitTextsContainer';
+import LitTextShow from './features/lit_texts/LitTextShow';
+import LoginContainer from './features/homepage/LoginContainer';
+import Navbar from './features/homepage/Navbar';
+import UsersContainer from './features/users/UsersContainer'
+import UserShow from './features/users/UserShow';
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -65,19 +65,6 @@ function App() {
     history.push('/')
  }
 
-  // function appOnAddComment(data) {
-  //   setPosts([data, ...posts])
-  // }
-  
-  // function appOnEditPost(data) {
-  //   let editedPostArr = posts.filter(post => parseInt(post.id) !== parseInt(data.id))
-  //   setPosts([data, ...editedPostArr])
-  // }
-  
-  // function appOnDeletePost(data) {
-  //   let newArr = posts.filter(post => post.id !== data)
-  //   setPosts(newArr)
-  // }
 
   // function updateUser(data) {
   //   setUser(data)

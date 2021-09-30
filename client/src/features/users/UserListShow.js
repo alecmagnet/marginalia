@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import TotalCommentsAndReplies from './TotalCommentsAndReplies'
+import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 
 function UserListShow({ showUser }) {
 	const { username, fullname, bio, id } = showUser
