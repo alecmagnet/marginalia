@@ -1,12 +1,17 @@
 import { useState, useEffect, Fragment } from 'react'
 import { Switch, Route, Link, useHistory, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+// import { fetchLitTexts } from './features/litTexts/litTextsSlice'
 import './App.css';
-import LitTextsContainer from './features/lit_texts/LitTextsContainer';
-import LitTextShow from './features/lit_texts/LitTextShow';
+// import { useSelector } from 'react-redux'
+import LitTextsContainer from './features/litTexts/LitTextsContainer';
+import LitTextShow from './features/litTexts/LitTextShow';
 import LoginContainer from './features/homepage/LoginContainer';
 import Navbar from './features/homepage/Navbar';
 import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
+import Homepage from './features/homepage/Homepage'
+import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -14,7 +19,9 @@ import UserShow from './features/users/UserShow';
 function App() {
   const [user, setUser] = useState(null)
   const [allUsers, setAllUsers] = useState([])
-  const [litTexts, setLitTexts] = useState([])
+  // const [litTexts, setLitTexts] = useState([])
+  const dispatch = useDispatch()
+
   const [changeState, setChangeState] = useState(false)
 
   	function forceRender(){
@@ -29,9 +36,12 @@ function App() {
       if (res.ok) {
         res.json().then((data) => {
           setUser(data)
-          fetchingLitTexts()
+          dispatch(fetchLitTexts())
+          // fetchingLitTexts()
           fetchingUsers()
         });
+      } else {
+        history.push("/")
       }
     });
   }, []);
@@ -44,18 +54,20 @@ function App() {
   }
 
   // FETCHES ALL LIT_TEXTS
-  function fetchingLitTexts(){
-    fetch("/lit_texts")
-    .then((r) => r.json())
-    .then((data) =>{ 
-      let newestFirst = data.sort((a, b) => b.id - a.id)
-      setLitTexts(newestFirst) 
-    })
-  }
+  // function fetchingLitTexts(){
+  //   fetch("/lit_texts")
+  //   .then((r) => r.json())
+  //   .then((data) =>{ 
+  //     let newestFirst = data.sort((a, b) => b.id - a.id)
+  //     setLitTexts(newestFirst) 
+  //   })
+  // }
 
   function onLogin(newUser) {
     setUser(newUser)
-    fetchingLitTexts()
+    // fetchingLitTexts()
+    // const LitTexts = useGetLitTexts()
+    dispatch(fetchLitTexts())
     fetchingUsers()
     history.push('/')
   }
@@ -78,27 +90,13 @@ function App() {
         user={user} 
         allUsers={allUsers}
       />
-      {user && litTexts ?
+      {user ?
         <div>
           <Switch>
-            <Route exact path='/'>
-              <div className="centered-in-window" >
-                <div className="centered-in-div" >
-                  <h1>Welcome to Marginalia</h1>
-                  <div className="centered-in-div" style={{ width: "75%" }} >
-                    <Link to='/texts'><div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative", textAlign: "center" }} ><h1>Browse Texts</h1></div></Link>
-                    <p />
-                    <Link to='/users'><div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative", textAlign: "center" }} ><h1>Browse Users</h1></div></Link>
-                    {/* <TestParseLitText /> */}
-                  </div>
-                </div>
-              </div>
-            </Route>
-
             <Route exact path='/texts'>
               <LitTextsContainer
                 user={user}
-                litTexts={litTexts} 
+                // litTexts={litTexts} 
               />
             </Route>
 
@@ -107,7 +105,7 @@ function App() {
                 forceRender={forceRender}
                 user={user}
                 allUsers={allUsers}
-                litTexts={litTexts} 
+                // litTexts={litTexts} 
               />
             </Route>
 
@@ -126,6 +124,9 @@ function App() {
                 allUsers={allUsers} />
             </Route>
 
+            <Route exact path='/'>
+              <Homepage />
+            </Route>
             {/* <TestFormNewText /> */}
           </Switch>
         </div>

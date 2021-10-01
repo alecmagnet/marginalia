@@ -3,9 +3,13 @@ import { useParams, Link } from 'react-router-dom'
 import { Fragment, useState } from "react"
 import CommentsList from '../comments/CommentsList'
 import CommentNewForm from '../comments/CommentNewForm.js'
+import { useSelector } from 'react-redux'
 
-function LitTextShow({ litTexts, user, allUsers }) {
-	const params = useParams()
+function LitTextShow({ user, allUsers }) {
+  // const { data, error, isLoading } = useSelector((state) => state.litTexts.entities)
+	// const litTexts = data.entities
+	const litTexts = useSelector((state) => state.litTexts.entities)
+	const params = useParams()	
 	const litText = litTexts.filter((text) => parseInt(text.id) === parseInt(params.id))[0]
 	const newestFirst = litText.comments.sort((a, b) => b.id - a.id)
 	const [listComments, setListComments] = useState(newestFirst)
@@ -51,7 +55,7 @@ function LitTextShow({ litTexts, user, allUsers }) {
 						<h4>{litText.author}</h4>
 						<div>{parsedContent}</div>
 						<p><em>{litText.pubdate}</em></p>
-						<CommentNewForm 
+						{/* <CommentNewForm 
 							user={user} 
 							lit_text_id={litText.id} 
 							parent_comment_id={null} 
@@ -65,7 +69,7 @@ function LitTextShow({ litTexts, user, allUsers }) {
 							onAddComment={onAddComment} 
 							onDeleteComment={onDeleteComment} 
 							lit_text_id={litText.id} 
-						/> 
+						/>  */}
 					</div>
 				: <h3>We're sorry, there is no such text. <Link to='/texts'>Go Back</Link></h3>}
 			</Fragment>

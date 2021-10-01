@@ -1,11 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
+import litTextsReducer from './features/litTexts/litTextsSlice'
+// import { setupListeners } from '@reduxjs/toolkit/query'
 
-// import catsReducer from "./features/cats/catsSlice";
 
 const store = configureStore({
   reducer: {
-    // cats: catsReducer,
+		litTexts: litTextsReducer,
   },
+	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(litTextsApi.middleware),
 });
 
 export default store;
+
+
+// const composeEnhancers =
+//   typeof window === 'object' &&
+//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//     }) : compose;
+
+// const enhancer = composeEnhancers(
+//   applyMiddleware(...middleware),
+// );

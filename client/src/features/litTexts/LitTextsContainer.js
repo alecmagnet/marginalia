@@ -1,7 +1,10 @@
 import { Fragment } from "react"
 import LitTextsList from "./LitTextsList"
+import { useSelector } from 'react-redux'
 
-export default function LitTextsContainer ({ user, litTexts }) {
+export default function LitTextsContainer ({ user }) {
+  const litTexts = useSelector((state) => state.litTexts.entities)
+	console.log(litTexts) 
 
 	return (
 		<Fragment>
