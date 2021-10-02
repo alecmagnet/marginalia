@@ -62,6 +62,7 @@ const userSlice = createSlice({
 			})
 			.addCase(authorize.fulfilled, (state, action) => {
 				state.entities.splice(0, 1, action.payload)
+				state.errors = []
 				state.status = "idle"
 			})
 			.addCase(authorize.rejected, (state, action) => {

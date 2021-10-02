@@ -2,10 +2,12 @@ import { useEffect, Fragment } from 'react'
 import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import Navbar from './features/homepage/Navbar';
+import Signup from './features/homepage/Signup';
+import Login from './features/homepage/Login';
 import LitTextsContainer from './features/litTexts/LitTextsContainer';
 import LitTextShow from './features/litTexts/LitTextShow';
-import LoginContainer from './features/homepage/LoginContainer';
-import Navbar from './features/homepage/Navbar';
+// import LoginContainer from './features/homepage/LoginContainer';
 import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage'
@@ -16,7 +18,7 @@ import { authorize, loginUser, logoutUser, signupUser } from './features/users/u
 // import TestFormNewText from './TestFormNewText'
 
 
-function App() {
+export default function App() {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -30,7 +32,7 @@ function App() {
         dispatch(fetchLitTexts())
         dispatch(fetchAllUsers())
       } else {
-      history.push("/")
+      history.push("/login")
     }})
   }
 
@@ -38,16 +40,16 @@ function App() {
     onAuth()
   }, [])
 
-  function onLogin(newUser) {
-    dispatch(fetchLitTexts())
-    dispatch(fetchAllUsers())
-    history.push('/')
-  }
+  // function onLogin(newUser) {
+  //   dispatch(fetchLitTexts())
+  //   dispatch(fetchAllUsers())
+  //   history.push('/')
+  // }
 
-  function onLogout() {
-    dispatch(logoutUser())
-    history.push('/')
- }
+  // function onLogout() {
+  //   dispatch(logoutUser())
+  //   history.push('/')
+  // }
 
 
   // function updateUser(data) {
@@ -57,12 +59,10 @@ function App() {
 
   return (
     <Fragment>
-      <Navbar 
-        onLogout={onLogout} 
-      />
-      {user ?
-        <div>
-          <Switch>
+      <Navbar />
+      <Switch>
+        {user ?
+          <div>
             <Route exact path='/texts'>
               <LitTextsContainer />
             </Route>
@@ -83,17 +83,23 @@ function App() {
 
             <Route exact path='/'>
               <Homepage />
+              {/* <TestFormNewText /> */}
             </Route>
-            {/* <TestFormNewText /> */}
-          </Switch>
-        </div>
-      :
-        <div className="centered-in-window" >
-          <LoginContainer onLogin={onLogin} />
-        </div>
-      }
+          </div>
+        :
+          <div className="centered-in-window" >
+            <div style={{ padding: 15 }} >
+            <Route exact path="/login">
+              {/* <LoginContainer onLogin={onLogin} /> */}
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            </div>
+          </div>
+        }
+      </Switch>
     </Fragment>
   );
 }
-
-export default App;

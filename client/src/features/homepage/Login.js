@@ -1,13 +1,23 @@
 import { useState} from "react"
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useHistory } from 'react-router-dom'
+import { loginUser } from '../users/userSlice'
+import { fetchLitTexts } from '../litTexts/litTextsSlice';
+import { fetchAllUsers } from '../users/allUsersSlice'
 
-function Login({ onLogin }) {
-  const [formData, setFormData] = useState({
+function Login() {
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
 	});
 
 	const [errors, setErrors] = useState([])
+
+	const userState = useSelector((state) => state.user)
+  const user = userState.entities.length > 0 ? userState.entities[0] : null
 
 	function handleChange(e) {
 		setFormData({
@@ -15,6 +25,22 @@ function Login({ onLogin }) {
 			[e.target.id]: e.target.value,
 		})
 	}
+
+	function onLogin(e) {
+		e.preventDefault();
+		dispatch(loginUser(formData))
+			.then (() => {
+				if (userState.entities.length > 0 && userState.status === "idle") {
+					dispatch(fetchLitTexts())
+					dispatch(fetchAllUsers())
+					setErrors([])
+					history.push('/')
+				} else {
+					setErrors([...userState.errors])
+		    }
+			}
+		)
+  }
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -38,7 +64,7 @@ function Login({ onLogin }) {
 	return (
 		<div>
 			{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={onLogin}>
 				<input
 					className="centered-in-div" 
 					type="text"

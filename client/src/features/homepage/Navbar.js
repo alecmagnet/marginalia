@@ -12,7 +12,7 @@ export default function Navbar() {
 
   function handleLogout() {
     dispatch(logoutUser())
-    history.push('/')
+    history.push('/login')
 	}
 
 	return (

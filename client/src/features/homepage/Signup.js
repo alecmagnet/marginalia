@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
+import { signupUser } from '../users/userSlice'
 
 function Signup({ onLogin }) {
   const [formData, setFormData] = useState({
@@ -96,7 +97,7 @@ function Signup({ onLogin }) {
 				>Signup</button>
 			</form>
         <div style={{ padding: 5 }} />
-				<Link to='/'>Already have an account? Log in</Link>
+				<Link to='/login'>Already have an account? Log in</Link>
 		</div>
   );
 }
