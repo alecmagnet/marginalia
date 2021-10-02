@@ -7,7 +7,6 @@ import Signup from './features/homepage/Signup';
 import Login from './features/homepage/Login';
 import LitTextsContainer from './features/litTexts/LitTextsContainer';
 import LitTextShow from './features/litTexts/LitTextShow';
-// import LoginContainer from './features/homepage/LoginContainer';
 import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage'
@@ -76,7 +75,7 @@ export default function App() {
               <UsersContainer />
             </Route>
 
-            <Redirect from="/x-users/:id" to="/users/:id" />
+            {/* <Redirect from="/x-users/:id" to="/users/:id" /> */}
             <Route exact path='/users/:id'>
               <UserShow />
             </Route>
