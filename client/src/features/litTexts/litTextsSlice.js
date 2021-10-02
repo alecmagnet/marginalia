@@ -7,7 +7,6 @@ export const fetchLitTexts = createAsyncThunk(
 		const data = await response.json()
 		console.log(data)
     return data
-    // return data.sort((a, b) => b.id - a.id)
 	})
 
 const litTextsSlice = createSlice({
@@ -23,29 +22,11 @@ const litTextsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(fetchLitTexts.fulfilled, (state, action) => {
-				state.entities.push(action.payload)
+				// state.entities.push(action.payload)
+				state.entities = action.payload
 				state.status = "idle"
 			})
 	},
 })
 
 export default litTextsSlice.reducer
-
-
-
-	// extraReducers: {
-	// 	[fetchLitTexts.pending](state) {
-	// 		state.status = "loading"
-	// 	},
-	// 	[fetchLitTexts.fulfilled](state, action) {
-	// 		state.entities = action.payload
-	// 		state.status = "idle"
-	// 	}
-	// },
-
-
-// 	export const fetchLitTexts = createAsyncThunk("litTexts/fetchLitTexts", () => {
-// 	return fetch("/lit_texts")
-//     .then((r) => r.json())
-//     .then((data) => data.sort((a, b) => b.id - a.id))
-// })

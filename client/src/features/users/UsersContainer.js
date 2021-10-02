@@ -1,21 +1,38 @@
-import { Fragment } from "react"
-import UsersList from "./UsersList"
+import { useSelector } from 'react-redux'
+import UserListShow from './UserListShow'
+// import UsersList from "./UsersList"
 
-function UsersContainer({ user, allUsers }) {
+export default function UsersContainer() {
+	const { user, entities, status } = useSelector((state) => state.users)
 
-
-	return (
-		<Fragment>
-			{allUsers.length > 0 ? 
-				<UsersList 
-					user={user}
-					allUsers={allUsers}
-				/>				
-			:
+	if (status === "idle") {
+		const otherUsers = entities.filter((u) => u.id !== user.id)
+		const renderUsers = otherUsers.map((u => <UserListShow key={u.id} showUser={u} />))
+		return (
+			<div>{renderUsers}</div>
+		)
+		} else if (status === "loading") {
+			return (
 				<h1>Loading...</h1>
-			}
-		</Fragment>
-	)
+			)
+		} else {
+			return (
+				<h1>We're sorry. There's been an error.</h1>
+			)
+		}
+
+
+	// return (
+	// 	<Fragment>
+	// 		{allUsers.length > 0 ? 
+	// 			<UsersList 
+	// 				user={user}
+	// 				allUsers={allUsers}
+	// 			/>				
+	// 		:
+	// 			<h1>Loading...</h1>
+	// 		}
+	// 	</Fragment>
+	// )
 }
 
-export default UsersContainer

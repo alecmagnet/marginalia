@@ -21,7 +21,7 @@ export default function LitTextListShow({ litText }) {
 				<p>by {author}</p>
 				<p>{pubdate}</p>
 				<p>Preview: {showContent}...</p> 
-				{/* <TotalCommentsAndReplies arr={litText.comments} /> */}
+				<TotalCommentsAndReplies arr={litText.comments} />
 			</div>
 		</div>
 	)

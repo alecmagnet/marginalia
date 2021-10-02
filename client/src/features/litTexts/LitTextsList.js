@@ -1,12 +1,15 @@
-import LitTextListShow from "./LitTextListShow";
+// import LitTextListShow from "./LitTextListShow";
+// import { useSelector } from 'react-redux'
 
-export default function LitTextsList ({ user, litTexts }) {
+// export default function LitTextsList ({ user, litTexts }) {
+//   // const litTexts = useSelector((state) => state.litTexts.entities)
+// 	// console.log(litTexts) 
 
-	const renderTexts = litTexts[0].map((text) => <LitTextListShow key={text.id} litText={text} user={user} />)
+// 	const renderTexts = litTexts.map((text) => <LitTextListShow key={text.id} litText={text} user={user} />)
 
-	return(
-		<div>
-			{renderTexts}
-		</div>
-	)
-}
+// 	return(
+// 		<div>
+// 			{renderTexts}
+// 		</div>
+// 	)
+// }

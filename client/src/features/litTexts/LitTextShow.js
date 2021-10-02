@@ -1,22 +1,32 @@
 import parse from 'html-react-parser'
 import { useParams, Link } from 'react-router-dom'
-import { Fragment, useState } from "react"
-import CommentsList from '../comments/CommentsList'
-import CommentNewForm from '../comments/CommentNewForm.js'
-import { useSelector } from 'react-redux'
+import { Fragment, useState, useEffect } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+// import CommentsList from '../comments/CommentsList'
+// import CommentNewForm from '../comments/CommentNewForm.js'
+import { fetchLitTextById } from './showTextSlice';
 
-function LitTextShow({ user, allUsers }) {
-  // const { data, error, isLoading } = useSelector((state) => state.litTexts.entities)
-	// const litTexts = data.entities
-	const litTexts = useSelector((state) => state.litTexts.entities)
-	const params = useParams()	
-	const litText = litTexts.filter((text) => parseInt(text.id) === parseInt(params.id))[0]
-	const newestFirst = litText.comments.sort((a, b) => b.id - a.id)
-	const [listComments, setListComments] = useState(newestFirst)
-	const parsedContent = litText ? parse(`${litText.content}`) : ""
+function LitTextShow() {
+	const params = useParams()
+  const dispatch = useDispatch()
+
+	useEffect(() => dispatch(fetchLitTextById(params.id)))
+	
+	const { entities:litText, status:textStatus } = useSelector((state) => state.showText)
+	console.log("LitTextShow", litText)
+
+	const { user, entities:allUsers, status:userStatus } = useSelector((state) => state.users)
+
+	// const litText = entities.map((text) => parseInt(text.id) === parseInt(params.id))[0]
+	const [listComments, setListComments] = useState([])
+	
+	if (textStatus === "idle") {
+		const newestFirst = litText.comments.sort((a, b) => b.id - a.id)
+		setListComments(newestFirst)
+		const parsedContent = parse(`${litText.content}`)
+	}
 
 	
-
 	function onAddComment(data) {
 		setListComments([data, ...listComments])
 	}
@@ -46,14 +56,14 @@ function LitTextShow({ user, allUsers }) {
 	}
 
 
-	if (allUsers.length > 0) {
+	if (textStatus === "idle") {
 		return (
 			<Fragment>
 				{litText ? 
 					<div style={{padding: 50}} >
 						<h3>{litText.title}</h3>
 						<h4>{litText.author}</h4>
-						<div>{parsedContent}</div>
+						{/* <div>{parsedContent}</div> */}
 						<p><em>{litText.pubdate}</em></p>
 						{/* <CommentNewForm 
 							user={user} 
@@ -71,7 +81,7 @@ function LitTextShow({ user, allUsers }) {
 							lit_text_id={litText.id} 
 						/>  */}
 					</div>
-				: <h3>We're sorry, there is no such text. <Link to='/texts'>Go Back</Link></h3>}
+				: <h3>We're sorry, there is no such text. <Link to='/texts'>Go Back</Link>?</h3>}
 			</Fragment>
 		)
 	} else {

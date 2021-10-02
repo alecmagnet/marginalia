@@ -2,7 +2,37 @@
 
 
 
-------------
+
+
+-----------------------------------------------
+
+
+
+FROM litTextsSlice
+
+
+
+	extraReducers: {
+		[fetchLitTexts.pending](state) {
+			state.status = "loading"
+		},
+		[fetchLitTexts.fulfilled](state, action) {
+			state.entities = action.payload
+			state.status = "idle"
+		}
+	},
+
+
+	export const fetchLitTexts = createAsyncThunk("litTexts/fetchLitTexts", () => {
+	return fetch("/lit_texts")
+    .then((r) => r.json())
+    .then((data) => data.sort((a, b) => b.id - a.id))
+})
+
+
+
+-----------------------------------------------
+
 
 
 FROM litTextsApi
@@ -24,7 +54,9 @@ export const litTextsApi = createApi({
 export const { useGetLitTextsQuery, useGetLitTextbyIdQuery } = litTextsApi
 
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM CommentNewForm
@@ -55,7 +87,8 @@ FROM CommentNewForm
 
 
 
-------------
+-----------------------------------------------
+
 
 
 FROM TimeAgoContainer.js 
@@ -71,7 +104,8 @@ FROM TimeAgoContainer.js
 
 
 
-------------
+-----------------------------------------------
+
 
 
 FROM seeds.rb 
@@ -84,7 +118,9 @@ FROM seeds.rb
 	end
 
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM ReplyShow
@@ -103,7 +139,9 @@ FROM ReplyShow
 	}
 
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM CommentShow
@@ -115,7 +153,9 @@ FROM CommentShow
 	const filteredReplies = replies.filter((r) => parseInt(r.user_id) === parseInt(commentUser.id))
 	
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM UserShow
@@ -123,7 +163,9 @@ FROM UserShow
 	bio ? showBio = `${bio.slice(0, 30)}...` : showBio = ""
 
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM LitTextListShow
@@ -131,7 +173,9 @@ FROM LitTextListShow
 	const showContent = rawContent.replace(/(<([^>]+)>)/gi, " ")
 
 
-------------
+
+-----------------------------------------------
+
 
 
 FROM LitTextShow
