@@ -10,7 +10,8 @@ import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage'
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
-import { fetchAllUsers, setUser } from './features/users/usersSlice'
+import { fetchAllUsers } from './features/users/allUsersSlice'
+import { authorize, loginUser, logoutUser, signupUser } from './features/users/userSlice'
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -19,31 +20,32 @@ function App() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const user = useSelector((state) => state.users.user)
-  // CHECKS TO SEE IF A USER IS ALREADY LOGGED IN
-  useEffect(() => {
-    fetch("/auth").then((res) => {
-      if (res.ok) {
-        res.json().then((data) => {
-          dispatch(setUser(data))
-          dispatch(fetchLitTexts())
-          dispatch(fetchAllUsers())
-        });
+  const userState = useSelector((state) => state.user)
+  const user = userState.entities.length > 0 ? userState.entities[0] : null
+
+  const onAuth = () => {
+    dispatch(authorize())
+    .then (() => {
+      if (userState.status === "idle") {
+        dispatch(fetchLitTexts())
+        dispatch(fetchAllUsers())
       } else {
-        history.push("/")
-      }
-    });
-  }, []);
+      history.push("/")
+    }})
+  }
+
+  useEffect(() => {
+    onAuth()
+  }, [])
 
   function onLogin(newUser) {
-    dispatch(setUser(newUser))
     dispatch(fetchLitTexts())
     dispatch(fetchAllUsers())
     history.push('/')
   }
 
   function onLogout() {
-    setUser(null)
+    dispatch(logoutUser())
     history.push('/')
  }
 
@@ -58,7 +60,7 @@ function App() {
       <Navbar 
         onLogout={onLogout} 
       />
-      {user.fullname ?
+      {user ?
         <div>
           <Switch>
             <Route exact path='/texts'>

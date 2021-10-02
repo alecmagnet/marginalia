@@ -1,15 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import litTextsReducer from './features/litTexts/litTextsSlice'
 import showTextReducer from './features/litTexts/showTextSlice'
-import usersReducer from './features/users/usersSlice'
+import allUsersReducer from './features/users/allUsersSlice'
 import showUserReducer from './features/users/showUserSlice'
+import userReducer from './features/users/userSlice'
 
 const store = configureStore({
   reducer: {
 		litTexts: litTextsReducer,
 		showText: showTextReducer,
-		users: usersReducer,
+		allUsers: allUsersReducer,
 		showUser: showUserReducer,
+		user: userReducer,
 
   },
 })

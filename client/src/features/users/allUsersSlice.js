@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchAllUsers = createAsyncThunk(
-	"users/fetchAllUsers", 
+	"allUsers/fetchAllUsers", 
 	async () => {
 		const response = await fetch("/users")
 		const data = await response.json()
-		console.log("fetchAllUsers:", data)
     return data
 	}
 )
@@ -17,13 +16,13 @@ const initialState = {
 	errors: null
 }
 
-const usersSlice = createSlice({
-	name: "users",
+const allUsersSlice = createSlice({
+	name: "allUsers",
 	initialState,
 	reducers: {
-		setUser(state, action) {
-			state.user = action.payload
-		}
+		// setUser(state, action) {
+		// 	state.user = action.payload
+		// }
 	},
 	extraReducers: (builder) => {
 		builder
@@ -37,5 +36,5 @@ const usersSlice = createSlice({
 	},
 })
 
-export const { setUser } = usersSlice.actions
-export default usersSlice.reducer
+// export const { setUser } = allUsersSlice.actions
+export default allUsersSlice.reducer

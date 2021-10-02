@@ -7,11 +7,17 @@
 -----------------------------------------------
 
 
+From LitTextShow
+  const userArr = useSelector((state) => state.user.entities)
+  const user = userArr.length > 0 ? userArr[0] : null
+
+
+
+-----------------------------------------------
+
+
 
 FROM litTextsSlice
-
-
-
 	extraReducers: {
 		[fetchLitTexts.pending](state) {
 			state.status = "loading"
@@ -36,22 +42,22 @@ FROM litTextsSlice
 
 
 FROM litTextsApi
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+	import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const litTextsApi = createApi({
-	reducerPath: 'litTextApi',
-	baseQuery: fetchBaseQuery({ baseUrl: '/'}),
-	endpoints: (builder) => ({
-		getLitTexts: builder.query({
-			query: () => 'lit_texts',
+	export const litTextsApi = createApi({
+		reducerPath: 'litTextApi',
+		baseQuery: fetchBaseQuery({ baseUrl: '/'}),
+		endpoints: (builder) => ({
+			getLitTexts: builder.query({
+				query: () => 'lit_texts',
+			}),
+			getLitTextById: builder.query({
+				query: (id) => `lit_texts/${id}`,
+			}),
 		}),
-		getLitTextById: builder.query({
-			query: (id) => `lit_texts/${id}`,
-		}),
-	}),
-})
+	})
 
-export const { useGetLitTextsQuery, useGetLitTextbyIdQuery } = litTextsApi
+	export const { useGetLitTextsQuery, useGetLitTextbyIdQuery } = litTextsApi
 
 
 

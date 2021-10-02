@@ -3,7 +3,7 @@ import UserListShow from './UserListShow'
 // import UsersList from "./UsersList"
 
 export default function UsersContainer() {
-	const { user, entities, status } = useSelector((state) => state.users)
+	const { user, entities, status } = useSelector((state) => state.allUsers)
 
 	if (status === "idle") {
 		const otherUsers = entities.filter((u) => u.id !== user.id)

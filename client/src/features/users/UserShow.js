@@ -12,13 +12,14 @@ export default function UserShow() {
 
 	useEffect(() => dispatch(fetchUserById(params.id)))
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
+	const user = useSelector((state) => state.user.entities)
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
 	}
 
 	function updateUser(data) {
-		// setShowUser(data)
+		// setShowUser(data) DISPATCH PATCH REQUEST HERE OR IN EDIT FORM?
 		setEditClicked(!editClicked)
 	}
 
