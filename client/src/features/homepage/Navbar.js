@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
 
-function Navbar() {
+export default function Navbar() {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -14,13 +14,6 @@ function Navbar() {
     dispatch(logoutUser())
     history.push('/')
 	}
-	
-
-	// function handleLogout() {
-  //   fetch("/logout", {
-  //     method: "DELETE",
-  //   }).then((r) => onLogout())
-  // }
 
 	return (
 		<header style={{ backgroundColor: "Gainsboro", 'paddingTop':5, 'paddingBottom':5 }} >
@@ -45,5 +38,3 @@ function Navbar() {
 		</header>
 	)
 }
-
-export default Navbar

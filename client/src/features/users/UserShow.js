@@ -10,7 +10,7 @@ export default function UserShow() {
 	const params = useParams()
 	const dispatch = useDispatch()
 
-	useEffect(() => dispatch(fetchUserById(params.id)))
+	useEffect(() => dispatch(fetchUserById(params.id)), [])
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities)
 
