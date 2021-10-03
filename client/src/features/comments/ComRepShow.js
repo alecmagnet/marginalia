@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react"
+import { useSelector } from "react-redux"
 // import { useState, useRef } from "react"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
@@ -12,6 +13,9 @@ export default function ComRepShow({ comment }) {
 
 	const [stateComment, setStateComment] = useState(comment)
 	// const ref = useRef(stateComment)
+
+  const userState = useSelector((state) => state.user)
+  const userId = userState.entities.length > 0 ? userState.entities[0].id : null
 	
 	const showComment = {
 		fullname: comment.user.fullname,
@@ -103,6 +107,21 @@ export default function ComRepShow({ comment }) {
 			/>
 			<div>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
+				<div style={{ position: "relative" }}>
+					{!renderComment.parent_comment_id && !renderComment.deleted ?
+						<button onClick={replyButtonClick} >Reply</button> 
+					: null}
+					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
+						<Fragment>
+							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
+							<button style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
+							<button style={{ visibility: "hidden" }} ></button>
+							</Fragment>
+					: null}					
+				</div>
+
+
+
 				{/* <div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
 						<button onClick={replyButtonClick} >Reply</button> 
@@ -110,9 +129,10 @@ export default function ComRepShow({ comment }) {
 					{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
 						<Fragment>
 							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
-							<button onClick={handleDelete} style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
-						</Fragment>
-					: <button style={{ visibility: "hidden" }} ></button>}
+							<button style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
+							<button style={{ visibility: "hidden" }} ></button>
+							</Fragment>
+					: null}
 				</div>
 				{editClicked ? 
 					<CommentEditForm 

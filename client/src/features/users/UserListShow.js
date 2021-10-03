@@ -11,7 +11,8 @@ export default function UserListShow({ showUser }) {
 					<h3>Name: {fullname}</h3>
 					<Link to={`/users/${id}`}><div>{username}</div></Link>
 					<p>Bio: {showBio}</p> 
-					<TotalCommentsAndReplies arr={showUser.comments} />
+					<TotalCommentsAndReplies showUserId={showUser.id} />
+					{/* <TotalCommentsAndReplies arr={showUser.comments} /> */}
 				</div>
 			</div>
 	)

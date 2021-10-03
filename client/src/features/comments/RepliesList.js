@@ -1,22 +1,21 @@
-import ReplyContainer from "./ReplyContainer"
+// import ReplyContainer from "./ReplyContainer"
+import ComRepShow from "./ComRepShow";
 
-export default function RepliesList({ replies, user, allUsers, onDeleteComment, forceRender, onEditComment, onAddComment, lit_text_id }) {
+export default function RepliesList({ replies }) {
 
 	const renderReplies = replies.map ((r) =>
-	<ReplyContainer 
-		onEditComment={onEditComment}
-		forceRender={forceRender}
-		key={r.id} 
-		comment={r} 
-		user={user} 
-		allUsers={allUsers} 
-		onDeleteComment={onDeleteComment} 
-		onAddComment={onAddComment}	
-		lit_text_id={lit_text_id}
-	/>)	
+	<div style={{ paddingLeft: 40, paddingBottom: 10 }} >
+		<ComRepShow 
+			key={r.id} 
+			comment={r} 
+			// onEditComment={onEditComment}
+			// onDeleteComment={onDeleteComment} 
+			// onAddComment={onAddComment}	
+		/>
+	</div>)	
 
 	return(
-		<div style={{ padding: 10 }} >
+		<div style={{ paddingLeft: 10, paddingTop: 10, paddingBottom: 10 }} >
 				{renderReplies}
 		</div>
 	)

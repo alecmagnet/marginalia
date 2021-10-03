@@ -4,6 +4,7 @@ import showTextReducer from './features/litTexts/showTextSlice'
 import allUsersReducer from './features/users/allUsersSlice'
 import showUserReducer from './features/users/showUserSlice'
 import userReducer from './features/users/userSlice'
+import commentsReducer from './features/comments/commentsSlice'
 
 const store = configureStore({
   reducer: {
@@ -11,8 +12,8 @@ const store = configureStore({
 		showText: showTextReducer,
 		allUsers: allUsersReducer,
 		showUser: showUserReducer,
+		comments: commentsReducer,
 		user: userReducer,
-
   },
 })
 

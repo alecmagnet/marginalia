@@ -5,7 +5,7 @@ export const fetchLitTexts = createAsyncThunk(
 	async () => {
 		const response = await fetch("/lit_texts")
 		const data = await response.json()
-		console.log(data)
+		// console.log("fetchLitTexts", data)
     return data
 	})
 

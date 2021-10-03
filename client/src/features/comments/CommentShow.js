@@ -12,18 +12,13 @@ export default function CommentShow({ comment, replies }) {
 				comment={comment} 
 			/>
 			{replies.length > 0 ? 
-				<p>Replies coming soon</p>
-				// <RepliesList 
-				// 	// onEditComment={onEditComment}
-				// 	// forceRender={forceRender}
-				// 	replies={replies} 
-				// 	user={user} 
-				// 	allUsers={allUsers} 
-				// 	commentUser={commentUser} 
-				// 	onDeleteComment={onDeleteComment} 
-				// 	onAddComment={onAddComment}	
-				// 	lit_text_id={lit_text_id}
-				// /> 
+				// <p>Replies coming soon</p>
+				<RepliesList 
+					replies={replies} 
+					// onEditComment={onEditComment}
+					// onDeleteComment={onDeleteComment} 
+					// onAddComment={onAddComment}	
+				/> 
 			: null}		
 		</div>
 	)

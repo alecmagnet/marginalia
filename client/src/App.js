@@ -1,5 +1,5 @@
 import { useEffect, Fragment } from 'react'
-import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Navbar from './features/homepage/Navbar';
@@ -12,7 +12,8 @@ import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage'
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
-import { authorize, loginUser, logoutUser, signupUser } from './features/users/userSlice'
+import { fetchComments } from './features/comments/commentsSlice';
+import { authorize } from './features/users/userSlice'
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -30,6 +31,7 @@ export default function App() {
       if (userState.status === "idle") {
         dispatch(fetchLitTexts())
         dispatch(fetchAllUsers())
+        dispatch(fetchComments())
       } else {
       history.push("/login")
     }})

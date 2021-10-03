@@ -53,6 +53,9 @@ const userSlice = createSlice({
 	reducers: {
 		logoutUser(state) {
 			state = null
+		},
+		userPostComment(state, action) {
+			state.entities[0].comments.push(action.payload)
 		}
 	},
 	extraReducers: (builder) => {
@@ -94,5 +97,5 @@ const userSlice = createSlice({
 	},
 })
 
-export const { logoutUser } = userSlice.actions
+export const { logoutUser, userPostComment } = userSlice.actions
 export default userSlice.reducer

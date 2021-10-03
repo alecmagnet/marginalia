@@ -18,7 +18,11 @@ const initialState = {
 const showTextSlice = createSlice({
 	name: "showText",
 	initialState,
-	reducers: {},
+	reducers: {
+		showTextPostComment(state, action) {
+			state.entities[0].comments.push(action.payload)
+		}
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchLitTextById.pending, (state) => {
@@ -32,4 +36,5 @@ const showTextSlice = createSlice({
 	},
 })
 
+export const { showTextPostComment } = showTextSlice.actions
 export default showTextSlice.reducer
