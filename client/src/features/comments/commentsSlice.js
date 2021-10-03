@@ -32,8 +32,8 @@ export const postComment = createAsyncThunk(
 
 export const patchComment = createAsyncThunk(
 	"comments/patchComment",
-	async (formData, id) => {
-		const response = await fetch(`/comments/${id}`, {
+	async (formData) => {
+		const response = await fetch(`/comments/${formData.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const patchComment = createAsyncThunk(
 			body: JSON.stringify(formData),
 		})
 		const data = await response.json()
-		console.log("postComment:", data)
+		console.log("patchComment:", data)
     return data
 
 	}
@@ -73,7 +73,6 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(fetchComments.fulfilled, (state, action) => {
-				// state.entities.push(action.payload)
 				state.entities = action.payload
 				state.status = "idle"
 			})
@@ -97,6 +96,11 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(patchComment.fulfilled, (state, action) => {
+				const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
+				console.log("patchComment:index", index)
+				console.log("patchComment:state.entities[index] BEFORE", state.entities[index])
+				state.entities[index] = action.payload
+				console.log("patchComment:state.entities[index] AFTER", state.entities[index])
 				// state.entities = action.payload FIX LOGIC TO UPDATE ONE COMMENT
 				state.status = "idle"
 			})

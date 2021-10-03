@@ -3,7 +3,7 @@ class CommentSerializer < ActiveModel::Serializer
   # :rating
 
   has_one :user
-  has_one :lit_text
+  # has_one :lit_text
   has_one :parent_comment
   has_many :replies
   has_many :com_types

@@ -17,13 +17,8 @@ export default function CommentsList({ litTextId }) {
 			<CommentShow 
 				key={c.id} 
 				comment={c} 
-				litTextId={litTextId}
-				// onEditComment={onEditComment}
-				// user={user} 
-				// allUsers={allUsers} 
+				litTextId={litTextId} 
 				replies={replies} 
-				// onDeleteComment={onDeleteComment} 
-				// onAddComment={onAddComment}	
 			/>
 		)	
 	})

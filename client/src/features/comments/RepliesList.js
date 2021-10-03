@@ -3,7 +3,7 @@ import ComRepShow from "./ComRepShow";
 export default function RepliesList({ replies, litTextId }) {
 
 	const renderReplies = replies.map ((r) =>
-	<div style={{ paddingLeft: 40, paddingBottom: 10 }} >
+	<div style={{ paddingLeft: 40, paddingBottom: 10 }} key={`${r.id}div`} >
 		<ComRepShow 
 			key={r.id} 
 			comment={r} 

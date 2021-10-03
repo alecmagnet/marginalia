@@ -13,13 +13,10 @@ export default function CommentShow({ comment, replies, litTextId }) {
 				litTextId={litTextId}
 			/>
 			{replies.length > 0 ? 
-				// <p>Replies coming soon</p>
 				<RepliesList 
+					// key={`${comment.id}r`}
 					replies={replies} 
 					litTextId={litTextId}
-					// onEditComment={onEditComment}
-					// onDeleteComment={onDeleteComment} 
-					// onAddComment={onAddComment}	
 				/> 
 			: null}		
 		</div>

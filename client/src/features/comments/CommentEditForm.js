@@ -1,37 +1,48 @@
+import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
+import { patchComment } from './commentsSlice'
 
 
-export default function CommentEditForm({ comment, onEditComment, editButtonClick, wrapSetErrors, changeDummyState, forceRender, handleEditComment }) {
+export default function CommentEditForm({ comment, editButtonClick }) {
 	const [formData, setFormData] = useState(comment)
 
   function handleChange(e) {
-    // e.preventDefault();
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
 		})
   }
 
-	function handleSubmit(e) {
-		e.preventDefault()
-		fetch(`/comments/${comment.id}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(formData)
-		})
-		.then((r) => r.json())
-		.then((data) => {
-			console.log("EditForm:data", data)
-			handleEditComment(data)
-			onEditComment(data)
+	const dispatch = useDispatch()
+	
+  function handleSubmit(e) {
+    e.preventDefault();
+		dispatch(patchComment(formData))
+		.then(() => {
 			editButtonClick((prevState) => !prevState)
-			// changeDummyState()
-			// forceRender()
 		})
-		.catch((errors) => wrapSetErrors(errors))
 	}
+
+	// function handleSubmitOLD(e) {
+	// 	e.preventDefault()
+	// 	fetch(`/comments/${comment.id}`, {
+	// 		method: "PATCH",
+	// 		headers: {
+	// 			"Content-Type": "application/json"
+	// 		},
+	// 		body: JSON.stringify(formData)
+	// 	})
+	// 	.then((r) => r.json())
+	// 	.then((data) => {
+	// 		console.log("EditForm:data", data)
+	// 		handleEditComment(data)
+	// 		onEditComment(data)
+	// 		editButtonClick((prevState) => !prevState)
+	// 		// changeDummyState()
+	// 		// forceRender()
+	// 	})
+	// 	.catch((errors) => wrapSetErrors(errors))
+	// }
 
 	return (
 		<div style={{ padding: 10 }} >

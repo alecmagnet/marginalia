@@ -11,22 +11,19 @@ export default function ComRepShow({ comment, litTextId }) {
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
 
-	const [stateComment, setStateComment] = useState(comment)
-	// const ref = useRef(stateComment)
-
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
 	
 	const showComment = {
 		fullname: comment.user.fullname,
 		username: comment.user.username,
-		content: stateComment.content,
-		created_at: stateComment.created_at,
-		updated_at: stateComment.updated_at,
-		parent_comment_id: stateComment.parent_comment_id,
-		deleted: stateComment.deleted,
-		id: stateComment.id,
-		com_types: stateComment.com_types
+		content: comment.content,
+		created_at: comment.created_at,
+		updated_at: comment.updated_at,
+		parent_comment_id: comment.parent_comment_id,
+		deleted: comment.deleted,
+		id: comment.id,
+		com_types: comment.com_types
 	}
 
 	const ghost = <span role="img" aria-label="ghost"> 💀 👻 </span>
@@ -35,16 +32,15 @@ export default function ComRepShow({ comment, litTextId }) {
 		fullname: ghost,
 		username: "",
 		content: <em>this comment was deleted by user </em>,
-		created_at: stateComment.created_at,
-		updated_at: stateComment.updated_at,
-		parent_comment_id: stateComment.parent_comment_id,
+		created_at: comment.created_at,
+		updated_at: comment.updated_at,
+		parent_comment_id: comment.parent_comment_id,
 		deleted: true,
-		id: stateComment.id,
+		id: comment.id,
 		com_types: []
 	}
 
-	const commentInitialState = comment.deleted ? deletedComment : showComment
-	const [renderComment, setRenderComment] = useState(commentInitialState)
+	const renderComment = comment.deleted ? deletedComment : showComment
 
 	// function handleDelete(e) {
 	// 	e.preventDefault()
@@ -59,14 +55,6 @@ export default function ComRepShow({ comment, litTextId }) {
 	// 		} else {r.json()}
 	// 		})
 	// 	.catch((errors) => setErrors(errors))
-	// }
-
-	// function handleEditComment(data) {
-	// 	console.log("onEditComment:data", data)
-	// 	setStateComment(data)
-	// 	// updateCommentState(data)
-	// 	console.log("onEditComment:stateComment", stateComment)
-	// 	onEditComment(data)
 	// }
 
 	function wrapSetErrors(data){
@@ -119,8 +107,25 @@ export default function ComRepShow({ comment, litTextId }) {
 							</Fragment>
 					: null}					
 				</div>
+				{editClicked ? 
+					<CommentEditForm 
+						comment={comment}
+						editButtonClick={editButtonClick}
+						wrapSetErrors={wrapSetErrors}
+					/> 
+				: null}
+				{replyClicked ? 
+					<CommentNewForm 
+						litTextId={litTextId} 
+						parentCommentId={comment.id} 
+						replyButtonClick={replyButtonClick} 						
+					/>
+				: null} 
 
-
+			</div>
+		</div>	
+	)
+}
 
 				{/* <div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
@@ -134,26 +139,3 @@ export default function ComRepShow({ comment, litTextId }) {
 							</Fragment>
 					: null} */}
 				{/* </div> */}
-				{/* {editClicked ? 
-					<CommentEditForm 
-						forceRender={forceRender}
-						comment={renderComment}
-						handleEditComment={handleEditComment}
-						onEditComment={onEditComment}
-						editButtonClick={editButtonClick}
-						wrapSetErrors={wrapSetErrors}
-						changeDummyState={changeDummyState}
-					/> 
-				: null} */}
-				{replyClicked ? 
-					<CommentNewForm 
-						litTextId={litTextId} 
-						parentCommentId={comment.id} 
-						replyButtonClick={replyButtonClick} 						
-					/>
-				: null} 
-
-			</div>
-		</div>	
-	)
-}
