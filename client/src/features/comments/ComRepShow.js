@@ -1,10 +1,11 @@
 import { useState, Fragment } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 // import { useState, useRef } from "react"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
+import { destroyComment, patchComment } from "./commentsSlice"
 
 export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
@@ -41,6 +42,22 @@ export default function ComRepShow({ comment, litTextId }) {
 	}
 
 	const renderComment = comment.deleted ? deletedComment : showComment
+
+	const dispatch = useDispatch() 
+
+	function handleDelete(e) {
+		e.preventDefault()
+		if (comment.replies.length > 0 || comment.parent_comment_id) {
+			const changeCom = {
+				...comment,
+				deleted: true
+			}
+			dispatch(patchComment(changeCom))
+		} else {
+			let id = comment.id
+			dispatch(destroyComment(id))
+		}
+	}
 
 	// function handleDelete(e) {
 	// 	e.preventDefault()
@@ -102,7 +119,7 @@ export default function ComRepShow({ comment, litTextId }) {
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
 						<Fragment>
 							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
-							<button style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
+							<button onClick={handleDelete} style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
 							<button style={{ visibility: "hidden" }} ></button>
 							</Fragment>
 					: null}					

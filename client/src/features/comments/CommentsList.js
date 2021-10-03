@@ -25,7 +25,6 @@ export default function CommentsList({ litTextId }) {
 
 	return (
 		<div>
-			{/* <p>Comments comming soon</p> */}
 			{renderComments}
 			<CommentNewForm 
 				litTextId={litTextId}

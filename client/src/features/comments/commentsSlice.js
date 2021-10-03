@@ -1,15 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { useDispatch } from "react-redux";
-// import { userPostComment } from '../users/userSlice'
-// import { showTextPostComment } from "../litTexts/showTextSlice";
-
 
 export const fetchComments = createAsyncThunk(
 	"comments/fetchComments", 
 	async () => {
 		const response = await fetch("/comments")
 		const data = await response.json()
-		// console.log("fetchComments", data)
     return data
 	}
 )
@@ -43,7 +38,6 @@ export const patchComment = createAsyncThunk(
 		const data = await response.json()
 		console.log("patchComment:", data)
     return data
-
 	}
 )
 
@@ -53,8 +47,8 @@ export const destroyComment = createAsyncThunk(
 		fetch(`/comments/${id}`, {
 			method: 'DELETE'
 		})
+		return (id)
 	}
-	// HOW DO I MAKE MY CONDITIONALS WORK??
 )
 
 const initialState = {
@@ -97,11 +91,7 @@ const commentsSlice = createSlice({
 			})
 			.addCase(patchComment.fulfilled, (state, action) => {
 				const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
-				console.log("patchComment:index", index)
-				console.log("patchComment:state.entities[index] BEFORE", state.entities[index])
 				state.entities[index] = action.payload
-				console.log("patchComment:state.entities[index] AFTER", state.entities[index])
-				// state.entities = action.payload FIX LOGIC TO UPDATE ONE COMMENT
 				state.status = "idle"
 			})
 			.addCase(patchComment.rejected, (state, action) => {
@@ -112,7 +102,8 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(destroyComment.fulfilled, (state, action) => {
-				// state.entities = action.payload FIX LOGIC TO REMOVE ONE COMMENT
+				const newArr = state.entities.filter((com) => com.id !== action.payload)
+				state.entities = [...newArr]
 				state.status = "idle"
 			})
 			.addCase(destroyComment.rejected, (state, action) => {
