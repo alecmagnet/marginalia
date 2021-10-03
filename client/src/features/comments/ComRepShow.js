@@ -5,7 +5,7 @@ import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 
-export default function ComRepShow({ comment, user, commentUser, onDeleteComment, changeDummyState, forceRender, onEditComment, onAddComment, lit_text_id }) {
+export default function ComRepShow({ comment }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
@@ -14,8 +14,8 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 	// const ref = useRef(stateComment)
 	
 	const showComment = {
-		fullname: commentUser.fullname,
-		username: commentUser.username,
+		fullname: comment.user.fullname,
+		username: comment.user.username,
 		content: stateComment.content,
 		created_at: stateComment.created_at,
 		updated_at: stateComment.updated_at,
@@ -42,28 +42,28 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 	const commentInitialState = comment.deleted ? deletedComment : showComment
 	const [renderComment, setRenderComment] = useState(commentInitialState)
 
-	function handleDelete(e) {
-		e.preventDefault()
-		fetch(`/comments/${comment.id}`, {
-			method: "DELETE"
-		})
-		.then((r) => {
-			if (r.status === 200) {
-				setRenderComment(deletedComment)
-			} else if (r.status === 204) {
-				onDeleteComment(comment.id)
-			} else {r.json()}
-			})
-		.catch((errors) => setErrors(errors))
-	}
+	// function handleDelete(e) {
+	// 	e.preventDefault()
+	// 	fetch(`/comments/${comment.id}`, {
+	// 		method: "DELETE"
+	// 	})
+	// 	.then((r) => {
+	// 		if (r.status === 200) {
+	// 			setRenderComment(deletedComment)
+	// 		} else if (r.status === 204) {
+	// 			onDeleteComment(comment.id)
+	// 		} else {r.json()}
+	// 		})
+	// 	.catch((errors) => setErrors(errors))
+	// }
 
-	function handleEditComment(data) {
-		console.log("onEditComment:data", data)
-		setStateComment(data)
-		// updateCommentState(data)
-		console.log("onEditComment:stateComment", stateComment)
-		onEditComment(data)
-	}
+	// function handleEditComment(data) {
+	// 	console.log("onEditComment:data", data)
+	// 	setStateComment(data)
+	// 	// updateCommentState(data)
+	// 	console.log("onEditComment:stateComment", stateComment)
+	// 	onEditComment(data)
+	// }
 
 	function wrapSetErrors(data){
 		setErrors(data)
@@ -103,7 +103,7 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 			/>
 			<div>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
-				<div style={{ position: "relative" }}>
+				{/* <div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
 						<button onClick={replyButtonClick} >Reply</button> 
 					: null}
@@ -133,7 +133,7 @@ export default function ComRepShow({ comment, user, commentUser, onDeleteComment
 						onAddComment={onAddComment}
 						replyButtonClick={replyButtonClick} 						
 					/>
-				: null}
+				: null} */}
 
 			</div>
 		</div>	

@@ -1,8 +1,8 @@
 import parse from 'html-react-parser'
-import { useParams, Link } from 'react-router-dom'
-import { Fragment, useState, useEffect } from "react"
+import { useParams } from 'react-router-dom'
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-// import CommentsList from '../comments/CommentsList'
+import CommentsList from '../comments/CommentsList'
 // import CommentNewForm from '../comments/CommentNewForm.js'
 import { fetchLitTextById } from './showTextSlice';
 
@@ -24,11 +24,12 @@ export default function LitTextShow() {
 	let listComments = []
 	let parsedContent = ""
 	if (litTextState.entities.length > 0) {
+		parsedContent = parse(`${litText.content}`)
 		const sortComments = [...litText.comments]
 		const newestFirst = sortComments.sort((a, b) => b.id - a.id)
 		listComments = [...newestFirst]
-		parsedContent = parse(`${litText.content}`)
 	}
+
 
 	
 	// function onAddComment(data) {
@@ -73,15 +74,16 @@ export default function LitTextShow() {
 					parent_comment_id={null} 
 					onAddComment={onAddComment} 
 					replyButtonClick={replyButtonClick}
-				/>
-				<CommentsList comments={listComments} 
-					onEditComment={onEditComment}
-					user={user} 
-					allUsers={allUsers} 
-					onAddComment={onAddComment} 
-					onDeleteComment={onDeleteComment} 
-					lit_text_id={litText.id} 
-				/>  */}
+				/> */}
+				<CommentsList 
+					comments={listComments} 
+					// lit_text_id={litText.id} 
+					// onEditComment={onEditComment}
+					// user={user} 
+					// allUsers={allUsers} 
+					// onAddComment={onAddComment} 
+					// onDeleteComment={onDeleteComment} 
+				/> 
 			</div>
 		)
 	} else if (litTextState.status === "pending") {

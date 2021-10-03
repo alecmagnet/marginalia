@@ -9,7 +9,7 @@ class LitTextsController < ApplicationController
 	# GET /lit_texts/:id
 	def show
 		lit_text = find_lit_text
-		render json: lit_text, status: :ok
+		render json: lit_text, include: ['comments.user', 'comments.com_types'], status: :ok
 	end
 
 	# POST /lit_texts
