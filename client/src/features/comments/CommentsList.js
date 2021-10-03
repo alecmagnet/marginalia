@@ -1,10 +1,8 @@
-// import { useParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
+import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 
 export default function CommentsList({ litTextId }) {
-	// const params = useParams()
-	// const litTextId = params.id 
 	
 	const stateComments = useSelector((state) => state.comments)
 	const allComments = [...stateComments.entities]
@@ -14,6 +12,7 @@ export default function CommentsList({ litTextId }) {
 		
 	const renderComments = parentComments.map((c) => {
 		let replies = showTextComments.filter((r) => r.parent_comment_id === c.id)
+
 		return(
 			<CommentShow 
 				key={c.id} 
@@ -33,6 +32,11 @@ export default function CommentsList({ litTextId }) {
 		<div>
 			{/* <p>Comments comming soon</p> */}
 			{renderComments}
+			<CommentNewForm 
+				litTextId={litTextId}
+				parentCommentId={null}
+				replyButtonClick={null}
+			/>
 		</div>
 	)
 }

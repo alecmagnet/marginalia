@@ -1,20 +1,25 @@
 import { useState } from 'react'
+import { useSelector, useDispatch } from "react-redux"
+import { postComment } from './commentsSlice'
 
-export default function CommentNewForm({ user, lit_text_id, parent_comment_id, onAddComment, replyButtonClick }) {
+
+export default function CommentNewForm({ litTextId, parentCommentId, onAddComment, replyButtonClick }) {
+  const userState = useSelector((state) => state.user)
+  const user = userState.entities.length > 0 ? userState.entities[0] : null
+
   const [formData, setFormData] = useState({
 		user_id: user.id,
-		lit_text_id: lit_text_id,
-		parent_comment_id: parent_comment_id,
+		lit_text_id: litTextId,
+		parent_comment_id: parentCommentId,
 		content: "",
 		// com_type_ids: []
 	});
 
 	const [comTypes, setComTypes] = useState([])
 
-	const addNewWhat = parent_comment_id ? "Add new reply" : "Add new comment"
+	const addNewWhat = parentCommentId ? "Add new reply" : "Add new comment"
 
   function handleChange(e) {
-    e.preventDefault();
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
@@ -35,25 +40,39 @@ export default function CommentNewForm({ user, lit_text_id, parent_comment_id, o
 		}
 	}
 
+	const dispatch = useDispatch()
+	
   function handleSubmit(e) {
     e.preventDefault();
-    fetch('/comments', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-    .then((resp) => resp.json())
-    .then((data) => {
-      onAddComment(data)
+		dispatch(postComment(formData))
+		.then(() => {
 			setFormData({
 				...formData,
 				content: ""
 			})
-			if (parent_comment_id) replyButtonClick((prevState) => !prevState)
-    });
-  }
+			if (parentCommentId) replyButtonClick((prevState) => !prevState)	
+		})
+	}
+
+  // function handleSubmitOld(e) {
+  //   e.preventDefault();
+  //   fetch('/comments', {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(formData),
+  //   })
+  //   .then((resp) => resp.json())
+  //   .then((data) => {
+  //     onAddComment(data)
+	// 		setFormData({
+	// 			...formData,
+	// 			content: ""
+	// 		})
+	// 		if (parentCommentId) replyButtonClick((prevState) => !prevState)
+  //   });
+  // }
   
   return (
 		<div style={{ padding: 10 }} >
@@ -81,7 +100,7 @@ export default function CommentNewForm({ user, lit_text_id, parent_comment_id, o
 							<input type="checkbox" id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />
 							Footnote 
 						</label>
-						{parent_comment_id ? 
+						{parentCommentId ? 
 							<label style={{ marginRight: 10, fontSize: 14 }} >
 								<input type="checkbox" id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />
 								Answer 

@@ -85,7 +85,7 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(postComment.fulfilled, (state, action) => {
-				state.entities.splice(0, 1, action.payload)
+				state.entities.push(action.payload)
 				state.errors = []
 				state.status = "idle"
 			})
@@ -97,7 +97,7 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(patchComment.fulfilled, (state, action) => {
-				state.entities = action.payload
+				// state.entities = action.payload FIX LOGIC TO UPDATE ONE COMMENT
 				state.status = "idle"
 			})
 			.addCase(patchComment.rejected, (state, action) => {
@@ -108,7 +108,7 @@ const commentsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(destroyComment.fulfilled, (state, action) => {
-				state.entities = action.payload
+				// state.entities = action.payload FIX LOGIC TO REMOVE ONE COMMENT
 				state.status = "idle"
 			})
 			.addCase(destroyComment.rejected, (state, action) => {
