@@ -17,7 +17,7 @@ export default function CommentsList({ litTextId }) {
 			<CommentShow 
 				key={c.id} 
 				comment={c} 
-				// lit_text_id={lit_text_id}
+				litTextId={litTextId}
 				// onEditComment={onEditComment}
 				// user={user} 
 				// allUsers={allUsers} 

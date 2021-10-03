@@ -6,7 +6,7 @@ import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 
-export default function ComRepShow({ comment }) {
+export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
@@ -125,16 +125,16 @@ export default function ComRepShow({ comment }) {
 				{/* <div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
 						<button onClick={replyButtonClick} >Reply</button> 
-					: null}
-					{parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
+					: null} */}
+					{/* {parseInt(commentUser.id) === parseInt(user.id) && !renderComment.deleted ? 
 						<Fragment>
 							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
 							<button style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
 							<button style={{ visibility: "hidden" }} ></button>
 							</Fragment>
-					: null}
-				</div>
-				{editClicked ? 
+					: null} */}
+				{/* </div> */}
+				{/* {editClicked ? 
 					<CommentEditForm 
 						forceRender={forceRender}
 						comment={renderComment}
@@ -144,16 +144,14 @@ export default function ComRepShow({ comment }) {
 						wrapSetErrors={wrapSetErrors}
 						changeDummyState={changeDummyState}
 					/> 
-				: null}
+				: null} */}
 				{replyClicked ? 
 					<CommentNewForm 
-						user={user} 
-						lit_text_id={lit_text_id} 
-						parent_comment_id={comment.id} 
-						onAddComment={onAddComment}
+						litTextId={litTextId} 
+						parentCommentId={comment.id} 
 						replyButtonClick={replyButtonClick} 						
 					/>
-				: null} */}
+				: null} 
 
 			</div>
 		</div>	
