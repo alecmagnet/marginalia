@@ -76,8 +76,7 @@ export default function LitTextShow() {
 					replyButtonClick={replyButtonClick}
 				/> */}
 				<CommentsList 
-					comments={listComments} 
-					// lit_text_id={litText.id} 
+					litTextId={litText.id} 
 					// onEditComment={onEditComment}
 					// user={user} 
 					// allUsers={allUsers} 
