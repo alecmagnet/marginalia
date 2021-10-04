@@ -13,18 +13,18 @@ export default function LitTextShow() {
 	
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
-	console.log("LitTextShow", litText)
 
-  const userState = useSelector((state) => state.user)
-  const user = userState.entities.length > 0 ? userState.entities[0] : null
+  // const userState = useSelector((state) => state.user)
+  // const user = userState.entities.length > 0 ? userState.entities[0] : null
 
-	let listComments = []
 	let parsedContent = ""
+	
+	// let listComments = []
 	if (litTextState.entities.length > 0) {
 		parsedContent = parse(`${litText.content}`)
-		const sortComments = [...litText.comments]
-		const newestFirst = sortComments.sort((a, b) => b.id - a.id)
-		listComments = [...newestFirst]
+		// const sortComments = [...litText.comments]
+		// const newestFirst = sortComments.sort((a, b) => b.id - a.id)
+		// listComments = [...newestFirst]
 	}
 
 
@@ -40,13 +40,13 @@ export default function LitTextShow() {
 				/> 
 			</div>
 		)
-	} else if (litTextState.status === "pending") {
+	} else if (litTextState.status === "error") {
 		return (
-			<h1>Loading...</h1>
+			<h1>We're sorry. There's been an error</h1>
 		)
 	} else {
 		return (
-			<h1>We're sorry. There's been an error</h1>
+			<h1>Loading...</h1>
 		)
 	}
 }

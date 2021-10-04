@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
 
 
-export default function CommentNewForm({ litTextId, parentCommentId, onAddComment, replyButtonClick }) {
+export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick }) {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
@@ -12,10 +12,8 @@ export default function CommentNewForm({ litTextId, parentCommentId, onAddCommen
 		lit_text_id: litTextId,
 		parent_comment_id: parentCommentId,
 		content: "",
-		// com_type_ids: []
+		com_type_ids: []
 	});
-
-	const [comTypes, setComTypes] = useState([])
 
 	const addNewWhat = parentCommentId ? "Add new reply" : "Add new comment"
 
@@ -27,16 +25,21 @@ export default function CommentNewForm({ litTextId, parentCommentId, onAddCommen
   }
 
 	function handleCheck(e) {
-		if (comTypes.includes(parseInt(e.target.value))) {
-			setComTypes((prevState) => {
-				let newArr = prevState.filter((c) => parseInt(c) !== parseInt(e.target.value))
-				return [...newArr]
-				// console.log("did inc: newArr", newArr)
+		console.log("BUTTON CLICKED ID:", parseInt(e.target.value))
+		if (!formData.com_type_ids.includes(parseInt(e.target.value))) {
+			let comTypes = [...formData.com_type_ids, parseInt(e.target.value)]
+			setFormData({
+				...formData,
+				com_type_ids: [...comTypes],
 			})
-			console.log("did include", comTypes)
+			console.log("AFTER CLICK (NOT INCLUDED):", formData)
 		} else {
-			setComTypes((prevState) => [...prevState, parseInt(e.target.value)])
-			console.log("did not include", comTypes)
+			let comTypes = formData.com_type_ids.filter((c) => parseInt(c) !== parseInt(e.target.value))
+			setFormData({
+				...formData,
+				com_type_ids: [...comTypes],
+			})
+			console.log("AFTER CLICK (YES INCLUDED):", formData)
 		}
 	}
 
@@ -50,29 +53,10 @@ export default function CommentNewForm({ litTextId, parentCommentId, onAddCommen
 				...formData,
 				content: ""
 			})
-			if (parentCommentId) replyButtonClick((prevState) => !prevState)	
+			if (parentCommentId) replyButtonClick((prevState) => !prevState)
 		})
 	}
 
-  // function handleSubmitOld(e) {
-  //   e.preventDefault();
-  //   fetch('/comments', {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   })
-  //   .then((resp) => resp.json())
-  //   .then((data) => {
-  //     onAddComment(data)
-	// 		setFormData({
-	// 			...formData,
-	// 			content: ""
-	// 		})
-	// 		if (parentCommentId) replyButtonClick((prevState) => !prevState)
-  //   });
-  // }
   
   return (
 		<div style={{ padding: 10 }} >

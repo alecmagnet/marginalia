@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
 import { signupUser } from '../users/userSlice'
 
 function Signup({ onLogin }) {
@@ -14,6 +15,8 @@ function Signup({ onLogin }) {
 
 	const [errors, setErrors] = useState([])
 
+	const dispatch = useDispatch()
+
 	function handleChange(e) {
 		setFormData({
 			...formData,
@@ -23,6 +26,7 @@ function Signup({ onLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+		dispatch(signupUser(formData))
     fetch("/signup", {
       method: "POST",
       headers: {

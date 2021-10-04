@@ -13,8 +13,19 @@ class CommentsController < ApplicationController
 	end
 
 	# POST /comments
+	# def create
+	# 	comment = Comment.create!(comment_params)
+	# 	render json: comment, status: :created
+	# end
+
+	# POST /comments
 	def create
+		# comment = Comment.create!(user_id: comment_params.user_id, lit_text_id: comment_params.lit_text_id, parent_comment_id: comment_params.parent_comment_id, content: comment_params.content, rating: comment_params.rating, deleted: comment_params.deleted)
 		comment = Comment.create!(comment_params)
+		# puts "comment_params/com_type_ids #{params["com_type_ids"]}" 
+		if params["com_type_ids"].length > 0
+			params["com_type_ids"].each {|c| CommentComType.create!(comment_id: comment.id, com_type_id: c)}
+		end
 		render json: comment, status: :created
 	end
 
@@ -40,7 +51,7 @@ class CommentsController < ApplicationController
 	private
 
 	def comment_params
-		params.permit(:user_id, :lit_text_id, :parent_comment_id, :content, :rating, :deleted ).with_defaults(rating: 0, deleted: false)
+		params.permit(:user_id, :lit_text_id, :parent_comment_id, :content, :rating, :deleted, :com_type_ids ).with_defaults(rating: 0, deleted: false)
 	end
 
 	def find_comment

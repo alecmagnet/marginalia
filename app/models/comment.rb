@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
   has_many :replies, class_name: "Comment", foreign_key: "parent_comment_id"
-  has_many :comment_com_types
+  has_many :comment_com_types, dependent: :destroy
   has_many :com_types, through: :comment_com_types
   belongs_to :user
   belongs_to :lit_text
