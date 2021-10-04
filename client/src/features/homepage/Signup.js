@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { signupUser } from '../users/userSlice'
+import { addSignupUser } from '../users/userSlice'
 
 function Signup({ onLogin }) {
   const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ function Signup({ onLogin }) {
 	const [errors, setErrors] = useState([])
 
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	function handleChange(e) {
 		setFormData({
@@ -26,7 +27,7 @@ function Signup({ onLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-		dispatch(signupUser(formData))
+		// dispatch(signupUser(formData))
     fetch("/signup", {
       method: "POST",
       headers: {
@@ -39,14 +40,15 @@ function Signup({ onLogin }) {
 			if(data.errors) setErrors(data.errors)
 			else {
 				setErrors([])
-				onLogin(data)
+				dispatch(addSignupUser(data))
+				history.push("/")
 			}
 		});
   }
 
 	return (
 		<div >
-			{errors ? errors.map(e => <div style={{ color: "red" }} >{e}</div>) : null}
+			{errors ? errors.map(e => <div key={e} style={{ color: "red" }} >{e}</div>) : null}
 			<form 
 				onSubmit={handleSubmit}
 				className="centered-in-div" 

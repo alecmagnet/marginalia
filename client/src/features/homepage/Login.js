@@ -1,7 +1,7 @@
 import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from 'react-router-dom'
-import { loginUser } from '../users/userSlice'
+import { addLoginUser } from '../users/userSlice'
 import { fetchLitTexts } from '../litTexts/litTextsSlice';
 import { fetchAllUsers } from '../users/allUsersSlice'
 import { fetchComments} from '../comments/commentsSlice'
@@ -27,47 +27,52 @@ function Login() {
 		})
 	}
 
-	function onLogin(e) {
-		e.preventDefault();
-		dispatch(loginUser(formData))
-			.then (() => {
-				if (userState.entities.length > 0 && userState.status === "idle") {
-					dispatch(fetchLitTexts())
-					dispatch(fetchAllUsers())
-					dispatch(fetchComments())					
-					setErrors([])
-					history.push('/')
-				} else {
-					setErrors([...userState.errors])
-		    }
-			}
-		)
-  }
-
-	// function handleSubmit(e) {
+	// function onLogin(e) {
 	// 	e.preventDefault();
-	// 	fetch("/login", {
-	// 		method: "POST",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 		body: JSON.stringify(formData),
-	// 	})
-	// 	.then((r) => r.json())
-	// 	.then((data) => {
-	// 		if(data.errors) setErrors(data.errors)
-	// 		else {
-	// 			setErrors([])
-	// 			onLogin(data)
+	// 	dispatch(loginUser(formData))
+	// 		.then (() => {
+	// 			// if (userState.entities.length > 0 && userState.status === "idle") {
+	// 			if (userState.errors.length > 0) {
+	// 				setErrors([...userState.errors])
+	// 			} else {
+	// 				dispatch(fetchLitTexts())
+	// 				dispatch(fetchAllUsers())
+	// 				dispatch(fetchComments())					
+	// 				setErrors([])
+	// 				history.push('/')
+	// 			}
 	// 		}
-	// 	});  
-	// }
+	// 	)
+  // }
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		fetch("/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+		.then((r) => r.json())
+		.then((data) => {
+			if(data.errors) setErrors(data.errors)
+			else {
+				setErrors([])
+				dispatch(addLoginUser(data))
+				dispatch(fetchLitTexts())
+				dispatch(fetchAllUsers())
+				dispatch(fetchComments())					
+				history.push('/')
+			}
+		});  
+	}
 
 	return (
 		<div>
 			{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
 			{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
-			<form onSubmit={onLogin}>
+			<form onSubmit={handleSubmit}>
 				<input
 					className="centered-in-div" 
 					type="text"

@@ -20,10 +20,19 @@ export const loginUser = createAsyncThunk(
 			},
 			body: JSON.stringify(formData),
 		})
-		const data = await response.json()
-		console.log("loginUser:", data)
-    return data
+		// const data = await response.json()
+		// console.log("loginUser:", data)
+    return response.data
 	}	
+)
+
+export const logoutUser = createAsyncThunk(
+	"user/logoutUser", 
+	async () => {
+		fetch("/logout", {
+      method: "DELETE",
+    })
+	}
 )
 
 export const signupUser = createAsyncThunk(
@@ -51,12 +60,16 @@ const userSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
-		logoutUser(state) {
-			state = null
+		addLoginUser(state, action) {
+			state.entities.splice(0, 1, action.payload)
+			state.errors = []
+			state.status = "idle"
 		},
-		userPostComment(state, action) {
-			state.entities[0].comments.push(action.payload)
-		}
+		addSignupUser(state, action) {
+			state.entities.splice(0, 1, action.payload)
+			state.errors = []
+			state.status = "idle"
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -76,10 +89,25 @@ const userSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(loginUser.fulfilled, (state, action) => {
-				state.entities = action.payload
+				state.entities.splice(0, 1, action.payload)
+				state.errors = []
 				state.status = "idle"
+				console.log("loginUser FULFILLED")
 			})
 			.addCase(loginUser.rejected, (state, action) => {
+				state.errors = action.error.message
+				state.entities = []
+				state.status = "error"
+			})
+			.addCase(logoutUser.pending, (state) => {
+				state.status = "loading"
+			})
+			.addCase(logoutUser.fulfilled, (state, action) => {
+				state.entities = []
+				state.errors = []
+				state.status = "idle"
+			})
+			.addCase(logoutUser.rejected, (state, action) => {
 				state.errors = action.error
 				state.status = "error"
 			})
@@ -97,5 +125,5 @@ const userSlice = createSlice({
 	},
 })
 
-export const { logoutUser, userPostComment } = userSlice.actions
+export const { addLoginUser, addSignupUser } = userSlice.actions
 export default userSlice.reducer
