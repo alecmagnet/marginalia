@@ -25,21 +25,18 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
   }
 
 	function handleCheck(e) {
-		console.log("BUTTON CLICKED ID:", parseInt(e.target.value))
 		if (!formData.com_type_ids.includes(parseInt(e.target.value))) {
 			let comTypes = [...formData.com_type_ids, parseInt(e.target.value)]
 			setFormData({
 				...formData,
 				com_type_ids: [...comTypes],
 			})
-			console.log("AFTER CLICK (NOT INCLUDED):", formData)
 		} else {
 			let comTypes = formData.com_type_ids.filter((c) => parseInt(c) !== parseInt(e.target.value))
 			setFormData({
 				...formData,
 				com_type_ids: [...comTypes],
 			})
-			console.log("AFTER CLICK (YES INCLUDED):", formData)
 		}
 	}
 

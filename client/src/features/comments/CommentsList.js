@@ -9,10 +9,10 @@ export default function CommentsList({ litTextId }) {
 	const showTextComments = allComments.filter((c) => c.lit_text_id === litTextId)
 
 	const parentComments = showTextComments.filter((c) => c.parent_comment_id === null)
-		
-	const renderComments = parentComments.map((c) => {
-		let replies = showTextComments.filter((r) => r.parent_comment_id === c.id)
+	const oldestFirst = parentComments.sort((a, b) => a.id - b.id)
 
+	const renderComments = oldestFirst.map((c) => {
+		let replies = showTextComments.filter((r) => r.parent_comment_id === c.id)
 		return(
 			<CommentShow 
 				key={c.id} 
