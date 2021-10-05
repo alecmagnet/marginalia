@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-function Signup({ onLogin }) {
+function Signup() {
   const [formData, setFormData] = useState({
 		username: "",
 		password: "",

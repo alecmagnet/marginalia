@@ -1,7 +1,9 @@
 import { useEffect, Fragment } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import './App.css';
+
 import Navbar from './features/homepage/Navbar';
 import Signup from './features/homepage/Signup';
 import Login from './features/homepage/Login';
@@ -13,7 +15,7 @@ import Homepage from './features/homepage/Homepage'
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
-import { authorize, addLoginUser } from './features/users/userSlice'
+import { addLoginUser } from './features/users/userSlice'
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -29,7 +31,7 @@ export default function App() {
     fetch("/auth").then((res) => {
       if (res.ok) {
         res.json().then((data) => {
-          addLoginUser(data)
+          dispatch(addLoginUser(data))
           dispatch(fetchLitTexts())
           dispatch(fetchAllUsers())
           dispatch(fetchComments())
@@ -58,6 +60,16 @@ export default function App() {
     onAuth()
   }, [])
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#3e2723",
+      },
+      secondary: {
+        main: "#263238",
+      },
+    },
+  })
   // function onLogin(newUser) {
   //   dispatch(fetchLitTexts())
   //   dispatch(fetchAllUsers())
@@ -76,6 +88,7 @@ export default function App() {
 
 
   return (
+    <ThemeProvider theme={theme}>
     <Fragment>
       <Navbar />
       <Switch>
@@ -119,5 +132,6 @@ export default function App() {
         }
       </Switch>
     </Fragment>
+    </ThemeProvider>
   );
 }

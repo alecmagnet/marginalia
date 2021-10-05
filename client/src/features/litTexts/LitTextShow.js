@@ -35,9 +35,11 @@ export default function LitTextShow() {
 				<h4>{litText.author}</h4>
 				<div>{parsedContent}</div>
 				<p><em>{litText.pubdate}</em></p>
-				<CommentsList 
-					litTextId={litText.id} 
-				/> 
+				{/* <a id="comments"> */}
+					<CommentsList 
+						litTextId={litText.id} 
+					/>
+				{/* </a>  */}
 			</div>
 		)
 	} else if (litTextState.status === "error") {

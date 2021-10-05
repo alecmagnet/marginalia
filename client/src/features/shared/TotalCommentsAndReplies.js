@@ -1,18 +1,24 @@
 import { useSelector } from "react-redux"
+import { Typography } from "@mui/material"
 
-export default function TotalCommentsAndReplies({ showUserId }) {
+export default function TotalCommentsAndReplies({ Id, source }) {
 
 	const stateComments = useSelector((state) => state.comments)
 	const allComments = [...stateComments.entities]
-	const showUserComments = allComments.filter((c) => c.user_id === showUserId)
+	
+	let filteredComments = []
+	if (source === "user") filteredComments = allComments.filter((c) => c.user_id === Id)
+	if (source === "litText") filteredComments = allComments.filter((c) => c.lit_text_id === Id)
 
-	const totalComments = showUserComments.filter((c) => c.parent_comment_id === null).length
+	// const showUserComments = allComments.filter((c) => c.user_id === Id)
+
+	const totalComments = filteredComments.filter((c) => c.parent_comment_id === null).length
 	const showTotalComments = totalComments === 1 ? `${totalComments} comment` : `${totalComments} comments`
 
-	const totalReplies = showUserComments.filter((c) => c.parent_comment_id !== null).length
+	const totalReplies = filteredComments.filter((c) => c.parent_comment_id !== null).length
 	const showTotalReplies = totalReplies === 1 ? `${totalReplies} reply` : `${totalReplies} replies`  
 
 	return (
-		<p>{showTotalComments}, {showTotalReplies}</p>
+		<Typography variant="caption"><em>{showTotalComments}, {showTotalReplies}</em></Typography>
 	)
 }
