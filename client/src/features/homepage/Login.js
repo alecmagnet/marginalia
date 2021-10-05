@@ -1,12 +1,24 @@
 import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from 'react-router-dom'
+
 import { addLoginUser } from '../users/userSlice'
-import { fetchLitTexts } from '../litTexts/litTextsSlice';
+import { fetchLitTexts } from '../litTexts/litTextsSlice'
 import { fetchAllUsers } from '../users/allUsersSlice'
 import { fetchComments} from '../comments/commentsSlice'
 
-function Login() {
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+export default function Login() {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -68,35 +80,99 @@ function Login() {
 		});  
 	}
 
-	return (
-		<div>
-			{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
-			{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
-			<form onSubmit={handleSubmit}>
-				<input
-					className="centered-in-div" 
-					type="text"
-					id="username"
-					value={formData.username}
-					placeholder={"username"}
-					onChange={handleChange}
-				/>
-        <div style={{ paddingTop: 10 }} />
-				<input
-					className="centered-in-div" 
-					type="password"
-					id="password"
-					value={formData.password}
-					placeholder={"password"}
-					onChange={handleChange}
-				/>
-        <div style={{ paddingTop: 10 }} />
-				<button type="submit" className="centered-in-div" >Login</button>
-			</form>
-        <div style={{ paddingTop: 10 }} />
-				<Link to='/signup'>Don't have an account? Sign up</Link>
-		</div>
-  );
-}
+	const theme = createTheme()
 
-export default Login
+	return (
+  	<ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+						{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
+						{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
+            <TextField
+							onChange={handleChange}
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+							value={formData.username}
+              autoFocus
+            />
+            <TextField
+							onChange={handleChange}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+							value={formData.password}
+              autoComplete="current-password"
+            />		
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to='/signup' variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+	)
+	// 	<div>
+	// 		{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
+	// 		{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
+	// 		<form onSubmit={handleSubmit}>
+	// 			<input
+	// 				className="centered-in-div" 
+	// 				type="text"
+	// 				id="username"
+	// 				value={formData.username}
+	// 				placeholder={"username"}
+	// 				onChange={handleChange}
+	// 			/>
+  //       <div style={{ paddingTop: 10 }} />
+	// 			<input
+	// 				className="centered-in-div" 
+	// 				type="password"
+	// 				id="password"
+	// 				value={formData.password}
+	// 				placeholder={"password"}
+	// 				onChange={handleChange}
+	// 			/>
+  //       <div style={{ paddingTop: 10 }} />
+	// 			<button type="submit" className="centered-in-div" >Login</button>
+	// 		</form>
+  //       <div style={{ paddingTop: 10 }} />
+	// 			<Link to='/signup'>Don't have an account? Sign up</Link>
+	// 	</div>
+  // );
+}

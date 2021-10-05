@@ -13,7 +13,7 @@ import Homepage from './features/homepage/Homepage'
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
-import { authorize } from './features/users/userSlice'
+import { authorize, addLoginUser } from './features/users/userSlice'
 // import TestParseLitText from './TestParseLitText';
 // import TestFormNewText from './TestFormNewText'
 
@@ -26,16 +26,33 @@ export default function App() {
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
   const onAuth = () => {
-    dispatch(authorize())
-    .then (() => {
-      if (userState.status === "idle") {
-        dispatch(fetchLitTexts())
-        dispatch(fetchAllUsers())
-        dispatch(fetchComments())
+    fetch("/auth").then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          addLoginUser(data)
+          dispatch(fetchLitTexts())
+          dispatch(fetchAllUsers())
+          dispatch(fetchComments())
+        });
       } else {
-      history.push("/login")
-    }})
+        history.push("/login")
+      }
+    });
   }
+  // const onAuth = () => {
+  //   dispatch(authorize())
+  //   .then (() => {
+  //     if (userState.errors.length > 0) {
+  //       history.push("/login")
+  //     } else if (userState.entities.length !== 1) {
+  //       history.push("/login")
+  //     } else {
+  //       dispatch(fetchLitTexts())
+  //       dispatch(fetchAllUsers())
+  //       dispatch(fetchComments())
+  //     }
+  //   })
+  // }
 
   useEffect(() => {
     onAuth()

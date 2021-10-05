@@ -8,7 +8,7 @@ export default function Navbar() {
   const history = useHistory()
 
 	const userState = useSelector((state) => state.user)
-  const user = userState.entities.length > 0 ? userState.entities[0] : null
+  const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
 
   function handleLogout() {
     dispatch(logoutUser())
@@ -33,7 +33,7 @@ export default function Navbar() {
 					</span>				
 				</Fragment>
 			:
-				<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} ><b><Link to='/'>Please login</Link></b></span>
+				<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} ><b><Link to='/login'>Please login</Link></b></span>
 			}
 		</header>
 	)
