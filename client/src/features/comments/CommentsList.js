@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { Grid } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 
@@ -25,14 +26,24 @@ export default function CommentsList({ litTextId }) {
 
 	return (
 		<div>
-			{renderComments}
-			<a id="new-comment">
-				<CommentNewForm 
-					litTextId={litTextId}
-					parentCommentId={null}
-					replyButtonClick={null}
-				/>
-			</a>
+			<Grid 
+				container 
+				wrap="nowrap" 
+				columns={1}
+				justifyContent="Center"	
+				alignItems="center"
+			>
+				<Grid container sx={{ maxWidth: "60%"}}>
+				{renderComments}
+				<a id="new-comment">
+					<CommentNewForm 
+						litTextId={litTextId}
+						parentCommentId={null}
+						replyButtonClick={null}
+					/>
+				</a>
+			</Grid>
+			</Grid>
 		</div>
 	)
 }

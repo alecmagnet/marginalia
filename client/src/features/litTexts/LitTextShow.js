@@ -18,9 +18,6 @@ export default function LitTextShow() {
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
 	
-  // const userState = useSelector((state) => state.user)
-  // const user = userState.entities.length > 0 ? userState.entities[0] : null
-
 	let commentsHash = ""
 	let newCommentHash = ""
 	if (litTextState.entities.length > 0) commentsHash = `/texts/${litText.id}#comments`
@@ -64,7 +61,6 @@ export default function LitTextShow() {
 						</Tooltip>
 					</div>
 					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
-					{/* <h3>{title}</h3> */}
 					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
 					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
 
@@ -75,10 +71,6 @@ export default function LitTextShow() {
 				</Paper>
 			</Grid>
 			<div style={{padding: 50}} >
-				{/* <h3>{litText.title}</h3>
-				<h4>{litText.author}</h4>
-				<div>{parsedContent}</div>
-				<p><em>{litText.pubdate}</em></p> */}
 				<a id="comments">
 					<CommentsList 
 						litTextId={litText.id} 
@@ -101,18 +93,3 @@ export default function LitTextShow() {
 		)
 	}
 }
-
-	// if (litTextState.status === "idle" && litTextState.entities.length > 0) {
-	// 	return (
-	// 		<div style={{padding: 50}} >
-	// 			<h3>{litText.title}</h3>
-	// 			<h4>{litText.author}</h4>
-	// 			<div>{parsedContent}</div>
-	// 			<p><em>{litText.pubdate}</em></p>
-	// 			{/* <a id="comments"> */}
-	// 				<CommentsList 
-	// 					litTextId={litText.id} 
-	// 				/>
-	// 			{/* </a>  */}
-	// 		</div>
-	// 	)

@@ -1,24 +1,32 @@
 import ComRepShow from "./ComRepShow"
 import RepliesList from "./RepliesList"
+import { Grid, Paper } from '@mui/material'
+
+
 
 export default function CommentShow({ comment, replies, litTextId }) {
 	
-	// const commentUser = allUsers.find((u) => parseInt(u.id) === parseInt(comment.user_id))
 
 	return (
-		<div style={{ padding: 10 }} >
+		<Grid 
+			item xs={7} sx={{ maxWidth: 700, minWidth: 500 }} wrap="nowrap"
+		>
+      <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }}>			
 			<ComRepShow 
 				key={comment.id} 
 				comment={comment}
 				litTextId={litTextId}
 			/>
 			{replies.length > 0 ? 
+				<>
 				<RepliesList 
 					// key={`${comment.id}r`}
 					replies={replies} 
 					litTextId={litTextId}
 				/> 
-			: null}		
-		</div>
+				</>
+			: null}	
+			</Paper>	
+		</Grid>
 	)
 }

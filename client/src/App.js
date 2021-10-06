@@ -103,7 +103,6 @@ export default function App() {
             </Route>
 
             <Route exact path='/users'>
-              <h1>UsersContainer</h1>
               <UsersContainer />
             </Route>
 
@@ -121,7 +120,6 @@ export default function App() {
           <div className="centered-in-window" >
             <div style={{ padding: 15 }} >
             <Route exact path="/login">
-              {/* <LoginContainer onLogin={onLogin} /> */}
               <Login />
             </Route>
             <Route exact path="/signup">

@@ -19,6 +19,7 @@ export default function LitTextListShow({ litText }) {
 	const handlePaperClick = () => {
 		history.push(`/texts/${id}`)
 	}
+
 	return (
 		<Grid item >
 			<Paper 
@@ -26,7 +27,6 @@ export default function LitTextListShow({ litText }) {
 				sx={{ p:3, m: 3, cursor: "pointer", backgroundColor: "#fffaf5" }}
 				onClick={handlePaperClick}>
 				<Typography variant="h5"><b>{title}</b></Typography>
-				{/* <h3>{title}</h3> */}
 				<Typography variant="subtitle1">{author}</Typography>
 				<Typography variant="body2"><em>{pubdate}</em></Typography>
 				<Card variant="outlined" sx={{ p:2, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
@@ -35,14 +35,5 @@ export default function LitTextListShow({ litText }) {
 				<TotalCommentsAndReplies Id={litText.id} source="litText" />				
 			</Paper>
 		</Grid>
-		// <div style={{ padding: 10 }} >
-		// 	<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
-		// 		<Link to={`/texts/${id}`}><h3>{title}</h3></Link>
-		// 		<p>by {author}</p>
-		// 		<p>{pubdate}</p>
-		// 		<p>Preview: {showContent}...</p> 
-		// 		<TotalCommentsAndReplies arr={litText.comments} />
-		// 	</div>
-		// </div>
 	)
 }

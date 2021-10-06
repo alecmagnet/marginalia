@@ -1,4 +1,5 @@
 import TimeAgo from "./TimeAgo";
+import { Typography } from '@mui/material'
 
 export default function TimeAgoContainer({ created_at, updated_at, isDeleted }) {
 
@@ -6,7 +7,7 @@ export default function TimeAgoContainer({ created_at, updated_at, isDeleted }) 
 	const closeParen = ")"
 
 	return (
-		<p style={{ fontSize: 10 }} >
+		<Typography variant="caption" >
 			<em><TimeAgo time={created_at} /></em>
 			{created_at === updated_at ? 
 				null :
@@ -16,6 +17,6 @@ export default function TimeAgoContainer({ created_at, updated_at, isDeleted }) 
 					{closeParen}
 				</em>
 			}
-		</p>
+		</Typography>
 	)
 }

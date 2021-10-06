@@ -7,8 +7,8 @@ import { Typography, Grid } from '@mui/material'
 export default function LitTextsContainer () {
   const { entities, status } = useSelector((state) => state.litTexts)
 
-	const [filteredBy, setFilteredBy] = useState(entities) 
-	const [arrangedBy, setArrangedby] = useState(filteredBy)
+	// const [filteredBy, setFilteredBy] = useState(entities) 
+	// const [arrangedBy, setArrangedby] = useState(filteredBy)
 
 
 

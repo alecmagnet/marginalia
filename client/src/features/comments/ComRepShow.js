@@ -1,11 +1,15 @@
-import { useState, Fragment } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-// import { useState, useRef } from "react"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 import { destroyComment, patchComment } from "./commentsSlice"
+import { Avatar, Grid, Tooltip, Typography } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddCommentIcon from '@mui/icons-material/AddComment'
+
 
 export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
@@ -14,10 +18,11 @@ export default function ComRepShow({ comment, litTextId }) {
 
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
-	
+
 	const showComment = {
 		fullname: comment.user.fullname,
 		username: comment.user.username,
+		image: comment.user.image,
 		content: comment.content,
 		created_at: comment.created_at,
 		updated_at: comment.updated_at,
@@ -27,12 +32,13 @@ export default function ComRepShow({ comment, litTextId }) {
 		com_types: comment.com_types
 	}
 
-	const ghost = <span role="img" aria-label="ghost"> 💀 👻 </span>
+	// const ghost = <span role="img" aria-label="ghost"> 💀 👻 </span>
 
 	const deletedComment = {
-		fullname: ghost,
+		fullname: "",
 		username: "",
-		content: <em>this comment was deleted by user </em>,
+		image: "https://ih1.redbubble.net/image.110003985.7172/flat,750x1000,075,f.u2.jpg",
+		content: <em style={{ color: "#616161" }}>[this comment was deleted by user]</em>,
 		created_at: comment.created_at,
 		updated_at: comment.updated_at,
 		parent_comment_id: comment.parent_comment_id,
@@ -59,21 +65,6 @@ export default function ComRepShow({ comment, litTextId }) {
 		}
 	}
 
-	// function handleDelete(e) {
-	// 	e.preventDefault()
-	// 	fetch(`/comments/${comment.id}`, {
-	// 		method: "DELETE"
-	// 	})
-	// 	.then((r) => {
-	// 		if (r.status === 200) {
-	// 			setRenderComment(deletedComment)
-	// 		} else if (r.status === 204) {
-	// 			onDeleteComment(comment.id)
-	// 		} else {r.json()}
-	// 		})
-	// 	.catch((errors) => setErrors(errors))
-	// }
-
 	function wrapSetErrors(data){
 		setErrors(data)
 	}
@@ -90,38 +81,53 @@ export default function ComRepShow({ comment, litTextId }) {
 
 
 	return (
-		<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5, position: "relative" }} >
-			<div style={{ backgroundColor: "lightgray", padding: 3}} >
-				<div><b>{renderComment.fullname}</b></div>
+		<div style={{ position: "relative"}}>
+		<Grid item sx={12}>
+		<Grid container spacing={2} wrap="nowrap">
 				{renderComment.deleted ? null : 
-					<div>@{renderComment.username}</div>}
+					<CommentType comTypes={renderComment.com_types} />
+				}
+			<Grid item sx={3}>
+				<Avatar alt={renderComment.fullname} src={renderComment.image} />
+			</Grid>
+			<Grid justifyContent="left" item xs={9}>
+				<Typography variant="h6">{renderComment.fullname}</Typography>
 				{renderComment.deleted ? null : 
-					<CommentType comTypes={renderComment.com_types} />}
-			</div>
-			<p>
-				{/* <span style={{ fontSize: 10 }} >(
-					<span>id: {renderComment.id}</span>
-					{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
-				</span> */}
-				{renderComment.content}
-			</p>	
-			<TimeAgoContainer 
-				created_at={renderComment.created_at} 
-				updated_at={renderComment.updated_at} 
-				isDeleted={renderComment.deleted} 
-			/>
-			<div>
+					<Typography variant="subtitle2"><em>@{renderComment.username}</em></Typography>
+				}
+				<Typography variant="body1" sx={{ mt:2, mb:2 }}>
+					{/* TO CHECK THAT REPLIES ARE RENDERING UNDER THE RIGHT COMMENT */}
+					{/* <span style={{ fontSize: 10 }} >(
+						<span>id: {renderComment.id}</span>
+						{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
+					</span> */}
+					{renderComment.content}
+				</Typography>	
+				<TimeAgoContainer 
+					created_at={renderComment.created_at} 
+					updated_at={renderComment.updated_at} 
+					isDeleted={renderComment.deleted} 
+				/>
+			</Grid>
+			</Grid>
+			<Grid item xs={12}>
 				{errors ? errors.map((e) => <div>{e}</div>) : null}
 				<div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
-						<button onClick={replyButtonClick} >Reply</button> 
+            <Tooltip title="Reply" arrow>
+							<AddCommentIcon size="large" sx={{ color: "#757575", ml:7, mt:2, mb:1 }} onClick={replyButtonClick}/> 
+						</Tooltip>
 					: null}
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
-						<Fragment>
-							<button onClick={editButtonClick} style={{ position: "absolute", right: 65, bottom: 5 }} >Edit</button>
-							<button onClick={handleDelete} style={{ position: "absolute", right: 5, bottom: 5 } } >Delete</button>
-							<button style={{ visibility: "hidden" }} ></button>
-							</Fragment>
+						<div style={{ justifyContent: "right" }} >
+							<Tooltip title="Delete" arrow >
+								<DeleteIcon size="large" sx={{ color: "#757575", position: "absolute", right: 45, mt:2, mb:1 }} onClick={handleDelete} /> 
+							</Tooltip>
+							<Tooltip title="Edit" arrow >
+								<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
+							</Tooltip>
+							<AddCommentIcon sx={{ visibility: "hidden", mt:2, mb:2}} />
+							</div>
 					: null}					
 				</div>
 				{editClicked ? 
@@ -139,7 +145,8 @@ export default function ComRepShow({ comment, litTextId }) {
 					/>
 				: null} 
 
-			</div>
-		</div>	
+			</Grid>
+		</Grid>	
+		</div>
 	)
 }
