@@ -13,7 +13,8 @@ export default function LitTextListShow({ litText }) {
 		let p2 = p1.replaceAll('</p>', " // ")
 		parsedContent = p2.replace(/(<([^>]+)>)/gi, " ")
 	}
-	const showContent = parsedContent.slice(0, 100)
+	const firstHundred = parsedContent.slice(0, 150)
+	const showContent = firstHundred.replace(/\s.\w+$/, "")
 
 	const history = useHistory()
 	const handlePaperClick = () => {
@@ -30,7 +31,7 @@ export default function LitTextListShow({ litText }) {
 				<Typography variant="subtitle1">{author}</Typography>
 				<Typography variant="body2"><em>{pubdate}</em></Typography>
 				<Card variant="outlined" sx={{ p:2, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
-				<Typography variant="body1">{showContent}. . .</Typography> 
+				<Typography variant="body1">{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography> 
 				</Card>
 				<TotalCommentsAndReplies Id={litText.id} source="litText" />				
 			</Paper>

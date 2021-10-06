@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { Grid, Paper, Typography, Tooltip } from '@mui/material'
@@ -12,8 +12,13 @@ import { HashLink } from 'react-router-hash-link'
 export default function LitTextShow() {
 	const params = useParams()
   const dispatch = useDispatch()
+	const history = useHistory()
+	const location = useLocation()
 	
-	useEffect(() => dispatch(fetchLitTextById(params.id)), [])
+	useEffect(() => {
+		if (location.hash.length > 0) history.push(location.pathname)
+		dispatch(fetchLitTextById(params.id))
+	}, [])
 	
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
@@ -70,12 +75,10 @@ export default function LitTextShow() {
 
 				</Paper>
 			</Grid>
-			<div style={{padding: 50}} >
-				<a id="comments">
+			<div style={{padding: 50}} id="comments" >
 					<CommentsList 
 						litTextId={litText.id} 
 					/>
-				</a> 
 			</div>
 		</Grid>
 		)

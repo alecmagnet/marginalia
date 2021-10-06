@@ -35,13 +35,13 @@ export default function CommentsList({ litTextId }) {
 			>
 				<Grid container sx={{ maxWidth: "60%"}}>
 				{renderComments}
-				<a id="new-comment">
+				<div id="new-comment" />
 					<CommentNewForm 
 						litTextId={litTextId}
 						parentCommentId={null}
 						replyButtonClick={null}
 					/>
-				</a>
+				{/* </div> */}
 			</Grid>
 			</Grid>
 		</div>
