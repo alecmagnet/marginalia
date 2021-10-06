@@ -20,7 +20,6 @@ export default function CommentShow({ comment, replies, litTextId }) {
 			{replies.length > 0 ? 
 				<>
 				<RepliesList 
-					// key={`${comment.id}r`}
 					replies={replies} 
 					litTextId={litTextId}
 				/> 
