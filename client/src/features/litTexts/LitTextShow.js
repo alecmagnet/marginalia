@@ -2,21 +2,29 @@ import parse from 'html-react-parser'
 import { useParams } from 'react-router-dom'
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper, Typography, Tooltip } from '@mui/material'
+import AddCommentIcon from '@mui/icons-material/AddComment'
+import ForumIcon from '@mui/icons-material/Forum';
 import CommentsList from '../comments/CommentsList'
-import { fetchLitTextById } from './showTextSlice';
+import { fetchLitTextById } from './showTextSlice'
+import { HashLink } from 'react-router-hash-link'
 
 export default function LitTextShow() {
 	const params = useParams()
   const dispatch = useDispatch()
-
+	
 	useEffect(() => dispatch(fetchLitTextById(params.id)), [])
 	
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
-
+	
   // const userState = useSelector((state) => state.user)
   // const user = userState.entities.length > 0 ? userState.entities[0] : null
+
+	let commentsHash = ""
+	let newCommentHash = ""
+	if (litTextState.entities.length > 0) commentsHash = `/texts/${litText.id}#comments`
+	if (litTextState.entities.length > 0) newCommentHash = `/texts/${litText.id}#new-comment`
 
 	let parsedContent = ""
 	
@@ -37,19 +45,31 @@ export default function LitTextShow() {
 			alignItems="center"
 		>
 			<Grid 
-				item xs={9}
+				item xs={9} sx={{ maxWidth: 850 }}
 			>
 				<Paper 
 					elevation={9} 
 					sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
 				>
-					<Typography variant="h5" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
+					<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
+            <Tooltip title="Comments" arrow>
+							<HashLink smooth to={commentsHash} style={{ marginRight: 12, color: "#757575" }}>
+									<ForumIcon size="small" />
+								</HashLink>
+						</Tooltip>
+            <Tooltip title="New Comment" arrow>
+							<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
+								<AddCommentIcon size="small" />
+							</HashLink>
+						</Tooltip>
+					</div>
+					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
 					{/* <h3>{title}</h3> */}
-					<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{litText.author}</Typography>
-					<Typography variant="body2" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
-					<Typography variant="body1" sx={{ p:3, display:"flex", justifyContent:"center" }}>
-						<div style={{ margin:"0 auto" }}>
-						{parsedContent}</div>
+					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
+					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
+
+					<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, display:"flex", justifyContent:"center" }}>
+						{parsedContent}
 						</Typography>
 
 				</Paper>
@@ -59,11 +79,11 @@ export default function LitTextShow() {
 				<h4>{litText.author}</h4>
 				<div>{parsedContent}</div>
 				<p><em>{litText.pubdate}</em></p> */}
-				{/* <a id="comments"> */}
+				<a id="comments">
 					<CommentsList 
 						litTextId={litText.id} 
 					/>
-				{/* </a>  */}
+				</a> 
 			</div>
 		</Grid>
 		)

@@ -26,11 +26,13 @@ export default function CommentsList({ litTextId }) {
 	return (
 		<div>
 			{renderComments}
-			<CommentNewForm 
-				litTextId={litTextId}
-				parentCommentId={null}
-				replyButtonClick={null}
-			/>
+			<a id="new-comment">
+				<CommentNewForm 
+					litTextId={litTextId}
+					parentCommentId={null}
+					replyButtonClick={null}
+				/>
+			</a>
 		</div>
 	)
 }
