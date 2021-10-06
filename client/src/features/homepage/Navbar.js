@@ -3,17 +3,17 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
 
-import { styled, alpha } from '@mui/material/styles';
+// import { styled, alpha } from '@mui/material/styles';
+// import InputBase from '@mui/material/InputBase';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircle from '@mui/icons-material/AccountCircle';
