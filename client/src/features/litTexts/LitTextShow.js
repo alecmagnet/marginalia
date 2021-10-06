@@ -45,6 +45,7 @@ export default function LitTextShow() {
 			container 
 			justifyContent="Center"	
 			alignItems="center"
+			columns="1"
 		>
 			<Grid 
 				item xs={9} sx={{ maxWidth: 850 }}
@@ -65,14 +66,22 @@ export default function LitTextShow() {
 							</HashLink>
 						</Tooltip>
 					</div>
+					<Grid container wrap="nowrap">
+						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
 					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
-
-					<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, display:"flex", justifyContent:"center" }}>
-						{parsedContent}
+					{litText.prose === true ? 
+						<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, justifyContent:"center" }}>
+							{parsedContent}
 						</Typography>
-
+						:
+						<Typography variant="body1" sx={{ pb:3, pr:3, pl:12, pt:2, justifyContent:"center" }}>
+							{parsedContent}
+						</Typography>
+						}
+					</Grid>
+					</Grid>
 				</Paper>
 			</Grid>
 			<div style={{padding: 50}} id="comments" >
