@@ -9,7 +9,7 @@ export default function CommentShow({ comment, replies, litTextId }) {
 
 	return (
 		<Grid 
-			item xs={7} sx={{ maxWidth: 700, minWidth: 500 }} wrap="nowrap"
+			item xs={7} sx={{ maxWidth: 700, minWidth: 500 }}
 		>
       <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }}>			
 			<ComRepShow 

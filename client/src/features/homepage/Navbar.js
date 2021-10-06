@@ -1,5 +1,5 @@
-import { Fragment, useState } from "react"
-import { Link, useHistory } from 'react-router-dom'
+import { useState } from "react"
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
 
@@ -87,11 +87,11 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
 			{userState.entities.length > 0 ?
-				<Fragment>
-					<MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-					<MenuItem onClick={handleLogout}>Logout</MenuItem>
-				</Fragment>
-			: <MenuItem onClick={handleLoginClick}>Login</MenuItem> }
+				<MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+				: <MenuItem onClick={handleLoginClick}>Login</MenuItem> }
+			{userState.entities.length > 0 ?
+				<MenuItem onClick={handleLogout}>Logout</MenuItem>
+				: null}
     </Menu>
   );
 
