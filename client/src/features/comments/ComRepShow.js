@@ -32,8 +32,6 @@ export default function ComRepShow({ comment, litTextId }) {
 		com_types: comment.com_types
 	}
 
-	// const ghost = <span role="img" aria-label="ghost"> 💀 👻 </span>
-
 	const deletedComment = {
 		fullname: "",
 		username: "",
