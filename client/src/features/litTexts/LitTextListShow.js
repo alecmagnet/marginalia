@@ -27,13 +27,18 @@ export default function LitTextListShow({ litText }) {
 				elevation={6} 
 				sx={{ p:3, m: 3, cursor: "pointer", backgroundColor: "#fffaf5" }}
 				onClick={handlePaperClick}>
-				<Typography variant="h5"><b>{title}</b></Typography>
-				<Typography variant="subtitle1">{author}</Typography>
-				<Typography variant="body2"><em>{pubdate}</em></Typography>
-				<Card variant="outlined" sx={{ p:2, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
-				<Typography variant="body1">{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography> 
+				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
+				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
+				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}</Typography>
+				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
+					<Typography sx={{ fontSize: 14, textAlign:"center" }} color="text.secondary" gutterBottom>
+						<em>Preview</em>
+					</Typography>				
+					<Typography variant="body1">{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography> 
 				</Card>
-				<TotalCommentsAndReplies Id={litText.id} source="litText" />				
+				<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
+					<TotalCommentsAndReplies Id={litText.id} source="litText" />				
+				</div>
 			</Paper>
 		</Grid>
 	)

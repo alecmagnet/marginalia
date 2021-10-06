@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
+import { fetchUserById } from '../users/showUserSlice'
+
 
 // import { styled, alpha } from '@mui/material/styles';
 // import InputBase from '@mui/material/InputBase';
@@ -41,6 +43,7 @@ export default function Navbar() {
 
 	const handleProfileClick = () => {
 		handleMenuClose()
+		dispatch(fetchUserById(user.id))
 		history.push(`/users/${user.id}`)
 	}
 
