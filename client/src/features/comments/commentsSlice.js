@@ -107,7 +107,7 @@ const commentsSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchComments.pending, (state) => {
-				state.status = "loading"
+				state.status = "pending"
 			})
 			.addCase(fetchComments.fulfilled, (state, action) => {
 				state.entities = action.payload
@@ -118,7 +118,7 @@ const commentsSlice = createSlice({
 				state.status = "error"
 			})
 			.addCase(postComment.pending, (state) => {
-				state.status = "loading"
+				state.status = "pending"
 			})
 			.addCase(postComment.fulfilled, (state, action) => {
 				state.entities.push(action.payload)
@@ -130,7 +130,7 @@ const commentsSlice = createSlice({
 				state.status = "error"
 			})
 			.addCase(patchComment.pending, (state) => {
-				state.status = "loading"
+				state.status = "pending"
 			})
 			.addCase(patchComment.fulfilled, (state, action) => {
 				const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
@@ -142,7 +142,7 @@ const commentsSlice = createSlice({
 				state.status = "error"
 			})
 			.addCase(destroyComment.pending, (state) => {
-				state.status = "loading"
+				state.status = "pending"
 			})
 			.addCase(destroyComment.fulfilled, (state, action) => {
 				const newArr = state.entities.filter((com) => com.id !== action.payload)
@@ -156,5 +156,4 @@ const commentsSlice = createSlice({
 	},
 })
 
-export const { logoutUser } = commentsSlice.actions
 export default commentsSlice.reducer

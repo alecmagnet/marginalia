@@ -19,11 +19,7 @@ const initialState = {
 const allUsersSlice = createSlice({
 	name: "allUsers",
 	initialState,
-	reducers: {
-		// setUser(state, action) {
-		// 	state.user = action.payload
-		// }
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchAllUsers.pending, (state) => {
@@ -36,5 +32,4 @@ const allUsersSlice = createSlice({
 	},
 })
 
-// export const { setUser } = allUsersSlice.actions
 export default allUsersSlice.reducer
