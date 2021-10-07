@@ -84,7 +84,7 @@ export default function LitTextShow() {
 					</Grid>
 				</Paper>
 			</Grid>
-			<div style={{padding: 50}} id="comments" >
+			<div style={{padding: 10, marginLeft: "25%", marginRight: "25%", maxWidth: 800}} id="comments" >
 					<CommentsList 
 						litTextId={litText.id} 
 					/>
