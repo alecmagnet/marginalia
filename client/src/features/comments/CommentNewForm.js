@@ -63,58 +63,49 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 			item xs={12} sx={{ maxWidth: 700, minWidth: 500, width: "100%" }}
 		>
       <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
-		<div style={{ position: "relative"}}>
-			<Grid item sx={12} fullWidth >
-			<Grid container spacing={2} wrap="nowrap" >			
-			<Grid item sx={3}>
-				<Avatar alt={user.fullname} src={user.image} />
-			</Grid>
-			<Grid justifyContent="left" item xs={9} >
-				<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
-					<TextareaAutosize 
-			      aria-label="minimum height"
-						minRows={3}
-						placeholder={addNewWhat}
-						value={formData.content} 
-						id="content"
-						name="content"
-						onChange={handleChange}
-						style={{ width: "100%" }}
-					/>
-					<div style={{ height: 10, visibility: "hidden" }}>Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.</div>
-					<Button  variant="contained" type='submit' sx={{ mr: 5 }}>Post</Button>
-					<label><Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />Reading</label>
-					<label><Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />Question</label>
-					<label><Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />Footnote</label>
-						{/* <label style={{ marginRight: 10, fontSize: 14 }} > 
-							<input type="checkbox" id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />
-							Reading 
-						</label> */}
-						{/* <label style={{ marginRight: 10, fontSize: 14 }} > 
-							<input type="checkbox" id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />
-							Question 
-						</label> */}
-						{/* <label style={{ marginRight: 10, fontSize: 14 }} > 
-							<input type="checkbox" id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />
-							Footnote 
-						</label> */}
-						{parentCommentId ? 
-							<label><Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />Footnote</label>
-							// <label style={{ marginRight: 10, fontSize: 14 }} >
-							// 	<input type="checkbox" id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />
-							// 	Answer 
-							// </label> 
-						: null}
-					<div style={{ height: 9 }} />
-					{/* <Button  variant="contained" floated="right" type='submit'>Post</Button> */}
-				</form>
-			{/* </div> */}
-    {/* </div>  */}
-		</Grid>
-		</Grid>
-		</Grid>
-		</div>
-		</Paper>
+				<div style={{ position: "relative"}}>
+					<Grid item sx={12} fullWidth >
+						<Grid container spacing={2} wrap="nowrap" >			
+							<Grid item sx={3}>
+								<Avatar alt={user.fullname} src={user.image} />
+							</Grid>
+						<Grid justifyContent="left" item xs={9} >
+							<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
+								<TextareaAutosize 
+									aria-label="minimum height"
+									minRows={3}
+									placeholder={addNewWhat}
+									value={formData.content} 
+									id="content"
+									name="content"
+									onChange={handleChange}
+									style={{ width: "100%" }}
+								/>
+								<div style={{ height: 10, visibility: "hidden" }}>
+									Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.
+								</div>
+								<Button  variant="contained" type='submit' sx={{ mr: 5 }}>Post</Button>
+								<label>
+									<Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />Reading
+								</label>
+								<label>
+									<Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />Question
+								</label>
+								<label>
+									<Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />Footnote
+								</label>
+								{parentCommentId ? 
+									<label>
+										<Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />Footnote
+									</label>
+								: null}
+								<div style={{ height: 9 }} />
+							</form>
+							</Grid>
+						</Grid>
+					</Grid>
+				</div>
+			</Paper>
 	  </Grid>
   )
 }

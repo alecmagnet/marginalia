@@ -34,16 +34,18 @@ export default function CommentsList({ litTextId }) {
 				wrap="nowrap"
 				sx={{ maxWidth: 800, display: "flex"}}
 			>
-				<Grid container sx={{ maxWidth: "90%"}} justifyContent="center">
-				{renderComments}
-				<div id="new-comment" />
+				<Grid 
+					container 
+					sx={{ maxWidth: "90%"}} justifyContent="center"
+				>
+					{renderComments}
+					<div id="new-comment" />
 					<CommentNewForm 
 						litTextId={litTextId}
 						parentCommentId={null}
 						replyButtonClick={null}
 					/>
-				{/* </div> */}
-			</Grid>
+				</Grid>
 			</Grid>
 		</div>
 	)
