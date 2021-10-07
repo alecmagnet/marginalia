@@ -71,15 +71,15 @@ export default function LitTextShow() {
 					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
 					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
-					{litText.prose === true ? 
-						<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, justifyContent:"center" }}>
-							{parsedContent}
-						</Typography>
-						:
-						<Typography variant="body1" sx={{ pb:3, pr:3, pl:12, pt:2, justifyContent:"center" }}>
-							{parsedContent}
-						</Typography>
-						}
+						<Grid container wrap="nowrap">
+							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+								<div style={{ position: "flex", }} >
+									<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+										{parsedContent}
+									</Typography>
+									</div>
+							</Grid>
+						</Grid>
 					</Grid>
 					</Grid>
 				</Paper>
