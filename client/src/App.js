@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -17,15 +17,18 @@ import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
 import { addLoginUser } from './features/users/userSlice'
 // import TestParseLitText from './TestParseLitText';
-// import TestFormNewText from './TestFormNewText'
-
 
 export default function App() {
+  const [authorized, setAuthorized] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
 
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
+
+  const handleAuth = () => {
+    setAuthorized(true)
+  }
 
   const onAuth = () => {
     fetch("/auth").then((res) => {
@@ -35,26 +38,13 @@ export default function App() {
           dispatch(fetchLitTexts())
           dispatch(fetchAllUsers())
           dispatch(fetchComments())
+          handleAuth()
         });
       } else {
         history.push("/login")
       }
     });
   }
-  // const onAuth = () => {
-  //   dispatch(authorize())
-  //   .then (() => {
-  //     if (userState.errors.length > 0) {
-  //       history.push("/login")
-  //     } else if (userState.entities.length !== 1) {
-  //       history.push("/login")
-  //     } else {
-  //       dispatch(fetchLitTexts())
-  //       dispatch(fetchAllUsers())
-  //       dispatch(fetchComments())
-  //     }
-  //   })
-  // }
 
   useEffect(() => {
     onAuth()
@@ -70,66 +60,55 @@ export default function App() {
       },
     },
   })
-  // function onLogin(newUser) {
-  //   dispatch(fetchLitTexts())
-  //   dispatch(fetchAllUsers())
-  //   history.push('/')
-  // }
-
-  // function onLogout() {
-  //   dispatch(logoutUser())
-  //   history.push('/')
-  // }
-
-
-  // function updateUser(data) {
-  //   setUser(data)
-  // }
-
 
   return (
     <ThemeProvider theme={theme}>
-    <Fragment>
-      <Navbar />
-      <Switch>
-        {user ?
-          <div>
-            <Route exact path='/texts'>
-              <LitTextsContainer />
-            </Route>
+      {authorized ?
+        <Fragment>
+          <Navbar />
+          <Switch>
+            {user ?
+              <div>
+                <Route exact path='/texts'>
+                  <LitTextsContainer />
+                </Route>
 
-            <Route exact path='/texts/:id'>
-              <LitTextShow />
-            </Route>
+                <Route exact path='/texts/:id'>
+                  <LitTextShow />
+                </Route>
 
-            <Route exact path='/users'>
-              <UsersContainer />
-            </Route>
+                <Route exact path='/users'>
+                  <UsersContainer />
+                </Route>
 
-            {/* <Redirect from="/x-users/:id" to="/users/:id" /> */}
-            <Route exact path='/users/:id'>
-              <UserShow />
-            </Route>
+                <Route exact path='/users/:id'>
+                  <UserShow />
+                </Route>
 
-            <Route exact path='/'>
-              <Homepage />
-              {/* <TestFormNewText /> */}
-            </Route>
-          </div>
-        :
-          <div className="centered-in-window" >
-            <div style={{ padding: 15 }} >
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/signup">
-              <Signup />
-            </Route>
-            </div>
-          </div>
-        }
-      </Switch>
-    </Fragment>
+                <Route exact path='/'>
+                  <Homepage />
+                  {/* <TestFormNewText /> */}
+                </Route>
+              </div>
+            :
+              <div className="centered-in-window" >
+                <div style={{ padding: 15 }} >
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/signup">
+                  <Signup />
+                </Route>
+                </div>
+              </div>
+            }
+          </Switch>
+        </Fragment>
+      :
+        <div className="centered-in-window" >
+            <h1>Loading...</h1>
+        </div>      
+      }
     </ThemeProvider>
   );
 }
