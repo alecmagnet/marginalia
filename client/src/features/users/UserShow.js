@@ -90,7 +90,7 @@ export default function UserShow() {
 					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 5, color: "#373737"}}><em>Joined {renderDate}</em></Typography>
 					{showUser.id === user.id ?
 						<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
-							<Button variant="contained" onClick={editButtonClick} >Edit</Button>
+							<Button variant="contained" onClick={editButtonClick} sx={{ mb: 5 }}>Edit</Button>
 							{editClicked ?
 								<UserEditForm 
 								user={user}
