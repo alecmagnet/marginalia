@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
-import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button } from '@mui/material'
+import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } from '@mui/material'
 
 
 
@@ -71,6 +71,29 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 							</Grid>
 						<Grid justifyContent="left" item xs={9} >
 							<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
+								<div style={{ display: "flex", justifyContent: "center", }}>
+								<label>
+									<Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />
+									<Typography variant="caption">Reading</Typography>
+								</label>
+								<label>
+									<Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />
+									<Typography variant="caption">Question</Typography>
+								</label>
+								<label>
+									<Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />
+									<Typography variant="caption">Footnote</Typography>
+								</label>
+								{parentCommentId ? 
+									<label>
+										<Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />
+										<Typography variant="caption">Answer</Typography>
+									</label>
+								: null}
+								</div>
+								<div style={{ height: 10, visibility: "hidden" }}>
+									Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.
+								</div>
 								<TextareaAutosize 
 									aria-label="minimum height"
 									minRows={3}
@@ -81,25 +104,8 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 									onChange={handleChange}
 									style={{ width: "100%" }}
 								/>
-								<div style={{ height: 10, visibility: "hidden" }}>
-									Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.
-								</div>
-								<Button  variant="contained" type='submit' sx={{ mr: 5 }}>Post</Button>
-								<label>
-									<Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />Reading
-								</label>
-								<label>
-									<Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />Question
-								</label>
-								<label>
-									<Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />Footnote
-								</label>
-								{parentCommentId ? 
-									<label>
-										<Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />Footnote
-									</label>
-								: null}
 								<div style={{ height: 9 }} />
+								<Button  variant="contained" type='submit' sx={{ mr: 5, mt: 1, mb: 2 }}>Post</Button>
 							</form>
 							</Grid>
 						</Grid>
