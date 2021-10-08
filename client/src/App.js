@@ -24,7 +24,9 @@ export default function App() {
   const history = useHistory()
 
   const userState = useSelector((state) => state.user)
-
+  const commentsState = useSelector((state) => state.comments)  
+  const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
+  
   const handleAuth = () => {
     setAuthorized(true)
   }
@@ -58,15 +60,17 @@ export default function App() {
         main: "#263238",
       },
     },
+    // typography: {
+    //   fontFamily: "Georgia"
+    // }
   })
 
   return (
     <ThemeProvider theme={theme}>
-      {authorized ?
         <Fragment>
           <Navbar />
           <Switch>
-            {/* {user ? */}
+            {user ?
               <div>
                 <Route exact path='/texts'>
                   <LitTextsContainer />
@@ -89,7 +93,11 @@ export default function App() {
                   {/* <TestFormNewText /> */}
                 </Route>
               </div>
-            {/* : */}
+            : userState.status === "pending" || commentsState.status === "pending" ?
+              <div className="centered-in-window" >
+                <h1>Loading...</h1>
+              </div>
+            : 
               <div className="centered-in-window" >
                 <div style={{ padding: 15 }} >
                 <Route exact path="/login">
@@ -100,14 +108,9 @@ export default function App() {
                 </Route>
                 </div>
               </div>
-            {/* } */}
+            }      
           </Switch>
         </Fragment>
-      :
-        <div className="centered-in-window" >
-            <h1>Loading...</h1>
-        </div>      
-      }
     </ThemeProvider>
   );
 }

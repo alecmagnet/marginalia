@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from "react-redux"
-
 import { addSignupUser } from '../users/userSlice'
-
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,7 +11,6 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -29,7 +26,6 @@ function Signup() {
 
 	const dispatch = useDispatch()
 	const history = useHistory()
-	const theme = createTheme()
 
 	function handleChange(e) {
 		setFormData({
@@ -59,8 +55,11 @@ function Signup() {
 		});
   }
 
+  const handleLoginClick = () => {
+    history.push('/login')
+  }
+
 	return (
-		<ThemeProvider theme={theme}>
 			<Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -71,7 +70,7 @@ function Signup() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "#a69b97" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -121,7 +120,6 @@ function Signup() {
                   fullWidth
                   name="image"
                   label="Profile Picture URL"
-                  type="image"
                   id="image"
                   autoComplete="new-image"
                 />
@@ -131,8 +129,7 @@ function Signup() {
 									onChange={handleChange}
                   fullWidth
                   name="bio"
-                  label="Bio"
-                  type="bio"
+                  label="About Me"
                   id="bio"
                   autoComplete="new-bio"
                 />
@@ -148,15 +145,14 @@ function Signup() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
+								<Typography variant="subtitle" sx={{ color: "#546e7a", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
+									Already have an account? Sign in
+								</Typography>
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 
 

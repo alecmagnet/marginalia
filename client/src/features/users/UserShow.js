@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react"
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import UserEditForm from './UserEditForm'
 import UserTextShow from "./UserTextShow"
 import { fetchUserById } from './showUserSlice'
-import { Grid, Paper, Typography, Avatar, Button } from '@mui/material'
+import { Grid, Paper, Typography, Avatar, Button, Card, Divider } from '@mui/material'
 
 
 export default function UserShow() {
 	const [editClicked, setEditClicked] = useState(false)
 	
+	const history = useHistory()
 	const params = useParams()
 	const dispatch = useDispatch()
 
@@ -31,7 +32,11 @@ export default function UserShow() {
 		setEditClicked(!editClicked)
 	}
 
-	function updateUser(data) {
+	const goCommentClick = () => {
+		history.push("/texts")
+	}
+
+	function handleUpdatedUser() {
 		// setShowUser(data) DISPATCH PATCH REQUEST HERE OR IN EDIT FORM?
 		setEditClicked(!editClicked)
 	}
@@ -42,8 +47,6 @@ export default function UserShow() {
   const splitDate = trimDate.split(" ")
   const renderDate = `${splitDate[0]} ${splitDate[1]}, ${splitDate[2]}`
 
-
-	// const renderLitTexts = user.comments ? user.comments.map((c) => console.log(c)) : null
 	let litTextIds = []
 	let renderPreviews = []
 	if (showUser.comments) {
@@ -53,12 +56,6 @@ export default function UserShow() {
 		litTextIds = [...new Set(arr)]
 		renderPreviews = litTextIds.map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted} />)
 	}
-	// const arr = showUser.comments.map((c) => c.lit_text_id)
-	// const litTextIds = [... new Set(arr)]
-		// console.log("showUser.comments", showUser.comments)
-		// console.log("arr", arr)
-		// console.log("litTextIds", litTextIds)
-	
 	 
 
 	if (showUserStatus === "idle") {
@@ -85,21 +82,33 @@ export default function UserShow() {
 					</div>
 					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{showUser.fullname}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center", m: 1, mb: 2, }}><em>@{showUser.username}</em></Typography>
-					<Typography variant="h5" sx={{ textAlign:"center", mt: 3, fontVariant: "small-caps", }} >bio</Typography> 					
-					<Typography variant="body1" sx={{ textAlign:"center", m: 4, mt: 0, }} >{showUser.bio}</Typography> 
-					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 5, color: "#373737"}}><em>Joined {renderDate}</em></Typography>
+					<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, mx:"20%", backgroundColor: "#fefcf9", }}>
+						<Typography sx={{ fontSize: 20, textAlign:"center", mt:1 }} color="#424242" gutterBottom>
+							Bio
+						</Typography>				
+						<Typography variant="body2">{showUser.bio}</Typography> 
+					</Card>
+					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 2, color: "#373737"}}><em>Joined {renderDate}</em></Typography>
 					{showUser.id === user.id ?
-						<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
-							<Button variant="contained" onClick={editButtonClick} sx={{ mb: 5 }}>Edit</Button>
+						<div>
+							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
+								<Button variant="contained" onClick={editButtonClick} sx={{ mb: 5 }}>Edit</Button>
+							</div>
 							{editClicked ?
 								<UserEditForm 
 								user={user}
-								updateUser={updateUser} /> 
+								handleUpdatedUser={handleUpdatedUser} /> 
 							: null}
 						</div>
 					: null}
-					<Typography variant="h5" sx={{ textAlign:"center", mb: 1, }} >Comments</Typography> 					
-					{renderPreviews} 
+					<Divider sx={{ m: 5, }}>
+						<Typography variant="h5" sx={{ textAlign:"center", }} >Comments</Typography>
+					</Divider> 		
+					{user.comments.length > 0 ? <div>{renderPreviews}</div> :
+						<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
+							Go comment on some stories and poems!
+						</Typography>
+					}			 
 				</Paper>
 			</Grid>
 		</Grid>

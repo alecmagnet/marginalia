@@ -18,7 +18,13 @@ const initialState = {
 const allUsersSlice = createSlice({
 	name: "allUsers",
 	initialState,
-	reducers: {},
+	reducers: {
+		updateUser(state, action) {
+			const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
+			state.entities[index] = action.payload
+			state.status = "idle"
+		},		
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchAllUsers.pending, (state) => {
@@ -31,4 +37,5 @@ const allUsersSlice = createSlice({
 	},
 })
 
+export const { updateUser } = allUsersSlice.actions
 export default allUsersSlice.reducer

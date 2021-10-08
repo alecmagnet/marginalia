@@ -32,12 +32,14 @@ export default function UserHomePageShow({ showUser }) {
 						<Typography variant="subtitle1"><em>@{username}</em></Typography>
 					</Grid>
 					<Grid item justifyContent="left" xs={12}>
-						<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, backgroundColor: "#fefcf9" }}>
-							<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
-								<em>Bio</em>
-							</Typography>				
-							<Typography variant="body2">{showBio}&nbsp;.&nbsp;.&nbsp;.</Typography> 
-						</Card>
+						{showBio.length === 0 ? null : 
+							<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, backgroundColor: "#fefcf9" }}>
+								<Typography sx={{ fontSize: 20, textAlign:"center", mt:1 }} color="#424242" gutterBottom>
+									Bio
+								</Typography>				
+								<Typography variant="body2">{showBio}&nbsp;.&nbsp;.&nbsp;.</Typography> 
+							</Card>
+						}
 						<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
 							<TotalCommentsAndReplies Id={showUser.id} source="user" />
 						</div>

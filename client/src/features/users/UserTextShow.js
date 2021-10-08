@@ -29,16 +29,16 @@ export default function UserTextShow({ id, comments }) {
 				alignItems="center"
 			>
 				<Grid item xs={9}> 
-					<Paper sx={{ cursor: "pointer", bgcolor: "f5f5f5", mb:1, pb: "15px", }} onClick={() => handleClick()} >
-				<Typography variant="subtitle1" sx={{ pt: 2, m: 2, mb: 0 }} >
+					<Paper sx={{ cursor: "pointer", bgcolor: "primary.dark", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
+				<Typography variant="h6" sx={{ textAlign: "center", color: "#fff", pt: 1, mx: 1, }} >
 					<b>{litText.title}</b>
 				</Typography>
-				<Typography variant="body2" sx={{ ml: 2, }} >
+				<Typography variant="subtitle1" sx={{ textAlign: "center", color: "#fff", }} >
 					{litText.author}
 				</Typography>				
-				<Typography variant="caption" sx={{ ml: 2, }} >
-					{litText.pubdate}
-				</Typography>
+				{/* <Typography variant="subtitle2" sx={{ textAlign: "center", color: "#fff", ml: 1, }} >
+					<em>{litText.pubdate}</em>
+				</Typography> */}
 				<div>
 				{renderComments.length > 0 ? renderComments : "previews loading..."}
 				</div>

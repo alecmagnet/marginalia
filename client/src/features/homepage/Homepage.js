@@ -96,7 +96,7 @@ export default function Homepage() {
 		}
 	}
 
-		const renderAllUsers = () => {
+	const renderAllUsers = () => {
 		if (allUserOrder === "recentlyAdded") {
 			let toMap = [...recentlyJoined]
 			let mappedArr = toMap.map((u) => <UserHomePageShow key={u.id} showUser={u} />)
@@ -131,9 +131,9 @@ export default function Homepage() {
 							</Typography>
 							<Typography 
 								variant="h6"
-								sx={{ color: "#d9d9d9", textAlign: "center" }}
+								sx={{ color: "#81a8bb", textAlign: "center", textDecoration: "underline", }}
 							>
-								<em>View All</em>
+								View All
 							</Typography>
 						</Box>
 						<Box textAlign="center">
@@ -181,7 +181,6 @@ export default function Homepage() {
 					</Box>
 				</Grid>
 
-
 				<Grid item
 					xs={4}
 					sx={{ mt: 5 }}
@@ -199,9 +198,9 @@ export default function Homepage() {
 							</Typography>
 							<Typography 
 								variant="h6"
-								sx={{ color: "#d9d9d9", textAlign: "center" }}
+								sx={{ color: "#81a8bb", textAlign: "center", textDecoration: "underline", }}
 							>
-								<em>View All</em>
+								View All
 							</Typography>
 						</Box>
 						<Box textAlign="center">

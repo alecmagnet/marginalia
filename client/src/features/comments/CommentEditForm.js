@@ -6,7 +6,7 @@ import { Avatar, Grid, Paper, TextareaAutosize, Button } from '@mui/material'
 
 export default function CommentEditForm({ comment, editButtonClick }) {
 	const [formData, setFormData] = useState(comment)
-
+	
   function handleChange(e) {
 		setFormData({
 			...formData,
@@ -48,13 +48,13 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 	// }
 
 	return (
-      <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
-				<div style={{ position: "relative"}}>
-					<Grid item sx={12} fullWidth >
-						<Grid container spacing={2} wrap="nowrap" >			
-							<Grid item sx={3}>
-								<Avatar alt={comment.user.fullname} src={comment.user.image} />
-							</Grid>
+		<Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
+			<div style={{ position: "relative"}}>
+				<Grid item sx={12} fullWidth >
+					<Grid container spacing={2} wrap="nowrap" >			
+						<Grid item sx={3}>
+							<Avatar alt={comment.user.fullname} src={comment.user.image} />
+						</Grid>
 						<Grid justifyContent="left" item xs={9} >
 							<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
 								<TextareaAutosize 

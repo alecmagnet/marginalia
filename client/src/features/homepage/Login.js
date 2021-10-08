@@ -1,12 +1,10 @@
 import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useHistory } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom'
 import { addLoginUser } from '../users/userSlice'
 import { fetchLitTexts } from '../litTexts/litTextsSlice'
 import { fetchAllUsers } from '../users/allUsersSlice'
 import { fetchComments} from '../comments/commentsSlice'
-
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -16,7 +14,6 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -80,10 +77,12 @@ export default function Login() {
 		});  
 	}
 
-	const theme = createTheme()
+	const handleSignupClick = () => {
+		history.push('/signup')
+	}
+
 
 	return (
-  	<ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -94,7 +93,7 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "#a69b97" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -137,15 +136,17 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to='/signup' variant="body2">
+								<Typography variant="subtitle" sx={{ color: "#546e7a", textDecoration: "underline", cursor: "pointer"}} onClick={handleSignupClick} >
+									Don't have an account? Sign Up
+								</Typography>
+                {/* <Link to='/signup' variant="body2" color="#29434e" sx={{ color: "#29434e"}}>
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </Link> */}
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
 	)
 	// 	<div>
 	// 		{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}

@@ -70,6 +70,11 @@ const userSlice = createSlice({
 			state.errors = []
 			state.status = "idle"
 		},
+		// updateUser(state, action) {
+		// 	state.entities.splice(0, 1, action.payload)
+		// 	state.errors = []
+		// 	state.status = "idle"
+		// },
 	},
 	extraReducers: (builder) => {
 		builder

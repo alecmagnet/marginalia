@@ -1,4 +1,4 @@
-import { Grid, Divider, Typography } from '@mui/material'
+import { Card, Typography } from '@mui/material'
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 
 export default function UserTextComPreview({ comment }) {
@@ -7,8 +7,8 @@ export default function UserTextComPreview({ comment }) {
 	const showContent = contentSlice.replace(/\s.\w+$/, "")
 
 	return(
-		<Grid item sx={{ ml: 5, pr: 2}}>
-			<Divider variant="fullWidth" sx={{ m: "15px 0 15px 5px", pr: 3 }} />
+		// <Grid item sx={{ m: 2, ml: 5, mr: 3, p: 2, pr: 4, bgcolor: "#fefcf9", borderRadius: 3, borderStyle: "groove", borderColor: "#4e342e" }}>
+		<Card variant="outlined" sx={{ m: 2, mx: 3, p: 2, pr: 4, bgcolor: "#fefcf9", borderRadius: 1,  }}>
 				<Typography variant="caption" sx={{ color: "#373737", }} >
 					<TimeAgoContainer
 						created_at={comment.created_at} 
@@ -16,7 +16,8 @@ export default function UserTextComPreview({ comment }) {
 						isDeleted={comment.deleted} 							
 					/>
 					</Typography>
-					<Typography variant="body2" sx={{ mb: "15px"}} >{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography>
-			</Grid>
+					<Typography variant="body2" sx={{ }} >{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography>
+			</Card>
+			// </Grid>
 		)
 }

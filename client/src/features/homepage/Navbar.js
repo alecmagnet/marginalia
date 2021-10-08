@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
 import { fetchUserById } from '../users/showUserSlice'
+import logoWhite from '../../img/logoWhite.png' 
 
 
 // import { styled, alpha } from '@mui/material/styles';
@@ -104,17 +105,19 @@ export default function Navbar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" >
 				<Toolbar>
+					<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px"}} />
 					<Typography
-						variant="h4"
+						variant="h3"
 						noWrap
 						component="div"
 						sx={{ 
 							display: { xs: 'none', sm: 'block' }, 
 							cursor: "pointer",
+							fontFamily: "Didot",
 						}}
 						onClick={handleNameClick}
 					>
-            MARGINALIA
+            <b>Marginalia</b>
           </Typography>
           {/* <Search>
             <SearchIconWrapper>

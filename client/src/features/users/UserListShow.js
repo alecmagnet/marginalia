@@ -4,7 +4,7 @@ import { Typography, Grid, Paper, Avatar } from '@mui/material'
 
 export default function UserListShow({ showUser }) {
 	const { username, fullname, bio, id, image } = showUser
-	const firstSixty = bio ? `${bio.slice(0, 60)}` : ""
+	const firstSixty = bio ? `${bio.slice(0, 65)}` : ""
 	const showBio = firstSixty.replace(/\s.\w+$/, "")
 
 	const history = useHistory()
