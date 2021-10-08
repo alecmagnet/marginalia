@@ -105,9 +105,13 @@ export default function UserShow() {
 						<Typography variant="h5" sx={{ textAlign:"center", }} >Comments</Typography>
 					</Divider> 		
 					{user.comments.length > 0 ? <div>{renderPreviews}</div> :
-						<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
-							Go comment on some stories and poems!
-						</Typography>
+							<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
+								Go comment on some stories and poems!
+							</Typography>
+							// :
+							// <Typography variant="body2" sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, }} >
+							// 	This user hasn't written any comments yet
+							// </Typography>
 					}			 
 				</Paper>
 			</Grid>

@@ -100,7 +100,7 @@ export default function Login() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
+						{errors?errors.map(e => <div key={e.id} style={{ color: "red", textAlign: "center" }} >{e}</div>):null}
 						{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
             <TextField
 							onChange={handleChange}

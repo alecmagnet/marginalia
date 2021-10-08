@@ -44,23 +44,24 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 			<div style={{ display: "flex", justifyContent: "center", padding: 5 }} >
 				<form style={{ 'width': '90%' }} onSubmit={handleSubmit}>
 					<label>
-						<Typography variant="h5" sx={{ color: "#fff", textAlign: "center", mt: 2, mb:1, }}>
+						<Typography variant="h5" sx={{ textAlign: "center", mt: 2, mb:1, }}>
 							<b>Bio</b>
 						</Typography>
 					<textarea 
 						value={formData.bio} 
 						id="bio"
+						placeholder="tell us about yourself..."
 						name="bio"
 						onChange={handleChange}
 						style={{ width: "99%" }}
 					/></label>
 					<label>
-						<Typography variant="h5" sx={{ color: "#fff", textAlign: "center", mt: 2, mb: 1, }}>
+						<Typography variant="h5" sx={{ textAlign: "center", mt: 2, mb: 1, }}>
 							<b>Profile Picture</b>
 						</Typography>
 					<textarea 
 						value={formData.image} 
-						placeholder="add image url"
+						placeholder="add a profile picture url..."
 						id="image"
 						name="image"
 						onChange={handleChange}

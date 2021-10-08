@@ -54,7 +54,8 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 		dispatch(addCommentToUser(formData))
 		setFormData({
 				...formData,
-				content: ""
+				content: "",
+				com_type_ids: []
 			})
 		if (parentCommentId) replyButtonClick((prevState) => !prevState)
 	}
