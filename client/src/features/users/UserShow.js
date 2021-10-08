@@ -92,7 +92,7 @@ export default function UserShow() {
 					{showUser.id === user.id ?
 						<div>
 							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
-								<Button variant="contained" onClick={editButtonClick} sx={{ mb: 5 }}>Edit</Button>
+								<Button variant="contained" onClick={editButtonClick} >Edit</Button>
 							</div>
 							{editClicked ?
 								<UserEditForm 

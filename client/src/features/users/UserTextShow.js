@@ -29,7 +29,7 @@ export default function UserTextShow({ id, comments }) {
 				alignItems="center"
 			>
 				<Grid item xs={9}> 
-					<Paper sx={{ cursor: "pointer", bgcolor: "primary.dark", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
+					<Paper sx={{ cursor: "pointer", bgcolor: "#424242", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
 				<Typography variant="h6" sx={{ textAlign: "center", color: "#fff", pt: 1, mx: 1, }} >
 					<b>{litText.title}</b>
 				</Typography>

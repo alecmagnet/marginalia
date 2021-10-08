@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { Card, Typography, Button } from '@mui/material'
+import { Paper, Typography, Button } from '@mui/material'
 import { updateUser } from './allUsersSlice'
 import { updateShowUser } from "./showUserSlice"
 
@@ -40,7 +40,7 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 	}	
 
 	return(
-		<Card variant="outlined" sx={{ mx: 10, bgcolor: "#373737", justifyContent: "center" }} >
+		<Paper variant="outlined" sx={{ mx: 10, bgcolor: "#fefcf9", justifyContent: "center" }} >
 			<div style={{ display: "flex", justifyContent: "center", padding: 5 }} >
 				<form style={{ 'width': '90%' }} onSubmit={handleSubmit}>
 					<label>
@@ -67,10 +67,14 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 						style={{ width: "99%" }}
 					/></label>
 					<div style={{ textAlign: "center" }} >
-					<Button sx={{textAlign: "center", p: 1, m: 2, bgcolor: "#fefcf9", }} type='submit'>Submit</Button>
+					<Button 
+						variant="outlined"
+						sx={{textAlign: "center", p: 1, m: 2, color: "#3e2723", }} 
+						type='submit'>
+							<Typography variant="button" sx={{ color: "fff", }} >Submit</Typography></Button>
 					</div>
 				</form>
 			</div>
-    </Card>
+    </Paper>
 	)
 }
