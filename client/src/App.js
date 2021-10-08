@@ -24,7 +24,6 @@ export default function App() {
   const history = useHistory()
 
   const userState = useSelector((state) => state.user)
-  const user = userState.entities.length > 0 ? userState.entities[0] : null
 
   const handleAuth = () => {
     setAuthorized(true)
