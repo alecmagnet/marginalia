@@ -11,7 +11,6 @@ export const fetchAllUsers = createAsyncThunk(
 
 const initialState = {
 	entities: [],
-	user: {},
 	status: "idle",
 	errors: null
 }
@@ -23,7 +22,7 @@ const allUsersSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchAllUsers.pending, (state) => {
-				state.status = "loading"
+				state.status = "pending"
 			})
 			.addCase(fetchAllUsers.fulfilled, (state, action) => {
 				state.entities = action.payload

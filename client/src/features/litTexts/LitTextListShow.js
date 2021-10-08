@@ -31,7 +31,7 @@ export default function LitTextListShow({ litText }) {
 				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}</Typography>
 				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
-					<Typography sx={{ fontSize: 14, textAlign:"center" }} color="text.secondary" gutterBottom>
+					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
 						<em>Preview</em>
 					</Typography>				
 					<Typography variant="body1">{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography> 

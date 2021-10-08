@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { patchComment } from './commentsSlice'
-import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button } from '@mui/material'
+import { Avatar, Grid, Paper, TextareaAutosize, Button } from '@mui/material'
 
 
 export default function CommentEditForm({ comment, editButtonClick }) {

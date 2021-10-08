@@ -45,7 +45,6 @@ export default function LitTextShow() {
 			container 
 			justifyContent="Center"	
 			alignItems="center"
-			columns="1"
 		>
 			<Grid 
 				item xs={9} sx={{ maxWidth: 850 }}

@@ -14,7 +14,7 @@ const store = configureStore({
 		showUser: showUserReducer,
 		comments: commentsReducer,
 		user: userReducer,
-  },
+  },	
 })
 
 export default store
