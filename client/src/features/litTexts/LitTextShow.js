@@ -84,6 +84,13 @@ export default function LitTextShow() {
 				</Paper>
 			</Grid>
 			<div style={{padding: 10, marginLeft: "25%", marginRight: "25%", maxWidth: 800}} id="comments" >
+					<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
+            <Tooltip title="New Comment" arrow>
+							<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
+								<AddCommentIcon size="small" />
+							</HashLink>
+						</Tooltip>
+					</div>
 					<CommentsList 
 						litTextId={litText.id} 
 					/>
