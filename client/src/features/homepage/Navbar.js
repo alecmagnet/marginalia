@@ -105,20 +105,22 @@ export default function Navbar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" >
 				<Toolbar>
-					<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px"}} />
-					<Typography
-						variant="h3"
-						noWrap
-						component="div"
-						sx={{ 
-							display: { xs: 'none', sm: 'block' }, 
-							cursor: "pointer",
-							fontFamily: "Didot",
-						}}
-						onClick={handleNameClick}
-					>
-            <b>Marginalia</b>
-          </Typography>
+					<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px", cursor: "pointer"}} onClick={handleNameClick} />
+          <Tooltip title="Home" arrow>
+						<Typography
+							variant="h3"
+							noWrap
+							component="div"
+							sx={{ 
+								display: { xs: 'none', sm: 'block' }, 
+								cursor: "pointer",
+								fontFamily: "Didot",
+							}}
+							onClick={handleNameClick}
+						>
+							<b>Marginalia</b>
+						</Typography>
+					</Tooltip>
           {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
