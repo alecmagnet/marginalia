@@ -19,9 +19,7 @@ export default function CommentEditForm({ comment, editButtonClick }) {
   function handleSubmit(e) {
     e.preventDefault();
 		dispatch(patchComment(formData))
-		.then(() => {
-			editButtonClick((prevState) => !prevState)
-		})
+		editButtonClick((prevState) => !prevState)
 	}
 
 	const addNewWhat = comment.parentCommentId ? "Edit your reply..." : "Edit your comment..."

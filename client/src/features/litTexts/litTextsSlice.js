@@ -15,7 +15,16 @@ const litTextsSlice = createSlice({
 		entities: [],
 		status: "idle",
 	},
-	reducers: {},
+	reducers: {
+		addCommentToLitText(state, action) {
+			const index = state.entities.findIndex((text) => parseInt(text.id) === parseInt(action.payload.lit_text_id))
+			const thisText = state.entities[index]
+			console.log("addCommentToLitText index", thisText)
+			console.log("addCommentToLitText comments", thisText.comments)
+			thisText.comments.push(action.payload)
+			state.status = "idle"
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchLitTexts.pending, (state) => {
@@ -29,4 +38,5 @@ const litTextsSlice = createSlice({
 	},
 })
 
+export const { addCommentToLitText } = litTextsSlice.actions
 export default litTextsSlice.reducer

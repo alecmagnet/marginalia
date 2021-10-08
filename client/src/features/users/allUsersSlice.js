@@ -20,10 +20,16 @@ const allUsersSlice = createSlice({
 	initialState,
 	reducers: {
 		updateUser(state, action) {
-			const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
+			const index = state.entities.findIndex((user) => parseInt(user.id) === parseInt(action.payload.id))
 			state.entities[index] = action.payload
 			state.status = "idle"
-		},		
+		},	
+		addCommentToUser(state, action) {
+			const index = state.entities.findIndex((user) => parseInt(user.id) === parseInt(action.payload.user_id))
+			const thisUser = state.entities[index]
+			thisUser.comments.push(action.payload)
+			state.status = "idle"
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -37,5 +43,5 @@ const allUsersSlice = createSlice({
 	},
 })
 
-export const { updateUser } = allUsersSlice.actions
+export const { updateUser, addCommentToUser } = allUsersSlice.actions
 export default allUsersSlice.reducer

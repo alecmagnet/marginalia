@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
+import { addCommentToLitText } from '../litTexts/litTextsSlice'
+import { addCommentToUser } from '../users/allUsersSlice'
 import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } from '@mui/material'
 
 
@@ -48,13 +50,13 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
   function handleSubmit(e) {
     e.preventDefault();
 		dispatch(postComment(formData))
-		.then(() => {
-			setFormData({
+		dispatch(addCommentToLitText(formData))
+		dispatch(addCommentToUser(formData))
+		setFormData({
 				...formData,
 				content: ""
 			})
-			if (parentCommentId) replyButtonClick((prevState) => !prevState)
-		})
+		if (parentCommentId) replyButtonClick((prevState) => !prevState)
 	}
 
   

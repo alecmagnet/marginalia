@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
@@ -18,6 +19,8 @@ export default function ComRepShow({ comment, litTextId }) {
 
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
+
+	const history = useHistory()
 
 	const showComment = {
 		fullname: comment.user.fullname,
@@ -77,6 +80,10 @@ export default function ComRepShow({ comment, litTextId }) {
 		setEditClicked(false)
 	}
 
+	const userClicked = () => {
+		history.push(`/users/${comment.user.id}`)
+	}
+
 
 	return (
 		<div style={{ position: "relative"}}>
@@ -85,13 +92,13 @@ export default function ComRepShow({ comment, litTextId }) {
 				{renderComment.deleted ? null : 
 					<CommentType comTypes={renderComment.com_types} />
 				}
-			<Grid item sx={3}>
+			<Grid item sx={{ cursor: "pointer" }}  onClick={() => userClicked()} >
 				<Avatar alt={renderComment.fullname} src={renderComment.image} />
 			</Grid>
 			<Grid justifyContent="left" item xs={9}>
-				<Typography variant="h6">{renderComment.fullname}</Typography>
+				<Typography variant="h6" onClick={userClicked} sx={{ cursor: "pointer" }} >{renderComment.fullname}</Typography>
 				{renderComment.deleted ? null : 
-					<Typography variant="subtitle2"><em>@{renderComment.username}</em></Typography>
+					<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer" }} ><em>@{renderComment.username}</em></Typography>
 				}
 				<Typography variant="body1" sx={{ mt:2, mb:2 }}>
 					{/* TO CHECK THAT REPLIES ARE RENDERING UNDER THE RIGHT COMMENT */}
