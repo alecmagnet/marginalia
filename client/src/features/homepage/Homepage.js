@@ -18,8 +18,8 @@ export default function Homepage() {
 		let toSort = [...getEntities(litTextsState)]
 		let toSortTwo = [...toSort]
 		let sortArr = toSortTwo.sort((a, b) => {
-			let dateTimeA = Date.parse(b.created_at) 
-			let dateTimeB = Date.parse(a.created_at)
+			let dateTimeA = Date.parse(a.created_at) 
+			let dateTimeB = Date.parse(b.created_at)
 			return dateTimeB - dateTimeA
 		})
 		let sliceArr = sortArr.slice(0,4)
@@ -31,8 +31,8 @@ export default function Homepage() {
 		let toSort = [...getEntities(allUsersState)]
 		let toSortTwo = [...toSort]
 		let sortArr = toSortTwo.sort((a, b) => {
-			let dateTimeA = Date.parse(b.created_at) 
-			let dateTimeB = Date.parse(a.created_at)
+			let dateTimeA = Date.parse(a.created_at) 
+			let dateTimeB = Date.parse(b.created_at)
 			return dateTimeB - dateTimeA
 		})
 		let sliceArr = sortArr.slice(0,4)
@@ -52,9 +52,19 @@ export default function Homepage() {
 
 	const newestComment = (el) => {
 		let sortArrRaw = [...el.comments]
-		let sortArr = sortArrRaw.sort((a, b) => b.created_at - a.created_at)
-		let newest = sortArr[0]
-		return newest
+		let sortArr = sortArrRaw.sort((a, b) => {
+			let dateTimeA = Date.parse(a.created_at) 
+			let dateTimeB = Date.parse(b.created_at)
+			return dateTimeB - dateTimeA
+		})
+		if (sortArr.length === 0) {
+			return 0
+		} else {
+			let newest = sortArr[0]
+			// console.log(newest)
+			let newestCreatedAt = Date.parse(newest.created_at)
+			return newestCreatedAt
+		}
 	}
 
 	const recentlyCommented = (arr) => {
@@ -102,7 +112,7 @@ export default function Homepage() {
 
 	if (user && litTextsState.entities.length > 0 && allUsersState.entities.length > 0) {
 		return(
-			<Grid container spacing={2} justifyContent="center" >
+			<Grid container spacing={3} justifyContent="center" >
 				<Grid item
 					xs={6}
 					justifyContent="center"
