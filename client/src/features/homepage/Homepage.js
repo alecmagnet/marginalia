@@ -149,12 +149,24 @@ export default function Homepage() {
 							</ToggleButtonGroup>
 						</Box>
 						{renderLitTexts()}
-						<Box textAlign="center">
-							<Button
-								sx={{ bgcolor: "#fffaf5", m: 2, mb: 4 }}
+						<Box 
+							textAlign="center"
+							justifyContent="center"
+							sx={{ p: 2 }}
+						>
+							<Box
+								textAlign="center"
+								onClick={handleClickLitTexts}
+								sx={{ 
+									bgcolor: "#fffaf5", 
+									borderRadius: 9, 
+									cursor: "pointer",
+									pt: 1, pb: 1, 
+									mb: 4, ml: 20, mr: 20, 
+								}}
 							>
 								See More...
-							</Button>
+							</Box>
 						</Box>
 					</Box>
 				</Grid>
@@ -206,7 +218,25 @@ export default function Homepage() {
 							</ToggleButtonGroup>
 						</Box>
 						{renderAllUsers()}
-
+						<Box 
+							textAlign="center"
+							justifyContent="center"
+							sx={{ p: 2 }}
+						>
+							<Box
+								textAlign="center"
+								onClick={handleClickAllUsers}
+								sx={{ 
+									bgcolor: "#fffaf5", 
+									borderRadius: 9, 
+									cursor: "pointer",
+									pt: 1, pb: 1, 
+									mb: 4, ml: 12, mr: 12, 
+								}}
+							>
+								See More...
+							</Box>
+						</Box>
 					</Box>
 				</Grid>
  			</Grid>
