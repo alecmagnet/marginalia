@@ -51,8 +51,7 @@ export default function UsersContainer() {
 	const recentlyCommented = (users) => {
 		let toSort = [...users]
 		let sortArr = toSort.sort((a, b) => newestComment(b) - newestComment(a))
-		let topFour = sortArr.slice(0,4)
-		return topFour
+		return sortArr
 	}
 	
 	const [ allUserOrder, setAllUserOrder ] = useState("alphabetical")

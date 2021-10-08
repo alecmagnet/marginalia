@@ -5,10 +5,11 @@ export default function TotalCommentsAndReplies({ Id, source }) {
 
 	const stateComments = useSelector((state) => state.comments)
 	const allComments = [...stateComments.entities]
+	const undeletedComments = allComments.filter((c) => c.deleted === false)
 	
 	let filteredComments = []
-	if (source === "user") filteredComments = allComments.filter((c) => c.user_id === Id)
-	if (source === "litText") filteredComments = allComments.filter((c) => c.lit_text_id === Id)
+	if (source === "user") filteredComments = undeletedComments.filter((c) => c.user_id === Id)
+	if (source === "litText") filteredComments = undeletedComments.filter((c) => c.lit_text_id === Id)
 
 	// const showUserComments = allComments.filter((c) => c.user_id === Id)
 
