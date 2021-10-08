@@ -64,9 +64,9 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 		>
       <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
 				<div style={{ position: "relative"}}>
-					<Grid item sx={12} fullWidth >
+					<Grid item xs={12} >
 						<Grid container spacing={2} wrap="nowrap" >			
-							<Grid item sx={3}>
+							<Grid item >
 								<Avatar alt={user.fullname} src={user.image} />
 							</Grid>
 						<Grid justifyContent="left" item xs={9} >

@@ -67,7 +67,7 @@ export default function App() {
         <Fragment>
           <Navbar />
           <Switch>
-            {user ?
+            {/* {user ? */}
               <div>
                 <Route exact path='/texts'>
                   <LitTextsContainer />
@@ -90,7 +90,7 @@ export default function App() {
                   {/* <TestFormNewText /> */}
                 </Route>
               </div>
-            :
+            {/* : */}
               <div className="centered-in-window" >
                 <div style={{ padding: 15 }} >
                 <Route exact path="/login">
@@ -101,7 +101,7 @@ export default function App() {
                 </Route>
                 </div>
               </div>
-            }
+            {/* } */}
           </Switch>
         </Fragment>
       :
