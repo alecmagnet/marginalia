@@ -9,16 +9,19 @@ export default function UsersContainer() {
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
 	const toFilterUsers = [...entities]
+	// console.log("UsersContainer toFilter", toFilterUsers)
 	const otherUsers = toFilterUsers.filter((u) => u.id !== user.id)
 
 	const alphabetical = (users) => {
-		let toSort = [...users]
-		let sortArr = toSort.sort((a, b) => {
-			let lastNameA = a.fullname.replace(/^\w.+\s/, "")
-			let lastNameB = b.fullname.replace(/^\w.+\s/, "")
-			return lastNameA - lastNameB
+		let toMap = [...users]
+		let mappedArr = toMap.map((user) => `${user.fullname.replace(/^\w.+\s/, "")} ${user.id}`)
+		let sortedLastNames = mappedArr.sort()
+		let sortedArr = sortedLastNames.map((nameId) => {
+			let sortID = nameId.replace(/^\w.+\s/, "")
+			let sortUser = toMap.find((user) => parseInt(user.id) === parseInt(sortID))
+			return sortUser
 		})
-		return sortArr
+		return sortedArr
 	}
 
 	const recentlyJoined = (users) => {
@@ -38,7 +41,7 @@ export default function UsersContainer() {
 			let dateTimeB = Date.parse(b.created_at)
 			return dateTimeB - dateTimeA
 		})
-		if (sortArr.length === 0) {
+		if (toSort.length === 0) {
 			return 0
 		} else {
 			let newest = sortArr[0]

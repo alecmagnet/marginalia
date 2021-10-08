@@ -20,7 +20,7 @@ export default function UserListShow({ showUser }) {
 				onClick={handlePaperClick}
 			>
 				<Grid container spacing={3} wrap="nowrap">
-					<Grid item sx={3}>
+					<Grid item >
 						<Avatar 
 							alt={fullname} 
 							src={image} 
