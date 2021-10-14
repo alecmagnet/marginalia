@@ -83,7 +83,7 @@ export default function LitTextShow() {
 					</Grid>
 				</Paper>
 			</Grid>
-			<div style={{padding: 10, marginLeft: "24%", marginRight: "24%", maxWidth: 800}} id="comments" >
+			<div style={{padding: 10, marginLeft: "24%", marginRight: "24%", maxWidth: 760}} id="comments" >
 					<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
             <Tooltip title="New Comment" arrow>
 							<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>

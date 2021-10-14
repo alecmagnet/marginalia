@@ -36,5 +36,7 @@ code {
   text-align: center;
 }
 
-
+.ql-editor{
+  min-height: 100px;
+}
 

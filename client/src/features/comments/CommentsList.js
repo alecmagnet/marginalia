@@ -31,7 +31,7 @@ export default function CommentsList({ litTextId }) {
 				wrap="nowrap" 
 				columns={1}
 				justifyContent="center"	
-				sx={{ maxWidth: 1200, display: "flex"}}
+				sx={{ maxWidth: 800, display: "flex"}}
 			>
 				<Grid 
 					container 

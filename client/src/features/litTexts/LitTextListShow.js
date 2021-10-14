@@ -26,7 +26,8 @@ export default function LitTextListShow({ litText }) {
 			<Paper 
 				elevation={6} 
 				sx={{ p:3, m: 3, cursor: "pointer", backgroundColor: "#fffaf5" }}
-				onClick={handlePaperClick}>
+				onClick={handlePaperClick}
+			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
 				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}</Typography>

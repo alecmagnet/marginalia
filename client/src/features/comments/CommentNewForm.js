@@ -10,7 +10,7 @@ import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } f
 export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick }) {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
-
+	
   const [formData, setFormData] = useState({
 		user_id: user.id,
 		lit_text_id: litTextId,
@@ -63,9 +63,9 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
   
   return (
 		<Grid 
-			item xs={12} sx={{ maxWidth: 700, minWidth: 500, width: "100%" }}
+			item xs={12} sx={{ maxWidth: 700, minWidth: 450, width: "100%" }}
 		>
-      <Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
+      <Paper sx={{ maxWidth: 650, pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
 				<div style={{ position: "relative"}}>
 					<Grid item xs={12} >
 						<Grid container spacing={2} wrap="nowrap" >			

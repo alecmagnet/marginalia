@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
+import LitTextNewForm from './LitTextNewForm'
 import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField } from '@mui/material'
 
 
@@ -171,6 +172,7 @@ export default function LitTextsContainer () {
 							/>
 						</Box>
 						{renderLitTexts()}
+						{<LitTextNewForm litText={null} />}
 					</div>
 				: status === "loading" ?
 					<div className="centered-in-window" >
