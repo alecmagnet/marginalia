@@ -4,12 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../users/userSlice'
 import { fetchUserById } from '../users/showUserSlice'
 import logoWhite from '../../img/logoWhite.png' 
-
-
-// import { styled, alpha } from '@mui/material/styles';
-// import InputBase from '@mui/material/InputBase';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,6 +15,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Tooltip from '@mui/material/Tooltip';
+import { Avatar } from "@mui/material";
 
 
 export default function Navbar() {
@@ -32,7 +27,8 @@ export default function Navbar() {
 
 	const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
-
+	const fullName = userState.entities.length > 0 && userState.errors.length === 0 ? user.fullname : null
+	const imageUrl = userState.entities.length > 0 && userState.errors.length === 0 ? user.image : null
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -121,40 +117,46 @@ export default function Navbar() {
 							<b>Marginalia</b>
 						</Typography>
 					</Tooltip>
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
             <Tooltip title="Texts" arrow>
-							<IconButton size="large" aria-label="all texts" color="inherit" onClick={handleTextsClick} >
-								<MenuBookIcon />
+							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
+								<MenuBookIcon sx={{ fontSize: 38, pl: 1 }} />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Users" arrow>
-							<IconButton size="large" aria-label="all users" color="inherit" onClick={handleUsersClick} >
-								<PeopleIcon />
+							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} >
+								<PeopleIcon sx={{ fontSize: 38, pl: 1 }} />
 							</IconButton>
 						</Tooltip>
-						<Tooltip title="Me" arrow>
-							<IconButton
-								size="large"
-								edge="end"
-								aria-label="account of current user"
-								aria-controls={menuId}
-								aria-haspopup="true"
-								onClick={handleProfileMenuOpen}
-								color="inherit"
-							>
-								<AccountCircle />
-							</IconButton>
-						</Tooltip>
+						{userState.entities.length === 0 ?
+							<Tooltip title="Me" arrow>
+								<IconButton
+									edge="end"
+									aria-label="account of current user"
+									aria-controls={menuId}
+									aria-haspopup="true"
+									onClick={handleProfileMenuOpen}
+									color="inherit"
+								>
+									<AccountCircle sx={{ fontSize: 55, pl: 1 }} />
+								</IconButton>
+							</Tooltip>
+						:
+							<Tooltip title="Me" arrow>
+								<Avatar 
+									alt={fullName} 
+									src={imageUrl} 
+									sx={{ width: 55, height: 55, cursor: "pointer", ml: 2 }}
+									edge="end"
+									aria-label="account of current user"
+									aria-controls={menuId}
+									aria-haspopup="true"
+									onClick={handleProfileMenuOpen}
+									color="inherit"
+								/>
+							</Tooltip>
+						}
 					</Toolbar>
       </AppBar>
       {renderMenu}
