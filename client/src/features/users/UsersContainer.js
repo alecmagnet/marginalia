@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import UserListShow from './UserListShow'
-import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
+import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField, } from '@mui/material'
 
 export default function UsersContainer() {
 	const { entities, status } = useSelector((state) => state.allUsers)
@@ -9,8 +9,9 @@ export default function UsersContainer() {
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
 	const toFilterUsers = [...entities]
-	// console.log("UsersContainer toFilter", toFilterUsers)
-	const otherUsers = toFilterUsers.filter((u) => u.id !== user.id)
+	const filteredArr = toFilterUsers.filter((u) => u.id !== user.id)
+	const otherUsers = [...filteredArr]
+	console.log("otherUsers", otherUsers)
 
 	const alphabetical = (users) => {
 		let toMap = [...users]
@@ -57,34 +58,47 @@ export default function UsersContainer() {
 		return sortArr
 	}
 	
-	const [ allUserOrder, setAllUserOrder ] = useState("alphabetical")
+	const [allUserOrder, setAllUserOrder] = useState("alphabetical")
 
 	const handleAllUserOrder = (event, newOrder) => {
 		setAllUserOrder(newOrder)
 	}
 
-	const renderUsers = () => {
-		if (allUserOrder === "alphabetical") {
-			let rawArr = [...otherUsers]
-			let arrTwo = [...alphabetical(rawArr)]
-			let toMap = [...arrTwo]
-			let mappedArr = toMap.map((u => <UserListShow key={u.id} showUser={u} />))
-			return mappedArr
-		} else if (allUserOrder === "recentlyAdded") {
-			let rawArr = [...otherUsers]
-			let arrTwo = [...recentlyJoined(rawArr)]
-			let toMap = [...arrTwo]
-			let mappedArr = toMap.map((u => <UserListShow key={u.id} showUser={u} />))
-			return mappedArr
-		} else if (allUserOrder === "recentComment") {
-			let rawArr = [...otherUsers]
-			let arrTwo = [...recentlyCommented(rawArr)]
-			let toMap = [...arrTwo]
-			let mappedArr = toMap.map((u => <UserListShow key={u.id} showUser={u} />))
-			return mappedArr
+	const [filteredUsers, setFilteredUsers] = useState([...otherUsers])
+	console.log("filteredUsers", filteredUsers)
+
+	useEffect(() => {if (otherUsers.length > 0) setFilteredUsers([...otherUsers])}, [entities])
+
+	const handleSearch = (e) => {
+		let keyword = e.target.value.toLowerCase()
+		if (keyword === "") {
+			setFilteredUsers(otherUsers)
+		} else {
+			let results = otherUsers.filter((u) => 
+					// console.log("u.username", u.username, "lowercase", u.username.toLowerCase())
+					u.username.toLowerCase().includes(keyword) ||
+					u.fullname.toLowerCase().includes(keyword) ||
+					u.bio.toLowerCase().includes(keyword) 
+			)
+			setFilteredUsers(results)
 		}
 	}
-	
+
+	const renderUsers = () => {
+		let rawArr = [...filteredUsers]
+		let arrTwo = []
+		if (allUserOrder === "alphabetical") {
+			arrTwo = [...alphabetical(rawArr)]
+		} else if (allUserOrder === "recentlyAdded") {
+			arrTwo = [...recentlyJoined(rawArr)]
+		} else if (allUserOrder === "recentComment") {
+			arrTwo = [...recentlyCommented(rawArr)]
+		}
+		let toMap = [...arrTwo]
+		let mappedArr = toMap.map((u => <UserListShow key={u.id} showUser={u} />))
+		return mappedArr
+	}
+
 	return(
     <Grid 
 			container 
@@ -95,7 +109,7 @@ export default function UsersContainer() {
 				item xs={9} 
 				align="center" 
 				justify="center">
-					<Typography variant="h2" justify="center" sx={{pt:4, pb:3, }}>Users</Typography>
+					<Typography variant="h2" justify="center" sx={{pt:4, pb:3, fontWeight: 410 }}>Users</Typography>
 			</Grid>
 			<Grid item xs={9}>
 
@@ -132,6 +146,14 @@ export default function UsersContainer() {
 									Recent Activity
 								</ToggleButton>
 							</ToggleButtonGroup>
+							<br/>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ m: 2, mt: 3, width: "50%" }}
+								onChange={e => handleSearch(e)}
+							/>
 						</Box>
 						{renderUsers()}
 					</div>
