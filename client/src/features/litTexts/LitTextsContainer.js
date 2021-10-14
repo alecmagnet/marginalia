@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
-import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
+import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField } from '@mui/material'
 
 
 export default function LitTextsContainer () {
@@ -72,8 +72,28 @@ export default function LitTextsContainer () {
 		setLitTextsOrder(newOrder)
 	}
 
+	const [filteredLitTexts, setFilteredLitTexts] = useState([...litTextsArr])
+	
+	useEffect(() => {if (litTextsArr.length > 0) setFilteredLitTexts([...litTextsArr])}, [entities])
+
+	const handleSearch = (e) => {
+		let keyword = e.target.value.toLowerCase()
+		if (keyword === "") {
+			setFilteredLitTexts(litTextsArr)
+		} else {
+			let results = litTextsArr.filter((lt) => 
+					// console.log("u.username", u.username, "lowercase", u.username.toLowerCase())
+					lt.title.toLowerCase().includes(keyword) ||
+					lt.author.toLowerCase().includes(keyword) ||
+					lt.pubdate.toString().toLowerCase().includes(keyword) ||
+					lt.content.toLowerCase().includes(keyword)
+			)
+			setFilteredLitTexts(results)
+		}
+	}
+
 	const renderLitTexts = () => {
-		let rawArr = [...litTextsArr]
+		let rawArr = [...filteredLitTexts]
 		let arrTwo = []
 		if (litTextsOrder === "authorAZ") {
 			arrTwo = [...authorAZ(rawArr)]
@@ -100,7 +120,7 @@ export default function LitTextsContainer () {
 				item xs={9} 
 				align="center" 
 				justify="center">
-					<Typography variant="h2" justify="center" sx={{pt:3}}>Library</Typography>
+					<Typography variant="h2" justify="center" sx={{ pt:4, pb:3, fontWeight: 410 }}>Library</Typography>
 			</Grid>
 			<Grid item xs={9}>
 
@@ -143,6 +163,14 @@ export default function LitTextsContainer () {
 									Recent Activity
 								</ToggleButton>
 							</ToggleButtonGroup>
+							<br/>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ m: 2, mt: 3, width: "50%" }}
+								onChange={e => handleSearch(e)}
+							/>
 						</Box>
 						{renderLitTexts()}
 					</div>
