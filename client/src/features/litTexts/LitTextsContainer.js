@@ -54,7 +54,6 @@ export default function LitTextsContainer () {
 			return 0
 		} else {
 			let newest = sortArr[0]
-			// console.log(newest)
 			let newestCreatedAt = Date.parse(newest.created_at)
 			return newestCreatedAt
 		}
@@ -82,7 +81,6 @@ export default function LitTextsContainer () {
 			setFilteredLitTexts(litTextsArr)
 		} else {
 			let results = litTextsArr.filter((lt) => 
-					// console.log("u.username", u.username, "lowercase", u.username.toLowerCase())
 					lt.title.toLowerCase().includes(keyword) ||
 					lt.author.toLowerCase().includes(keyword) ||
 					lt.pubdate.toString().toLowerCase().includes(keyword) ||

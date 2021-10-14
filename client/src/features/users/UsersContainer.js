@@ -46,7 +46,6 @@ export default function UsersContainer() {
 			return 0
 		} else {
 			let newest = sortArr[0]
-			// console.log(newest)
 			let newestCreatedAt = Date.parse(newest.created_at)
 			return newestCreatedAt
 		}
@@ -75,7 +74,6 @@ export default function UsersContainer() {
 			setFilteredUsers(otherUsers)
 		} else {
 			let results = otherUsers.filter((u) => 
-					// console.log("u.username", u.username, "lowercase", u.username.toLowerCase())
 					u.username.toLowerCase().includes(keyword) ||
 					u.fullname.toLowerCase().includes(keyword) ||
 					u.bio.toLowerCase().includes(keyword) 
