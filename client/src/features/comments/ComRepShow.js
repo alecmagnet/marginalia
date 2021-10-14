@@ -87,16 +87,27 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	return (
 		<div style={{ position: "relative"}}>
-		<Grid item sx={12}>
+		<Grid item xs={12} >
 		<Grid container spacing={2} wrap="nowrap">
 				{renderComment.deleted ? null : 
 					<CommentType comTypes={renderComment.com_types} />
 				}
-			<Grid item sx={{ cursor: "pointer" }}  onClick={() => userClicked()} >
-				<Avatar alt={renderComment.fullname} src={renderComment.image} />
+			<Grid item >
+				<Avatar 
+						alt={renderComment.fullname} 
+						src={renderComment.image} 
+						sx={{ cursor: "pointer", width: 60, height: 60, mt: '5px', }} 
+						onClick={() => userClicked()} 
+					/>
 			</Grid>
 			<Grid justifyContent="left" item xs={9}>
-				<Typography variant="h6" onClick={userClicked} sx={{ cursor: "pointer" }} >{renderComment.fullname}</Typography>
+				<Typography 
+					variant="h6" 
+					onClick={userClicked} 
+					sx={{ cursor: "pointer" }} 
+				>
+					{renderComment.fullname}
+				</Typography>
 				{renderComment.deleted ? null : 
 					<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer" }} ><em>@{renderComment.username}</em></Typography>
 				}
@@ -120,7 +131,7 @@ export default function ComRepShow({ comment, litTextId }) {
 				<div style={{ position: "relative" }}>
 					{!renderComment.parent_comment_id && !renderComment.deleted ?
             <Tooltip title="Reply" arrow>
-							<AddCommentIcon size="large" sx={{ color: "#757575", ml:7, mt:2, mb:1 }} onClick={replyButtonClick}/> 
+							<AddCommentIcon size="large" sx={{ color: "#757575", ml:9, mt:2, mb:1 }} onClick={replyButtonClick}/> 
 						</Tooltip>
 					: null}
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 

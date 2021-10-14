@@ -31,11 +31,11 @@ export default function CommentsList({ litTextId }) {
 				wrap="nowrap" 
 				columns={1}
 				justifyContent="center"	
-				sx={{ maxWidth: 800, display: "flex"}}
+				sx={{ maxWidth: 1200, display: "flex"}}
 			>
 				<Grid 
 					container 
-					sx={{ maxWidth: "90%"}} justifyContent="center"
+					justifyContent="center"
 				>
 					{renderComments}
 					<div id="new-comment" />
