@@ -4,29 +4,27 @@ import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
-import { Grid, Paper, TextField, TextareaAutosize, Checkbox, Button, Typography, ToggleButton, ToggleButtonGroup, } from '@mui/material'
+import { Grid, Paper, TextField, TextareaAutosize, Button, Typography, ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
 
-export default function LitTextNewForm({ litText }) {
+export default function LitTextNewForm() {
 	const [errors, setErrors] = useState([])
 	const [isHidden, setIsHidden] = useState(false)
+	const [storyOrPoem, setStoryOrPoem] = useState("")
+	const isProse = () => storyOrPoem === "Story" ? true : false
 	const [formData, setFormData] = useState({
 		title: "",
 		author: "",
 		pubdate: "",
 		content: "",
+		prose: isProse()
 	})
 	const [quillData, setQuillData] = useState("")
-
-	let addOrEdit = "Add a New Story or Poem"
-	if (litText) {
-		if (litText.prose) {
-			addOrEdit = "Edit Story"
-		} else {
-			addOrEdit = "Edit Poem"
-		}
+	const [addOrEdit, setAddOrEdit] = useState("Add a New Story or Poem")
+	
+	const handleStoryOrPoemClick = (event, value) => {
+		setStoryOrPoem(value)
+		setAddOrEdit(`Add a New ${value}`)
 	}
-
-	if (litText) setFormData(litText)
 
 	const handleFormChange = (e) => {
 		setFormData((formData) => {
@@ -71,6 +69,32 @@ export default function LitTextNewForm({ litText }) {
 				>
 					<b>{addOrEdit}</b>
 				</Typography>
+
+
+				<Box textAlign="center">
+					<ToggleButtonGroup
+						value={storyOrPoem}
+						exclusive
+						onChange={handleStoryOrPoemClick}
+						aria-label="Story or Poem"
+						sx={{ bgcolor: "#fffaf5", my: 1 }}
+					>
+						<ToggleButton 
+							value="Story"
+							aria-label="Story"
+						>
+							It's a Story
+						</ToggleButton>
+						<ToggleButton 
+							value="Poem"
+							aria-label="Poem"
+						>
+							It's a Poem
+						</ToggleButton>
+					</ToggleButtonGroup>
+				</Box>
+
+
 				<form display="flex" >
 					<TextField
 						onChange={handleFormChange}
@@ -136,7 +160,7 @@ export default function LitTextNewForm({ litText }) {
             <Button
               type="submit"
               variant="contained"
-              sx={{ mt: 1, mb: 2, p: 1 }}
+              sx={{ mt: 1, mb: 2, p: 2 }}
             >
               Submit
             </Button>

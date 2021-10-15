@@ -3,6 +3,21 @@
 
 
 
+-----------------------------------------------
+
+
+FROM LitTextNewForm
+	let addOrEdit = "Add a New Story or Poem"
+	if (litText) {
+		if (litText.prose) {
+			addOrEdit = "Edit Story"
+		} else {
+			addOrEdit = "Edit Poem"
+		}
+	}
+
+	if (litText) setFormData(litText)
+
 
 -----------------------------------------------
 
