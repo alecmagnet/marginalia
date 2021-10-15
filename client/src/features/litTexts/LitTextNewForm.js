@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
-import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
+import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 
 export default function LitTextNewForm() {
 	const [errors, setErrors] = useState([])
@@ -19,6 +19,9 @@ export default function LitTextNewForm() {
 	const [quillData, setQuillData] = useState("")
 	const [addStoryOrPoem, setAddStoryOrPoem] = useState("Add a New Poem")
 	const [previewClicked, setPreviewClicked] = useState(false)
+	const [areYouSure, setAreYouSure] = useState(<span>Are you sure your submission is a <b>POEM?</b></span>)
+
+	const dispatch = useDispatch()
 
 	const handlePreviewClick = () => {
 		setPreviewClicked(!previewClicked)
@@ -33,11 +36,18 @@ export default function LitTextNewForm() {
 
 	const handleStoryOrPoemClick = (event, value) => {
 		setStoryOrPoem(value)
-		setAddStoryOrPoem(`Add a New ${value}`)
 		if (value === "Story") {
 			handleProseBoolean(true)
+			setAddStoryOrPoem(`Add a New Story or Other Prose Work`)
+			setAreYouSure(<span>Are you sure your submission is a <b>STORY</b> or other prose work?</span>)
 		} else if (value === "Poem") {
 			handleProseBoolean(false)
+			setAddStoryOrPoem(`Add a New ${value}`)
+			setAreYouSure(<span>Are you sure your submission is a <b>POEM?</b></span>)
+		} else {
+			setAddStoryOrPoem(`Add a New Story or Poem`)
+			setAreYouSure(<span>Is your submission a <b>POEM</b>? Or is it a <b>STORY</b> or other prose work?</span>)
+
 		}
 	}
 
@@ -58,15 +68,13 @@ export default function LitTextNewForm() {
 	}
 
 	const parseQuillData = () => {
-		let parseData = quillData
+		let parsedData = parse(`${quillData}`)
 		if (storyOrPoem === "Poem") {
-			parseData = quillData.replaceAll("</p><p>", "<br/>")
+			return (<div classname="poetry">{parsedData}</div>)
+		} else {
+			return (<div>{parsedData}</div>)
 		}
-		let returnData = parse(`${parseData}`)
-		return (<div>{returnData}</div>)
 	}
-
-	const dispatch = useDispatch()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -83,7 +91,7 @@ export default function LitTextNewForm() {
 
 	const qModules = {
     toolbar: [
-      [{ 'header': [1, 2, false] }],
+      [{ 'header': [1, 2, 3, false] }],
       ['bold', 'italic', 'underline','strike', 'blockquote'],
       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
       ['clean']
@@ -104,14 +112,13 @@ export default function LitTextNewForm() {
 					<b>{addStoryOrPoem}</b>
 				</Typography>
 
-
 				<Box textAlign="center">
 					<ToggleButtonGroup
 						value={storyOrPoem}
 						exclusive
 						onChange={handleStoryOrPoemClick}
 						aria-label="Story or Poem"
-						sx={{ bgcolor: "#fffaf5", my: 1 }}
+						sx={{ bgcolor: "#fff3e6", my: 1 }}
 					>
 						<ToggleButton 
 							value="Story"
@@ -128,8 +135,7 @@ export default function LitTextNewForm() {
 					</ToggleButtonGroup>
 				</Box>
 
-
-				<form display="flex" >
+				<form display="flex" onSubmit={handleSubmit} >
 					<TextField
 						onChange={handleFormChange}
 						autoComplete="title"
@@ -174,14 +180,16 @@ export default function LitTextNewForm() {
 						modules={qModules}
 					/>
 
-						<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-						<Button 
-							onClick={handlePreviewClick}
-              variant="contained"
-              sx={{ mt: 2, mr: 2, p: 2 }}
-						>
-							Preview
-						</Button>
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", alignText: "center"  }}>
+						<Tooltip title="Check out the preview before you submit" arrow>
+							<Button 
+								onClick={handlePreviewClick}
+								variant="contained"
+								sx={{ mt: 2, p: 2 }}
+							>
+								Preview
+							</Button>
+						</Tooltip>
 						</div>
             {previewClicked ? 
 							<div>
@@ -209,25 +217,39 @@ export default function LitTextNewForm() {
 									</Grid>
 								</Paper>
 								<br/>
-								<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+								<div style={{ color: "#660033", textAlign: "center", width: "100%" }} >{areYouSure}</div>
+								<br/>
+								{storyOrPoem === "Story" || storyOrPoem === "Poem" ?
+									<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+										<Button
+											type="submit"
+											variant="contained"
+											sx={{ mt: 1, mb: 2, p: 2 }}
+										>
+											Submit
+										</Button>
+									</div>
+								:
+									<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+											<Button
+												disabled
+												variant="contained"
+												sx={{ mt: 2, mb: 2, p: 2 }}
+											>
+												Submit
+											</Button>
+									</div>
+								}
+							</div>
+						:
+							<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
 									<Button
-										type="submit"
+										disabled
 										variant="contained"
-										sx={{ mt: 1, mb: 2, p: 2 }}
+										sx={{ mt: 2, mb: 2, p: 2 }}
 									>
 										Submit
 									</Button>
-								</div>
-							</div>
-						:
-							<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-								<Button
-									disabled
-									variant="contained"
-									sx={{ mt: 2, mb: 2, p: 2 }}
-								>
-									Submit
-								</Button>
 							</div>
 						}
 				</form>

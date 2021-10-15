@@ -2,10 +2,25 @@
 
 
 
+
 -----------------------------------------------
 
 
-FROM LitTextNewForm
+FROM LitTextNewForm OLD PARSE W <BR/>
+	const parseQuillData = () => {
+		let parseData = quillData
+		if (storyOrPoem === "Poem") {
+			parseData = quillData.replaceAll("</p><p>", "<br/>")
+		}
+		let returnData = parse(`${parseData}`)
+		return (<div>{returnData}</div>)
+	}
+
+
+-----------------------------------------------
+
+
+FROM LitTextNewForm UNNECESSARY HANDER FUNCTIONS FOR QUILL DATA
 	const handleFormContent = (data) => {
 		setFormData(formData => {return ({
 			...formData,
@@ -33,7 +48,7 @@ FROM LitTextNewForm
 -----------------------------------------------
 
 
-FROM LitTextNewForm
+FROM LitTextNewForm TEXTFIELD FOR HTML
 					<TextField
 						onChange={handleFormChange}
 						autoComplete="content"
@@ -56,7 +71,7 @@ FROM LitTextNewForm
 -----------------------------------------------
 
 
-FROM LitTextNewForm
+FROM LitTextNewForm OLD PROSE/POETRY CONDITIONAL
 	const [errors, setErrors] = useState([])
 	const [isHidden, setIsHidden] = useState(false)
 	const [storyOrPoem, setStoryOrPoem] = useState("")
@@ -82,7 +97,7 @@ FROM LitTextNewForm
 -----------------------------------------------
 
 
-FROM LitTextNewForm
+FROM LitTextNewForm ADD OR EDIT
 	let addOrEdit = "Add a New Story or Poem"
 	if (litText) {
 		if (litText.prose) {
@@ -98,7 +113,7 @@ FROM LitTextNewForm
 -----------------------------------------------
 
 
-From LitTextShow
+USESELECT FOR USER
   const userArr = useSelector((state) => state.user.entities)
   const user = userArr.length > 0 ? userArr[0] : null
 

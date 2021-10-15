@@ -77,7 +77,7 @@ function Signup() {
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-						{errors ? errors.map(e => <div key={e} style={{ color: "red", textAlign: "center" }} >{e}</div>) : null}
+						{errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
