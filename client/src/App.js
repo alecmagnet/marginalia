@@ -71,7 +71,7 @@ export default function App() {
           <Navbar />
           <Switch>
             {user ?
-              <div>
+              <Fragment>
                 <Route exact path='/texts'>
                   <LitTextsContainer />
                 </Route>
@@ -92,22 +92,26 @@ export default function App() {
                   <Homepage />
                   {/* <TestFormNewText /> */}
                 </Route>
-              </div>
+              </Fragment>
             : userState.status === "pending" || commentsState.status === "pending" ?
-              <div className="centered-in-window" >
-                <h1>Loading...</h1>
-              </div>
-            : 
-              <div className="centered-in-window" >
-                <div style={{ padding: 15 }} >
-                <Route exact path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/signup">
-                  <Signup />
-                </Route>
+              <Fragment>
+                <div className="centered-in-window" >
+                  <h1>Loading...</h1>
                 </div>
-              </div>
+              </Fragment>
+            : 
+              <Fragment>
+                <div className="centered-in-window" >
+                  <div style={{ padding: 15 }} >
+                  <Route exact path="/login">
+                    <Login />
+                  </Route>
+                  <Route exact path="/signup">
+                    <Signup />
+                  </Route>
+                  </div>
+                </div>
+              </Fragment>
             }      
           </Switch>
         </Fragment>
