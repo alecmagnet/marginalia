@@ -3,6 +3,91 @@
 
 
 
+
+
+-----------------------------------------------
+
+
+FROM litTextsSlice 
+export const postLitText = createAsyncThunk(
+	"litTexts/postLitText",
+	async (formData) => {
+		const response = await fetch("/lit_texts", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+		if(!response.ok) {
+			return Promise.reject();
+		}
+		return await response.json();	
+	}
+)
+
+
+-----------------------------------------------
+
+
+FROM LitTextsContainer OLD TERNARY WITH SORRY ERROR 
+				{status === "idle" ? 
+					<div>
+						<Box textAlign="center">
+							<ToggleButtonGroup
+								value={litTextsOrder}
+								exclusive
+								onChange={handleLitTextsOrder}
+								aria-label="Arrange Users"
+								sx={{ bgcolor: "#fffaf5", }}
+							>
+								<ToggleButton 
+									value="authorAZ"
+									aria-label="Author A-Z"
+								>
+									Author A-Z
+								</ToggleButton>
+								<ToggleButton 
+									value="titleAZ"
+									aria-label="Title A-Z"
+								>
+									Title A-Z
+								</ToggleButton>
+								<ToggleButton 
+									value="recentlyAdded"
+									aria-label="Most recently added"
+								>
+									Recently Added
+								</ToggleButton>
+								<ToggleButton 
+									value="recentComment"
+									aria-label="Most recent comment"
+								>
+									Recent Activity
+								</ToggleButton>
+							</ToggleButtonGroup>
+							<br/>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ m: 2, mt: 3, width: "50%" }}
+								onChange={e => handleSearch(e)}
+							/>
+						</Box>
+						{renderLitTexts()}
+						{<LitTextNewForm litText={null} />}
+					</div>
+				: status === "loading" ?
+					<div className="centered-in-window" >
+							<h1>Loading...</h1>
+					</div>
+				: <div className="centered-in-window" >
+							<h1>We're sorry. There's been an error</h1>
+					</div>
+				}
+
+
 -----------------------------------------------
 
 

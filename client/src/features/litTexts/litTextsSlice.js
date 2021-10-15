@@ -12,17 +12,18 @@ export const fetchLitTexts = createAsyncThunk(
 export const postLitText = createAsyncThunk(
 	"litTexts/postLitText",
 	async (formData) => {
-		const response = await fetch("/lit_texts", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
-		})
-		if(!response.ok) {
-			return Promise.reject();
+		try {
+			const response = await fetch("/lit_texts", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			})
+			return await response.json()
+		}	catch (err) {
+			console.log("err", err, "err.response.data", err.response.data)
 		}
-		return await response.json();	
 	}
 )
 

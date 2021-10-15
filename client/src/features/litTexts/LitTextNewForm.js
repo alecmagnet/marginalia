@@ -1,12 +1,12 @@
 import { useState, } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
+import { postLitText } from '../litTexts/litTextsSlice' 
 
 export default function LitTextNewForm() {
-	const [errors, setErrors] = useState([])
 	const [isHidden, setIsHidden] = useState(false)
 	const [storyOrPoem, setStoryOrPoem] = useState("Poem")
 	const [formData, setFormData] = useState({
@@ -21,6 +21,7 @@ export default function LitTextNewForm() {
 	const [previewClicked, setPreviewClicked] = useState(false)
 	const [areYouSure, setAreYouSure] = useState(<span>Are you sure your submission is a <b>POEM?</b></span>)
 
+	const errors = useSelector(state => state.litTexts.errors)
 	const dispatch = useDispatch()
 
 	const handlePreviewClick = () => {
@@ -70,7 +71,7 @@ export default function LitTextNewForm() {
 	const parseQuillData = () => {
 		let parsedData = parse(`${quillData}`)
 		if (storyOrPoem === "Poem") {
-			return (<div classname="poetry">{parsedData}</div>)
+			return (<div className="poetry">{parsedData}</div>)
 		} else {
 			return (<div>{parsedData}</div>)
 		}
@@ -81,7 +82,7 @@ export default function LitTextNewForm() {
 		let parsedData = parseQuillData()
 		handleFormChange({ target: { name: "content", value: parsedData } })
 		console.log("handleSubmit.formData:", formData)
-		dispatch(formData)
+		dispatch(postLitText(formData))
 	}
 
 	const qFormats = [
@@ -190,6 +191,7 @@ export default function LitTextNewForm() {
 							</Button>
 						</Tooltip>
 						</div>
+						{errors?errors.map(e => <div key={e.id} style={{ color: "#660033", textAlign: "center" }} >{e}</div>):null}
             {previewClicked ? 
 							<div>
 								<br/>
@@ -218,7 +220,7 @@ export default function LitTextNewForm() {
 								<br/>
 								<div style={{ color: "#660033", textAlign: "center", width: "100%" }} >{areYouSure}</div>
 								<br/>
-								{storyOrPoem === "Story" || storyOrPoem === "Poem" ?
+								{quillData.length > 0 && (storyOrPoem === "Story" || storyOrPoem === "Poem") ?
 									<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
 										<Button
 											type="submit"

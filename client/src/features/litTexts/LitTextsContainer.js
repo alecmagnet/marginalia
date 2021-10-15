@@ -127,7 +127,11 @@ export default function LitTextsContainer () {
 			<Grid 
 				item xs={9}
 				>
-				{status === "idle" ? 
+				{status === "loading" ?
+					<div className="centered-in-window" >
+							<h1>Loading...</h1>
+					</div>
+				:
 					<div>
 						<Box textAlign="center">
 							<ToggleButtonGroup
@@ -173,13 +177,6 @@ export default function LitTextsContainer () {
 						</Box>
 						{renderLitTexts()}
 						{<LitTextNewForm litText={null} />}
-					</div>
-				: status === "loading" ?
-					<div className="centered-in-window" >
-							<h1>Loading...</h1>
-					</div>
-				: <div className="centered-in-window" >
-							<h1>We're sorry. There's been an error</h1>
 					</div>
 				}
 			</Grid>
