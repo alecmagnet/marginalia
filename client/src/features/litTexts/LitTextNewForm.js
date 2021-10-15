@@ -102,7 +102,6 @@ export default function LitTextNewForm() {
 		<Grid item xs={12}>
 			<Paper 
 				elevation={6} 
-				justifyContent="center"
 				sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
 			>
 				<Typography 
@@ -180,7 +179,7 @@ export default function LitTextNewForm() {
 						modules={qModules}
 					/>
 
-						<div style={{ width: "100%", display: "flex", justifyContent: "center", alignText: "center"  }}>
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
 						<Tooltip title="Check out the preview before you submit" arrow>
 							<Button 
 								onClick={handlePreviewClick}
