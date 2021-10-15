@@ -5,7 +5,6 @@ export const fetchLitTexts = createAsyncThunk(
 	async () => {
 		const response = await fetch("/lit_texts")
 		const data = await response.json()
-		// console.log("fetchLitTexts", data)
     return data
 	}
 )
@@ -50,7 +49,6 @@ const litTextsSlice = createSlice({
 				state.status = "loading"
 			})
 			.addCase(fetchLitTexts.fulfilled, (state, action) => {
-				// state.entities.push(action.payload)
 				state.entities = action.payload
 				state.status = "idle"
 			})

@@ -39,7 +39,12 @@ class LitTextsController < ApplicationController
 	end
 
 	def lit_text_params
-		params.permit(:title, :author, :pubdate, :content, :overflow, :rating, :description)
+		permitted = params.permit(:title, :author, :pubdate, :content, :overflow, :rating, :description, :prose)
+    sanitized = permitted.to_h
+    if sanitized.key?(:content)
+      sanitized[:content] = sanitizer.sanitize(sanitized[:content])
+    end
+    sanitized
 	end
 
 end
