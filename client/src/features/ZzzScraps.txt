@@ -2,6 +2,82 @@
 
 
 
+-----------------------------------------------
+
+
+FROM LitTextNewForm
+	const handleFormContent = (data) => {
+		setFormData(formData => {return ({
+			...formData,
+			content: data
+		})})
+	}
+
+	const handleFormConditional = () => {
+		if (formData.prose) {
+			handleFormContent(quillData)		
+		}	else {
+			let 
+		}
+	}
+
+	const handleQuillSubmit = (content) => {
+		console.log("handleQuillSUBMIT", content)
+		let cfg = {} 
+		let converter = new QuillDeltaToHtmlConverter(content, cfg)
+		let contentHTML = converter.convert()
+		let parsedContent = parse(`${contentHTML}`)
+	}
+
+
+-----------------------------------------------
+
+
+FROM LitTextNewForm
+					<TextField
+						onChange={handleFormChange}
+						autoComplete="content"
+						name="content"
+						required
+						fullWidth
+						id="content"
+						label="Content HTML"
+						sx={{ 
+							mt: 2,
+							mb: 1, 
+							mx: "10%", 
+							backgroundColor: "#fefcf9", 
+							width: "80%",
+							visibility: isHidden ? "hidden" : "visible" 
+						}}
+					/>
+
+					
+-----------------------------------------------
+
+
+FROM LitTextNewForm
+	const [errors, setErrors] = useState([])
+	const [isHidden, setIsHidden] = useState(false)
+	const [storyOrPoem, setStoryOrPoem] = useState("")
+	const isProse = () => storyOrPoem === "Story" ? true : false
+	const [formData, setFormData] = useState({
+		title: "",
+		author: "",
+		pubdate: "",
+		content: "",
+		prose: isProse()
+	})
+	const [quillData, setQuillData] = useState("")
+	const [addStoryOrPoem, setAddStoryOrPoem] = useState("Add a New Story or Poem")
+	// const [pasteStoryOrPoem, setPasteStoryOrPoem] = useState('story or poem')
+	
+	const handleStoryOrPoemClick = (event, value) => {
+		setStoryOrPoem(value)
+		setAddStoryOrPoem(`Add a New ${value}`)
+		// setPasteStoryOrPoem(`${value.toLowerCase()}`)
+	}
+
 
 -----------------------------------------------
 

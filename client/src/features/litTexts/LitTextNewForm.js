@@ -1,29 +1,44 @@
 import { useState, } from "react"
+import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
-// import Quill from "quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
-import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html'
-import { Grid, Paper, TextField, TextareaAutosize, Button, Typography, ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
+import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
 
 export default function LitTextNewForm() {
 	const [errors, setErrors] = useState([])
 	const [isHidden, setIsHidden] = useState(false)
-	const [storyOrPoem, setStoryOrPoem] = useState("")
-	const isProse = () => storyOrPoem === "Story" ? true : false
+	const [storyOrPoem, setStoryOrPoem] = useState("Poem")
 	const [formData, setFormData] = useState({
 		title: "",
 		author: "",
 		pubdate: "",
 		content: "",
-		prose: isProse()
+		prose: false
 	})
 	const [quillData, setQuillData] = useState("")
-	const [addOrEdit, setAddOrEdit] = useState("Add a New Story or Poem")
-	
+	const [addStoryOrPoem, setAddStoryOrPoem] = useState("Add a New Poem")
+	const [previewClicked, setPreviewClicked] = useState(false)
+
+	const handlePreviewClick = () => {
+		setPreviewClicked(!previewClicked)
+	}
+
+	const handleProseBoolean = (b) => {
+		setFormData(formData => {return ({
+			...formData,
+			prose: b
+		})})
+	}
+
 	const handleStoryOrPoemClick = (event, value) => {
 		setStoryOrPoem(value)
-		setAddOrEdit(`Add a New ${value}`)
+		setAddStoryOrPoem(`Add a New ${value}`)
+		if (value === "Story") {
+			handleProseBoolean(true)
+		} else if (value === "Poem") {
+			handleProseBoolean(false)
+		}
 	}
 
 	const handleFormChange = (e) => {
@@ -42,19 +57,38 @@ export default function LitTextNewForm() {
 		setQuillData(content)
 	}
 
-	const handleQuillSubmit = (content) => {
-		console.log("handleQuillSUBMIT", content)
-		let cfg = {} 
-		let converter = new QuillDeltaToHtmlConverter(content, cfg)
-		let contentHTML = converter.convert()
-		let parsedContent = parse(`${contentHTML}`)
-		handleFormChange({ target: { name: "content", value: parsedContent } })
+	const parseQuillData = () => {
+		let parseData = quillData
+		if (storyOrPoem === "Poem") {
+			parseData = quillData.replaceAll("</p><p>", "<br/>")
+		}
+		let returnData = parse(`${parseData}`)
+		return (<div>{returnData}</div>)
 	}
+
+	const dispatch = useDispatch()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log("submitted data:", formData)
+		let parsedData = parseQuillData()
+		handleFormChange({ target: { name: "content", value: parsedData } })
+		console.log("handleSubmit.formData:", formData)
+		dispatch(formData)
 	}
+
+	const qFormats = [
+		'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent'
+	]
+
+	const qModules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['clean']
+    ],
+  }
 
 	return (
 		<Grid item xs={12}>
@@ -67,7 +101,7 @@ export default function LitTextNewForm() {
 					variant="h5" 
 					sx={{ textAlign:"center", mb: 1 }} 
 				>
-					<b>{addOrEdit}</b>
+					<b>{addStoryOrPoem}</b>
 				</Typography>
 
 
@@ -83,13 +117,13 @@ export default function LitTextNewForm() {
 							value="Story"
 							aria-label="Story"
 						>
-							It's a Story
+							It's Prose
 						</ToggleButton>
 						<ToggleButton 
 							value="Poem"
 							aria-label="Poem"
 						>
-							It's a Poem
+							It's Poetry
 						</ToggleButton>
 					</ToggleButtonGroup>
 				</Box>
@@ -105,7 +139,7 @@ export default function LitTextNewForm() {
 						id="title"
 						label="Title"
 						autoFocus
-						sx={{ mx: "10%", my: 1, backgroundColor: "#fefcf9", width: "80%" }}
+						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 					/>
 					<TextField
 						onChange={handleFormChange}
@@ -113,7 +147,7 @@ export default function LitTextNewForm() {
 						name="author"
 						required
 						id="author"
-						sx={{ mx: "10%", my: 1, backgroundColor: "#fefcf9", width: "80%" }}
+						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 						label="Author"
 					/>
 					<TextField
@@ -123,48 +157,79 @@ export default function LitTextNewForm() {
 						required
 						id="pubdate"
 						label="Year"
-						sx={{ mt: 1, mb: 2, mx: "10%", backgroundColor: "#fefcf9", width: "80%" }}
+						sx={{ mt: 1, mb: 2, mx: "5%", backgroundColor: "#fff", width: "90%" }}
 					/>
 					<ReactQuill 
 						theme="snow"
 						value={quillData}
 						onChange={handleQuillChange}
-						placeholder="Text of Story or Poem"
+						placeholder="Paste and edit the text of the story or poem here"
 						style={{ 
-							backgroundColor: "#fefcf9", 
-							// minHeight: "100px", 
-							width: "80%",
-							marginRight: "10%",
-							marginLeft: "10%"
+							backgroundColor: "#fff", 
+							width: "90%",
+							marginRight: "5%",
+							marginLeft: "5%"
 						}}
+						formats={qFormats}
+						modules={qModules}
 					/>
 
-					<TextField
-						onChange={handleFormChange}
-						autoComplete="content"
-						name="content"
-						required
-						fullWidth
-						id="content"
-						label="Content HTML"
-						sx={{ 
-							mt: 2,
-							mb: 1, 
-							mx: "10%", 
-							backgroundColor: "#fefcf9", 
-							width: "80%",
-							visibility: isHidden ? "hidden" : "visible" 
-						}}
-					/>
 						<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Button
-              type="submit"
+						<Button 
+							onClick={handlePreviewClick}
               variant="contained"
-              sx={{ mt: 1, mb: 2, p: 2 }}
-            >
-              Submit
-            </Button>
+              sx={{ mt: 2, mr: 2, p: 2 }}
+						>
+							Preview
+						</Button>
 						</div>
+            {previewClicked ? 
+							<div>
+								<br/>
+								<Paper 
+									elevation={9} 
+									sx={{ p:3, m: 1, mx: "8%", backgroundColor: "#fefcf9" }}
+								>
+									<Grid container wrap="nowrap">
+										<Grid item xs={12}>
+									<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
+									<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
+									<Typography variant="h6" sx={{ textAlign:"center" }}>{formData.author}</Typography>
+									<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{formData.pubdate}</em></Typography>
+										<Grid container wrap="nowrap">
+											<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+												<div style={{ position: "flex", }} >
+													<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+														{parseQuillData()}
+													</Typography>
+													</div>
+											</Grid>
+										</Grid>
+									</Grid>
+									</Grid>
+								</Paper>
+								<br/>
+								<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+									<Button
+										type="submit"
+										variant="contained"
+										sx={{ mt: 1, mb: 2, p: 2 }}
+									>
+										Submit
+									</Button>
+								</div>
+							</div>
+						:
+							<div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+								<Button
+									disabled
+									variant="contained"
+									sx={{ mt: 2, mb: 2, p: 2 }}
+								>
+									Submit
+								</Button>
+							</div>
+						}
 				</form>
 			</Paper>
 		</Grid>
