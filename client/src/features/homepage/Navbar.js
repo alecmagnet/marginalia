@@ -11,11 +11,12 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
+import { Avatar } from "@mui/material";
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Tooltip from '@mui/material/Tooltip';
-import { Avatar } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 
 
 export default function Navbar() {
@@ -56,13 +57,15 @@ export default function Navbar() {
 	}
 
 	const handleTextsClick = () => {
-		handleMenuClose()
 		history.push('/texts')
 	}
 
 	const handleUsersClick = () => {
-		handleMenuClose()
 		history.push('/users')
+	}
+
+	const handleAboutClick = () => {
+		// history.push('/users')
 	}
 
 	const handleNameClick = () => {
@@ -101,7 +104,9 @@ export default function Navbar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" >
 				<Toolbar>
-					<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px", cursor: "pointer"}} onClick={handleNameClick} />
+          <Tooltip title="Home" arrow>
+						<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px", cursor: "pointer"}} onClick={handleNameClick} />
+					</Tooltip>
           <Tooltip title="Home" arrow>
 						<Typography
 							variant="h3"
@@ -119,14 +124,19 @@ export default function Navbar() {
 					</Tooltip>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
-            <Tooltip title="Texts" arrow>
-							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
-								<MenuBookIcon sx={{ fontSize: 38, pl: 1 }} />
+						<Tooltip title="About" arrow>
+							<IconButton aria-label="about" color="inherit" onClick={handleAboutClick} >
+								<InfoIcon sx={{ fontSize: 38, pl: 1 }} />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Users" arrow>
 							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} >
 								<PeopleIcon sx={{ fontSize: 38, pl: 1 }} />
+							</IconButton>
+						</Tooltip>
+            <Tooltip title="Texts" arrow>
+							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
+								<MenuBookIcon sx={{ fontSize: 38, pl: 1 }} />
 							</IconButton>
 						</Tooltip>
 						{userState.entities.length === 0 ?
