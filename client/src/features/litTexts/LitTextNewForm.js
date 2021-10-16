@@ -7,8 +7,7 @@ import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonG
 import { postLitText } from '../litTexts/litTextsSlice' 
 
 export default function LitTextNewForm() {
-	const [isHidden, setIsHidden] = useState(false)
-	const [storyOrPoem, setStoryOrPoem] = useState("Poem")
+	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [formData, setFormData] = useState({
 		title: "",
 		author: "",
@@ -17,9 +16,7 @@ export default function LitTextNewForm() {
 		prose: false
 	})
 	const [quillData, setQuillData] = useState("")
-	const [addStoryOrPoem, setAddStoryOrPoem] = useState("Add a New Poem")
 	const [previewClicked, setPreviewClicked] = useState(false)
-	const [areYouSure, setAreYouSure] = useState(<span>Are you sure your submission is a <b>POEM?</b></span>)
 
 	const errors = useSelector(state => state.litTexts.errors)
 	const dispatch = useDispatch()
@@ -39,16 +36,8 @@ export default function LitTextNewForm() {
 		setStoryOrPoem(value)
 		if (value === "Story") {
 			handleProseBoolean(true)
-			setAddStoryOrPoem(`Add a New Story or Other Prose Work`)
-			setAreYouSure(<span>Are you sure your submission is a <b>STORY</b> or other prose work?</span>)
 		} else if (value === "Poem") {
 			handleProseBoolean(false)
-			setAddStoryOrPoem(`Add a New ${value}`)
-			setAreYouSure(<span>Are you sure your submission is a <b>POEM?</b></span>)
-		} else {
-			setAddStoryOrPoem(`Add a New Story or Poem`)
-			setAreYouSure(<span>Is your submission a <b>POEM</b>? Or is it a <b>STORY</b> or other prose work?</span>)
-
 		}
 	}
 
@@ -109,31 +98,8 @@ export default function LitTextNewForm() {
 					variant="h5" 
 					sx={{ textAlign:"center", mb: 1 }} 
 				>
-					<b>{addStoryOrPoem}</b>
+					<b>Add a New Story or Poem</b>
 				</Typography>
-
-				<Box textAlign="center">
-					<ToggleButtonGroup
-						value={storyOrPoem}
-						exclusive
-						onChange={handleStoryOrPoemClick}
-						aria-label="Story or Poem"
-						sx={{ bgcolor: "#fff3e6", my: 1 }}
-					>
-						<ToggleButton 
-							value="Story"
-							aria-label="Story"
-						>
-							It's Prose
-						</ToggleButton>
-						<ToggleButton 
-							value="Poem"
-							aria-label="Poem"
-						>
-							It's Poetry
-						</ToggleButton>
-					</ToggleButtonGroup>
-				</Box>
 
 				<form display="flex" onSubmit={handleSubmit} >
 					<TextField
@@ -180,79 +146,128 @@ export default function LitTextNewForm() {
 						modules={qModules}
 					/>
 
+					<Box textAlign="center">
+						<ToggleButtonGroup
+							value={storyOrPoem}
+							exclusive
+							onChange={handleStoryOrPoemClick}
+							aria-label="Story or Poem"
+							sx={{ bgcolor: "#fff", mt: 2, }}
+						>
+							<ToggleButton 
+								value="Poem"
+								aria-label="Poem"
+								// sx={{ p: 2 }}
+							>
+								Poetry
+							</ToggleButton>
+							<ToggleButton 
+								value="Story"
+								aria-label="Story"
+								// sx={{ p: 2 }}
+							>
+								Prose
+							</ToggleButton>
+						</ToggleButtonGroup>
+					</Box>
+
+					{storyOrPoem === "Story" || storyOrPoem === "Poem" ?
 						<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
 						<Tooltip title="Check out the preview before you submit" arrow>
 							<Button 
 								onClick={handlePreviewClick}
 								variant="contained"
-								sx={{ mt: 2, p: 2 }}
+								sx={{ mt: 2, }}
 							>
 								Preview
 							</Button>
 						</Tooltip>
 						</div>
-						{errors?errors.map(e => <div key={e.id} style={{ color: "#660033", textAlign: "center" }} >{e}</div>):null}
-            {previewClicked ? 
-							<div>
-								<br/>
-								<Paper 
-									elevation={9} 
-									sx={{ p:3, m: 1, mx: "8%", backgroundColor: "#fefcf9" }}
-								>
-									<Grid container wrap="nowrap">
-										<Grid item xs={12}>
-									<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
-									<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
-									<Typography variant="h6" sx={{ textAlign:"center" }}>{formData.author}</Typography>
-									<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{formData.pubdate}</em></Typography>
-										<Grid container wrap="nowrap">
-											<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
-												<div style={{ position: "flex", }} >
-													<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
-														{parseQuillData()}
-													</Typography>
-													</div>
-											</Grid>
-										</Grid>
-									</Grid>
-									</Grid>
-								</Paper>
-								<br/>
-								<div style={{ color: "#660033", textAlign: "center", width: "100%" }} >{areYouSure}</div>
-								<br/>
-								{quillData.length > 0 && (storyOrPoem === "Story" || storyOrPoem === "Poem") ?
-									<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
-										<Button
-											type="submit"
-											variant="contained"
-											sx={{ mt: 1, mb: 2, p: 2 }}
-										>
-											Submit
-										</Button>
-									</div>
-								:
-									<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
-											<Button
-												disabled
-												variant="contained"
-												sx={{ mt: 2, mb: 2, p: 2 }}
-											>
-												Submit
-											</Button>
-									</div>
-								}
-							</div>
-						:
-							<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+					:
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
+							<Tooltip title="Select POETRY or PROSE first" arrow>
+								<span>
 									<Button
 										disabled
 										variant="contained"
-										sx={{ mt: 2, mb: 2, p: 2 }}
+										sx={{ mt: 2, }}
+									>
+										Preview
+									</Button>
+								</span>
+							</Tooltip>
+						</div>
+					}
+
+					{previewClicked && (storyOrPoem === "Story" || storyOrPoem === "Poem") ? 
+						<div>
+							<br/>
+							<Paper 
+								elevation={9} 
+								sx={{ p:3, m: 1, mx: "8%", backgroundColor: "#fefcf9" }}
+							>
+								<Grid container wrap="nowrap">
+									<Grid item xs={12}>
+								<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
+								<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
+								<Typography variant="h6" sx={{ textAlign:"center" }}>{formData.author}</Typography>
+								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{formData.pubdate}</em></Typography>
+									<Grid container wrap="nowrap">
+										<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+											<div style={{ position: "flex", }} >
+												<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+													{parseQuillData()}
+												</Typography>
+												</div>
+										</Grid>
+									</Grid>
+								</Grid>
+								</Grid>
+							</Paper>
+							<br/>
+
+							{quillData.length > 0 && (storyOrPoem === "Story" || storyOrPoem === "Poem") ?
+								<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+									<Button
+										type="submit"
+										variant="contained"
+										sx={{ mt: 1, mb: 2, }}
 									>
 										Submit
 									</Button>
-							</div>
-						}
+								</div>
+							:
+								<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+									<Tooltip title="Text cannot be blank" arrow>
+										<span>
+											<Button
+												disabled
+												variant="contained"
+												sx={{ mt: 2, mb: 2, }}
+											>
+												Submit
+											</Button>
+										</span>
+									</Tooltip>
+								</div>
+							}
+						</div>
+					:
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+							<Tooltip title="Check out the Preview first" arrow>
+								<span>
+									<Button
+										disabled
+										variant="contained"
+										sx={{ mt: 2, mb: 2, }}
+									>
+										Submit
+									</Button>
+								</span>
+							</Tooltip>
+						</div>
+					}
+
 				</form>
 			</Paper>
 		</Grid>
