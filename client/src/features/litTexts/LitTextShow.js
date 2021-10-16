@@ -74,7 +74,13 @@ export default function LitTextShow() {
 							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
 								<div style={{ position: "flex", }} >
 									<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+									{litText.prose ?	
 										{parsedContent}
+									:
+										<div className="poetry">
+											{parsedContent}
+										</div>
+									}
 									</Typography>
 									</div>
 							</Grid>
