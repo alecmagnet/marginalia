@@ -38,6 +38,10 @@ class LitTextsController < ApplicationController
 		LitText.find(params[:id])
 	end
 
+  def sanitizer
+    Rails::Html::SafeListSanitizer.new
+  end
+
 	def lit_text_params
 		permitted = params.permit(:title, :author, :pubdate, :content, :overflow, :rating, :description, :prose)
     sanitized = permitted.to_h

@@ -21,10 +21,6 @@ export default function LitTextNewForm() {
 	const errors = useSelector(state => state.litTexts.errors)
 	const dispatch = useDispatch()
 
-	const handlePreviewClick = () => {
-		setPreviewClicked(!previewClicked)
-	}
-
 	const handleProseBoolean = (b) => {
 		setFormData(formData => {return ({
 			...formData,
@@ -52,24 +48,44 @@ export default function LitTextNewForm() {
 		})
 	}
 
+	const wrapTextContent = data => {
+		if (storyOrPoem === "Poem") {
+			return (<div className="poetry">{data}</div>)
+		} else {
+			return (<div>{data}</div>)
+		}		
+	}
+	
 	const handleQuillChange = (content) => {
 		console.log("handleQuillCHANGE", content)
 		setQuillData(content)
+		// let wrapped = wrapTextContent(content)
+		// console.log("wrapped", wrapped)
+		handleFormChange({ target: { name: "content", value: content } })
 	}
 
 	const parseQuillData = () => {
 		let parsedData = parse(`${quillData}`)
-		if (storyOrPoem === "Poem") {
-			return (<div className="poetry">{parsedData}</div>)
-		} else {
-			return (<div>{parsedData}</div>)
-		}
+		// let parsedData = parse(`${formData.content}`)
+		let returnData = wrapTextContent(parsedData)
+		// if (storyOrPoem === "Poem") {
+		// 	returnData = <div className="poetry">{parsedData}</div>
+		// } else {
+		// 	returnData = <div>{parsedData}</div>
+		// }
+		// handleFormChange({ target: { name: "content", value: returnData } })
+		return returnData
+	}
+
+	const handlePreviewClick = () => {
+		// parseQuillData()
+		setPreviewClicked(!previewClicked)
 	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		let parsedData = parseQuillData()
-		handleFormChange({ target: { name: "content", value: parsedData } })
+		// let parsedData = parseQuillData()
+		// handleFormChange({ target: { name: "content", value: parsedData } })
 		console.log("handleSubmit.formData:", formData)
 		dispatch(postLitText(formData))
 	}

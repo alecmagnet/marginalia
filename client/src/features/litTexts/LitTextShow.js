@@ -97,12 +97,6 @@ export default function LitTextShow() {
 			</div>
 		</Grid>
 		)
-	// } else if ((litTextState.entities.length === 0 && litTextState.status === "idle") ||litTextState.entities[0].errors) {
-	// 	return (
-	// 		<div className="centered-in-window" >
-	// 			<h1>We're sorry. There's been an error</h1>
-	// 		</div>
-	// 	)
 	} else {
 		return (
 			<div className="centered-in-window" >

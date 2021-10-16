@@ -40,7 +40,7 @@ code {
   min-height: 100px;
 }
 
-.poetry {
+div.poetry > p {
    margin: 0px;
    padding: 0px;
 }
