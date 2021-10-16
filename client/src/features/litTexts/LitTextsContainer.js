@@ -169,13 +169,6 @@ export default function LitTextsContainer () {
 				:
 				<div>
 						<div style={{ display:"flex", justifyContent:"center", marginBottom: "32px" }}>
-						<TextField 
-							id="search"
-							label="Search"
-							variant="filled"
-							sx={{ mt: "8px", mb: 2, width: "34%" }}
-							onChange={e => handleSearch(e)}
-							/>
 							<OrderDropdown 
 								litTextsOrder={litTextsOrder} 
 								handleLitTextsOrder={handleLitTextsOrder} 
@@ -184,19 +177,23 @@ export default function LitTextsContainer () {
 								poetryProseValue={poetryProseValue}
 								handlePoetryProseValue={handlePoetryProseValue}
 							/>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}
+								onChange={e => handleSearch(e)}
+							/>
 							<Tooltip title="Add New Story or Poem" arrow>
 								<Button
 									onClick={() => handleNewClick()} 
 									variant="contained"
-									sx={{ ml: 3, mt: "8px", p: 0, height: "62px" }}
+									sx={{ ml: 2, mt: "8px", p: 0, height: "62px" }}
 								>
 									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
 								</Button>
 							</Tooltip>
 						</div>
-
-						{/* <div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 12, paddingBottom: 2 }}>
-						</div> */}
 
 								{newClicked ? 
 									<LitTextNewForm 
