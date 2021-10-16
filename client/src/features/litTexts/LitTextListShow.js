@@ -9,9 +9,16 @@ export default function LitTextListShow({ litText }) {
 	if (content && prose) {
 		parsedContent = content.replace(/(<([^>]+)>)/gi, " ")
 	} else if (content && !prose) {
-		let p1 = content.replaceAll('<br/>', " / ")
-		let p2 = p1.replaceAll('</p>', " // ")
-		parsedContent = p2.replace(/(<([^>]+)>)/gi, " ")
+		let p = content.replaceAll('</p><br/>', " // ")
+			.replaceAll('</p><br>', " // ")
+			.replaceAll('<br/><br/>', " // ")
+			.replaceAll('</p>', " / ")
+			.replaceAll('<br>', " / ")
+			.replaceAll('<br/>', " / ")
+		// let p1 = content.replaceAll('</p><br/>', " // ")
+		// let p2 = p1.replaceAll('</p>', " / ")
+		// let p3 = p2.replaceAll('<br>', " / ").replaceAll('<br/>', " / ")
+		parsedContent = p.replace(/(<([^>]+)>)/gi, " ")
 	}
 	const firstHundred = parsedContent.slice(0, 150)
 	const showContent = firstHundred.replace(/\s.\w+$/, "")
