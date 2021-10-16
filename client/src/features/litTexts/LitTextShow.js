@@ -75,7 +75,9 @@ export default function LitTextShow() {
 								<div style={{ position: "flex", }} >
 									<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
 									{litText.prose ?	
-										{parsedContent}
+										<div>
+											{parsedContent}
+										</div>
 									:
 										<div className="poetry">
 											{parsedContent}
