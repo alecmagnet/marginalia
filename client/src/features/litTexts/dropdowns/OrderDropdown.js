@@ -32,7 +32,7 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 	}
 	
 	return (
-		<FormControl sx={{ minWidth: "232px", mt: 1, bgcolor: "#fefcf9" }} >
+		<FormControl sx={{ minWidth: "232px", ml: 3, mt: 1, }} >
 			<InputLabel id="arrange-by-label">Arrange By</InputLabel>
 			<Select
 				labelId="arrange-by-label"
@@ -40,6 +40,7 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 				value={litTextsOrder}
 				label="Arrange By"
 				onChange={handleLitTextsOrder}
+				sx={{ bgcolor: "#fefcf9" }}
 			>
 				<MenuItem value="authorA-Z">
 					Author {directionElement("authorA-Z")}

@@ -5,7 +5,6 @@ import LitTextNewForm from './LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
 import { Typography, Grid, TextField, Button, Tooltip } from '@mui/material'
 import FilterDropdown from './dropdowns/FilterDropdown'
-import { HashLink } from 'react-router-hash-link'
 
 
 // FUTURE GOAL: REFACTOR THIS CODE INTO SMALLER COMPONENTS
@@ -168,8 +167,15 @@ export default function LitTextsContainer () {
 							<h1>Loading...</h1>
 					</div>
 				:
-					<div>
-						<div style={{ display:"flex", justifyContent:"center", }}>
+				<div>
+						<div style={{ display:"flex", justifyContent:"center", marginBottom: "32px" }}>
+						<TextField 
+							id="search"
+							label="Search"
+							variant="filled"
+							sx={{ mt: "8px", mb: 2, width: "34%" }}
+							onChange={e => handleSearch(e)}
+							/>
 							<OrderDropdown 
 								litTextsOrder={litTextsOrder} 
 								handleLitTextsOrder={handleLitTextsOrder} 
@@ -178,26 +184,19 @@ export default function LitTextsContainer () {
 								poetryProseValue={poetryProseValue}
 								handlePoetryProseValue={handlePoetryProseValue}
 							/>
-						</div>
-
-						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 12, paddingBottom: 2 }}>
-							<TextField 
-								id="search"
-								label="Search"
-								variant="filled"
-								sx={{ mt: 2, mb: 2, width: "40%" }}
-								onChange={e => handleSearch(e)}
-								/>
 							<Tooltip title="Add New Story or Poem" arrow>
 								<Button
 									onClick={() => handleNewClick()} 
 									variant="contained"
-									sx={{ ml: 3, mt: 2, p: 0, height: "62px" }}
+									sx={{ ml: 3, mt: "8px", p: 0, height: "62px" }}
 								>
 									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
 								</Button>
 							</Tooltip>
 						</div>
+
+						{/* <div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 12, paddingBottom: 2 }}>
+						</div> */}
 
 								{newClicked ? 
 									<LitTextNewForm 
@@ -208,17 +207,7 @@ export default function LitTextsContainer () {
 								: null}
 			
 						{renderLitTexts()}
-						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
-							<HashLink smooth to="/texts#top">
-							<Button 
-								// onClick={handleNewClick}
-								variant="contained"
-								sx={{ mt: 2, mb: 4}}
-							>
-								Top
-							</Button>
-							</HashLink>
-						</div>
+
 					</div>
 				}
 			</Grid>

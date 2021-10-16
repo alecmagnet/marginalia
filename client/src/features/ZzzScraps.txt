@@ -2,6 +2,22 @@
 
 
 
+-----------------------------------------------
+
+
+FROM LitTextsContainer SMOOTH TO TOP BUTTON
+import { HashLink } from 'react-router-hash-link'
+						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
+							<HashLink smooth to="/texts#top">
+							<Button 
+								// onClick={handleNewClick}
+								variant="contained"
+								sx={{ mt: 2, mb: 4}}
+							>
+								Top
+							</Button>
+							</HashLink>
+						</div>
 
 
 -----------------------------------------------
