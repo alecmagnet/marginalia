@@ -5,13 +5,13 @@ import MenuItem from '@mui/material/MenuItem'
 
 export default function FilterDropdown({ poetryProseValue, handlePoetryProseValue }) {
 	return (
-		<FormControl sx={{ minWidth: "162px", ml: 10, bgcolor: "#fefcf9" }} >
+		<FormControl sx={{ minWidth: "112px", ml: 3, mt: 1, bgcolor: "#fefcf9" }} >
 			<InputLabel id="filter-by-label">View</InputLabel>
 			<Select
 				labelId="filter-by-label"
 				id="filter-by"
 				value={poetryProseValue}
-				label="Filter By"
+				label="View"
 				onChange={handlePoetryProseValue}
 			>
 				<MenuItem value="all">

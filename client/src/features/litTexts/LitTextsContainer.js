@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { HashLink } from 'react-router-hash-link'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
 import { Typography, Grid, Box, TextField, Button, Tooltip } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import FilterDropdown from './dropdowns/FilterDropdown'
+import { HashLink } from 'react-router-hash-link'
 
 
 // FUTURE GOAL: REFACTOR THIS CODE INTO SMALLER COMPONENTS
@@ -82,10 +82,8 @@ export default function LitTextsContainer () {
 	}
 
 	const [filteredLitTexts, setFilteredLitTexts] = useState([...litTextsArr])
-	// const [byPoetryOrProse, setByPoetryOrProse] = useState([...filteredLitTexts])
 	useEffect(() => {if (litTextsArr.length > 0) {
 		setFilteredLitTexts([...litTextsArr])
-		// setByPoetryOrProse([...filteredLitTexts])
 	}}, [entities])
 
 	const handleSearch = (e) => {
@@ -106,7 +104,6 @@ export default function LitTextsContainer () {
 	const [poetryProseValue, setPoetryProseValue] = useState("all") 
 	const handlePoetryProseValue = (e) => {
 		setPoetryProseValue(e.target.value)
-		// handleByPoetryOrProse()
 	}
 	const filterRawArr = (rawArr) => {
 		let formArr = [...rawArr]
@@ -159,7 +156,7 @@ export default function LitTextsContainer () {
 				item xs={9} 
 				align="center" 
 				justify="center">
-					<Typography variant="h2" justify="center" sx={{ pt:4, pb:3, fontWeight: 410 }}>Library</Typography>
+					<Typography id="top" variant="h2" justify="center" sx={{ pt:4, pb:3, fontWeight: 410 }}>Library</Typography>
 			</Grid>
 			<Grid item xs={9}>
 
@@ -173,54 +170,55 @@ export default function LitTextsContainer () {
 					</div>
 				:
 					<div>
-						<Box>
-							<OrderDropdown 
-								litTextsOrder={litTextsOrder} 
-								handleLitTextsOrder={handleLitTextsOrder} 
+						<div style={{ display:"flex", justifyContent:"center", }}>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ mt: 1, width: "45%" }}
+								onChange={e => handleSearch(e)}
 							/>
 							<FilterDropdown
 								poetryProseValue={poetryProseValue}
 								handlePoetryProseValue={handlePoetryProseValue}
 							/>
-
-							<br/>
-
-						</Box>
-						<Box textAlign="center" >
-							<TextField 
-								id="search"
-								label="Search"
-								variant="filled"
-								sx={{ m: 2, mt: 3, width: "50%" }}
-								onChange={e => handleSearch(e)}
+							<OrderDropdown 
+								litTextsOrder={litTextsOrder} 
+								handleLitTextsOrder={handleLitTextsOrder} 
 							/>
-						</Box>
+						</div>
 
 						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
 							<Tooltip title="Add New Story or Poem" arrow>
-								<HashLink smooth to="/texts#new" style={{ color: "#757575" }}>
-									<AddBoxIcon size="small" onClick={() => setNewClicked(true)} />
-								</HashLink>
+								<Button
+									onClick={() => handleNewClick()} 
+									variant="contained"
+									sx={{ py: 1, mt: 2, }}
+								>
+									<AddBoxIcon fontSize="large" fontColor="#fefcf9"/>
+								</Button>
 							</Tooltip>
 						</div>
 
-						{renderLitTexts()}
-						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
-							<Button 
-								onClick={handleNewClick}
-								variant="contained"
-								sx={{ mt: 2, mb: 4}}
-							>
-								Add New Story or Poem
-							</Button>
-						</div>
-						
 						{newClicked ? 
 							<LitTextNewForm 
 								handleNewClick={handleNewClick} 
 								handleLitTextsOrder={handleLitTextsOrder} 
 								handlePoetryProseValue={handlePoetryProseValue}
 							/> : null}
+
+						{renderLitTexts()}
+						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
+							<HashLink smooth to="/texts#top">
+							<Button 
+								// onClick={handleNewClick}
+								variant="contained"
+								sx={{ mt: 2, mb: 4}}
+							>
+								Top
+							</Button>
+							</HashLink>
+						</div>
 					</div>
 				}
 			</Grid>
