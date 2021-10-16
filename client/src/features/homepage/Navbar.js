@@ -126,17 +126,17 @@ export default function Navbar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
 						<Tooltip title="About" arrow>
 							<IconButton aria-label="about" color="inherit" onClick={handleAboutClick} >
-								<InfoIcon sx={{ fontSize: 38, pl: 1 }} />
+								<InfoIcon sx={{ fontSize: 31, pl: 1 }} />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Users" arrow>
 							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} >
-								<PeopleIcon sx={{ fontSize: 38, pl: 1 }} />
+								<PeopleIcon sx={{ fontSize: 39, pl: 2 }} />
 							</IconButton>
 						</Tooltip>
             <Tooltip title="Texts" arrow>
 							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
-								<MenuBookIcon sx={{ fontSize: 38, pl: 1 }} />
+								<MenuBookIcon sx={{ fontSize: 40, pl: 2 }} />
 							</IconButton>
 						</Tooltip>
 						{userState.entities.length === 0 ?
@@ -149,7 +149,7 @@ export default function Navbar() {
 									onClick={handleProfileMenuOpen}
 									color="inherit"
 								>
-									<AccountCircle sx={{ fontSize: 55, pl: 1 }} />
+									<AccountCircle sx={{ fontSize: 55, pl: 2 }} />
 								</IconButton>
 							</Tooltip>
 						:
@@ -157,7 +157,7 @@ export default function Navbar() {
 								<Avatar 
 									alt={fullName} 
 									src={imageUrl} 
-									sx={{ width: 55, height: 55, cursor: "pointer", ml: 2 }}
+									sx={{ width: 55, height: 55, cursor: "pointer", ml: 3 }}
 									edge="end"
 									aria-label="account of current user"
 									aria-controls={menuId}

@@ -2,7 +2,7 @@ import parse from 'html-react-parser'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid, Paper, Typography, Tooltip } from '@mui/material'
+import { Grid, Paper, Typography, Tooltip, Box } from '@mui/material'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import ForumIcon from '@mui/icons-material/Forum';
 import CommentsList from '../comments/CommentsList'
@@ -28,15 +28,19 @@ export default function LitTextShow() {
 	if (litTextState.entities.length > 0) commentsHash = `/texts/${litText.id}#comments`
 	if (litTextState.entities.length > 0) newCommentHash = `/texts/${litText.id}#new-comment`
 
-	let parsedContent = ""
-	
 	// let listComments = []
+	let parsedContent = ""
+	let isProse = "POETRY"
 	if (litTextState.entities.length > 0) {
 		parsedContent = parse(`${litText.content}`)
+		if (litText.prose) {
+			isProse = "PROSE"
+		}
 		// const sortComments = [...litText.comments]
 		// const newestFirst = sortComments.sort((a, b) => b.id - a.id)
 		// listComments = [...newestFirst]
 	}
+
 
 
 	if (litTextState.status === "idle" && litTextState.entities.length > 0) {
@@ -53,21 +57,24 @@ export default function LitTextShow() {
 					elevation={9} 
 					sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
 				>
-					<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
+					<div style={{ display:"flex", justifyContent:"center", alignContent: "center", marginTop: 6, marginBottom: 14, paddingBottom: 2 }}>
             <Tooltip title="Comments" arrow>
-							<HashLink smooth to={commentsHash} style={{ marginRight: 12, color: "#757575" }}>
-									<ForumIcon size="small" />
+							<HashLink smooth to={commentsHash} style={{ marginRight: 18, color: "#757575" }}>
+									<ForumIcon size="small" sx={{mt: "5px" }} />
 								</HashLink>
 						</Tooltip>
+					<Box sx={{ bgcolor: "#3e2723", mr: "18px", px: "12px", pt: "7px", borderRadius: 3 }}>
+						<Typography variant="caption2" sx={{ textAlign:"center", color:"#fafafa", pb: 0, cursor: "default" }}>{isProse}</Typography>
+					</Box>
             <Tooltip title="New Comment" arrow>
 							<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
-								<AddCommentIcon size="small" />
+								<AddCommentIcon size="small" sx={{mt: "5px" }} />
 							</HashLink>
 						</Tooltip>
 					</div>
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
-					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{litText.title}</b></Typography>
+					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
 					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
 						<Grid container wrap="nowrap">
