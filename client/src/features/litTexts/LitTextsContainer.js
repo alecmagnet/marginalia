@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
-import { Typography, Grid, Box, TextField, Button, Tooltip } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox'
+import { Typography, Grid, TextField, Button, Tooltip } from '@mui/material'
 import FilterDropdown from './dropdowns/FilterDropdown'
 import { HashLink } from 'react-router-hash-link'
 
@@ -171,42 +170,43 @@ export default function LitTextsContainer () {
 				:
 					<div>
 						<div style={{ display:"flex", justifyContent:"center", }}>
-							<TextField 
-								id="search"
-								label="Search"
-								variant="filled"
-								sx={{ mt: 1, width: "45%" }}
-								onChange={e => handleSearch(e)}
+							<OrderDropdown 
+								litTextsOrder={litTextsOrder} 
+								handleLitTextsOrder={handleLitTextsOrder} 
 							/>
 							<FilterDropdown
 								poetryProseValue={poetryProseValue}
 								handlePoetryProseValue={handlePoetryProseValue}
 							/>
-							<OrderDropdown 
-								litTextsOrder={litTextsOrder} 
-								handleLitTextsOrder={handleLitTextsOrder} 
-							/>
 						</div>
 
-						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
+						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 12, paddingBottom: 2 }}>
+							<TextField 
+								id="search"
+								label="Search"
+								variant="filled"
+								sx={{ mt: 2, mb: 2, width: "40%" }}
+								onChange={e => handleSearch(e)}
+								/>
 							<Tooltip title="Add New Story or Poem" arrow>
 								<Button
 									onClick={() => handleNewClick()} 
 									variant="contained"
-									sx={{ py: 1, mt: 2, }}
+									sx={{ ml: 3, mt: 2, p: 0, height: "62px" }}
 								>
-									<AddBoxIcon fontSize="large" fontColor="#fefcf9"/>
+									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
 								</Button>
 							</Tooltip>
 						</div>
 
-						{newClicked ? 
-							<LitTextNewForm 
-								handleNewClick={handleNewClick} 
-								handleLitTextsOrder={handleLitTextsOrder} 
-								handlePoetryProseValue={handlePoetryProseValue}
-							/> : null}
-
+								{newClicked ? 
+									<LitTextNewForm 
+										handleNewClick={handleNewClick} 
+										handleLitTextsOrder={handleLitTextsOrder} 
+										handlePoetryProseValue={handlePoetryProseValue}
+									/> 
+								: null}
+			
 						{renderLitTexts()}
 						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
 							<HashLink smooth to="/texts#top">

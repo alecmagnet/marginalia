@@ -4,7 +4,21 @@
 
 
 
-							
+-----------------------------------------------
+
+
+FROM LitTextsContainer ADD NEW BUTTON
+							<Tooltip title="Add New Story or Poem" arrow>
+								<Button
+									onClick={() => handleNewClick()} 
+									variant="contained"
+									sx={{ py: 1, ml: 5, mt: "9px" }}
+								>
+									<AddBoxIcon fontSize="large" fontColor="#fefcf9"/>
+								</Button>
+							</Tooltip>
+
+
 -----------------------------------------------
 
 

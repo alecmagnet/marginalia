@@ -109,7 +109,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		<Grid item xs={12}>
 			<Paper 
 				elevation={6} 
-				sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5" }}
+				sx={{ p:3, m: 3, mt: 3, backgroundColor: "#ebe3e1" }}
 			>
 				<Typography 
 					variant="h5" 
