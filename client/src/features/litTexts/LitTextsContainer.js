@@ -2,12 +2,17 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './LitTextNewForm'
-import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField } from '@mui/material'
-
+import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField, Button, Tooltip } from '@mui/material'
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import { HashLink } from 'react-router-hash-link'
 
 export default function LitTextsContainer () {
-  const { entities, status } = useSelector((state) => state.litTexts)
+	const [newClicked, setNewClicked] = useState(false)
+	const handleNewClick = () => {
+		setNewClicked(prev => !prev)
+	}
 
+  const { entities, status } = useSelector((state) => state.litTexts)
 	const litTextsArr = [...entities]
 
 	const authorAZ = (texts) => {
@@ -175,8 +180,27 @@ export default function LitTextsContainer () {
 								onChange={e => handleSearch(e)}
 							/>
 						</Box>
+
+						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
+							<Tooltip title="New Comment" arrow>
+								<HashLink smooth to="/texts#new" style={{ color: "#757575" }}>
+									<AddBoxIcon size="small" onClick={() => setNewClicked(true)} />
+								</HashLink>
+							</Tooltip>
+						</div>
+
 						{renderLitTexts()}
-						{<LitTextNewForm litText={null} />}
+						<div id="new" style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
+							<Button 
+								onClick={handleNewClick}
+								variant="contained"
+								sx={{ mt: 2, mb: 4}}
+							>
+								Add New Story or Poem
+							</Button>
+						</div>
+						
+						{newClicked ? <LitTextNewForm handleNewClick={handleNewClick} /> : null}
 					</div>
 				}
 			</Grid>

@@ -59,35 +59,33 @@ export default function LitTextNewForm() {
 	const handleQuillChange = (content) => {
 		console.log("handleQuillCHANGE", content)
 		setQuillData(content)
-		// let wrapped = wrapTextContent(content)
-		// console.log("wrapped", wrapped)
 		handleFormChange({ target: { name: "content", value: content } })
 	}
 
 	const parseQuillData = () => {
 		let parsedData = parse(`${quillData}`)
-		// let parsedData = parse(`${formData.content}`)
 		let returnData = wrapTextContent(parsedData)
-		// if (storyOrPoem === "Poem") {
-		// 	returnData = <div className="poetry">{parsedData}</div>
-		// } else {
-		// 	returnData = <div>{parsedData}</div>
-		// }
-		// handleFormChange({ target: { name: "content", value: returnData } })
 		return returnData
 	}
 
 	const handlePreviewClick = () => {
-		// parseQuillData()
 		setPreviewClicked(!previewClicked)
 	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		// let parsedData = parseQuillData()
-		// handleFormChange({ target: { name: "content", value: parsedData } })
 		console.log("handleSubmit.formData:", formData)
 		dispatch(postLitText(formData))
+		setFormData({
+			title: "",
+			author: "",
+			pubdate: "",
+			content: "",
+			prose: false
+		})
+		setQuillData("")
+		setPreviewClicked(false)
+		setStoryOrPoem("")
 	}
 
 	const qFormats = [
@@ -108,7 +106,7 @@ export default function LitTextNewForm() {
 		<Grid item xs={12}>
 			<Paper 
 				elevation={6} 
-				sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
+				sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5" }}
 			>
 				<Typography 
 					variant="h5" 
