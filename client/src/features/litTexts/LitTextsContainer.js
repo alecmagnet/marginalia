@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
+import { HashLink } from 'react-router-hash-link'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './LitTextNewForm'
-import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField, Button, Tooltip } from '@mui/material'
+import OrderDropdown from './OrderDropdown'
+import { Typography, Grid, Box, TextField, Button, Tooltip } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import { HashLink } from 'react-router-hash-link'
 
+
+// FUTURE GOAL: REFACTOR THIS CODE INTO SMALLER COMPONENTS
 export default function LitTextsContainer () {
 	const [newClicked, setNewClicked] = useState(false)
 	const handleNewClick = () => {
@@ -39,7 +42,7 @@ export default function LitTextsContainer () {
 		return sortedArr
 	}
 
-	const recentlyJoined = (texts) => {
+	const recentlyAdded = (texts) => {
 		let toSort = [...texts]
 		let sortArr = toSort.sort((a, b) => {
 			let dateTimeA = Date.parse(a.created_at) 
@@ -70,16 +73,16 @@ export default function LitTextsContainer () {
 		let sortArr = toSort.sort((a, b) => newestComment(b) - newestComment(a))
 		return sortArr
 	}
-	
-	const [ litTextsOrder, setLitTextsOrder ] = useState("authorAZ")
 
-	const handleLitTextsOrder = (event, newOrder) => {
-		setLitTextsOrder(newOrder)
+	
+	const [litTextsOrder, setLitTextsOrder] = useState("authorA-Z")
+	const handleLitTextsOrder = (e) => {
+		setLitTextsOrder(e.target.value)
 	}
 
 	const [filteredLitTexts, setFilteredLitTexts] = useState([...litTextsArr])
-	
 	useEffect(() => {if (litTextsArr.length > 0) setFilteredLitTexts([...litTextsArr])}, [entities])
+
 
 	const handleSearch = (e) => {
 		let keyword = e.target.value.toLowerCase()
@@ -99,14 +102,26 @@ export default function LitTextsContainer () {
 	const renderLitTexts = () => {
 		let rawArr = [...filteredLitTexts]
 		let arrTwo = []
-		if (litTextsOrder === "authorAZ") {
+		if (litTextsOrder === "authorA-Z") {
 			arrTwo = [...authorAZ(rawArr)]
-		} else if (litTextsOrder === "titleAZ") {
+		} else if (litTextsOrder === "authorZ-A") {
+			arrTwo = [...authorAZ(rawArr).reverse()]
+		} else if (litTextsOrder === "titleA-Z") {
 			arrTwo = [...titleAZ(rawArr)]
-		} else if (litTextsOrder === "recentlyAdded") {
-			arrTwo = [...recentlyJoined(rawArr)]
-		} else if (litTextsOrder === "recentComment") {
+		} else if (litTextsOrder === "titleZ-A") {
+			arrTwo = [...titleAZ(rawArr).reverse()]
+		// } else if (litTextsOrder === "dateNew") {
+		// 	arrTwo = [...byPubdate(rawArr)]
+		// } else if (litTextsOrder === "dateOld") {
+		// 	arrTwo = [...byPubdate(rawArr).reverse()]
+		} else if (litTextsOrder === "activityNew") {
 			arrTwo = [...recentlyCommented(rawArr)]
+		} else if (litTextsOrder === "activityOld") {
+			arrTwo = [...recentlyCommented(rawArr).reverse()]
+		} else if (litTextsOrder === "addedNew") {
+			arrTwo = [...recentlyAdded(rawArr)]
+		} else if (litTextsOrder === "addedOld") {
+			arrTwo = [...recentlyAdded(rawArr).reverse()]
 		}
 		let toMap = [...arrTwo]
 		let mappedArr = toMap.map((text) => <LitTextListShow key={text.id} litText={text} />)
@@ -138,40 +153,16 @@ export default function LitTextsContainer () {
 					</div>
 				:
 					<div>
-						<Box textAlign="center">
-							<ToggleButtonGroup
-								value={litTextsOrder}
-								exclusive
-								onChange={handleLitTextsOrder}
-								aria-label="Arrange Users"
-								sx={{ bgcolor: "#fffaf5", }}
-							>
-								<ToggleButton 
-									value="authorAZ"
-									aria-label="Author A-Z"
-								>
-									Author A-Z
-								</ToggleButton>
-								<ToggleButton 
-									value="titleAZ"
-									aria-label="Title A-Z"
-								>
-									Title A-Z
-								</ToggleButton>
-								<ToggleButton 
-									value="recentlyAdded"
-									aria-label="Most recently added"
-								>
-									Recently Added
-								</ToggleButton>
-								<ToggleButton 
-									value="recentComment"
-									aria-label="Most recent comment"
-								>
-									Recent Activity
-								</ToggleButton>
-							</ToggleButtonGroup>
+						<Box>
+							<OrderDropdown 
+								litTextsOrder={litTextsOrder} 
+								handleLitTextsOrder={handleLitTextsOrder} 
+							/>
+
 							<br/>
+
+						</Box>
+						<Box textAlign="center" >
 							<TextField 
 								id="search"
 								label="Search"
@@ -200,7 +191,11 @@ export default function LitTextsContainer () {
 							</Button>
 						</div>
 						
-						{newClicked ? <LitTextNewForm handleNewClick={handleNewClick} /> : null}
+						{newClicked ? 
+							<LitTextNewForm 
+								handleNewClick={handleNewClick} 
+								handleLitTextsOrder={handleLitTextsOrder} 
+							/> : null}
 					</div>
 				}
 			</Grid>

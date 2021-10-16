@@ -44,3 +44,9 @@ div.poetry > p {
    margin: 0px;
    padding: 0px;
 }
+
+.direction {
+  color: "#616161"; 
+  font-size: "85%"; 
+  padding-left: "4px"; 
+}

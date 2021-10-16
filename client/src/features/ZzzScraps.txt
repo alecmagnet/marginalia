@@ -4,6 +4,122 @@
 
 
 
+							
+-----------------------------------------------
+
+
+FROM LitTextsContainer DROPDOWN
+							<FormControl sx={{ minWidth: "250px", ml: 10, bgcolor: "#fffaf5" }} >
+								<InputLabel id="arrange-by-label">Arrange By</InputLabel>
+								<Select
+									labelId="arrange-by-label"
+									id="arrange-by"
+									value={litTextsOrder}
+									label="Arrange By"
+									onChange={handleLitTextsOrder}
+									// sx={{ p: 1 }}
+								>
+									<MenuItem value="authorAZ">
+										Author 
+										<span style={directionStyle}>
+											(a-z)
+										</span>
+									</MenuItem>
+									<MenuItem value="titleAZ">
+										Title
+										<span style={directionStyle}>
+											(a-z)
+										</span>
+									</MenuItem>
+									<MenuItem value="recentComment">
+										Activity
+										<span style={directionStyle}>
+											(newest first)
+										</span>
+									</MenuItem>
+									<MenuItem value="recentlyAdded">
+										Added
+										<span style={directionStyle}>
+											(newest first)
+										</span>
+									</MenuItem>
+								</Select>
+							</FormControl>
+
+
+-----------------------------------------------
+
+
+FROM LitTextsContainer DIRECTION ICON
+
+	const [orderReverse, setOrderReverse] = useState(false)
+	const handleOrderReverse = () => {
+		setOrderReverse(prev => !prev)
+	}
+							<Box sx={{ bgcolor: "#eae4e1", ml: 10, width: 276 }} >
+							<FormControl  variant="standard" sx={{ minWidth: "200px", }} >
+								<InputLabel id="arrange-by-label">Arrange By</InputLabel>
+								<Select
+									labelId="arrange-by-label"
+									id="arrange-by"
+									value={litTextsOrder}
+									label="Arrange By"
+									onChange={handleLitTextsOrder}
+									sx={{ p: 1 }}
+								>
+									<MenuItem value="authorAZ" sx={{ alignContent: "center" }} >
+										Author (a-z)
+									</MenuItem>
+									<MenuItem value="titleAZ">Title</MenuItem>
+									<MenuItem value="recentlyAdded">Date Added</MenuItem>
+									<MenuItem value="recentComment">Latest Comment</MenuItem>
+								</Select>
+							</FormControl>
+							<OrderButtonContainer
+								handleOrderReverse={handleOrderReverse} 
+								orderReverse={orderReverse}										
+							/>
+							</Box>	
+
+
+-----------------------------------------------
+
+
+FROM LitTextsContainer TOGGLEBUTTONS
+	import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField, Button, Tooltip } from '@mui/material'
+
+							{/* <ToggleButtonGroup
+								value={litTextsOrder}
+								exclusive
+								onChange={handleLitTextsOrder}
+								aria-label="Arrange Users"
+								sx={{ bgcolor: "#fffaf5", }}
+							>
+								<ToggleButton 
+									value="authorAZ"
+									aria-label="Author A-Z"
+								>
+									Author A-Z
+								</ToggleButton>
+								<ToggleButton 
+									value="titleAZ"
+									aria-label="Title A-Z"
+								>
+									Title A-Z
+								</ToggleButton>
+								<ToggleButton 
+									value="recentlyAdded"
+									aria-label="Most recently added"
+								>
+									Recently Added
+								</ToggleButton>
+								<ToggleButton 
+									value="recentComment"
+									aria-label="Most recent comment"
+								>
+									Recent Activity
+								</ToggleButton>
+							</ToggleButtonGroup> */}
 
 
 -----------------------------------------------

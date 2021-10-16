@@ -1,12 +1,12 @@
 import { useState, } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 import { postLitText } from '../litTexts/litTextsSlice' 
 
-export default function LitTextNewForm() {
+export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [formData, setFormData] = useState({
 		title: "",
@@ -18,7 +18,7 @@ export default function LitTextNewForm() {
 	const [quillData, setQuillData] = useState("")
 	const [previewClicked, setPreviewClicked] = useState(false)
 
-	const errors = useSelector(state => state.litTexts.errors)
+	// const errors = useSelector(state => state.litTexts.errors)
 	const dispatch = useDispatch()
 
 	const handleProseBoolean = (b) => {
@@ -86,6 +86,8 @@ export default function LitTextNewForm() {
 		setQuillData("")
 		setPreviewClicked(false)
 		setStoryOrPoem("")
+		handleLitTextsOrder({ target: { value: "addedNew" }})
+		handleNewClick()
 	}
 
 	const qFormats = [
