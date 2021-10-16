@@ -15,9 +15,6 @@ export default function LitTextListShow({ litText }) {
 			.replaceAll('</p>', " / ")
 			.replaceAll('<br>', " / ")
 			.replaceAll('<br/>', " / ")
-		// let p1 = content.replaceAll('</p><br/>', " // ")
-		// let p2 = p1.replaceAll('</p>', " / ")
-		// let p3 = p2.replaceAll('<br>', " / ").replaceAll('<br/>', " / ")
 		parsedContent = p.replace(/(<([^>]+)>)/gi, " ")
 	}
 	const firstHundred = parsedContent.slice(0, 150)
@@ -26,6 +23,11 @@ export default function LitTextListShow({ litText }) {
 	const history = useHistory()
 	const handlePaperClick = () => {
 		history.push(`/texts/${id}`)
+	}
+
+	let isProse = "Poetry"
+	if (prose) {
+		isProse = "Prose"
 	}
 
 	return (
@@ -37,7 +39,7 @@ export default function LitTextListShow({ litText }) {
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
 				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
-				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}</Typography>
+				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
 					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
 						<em>Preview</em>
