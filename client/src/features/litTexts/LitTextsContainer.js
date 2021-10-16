@@ -182,7 +182,7 @@ export default function LitTextsContainer () {
 						</Box>
 
 						<div style={{ display:"flex", justifyContent:"center", marginTop: 6, marginBottom: 9, paddingBottom: 2 }}>
-							<Tooltip title="New Comment" arrow>
+							<Tooltip title="Add New Story or Poem" arrow>
 								<HashLink smooth to="/texts#new" style={{ color: "#757575" }}>
 									<AddBoxIcon size="small" onClick={() => setNewClicked(true)} />
 								</HashLink>
