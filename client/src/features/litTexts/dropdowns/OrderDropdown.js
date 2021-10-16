@@ -40,7 +40,6 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 				value={litTextsOrder}
 				label="Arrange By"
 				onChange={handleLitTextsOrder}
-				// sx={{ p: 1 }}
 			>
 				<MenuItem value="authorA-Z">
 					Author {directionElement("authorA-Z")}

@@ -6,7 +6,7 @@ import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 import { postLitText } from '../litTexts/litTextsSlice' 
 
-export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick }) {
+export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [formData, setFormData] = useState({
 		title: "",
@@ -87,6 +87,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick }) 
 		setPreviewClicked(false)
 		setStoryOrPoem("")
 		handleLitTextsOrder({ target: { value: "addedNew" }})
+		handlePoetryProseValue({ target: { value: "all" }})
 		handleNewClick()
 	}
 

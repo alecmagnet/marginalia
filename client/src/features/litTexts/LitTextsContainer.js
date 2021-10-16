@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react'
 import { HashLink } from 'react-router-hash-link'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './LitTextNewForm'
-import OrderDropdown from './OrderDropdown'
+import OrderDropdown from './dropdowns/OrderDropdown'
 import { Typography, Grid, Box, TextField, Button, Tooltip } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
+import FilterDropdown from './dropdowns/FilterDropdown'
 
 
 // FUTURE GOAL: REFACTOR THIS CODE INTO SMALLER COMPONENTS
@@ -81,8 +82,11 @@ export default function LitTextsContainer () {
 	}
 
 	const [filteredLitTexts, setFilteredLitTexts] = useState([...litTextsArr])
-	useEffect(() => {if (litTextsArr.length > 0) setFilteredLitTexts([...litTextsArr])}, [entities])
-
+	// const [byPoetryOrProse, setByPoetryOrProse] = useState([...filteredLitTexts])
+	useEffect(() => {if (litTextsArr.length > 0) {
+		setFilteredLitTexts([...litTextsArr])
+		// setByPoetryOrProse([...filteredLitTexts])
+	}}, [entities])
 
 	const handleSearch = (e) => {
 		let keyword = e.target.value.toLowerCase()
@@ -99,29 +103,45 @@ export default function LitTextsContainer () {
 		}
 	}
 
+	const [poetryProseValue, setPoetryProseValue] = useState("all") 
+	const handlePoetryProseValue = (e) => {
+		setPoetryProseValue(e.target.value)
+		// handleByPoetryOrProse()
+	}
+	const filterRawArr = (rawArr) => {
+		let formArr = [...rawArr]
+		if (poetryProseValue === "poetry") {
+			formArr = [...filteredLitTexts].filter(text => text.prose === false)
+		} else if (poetryProseValue === "prose") {
+			formArr = [...filteredLitTexts].filter(text => text.prose === true)
+		} 
+		return formArr
+	}
+
 	const renderLitTexts = () => {
 		let rawArr = [...filteredLitTexts]
+		let filtArr = filterRawArr(rawArr)
 		let arrTwo = []
 		if (litTextsOrder === "authorA-Z") {
-			arrTwo = [...authorAZ(rawArr)]
+			arrTwo = [...authorAZ(filtArr)]
 		} else if (litTextsOrder === "authorZ-A") {
-			arrTwo = [...authorAZ(rawArr).reverse()]
+			arrTwo = [...authorAZ(filtArr).reverse()]
 		} else if (litTextsOrder === "titleA-Z") {
-			arrTwo = [...titleAZ(rawArr)]
+			arrTwo = [...titleAZ(filtArr)]
 		} else if (litTextsOrder === "titleZ-A") {
-			arrTwo = [...titleAZ(rawArr).reverse()]
+			arrTwo = [...titleAZ(filtArr).reverse()]
 		// } else if (litTextsOrder === "dateNew") {
-		// 	arrTwo = [...byPubdate(rawArr)]
+		// 	arrTwo = [...byPubdate(filtArr)]
 		// } else if (litTextsOrder === "dateOld") {
-		// 	arrTwo = [...byPubdate(rawArr).reverse()]
+		// 	arrTwo = [...byPubdate(filtArr).reverse()]
 		} else if (litTextsOrder === "activityNew") {
-			arrTwo = [...recentlyCommented(rawArr)]
+			arrTwo = [...recentlyCommented(filtArr)]
 		} else if (litTextsOrder === "activityOld") {
-			arrTwo = [...recentlyCommented(rawArr).reverse()]
+			arrTwo = [...recentlyCommented(filtArr).reverse()]
 		} else if (litTextsOrder === "addedNew") {
-			arrTwo = [...recentlyAdded(rawArr)]
+			arrTwo = [...recentlyAdded(filtArr)]
 		} else if (litTextsOrder === "addedOld") {
-			arrTwo = [...recentlyAdded(rawArr).reverse()]
+			arrTwo = [...recentlyAdded(filtArr).reverse()]
 		}
 		let toMap = [...arrTwo]
 		let mappedArr = toMap.map((text) => <LitTextListShow key={text.id} litText={text} />)
@@ -157,6 +177,10 @@ export default function LitTextsContainer () {
 							<OrderDropdown 
 								litTextsOrder={litTextsOrder} 
 								handleLitTextsOrder={handleLitTextsOrder} 
+							/>
+							<FilterDropdown
+								poetryProseValue={poetryProseValue}
+								handlePoetryProseValue={handlePoetryProseValue}
 							/>
 
 							<br/>
@@ -195,6 +219,7 @@ export default function LitTextsContainer () {
 							<LitTextNewForm 
 								handleNewClick={handleNewClick} 
 								handleLitTextsOrder={handleLitTextsOrder} 
+								handlePoetryProseValue={handlePoetryProseValue}
 							/> : null}
 					</div>
 				}
