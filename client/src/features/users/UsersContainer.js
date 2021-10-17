@@ -11,7 +11,6 @@ export default function UsersContainer() {
 	const toFilterUsers = [...entities]
 	const filteredArr = toFilterUsers.filter((u) => u.id !== user.id)
 	const otherUsers = [...filteredArr]
-	console.log("otherUsers", otherUsers)
 
 	const alphabetical = (users) => {
 		let toMap = [...users]
@@ -64,7 +63,6 @@ export default function UsersContainer() {
 	}
 
 	const [filteredUsers, setFilteredUsers] = useState([...otherUsers])
-	console.log("filteredUsers", filteredUsers)
 
 	useEffect(() => {if (otherUsers.length > 0) setFilteredUsers([...otherUsers])}, [entities])
 

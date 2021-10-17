@@ -1,12 +1,24 @@
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import { patchComment } from './commentsSlice'
-import { Avatar, Grid, Paper, TextareaAutosize, Button } from '@mui/material'
+import { Paper, TextareaAutosize, Button } from '@mui/material'
+import ToggleGroup from './ToggleGroup'
 
 
 export default function CommentEditForm({ comment, editButtonClick }) {
-	const [formData, setFormData] = useState(comment)
-	
+	const comTypes = comment.com_types.map(type => type.id)
+	const [formData, setFormData] = useState({
+		user_id: comment.user.id,
+		lit_text_id: comment.litTextId,
+		parent_comment_id: comment.parent_comment_id,
+		content: comment.content,
+		com_type_ids: [...comTypes]
+	})
+	const dispatch = useDispatch()
+	const addNewWhat = comment.parentCommentId ? "Edit your reply..." : "Edit your comment..."
+	const isParent = comment.parentCommentId ? true : false
+	console.log("CommentEditForm", formData)
+
   function handleChange(e) {
 		setFormData({
 			...formData,
@@ -14,7 +26,15 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 		})
   }
 
-	const dispatch = useDispatch()
+	const handleComTypes = (event, newComTypes) => {
+		setFormData(formData => { 
+			return ({
+				...formData,
+				com_type_ids: newComTypes 
+			})
+		})
+		console.log("handleComTypes", formData.com_type_ids)
+	}
 	
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,75 +42,48 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 		editButtonClick((prevState) => !prevState)
 	}
 
-	const addNewWhat = comment.parentCommentId ? "Edit your reply..." : "Edit your comment..."
-
-	// function handleSubmitOLD(e) {
-	// 	e.preventDefault()
-	// 	fetch(`/comments/${comment.id}`, {
-	// 		method: "PATCH",
-	// 		headers: {
-	// 			"Content-Type": "application/json"
-	// 		},
-	// 		body: JSON.stringify(formData)
-	// 	})
-	// 	.then((r) => r.json())
-	// 	.then((data) => {
-	// 		console.log("EditForm:data", data)
-	// 		handleEditComment(data)
-	// 		onEditComment(data)
-	// 		editButtonClick((prevState) => !prevState)
-	// 		// changeDummyState()
-	// 		// forceRender()
-	// 	})
-	// 	.catch((errors) => wrapSetErrors(errors))
-	// }
 
 	return (
-		<Paper sx={{ pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
-			<div style={{ position: "relative"}}>
-				<Grid item sx={12} fullWidth >
-					<Grid container spacing={2} wrap="nowrap" >			
-						<Grid item sx={3}>
-							<Avatar alt={comment.user.fullname} src={comment.user.image} />
-						</Grid>
-						<Grid justifyContent="left" item xs={9} >
-							<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
-								<TextareaAutosize 
-									aria-label="minimum height"
-									minRows={3}
-									placeholder={addNewWhat}
-									value={formData.content} 
-									id="content"
-									name="content"
-									onChange={handleChange}
-									style={{ width: "100%" }}
-								/>
-								<div style={{ height: 10, visibility: "hidden" }}>
-									Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.
-								</div>
-								<Button  variant="contained" type='submit' sx={{ mr: 5 }}>Post</Button>
-							</form>
-						</Grid>
-					</Grid>
-				</Grid>
-			</div>
+		<Paper sx={{ 
+			px:3, pt:4, 
+			pb:1, mb:2, 
+			backgroundColor: "#ebe3e1" 
+		}} >			
+			<ToggleGroup 
+				comTypes={formData.com_type_ids} 
+				handleComTypes={handleComTypes} 
+				isParent={isParent} 
+			/>			
+			<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
+				<div style={{ height: 10, visibility: "hidden" }}>
+					Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. 
+				</div>
+				<TextareaAutosize 
+					aria-label="minimum height"
+					minRows={3}
+					placeholder={addNewWhat}
+					value={formData.content} 
+					id="content"
+					name="content"
+					onChange={handleChange}
+					style={{ width: "100%" }}
+				/>
+				<div style={{ 
+					width: "100%", 
+					display: "flex", 
+					justifyContent: "center", 
+					textAlign: "center"  
+				}} >
+					<Button 
+						variant="contained" 
+						type='submit' 
+						sx={{ my: 2, p: 1 }}
+					>
+						<b>Post</b>
+					</Button>
+				</div>
+			</form>
+						
 		</Paper>
-
-		// <div style={{ padding: 10 }} >
-		// 	<div style={{ borderStyle: "solid", borderWidth: 1, padding: 5 }} >
-		// 		<form style={{ 'width': '90%' }} onSubmit={handleSubmit}>
-		// 			<label><p><b>Edit your comment</b></p>
-		// 			<textarea 
-		// 				value={formData.content} 
-		// 				id="content"
-		// 				name="content"
-		// 				onChange={handleChange}
-		// 				style={{ width: "75%" }}
-		// 			/></label>
-		// 			<div style={{ height: 7 }} />
-		// 			<button floated="right" type='submit'>Post</button>
-		// 		</form>
-		// 	</div>
-    // </div>
 	)
 }

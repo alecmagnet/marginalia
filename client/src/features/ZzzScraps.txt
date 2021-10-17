@@ -2,6 +2,51 @@
 
 
 
+						
+-----------------------------------------------
+
+
+FROM CommentNewForm CHECKBOXES
+	function handleCheck(e) {
+		// console.log("fired")
+		if (!formData.com_type_ids.includes(parseInt(e.target.value))) {
+			let comTypes = [...formData.com_type_ids, parseInt(e.target.value)]
+			setFormData({
+				...formData,
+				com_type_ids: [...comTypes],
+			})
+		} else {
+			let comTypes = formData.com_type_ids.filter((c) => parseInt(c) !== parseInt(e.target.value))
+			setFormData({
+				...formData,
+				com_type_ids: [...comTypes],
+			})
+		}
+	}
+	
+						<div style={{ display: "flex", justifyContent: "center", }}>
+
+						<label>
+							<Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />
+							<Typography variant="caption">Reading</Typography>
+						</label>
+						<label>
+							<Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />
+							<Typography variant="caption">Question</Typography>
+						</label>
+						<label>
+							<Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />
+							<Typography variant="caption">Footnote</Typography>
+						</label>
+						{parentCommentId ? 
+							<label>
+								<Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} sx={{ bgcolor: "#fff" }} />
+								<Typography variant="caption">Answer</Typography>
+							</label>
+						: null}
+						</div>
+
+
 -----------------------------------------------
 
 

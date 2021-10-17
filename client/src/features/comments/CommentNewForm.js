@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
 import { addCommentToLitText } from '../litTexts/litTextsSlice'
 import { addCommentToUser } from '../users/allUsersSlice'
-import { Avatar, Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } from '@mui/material'
-
+import { Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } from '@mui/material'
+import ToggleGroup from './ToggleGroup'
 
 
 export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick }) {
@@ -22,27 +22,23 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 	const addNewWhat = parentCommentId ? "Post a new reply..." : "Post a new comment..."
 
   function handleChange(e) {
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
+		setFormData(formData => {
+			return({
+				...formData,
+				[e.target.name]: e.target.value,
+			})
 		})
+		console.log("handleChange", formData)
   }
 
-	function handleCheck(e) {
-		console.log("fired")
-		if (!formData.com_type_ids.includes(parseInt(e.target.value))) {
-			let comTypes = [...formData.com_type_ids, parseInt(e.target.value)]
-			setFormData({
+	const handleComTypes = (event, newComTypes) => {
+		setFormData(formData => { 
+			return ({
 				...formData,
-				com_type_ids: [...comTypes],
+				com_type_ids: newComTypes 
 			})
-		} else {
-			let comTypes = formData.com_type_ids.filter((c) => parseInt(c) !== parseInt(e.target.value))
-			setFormData({
-				...formData,
-				com_type_ids: [...comTypes],
-			})
-		}
+		})
+		console.log("handleComTypes", formData.com_type_ids)
 	}
 
 	const dispatch = useDispatch()
@@ -63,57 +59,55 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
   
   return (
 		<Grid 
-			item xs={12} sx={{ maxWidth: 700, minWidth: 450, width: "100%" }}
+			item xs={12} 
+			sx={{ maxWidth: 700, minWidth: 450, width: "100%" }}
 		>
-      <Paper sx={{ maxWidth: 650, pr:3, pl:3, pt:4, pb:1, mb:2 }} >			
-				<div style={{ position: "relative"}}>
-					<Grid item xs={12} >
-						<Grid container spacing={2} wrap="nowrap" >			
-							<Grid item >
-								<Avatar alt={user.fullname} src={user.image} />
-							</Grid>
-						<Grid justifyContent="left" item xs={9} >
-							<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
-								<div style={{ display: "flex", justifyContent: "center", }}>
-								<label>
-									<Checkbox id="1" name="reading" value="1" onChange={(e) => handleCheck(e)} />
-									<Typography variant="caption">Reading</Typography>
-								</label>
-								<label>
-									<Checkbox id="2" name="question" value="2" onChange={(e) => handleCheck(e)} />
-									<Typography variant="caption">Question</Typography>
-								</label>
-								<label>
-									<Checkbox id="3" name="footnote" value="3" onChange={(e) => handleCheck(e)} />
-									<Typography variant="caption">Footnote</Typography>
-								</label>
-								{parentCommentId ? 
-									<label>
-										<Checkbox id="4" name="answer" value="4" onChange={(e) => handleCheck(e)} />
-										<Typography variant="caption">Answer</Typography>
-									</label>
-								: null}
-								</div>
-								<div style={{ height: 10, visibility: "hidden" }}>
-									Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. Sit deserunt sit. Et necessitatibus sequi.
-								</div>
-								<TextareaAutosize 
-									aria-label="minimum height"
-									minRows={3}
-									placeholder={addNewWhat}
-									value={formData.content} 
-									id="content"
-									name="content"
-									onChange={handleChange}
-									style={{ width: "100%" }}
-								/>
-								<div style={{ height: 9 }} />
-								<Button  variant="contained" type='submit' sx={{ mr: 5, mt: 1, mb: 2 }}>Post</Button>
-							</form>
-							</Grid>
-						</Grid>
-					</Grid>
-				</div>
+      <Paper sx={{ 
+				maxWidth: 650, 
+				px:3, pt:4, pb:1, 
+				mb:2, 
+				backgroundColor: "#ebe3e1" 
+			}} >			
+				<ToggleGroup 
+					comTypes={formData.com_type_ids} 
+					handleComTypes={handleComTypes} 
+					isParent={false} 
+				/>
+				<form 
+					style={{ width: "100%" }} 
+					onSubmit={handleSubmit} 
+				> 
+					<div style={{ 
+						height: 10, 
+						visibility: "hidden" 
+					}}>
+						Laborum quam praesentium. Non reiciendis facilis. Ut sunt saepe. Voluptatum facilis dignissimos. 
+					</div>
+					<TextareaAutosize 
+						aria-label="minimum height"
+						minRows={3}
+						placeholder={addNewWhat}
+						value={formData.content} 
+						id="content"
+						name="content"
+						onChange={handleChange}
+						style={{ width: "100%", }}
+					/>
+					<div style={{ 
+						width: "100%", 
+						display: "flex", 
+						justifyContent: "center", 
+						textAlign: "center"  
+					}} >
+						<Button 
+							variant="contained" 
+							type='submit' 
+							sx={{ my: 2, p: 1 }}
+						>
+							<b>Post</b>
+						</Button>
+					</div>
+				</form>
 			</Paper>
 	  </Grid>
   )

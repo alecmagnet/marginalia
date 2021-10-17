@@ -53,6 +53,7 @@ export default function ComRepShow({ comment, litTextId }) {
 	const dispatch = useDispatch() 
 
 	function handleDelete(e) {
+		setEditClicked(prev => false)
 		e.preventDefault()
 		if (comment.replies.length > 0 || comment.parent_comment_id) {
 			const changeCom = {
