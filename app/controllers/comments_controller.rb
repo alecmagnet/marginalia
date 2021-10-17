@@ -36,7 +36,8 @@ class CommentsController < ApplicationController
 				CommentComType.find_by!(comment_id: comment.id, com_type_id: id).destroy
 			end
 		end
-		render json: comment, status: :ok
+		renderComment = find_comment
+		render json: renderComment, status: :ok
 	end
 
 	# DELETE /comments/:id

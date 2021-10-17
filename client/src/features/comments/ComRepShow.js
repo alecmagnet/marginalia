@@ -16,7 +16,7 @@ export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
-
+	console.log("ComRepShow", comment)
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
 
