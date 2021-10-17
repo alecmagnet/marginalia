@@ -8,6 +8,7 @@ import ToggleGroup from './ToggleGroup'
 export default function CommentEditForm({ comment, editButtonClick }) {
 	const comTypes = comment.com_types.map(type => type.id)
 	const [formData, setFormData] = useState({
+		id: comment.id,
 		user_id: comment.user.id,
 		lit_text_id: comment.litTextId,
 		parent_comment_id: comment.parent_comment_id,
