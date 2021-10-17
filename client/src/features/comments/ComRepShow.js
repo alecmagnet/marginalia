@@ -16,9 +16,19 @@ export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
-	console.log("ComRepShow", comment)
+
+	const dispatch = useDispatch() 
+
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
+
+	const isParentQuestion = () => {
+		if (comment.com_types.find(type => type.id === 2)) {
+				return true
+		} else {
+			return false
+		}
+	}
 
 	const history = useHistory()
 
@@ -49,8 +59,6 @@ export default function ComRepShow({ comment, litTextId }) {
 	}
 
 	const renderComment = comment.deleted ? deletedComment : showComment
-
-	const dispatch = useDispatch() 
 
 	function handleDelete(e) {
 		setEditClicked(prev => false)
@@ -159,6 +167,7 @@ export default function ComRepShow({ comment, litTextId }) {
 						litTextId={litTextId} 
 						parentCommentId={comment.id} 
 						replyButtonClick={replyButtonClick} 						
+						isParentQuestion={isParentQuestion()}
 					/>
 				: null} 
 

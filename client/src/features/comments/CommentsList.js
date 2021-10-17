@@ -43,6 +43,7 @@ export default function CommentsList({ litTextId }) {
 						litTextId={litTextId}
 						parentCommentId={null}
 						replyButtonClick={null}
+						isParentQuestion={false}
 					/>
 					{/* <div id="newly-posted-comment" /> */}
 				</Grid>

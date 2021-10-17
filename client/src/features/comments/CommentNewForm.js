@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
 import { addCommentToLitText } from '../litTexts/litTextsSlice'
 import { addCommentToUser } from '../users/allUsersSlice'
-import { Grid, Paper, TextareaAutosize, Checkbox, Button, Typography } from '@mui/material'
+import { Grid, Paper, TextareaAutosize, Button, } from '@mui/material'
 import ToggleGroup from './ToggleGroup'
 
 
-export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick }) {
+export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick, isParentQuestion }) {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 	
@@ -71,7 +71,8 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 				<ToggleGroup 
 					comTypes={formData.com_type_ids} 
 					handleComTypes={handleComTypes} 
-					isParent={false} 
+					// isParent={false}
+					isParentQuestion={isParentQuestion} 
 				/>
 				<form 
 					style={{ width: "100%" }} 

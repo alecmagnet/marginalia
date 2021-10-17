@@ -9,21 +9,6 @@ export const fetchComments = createAsyncThunk(
 	}
 )
 
-// export const postCommentComType = createAsyncThunk(
-// 	"comments/postCommentComType",
-// 	async (postData) => {
-// 		const response = await fetch('/comment_com_types', {
-// 			method: "POST",
-// 			headers: {
-// 				"Content-Type": "application.json",
-// 			},
-// 			body: JSON.stringify(postData),
-// 		})
-// 		const data = await response.json()
-// 		return data
-// 	}
-// )
-
 export const postComment = createAsyncThunk(
 	"comments/postComment",
 	async (formData) => {
@@ -38,35 +23,6 @@ export const postComment = createAsyncThunk(
 		return data
 	}		
 )
-		// if (formData.comTypes.length > 0) {
-		// 	// let comComTypeIds = []
-		// 	formData.comTypes.map((ct) => {
-		// 		fetch('/comment_com_types', {
-		// 			method: "POST",
-		// 			headers: {
-		// 				"Content-Type": "application.json",
-		// 			},
-		// 			body: JSON.stringify({
-		// 				comment_id: data.id,
-		// 				com_type_id: ct,
-		// 			}),
-		// 		})
-		// 		// let comComTypeId = await comComTypeIdRes.json()
-		// 		// comComTypeIds.push(parse)
-		// 	})
-		// 	.then(
-		// 			async () => {
-		// 				const response = await fetch("/comments")
-		// 				const data = await response.json()
-		// 				return data
-		// 			}
-		// 	)
-		// } else {
-		// 	return data
-		// }
- 		// console.log("postComment:", data)
-	// }	
-// )
 
 export const patchComment = createAsyncThunk(
 	"comments/patchComment",

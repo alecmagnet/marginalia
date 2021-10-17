@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 import { patchComment } from './commentsSlice'
 import { Paper, TextareaAutosize, Button } from '@mui/material'
@@ -17,8 +17,24 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 	})
 	const dispatch = useDispatch()
 	const addNewWhat = comment.parentCommentId ? "Edit your reply..." : "Edit your comment..."
-	const isParent = comment.parentCommentId ? true : false
-	console.log("CommentEditForm", formData)
+
+	const parentState = useSelector(state => {
+		if (comment.parent_comment_id) {			
+			let parentCom = {...state.comments.entities.find(c => c.id === comment.parent_comment_id)} 
+			return parentCom
+		} else {
+			return null
+		}
+	})
+	const isParentQuestion = () => {
+		if (parentState) {
+			if (parentState.com_types.find(type => type.id === 2)) {
+				return true
+			}
+		} else {
+			return false
+		}
+	}
 
   function handleChange(e) {
 		setFormData({
@@ -53,7 +69,8 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 			<ToggleGroup 
 				comTypes={formData.com_type_ids} 
 				handleComTypes={handleComTypes} 
-				isParent={isParent} 
+				// isParent={isParent} 
+				isParentQuestion={isParentQuestion()}
 			/>			
 			<form style={{ width: "100%" }} onSubmit={handleSubmit} > 
 				<div style={{ height: 10, visibility: "hidden" }}>

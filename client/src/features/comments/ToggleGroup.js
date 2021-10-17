@@ -1,6 +1,6 @@
 import { ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
 
-export default function ToggleGroup({ comTypes, handleComTypes, isParent }) {
+export default function ToggleGroup({ comTypes, handleComTypes, isParentQuestion }) {
 	return (
 		<Box textAlign="center">
 			<ToggleButtonGroup
@@ -28,7 +28,7 @@ export default function ToggleGroup({ comTypes, handleComTypes, isParent }) {
 				>
 					Footnote
 				</ToggleButton>
-				{isParent ? 
+				{isParentQuestion ? 
 					<ToggleButton 
 						value={4}
 						aria-label="Answer"
