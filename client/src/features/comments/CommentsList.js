@@ -58,7 +58,6 @@ export default function CommentsList({ litTextId }) {
 
 	const renderComments = () => {
 		const toFilter = filteredComments(oldestFirst)
-		console.log("toFilter", toFilter)
 		const returnArr = toFilter.map((c) => {
 			let replies = showTextComments.filter((r) => r.parent_comment_id === c.id)
 			return(
