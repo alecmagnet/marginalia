@@ -69,7 +69,6 @@ export default function CommentsList({ litTextId }) {
 				/>
 			)	
 		})
-		console.log("returnArr", returnArr)
 		return returnArr
 	}
 

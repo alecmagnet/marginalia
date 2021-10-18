@@ -28,7 +28,6 @@ export default function LitTextShow() {
 	if (litTextState.entities.length > 0) commentsHash = `/texts/${litText.id}#comments`
 	if (litTextState.entities.length > 0) newCommentHash = `/texts/${litText.id}#new-comment`
 
-	// let listComments = []
 	let parsedContent = ""
 	let isProse = "Poetry"
 	if (litTextState.entities.length > 0) {
@@ -36,9 +35,6 @@ export default function LitTextShow() {
 		if (litText.prose) {
 			isProse = "Prose"
 		}
-		// const sortComments = [...litText.comments]
-		// const newestFirst = sortComments.sort((a, b) => b.id - a.id)
-		// listComments = [...newestFirst]
 	}
 
 	const displayDate = () => {
@@ -81,9 +77,7 @@ export default function LitTextShow() {
 					elevation={9} 
 					sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5", justifyContent:"center", }}
 				>
-					{/* <div style={{ display:"flex", justifyContent:"center", alignContent: "center", marginTop: 6, marginBottom: 14, paddingBottom: 2 }}> */}
 						<Typography variant="subtitle1" sx={{ textAlign:"center", color:"#616161", pb: 0, cursor: "default" }}><em>{isProse}</em></Typography>
-					{/* </div> */}
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
