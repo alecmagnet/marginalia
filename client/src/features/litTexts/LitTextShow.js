@@ -30,11 +30,11 @@ export default function LitTextShow() {
 
 	// let listComments = []
 	let parsedContent = ""
-	let isProse = "POETRY"
+	let isProse = "Poetry"
 	if (litTextState.entities.length > 0) {
 		parsedContent = parse(`${litText.content}`)
 		if (litText.prose) {
-			isProse = "PROSE"
+			isProse = "Prose"
 		}
 		// const sortComments = [...litText.comments]
 		// const newestFirst = sortComments.sort((a, b) => b.id - a.id)
@@ -53,25 +53,31 @@ export default function LitTextShow() {
 			<Grid 
 				item xs={9} sx={{ maxWidth: 850 }}
 			>
+				<div style={{ 
+					display:"flex", 
+					justifyContent:"center", 
+					alignContent: "center", 
+					marginTop: 12, 
+					paddingBottom: 2 
+				}}>
+					<Tooltip title="Comments" arrow>
+						<HashLink smooth to={commentsHash} style={{ marginRight: 18, color: "#757575" }}>
+								<ForumIcon size="small" sx={{mt: 3 }} />
+							</HashLink>
+					</Tooltip>
+					<Tooltip title="New Comment" arrow>
+						<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
+							<AddCommentIcon size="small" sx={{mt: 3 }} />
+						</HashLink>
+					</Tooltip>
+				</div>
 				<Paper 
 					elevation={9} 
-					sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
+					sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5", justifyContent:"center", }}
 				>
-					<div style={{ display:"flex", justifyContent:"center", alignContent: "center", marginTop: 6, marginBottom: 14, paddingBottom: 2 }}>
-            <Tooltip title="Comments" arrow>
-							<HashLink smooth to={commentsHash} style={{ marginRight: 18, color: "#757575" }}>
-									<ForumIcon size="small" sx={{mt: "5px" }} />
-								</HashLink>
-						</Tooltip>
-					<Box sx={{ bgcolor: "#3e2723", mr: "18px", px: "12px", pt: "7px", borderRadius: 3 }}>
-						<Typography variant="caption2" sx={{ textAlign:"center", color:"#fafafa", pb: 0, cursor: "default" }}>{isProse}</Typography>
-					</Box>
-            <Tooltip title="New Comment" arrow>
-							<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
-								<AddCommentIcon size="small" sx={{mt: "5px" }} />
-							</HashLink>
-						</Tooltip>
-					</div>
+					{/* <div style={{ display:"flex", justifyContent:"center", alignContent: "center", marginTop: 6, marginBottom: 14, paddingBottom: 2 }}> */}
+						<Typography variant="subtitle1" sx={{ textAlign:"center", color:"#616161", pb: 0, cursor: "default" }}><em>{isProse}</em></Typography>
+					{/* </div> */}
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
