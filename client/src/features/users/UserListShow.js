@@ -28,8 +28,8 @@ export default function UserListShow({ showUser }) {
 						/>
 					</Grid>
 					<Grid justifyContent="left" item xs={9}>
-						<Typography variant="h5"><b>{fullname}</b></Typography>
-						<Typography variant="subtitle1"><em>@{username}</em></Typography>
+						<Typography variant="h5" sx={{ pt:"3px" }} ><b>{fullname}</b></Typography>
+						<Typography variant="subtitle1" sx={{ color: "#616161", mt: -1 }} ><em>@{username}</em></Typography>
 						<Typography variant="body2" sx={{ mt: 2, mb: 2 }} ><span style={{ color: "#494949", fontSize: 19 }} >B<span style={{ fontVariant: "small-caps", fontSize: 21 }} >io</span>:</span> {showBio}&nbsp;.&nbsp;.&nbsp;.</Typography> 
 						<TotalCommentsAndReplies Id={showUser.id} source="user" />
 					</Grid>
