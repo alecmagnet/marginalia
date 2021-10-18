@@ -6,7 +6,9 @@ import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 import { destroyComment, patchComment } from "./commentsSlice"
-import { Avatar, Grid, Tooltip, Typography } from '@mui/material'
+import { Avatar, Grid, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCommentIcon from '@mui/icons-material/AddComment'
@@ -95,6 +97,17 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	const ghost = <span role="img" aria-label="ghost"> 👻 </span>
 
+	const DeleteTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} classes={{ popper: className }} />
+	))(({ theme }) => ({
+		[`& .${tooltipClasses.arrow}`]: {
+			color: "#732626",
+		},
+		[`& .${tooltipClasses.tooltip}`]: {
+			backgroundColor: "#732626",
+		},
+	}))
+
 	return (
 		<div style={{ position: "relative"}}>
 		<Grid item xs={12} >
@@ -151,9 +164,9 @@ export default function ComRepShow({ comment, litTextId }) {
 					: null}
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
 						<div style={{ justifyContent: "right" }} >
-							<Tooltip title="Delete" arrow >
+							<DeleteTooltip title="Delete" arrow>
 								<DeleteIcon size="large" sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:1 }} onClick={handleDelete} /> 
-							</Tooltip>
+							</DeleteTooltip>
 							<Tooltip title="Edit" arrow >
 								<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
 							</Tooltip>
