@@ -49,7 +49,7 @@ export default function ComRepShow({ comment, litTextId }) {
 		fullname: "",
 		username: "",
 		image: "https://ih1.redbubble.net/image.110003985.7172/flat,750x1000,075,f.u2.jpg",
-		content: <em style={{ color: "#616161" }}>[this comment was deleted by user]</em>,
+		content: <em style={{ color: "#616161" }}>[this comment was deleted]</em>,
 		created_at: comment.created_at,
 		updated_at: comment.updated_at,
 		parent_comment_id: comment.parent_comment_id,
@@ -105,20 +105,19 @@ export default function ComRepShow({ comment, litTextId }) {
 				<Avatar 
 						alt={renderComment.fullname} 
 						src={renderComment.image} 
-						sx={{ cursor: "pointer", width: 60, height: 60, mt: '5px', }} 
+						sx={{ cursor: "pointer", width: 60, height: 60, }} 
 						onClick={() => userClicked()} 
 					/>
 			</Grid>
 			<Grid justifyContent="left" item xs={9}>
 				<Typography 
-					variant="h6" 
 					onClick={userClicked} 
-					sx={{ cursor: "pointer" }} 
+					sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1, pb: 0 }} 
 				>
 					{renderComment.fullname}
 				</Typography>
 				{renderComment.deleted ? null : 
-					<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer" }} ><em>@{renderComment.username}</em></Typography>
+				<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer", mt: 0, pt: 0, color: "#757575", fontWeight: 400 }} ><em>@{renderComment.username}</em></Typography>
 				}
 				<Typography variant="body1" sx={{ mt:2, mb:2 }}>
 					{/* TO CHECK THAT REPLIES ARE RENDERING UNDER THE RIGHT COMMENT */}

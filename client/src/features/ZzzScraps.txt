@@ -2,7 +2,30 @@
 
 
 
-						
+
+										
+-----------------------------------------------
+
+
+FROM ComRepShow NAME & AVATAR SPACING
+			<Grid item >
+				<Avatar 
+						alt={renderComment.fullname} 
+						src={renderComment.image} 
+						sx={{ cursor: "pointer", width: 60, height: 60, mt: '5px', }} 
+						onClick={() => userClicked()} 
+					/>
+			</Grid>
+			<Grid justifyContent="left" item xs={9}>
+				<Typography 
+					variant="h6" 
+					onClick={userClicked} 
+					sx={{ cursor: "pointer", mb: 0, pb: 0 }} 
+				>
+					{renderComment.fullname}
+				</Typography>
+
+
 -----------------------------------------------
 
 
@@ -23,7 +46,7 @@ FROM CommentNewForm CHECKBOXES
 			})
 		}
 	}
-	
+
 						<div style={{ display: "flex", justifyContent: "center", }}>
 
 						<label>
