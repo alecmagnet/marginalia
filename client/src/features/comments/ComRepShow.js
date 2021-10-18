@@ -152,7 +152,7 @@ export default function ComRepShow({ comment, litTextId }) {
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
 						<div style={{ justifyContent: "right" }} >
 							<Tooltip title="Delete" arrow >
-								<DeleteIcon size="large" sx={{ color: "#757575", position: "absolute", right: 45, bottom: 5, mt:2, mb:1 }} onClick={handleDelete} /> 
+								<DeleteIcon size="large" sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:1 }} onClick={handleDelete} /> 
 							</Tooltip>
 							<Tooltip title="Edit" arrow >
 								<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
