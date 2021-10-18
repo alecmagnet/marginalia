@@ -18,6 +18,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	})
 	const [quillData, setQuillData] = useState("")
 	const [previewClicked, setPreviewClicked] = useState(false)
+	const [notNum, setNotNum] = useState(false)
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
@@ -54,12 +55,21 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 	const handleFormChange = (e) => {
 		const { name, value } = e.target
-		const useValue = name === "pubdate" ? parseInt(value) : value
+		const cleanValue = () => {
+			if (name === "pubdate") {
+				// let noSpace = value.replace(/\s+$/, "")
+				(/\D/).test(value) ? setNotNum(true) : setNotNum(false)
+				let justNum = value.replace(/^\D*/, "").replace(/\D+\d*\D*$/, "")
+				return parseInt(justNum)
+			} else {
+				return value
+			}
+		}
 		setFormData((formData) => {
 			return (
 				{
 					...formData,
-					[name]: useValue,
+					[name]: cleanValue(),
 				}
 			)
 		})
@@ -163,6 +173,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 						label="Author"
 					/>
+					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mb: "-1", mt: 1 }}>We're sorry. For now, <b>Year</b> can only support numbers. Anything else will be removed</Typography> : null}
 					<TextField
 						onChange={handleFormChange}
 						autoComplete="pubdate"
@@ -172,30 +183,28 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						label="Year"
 						sx={{ mt: 1, mb: 2, mx: "5%", backgroundColor: "#fff", width: "70%" }}
 					/>
-
-						<ToggleButtonGroup
-							value={ceOrBce}
-							exclusive
-							onChange={handleCeOrBce}
-							aria-label="CE or BCE"
-							sx={{ bgcolor: "#fff", mt: 1, height: "61.75px" }}
+					{/* <div display="flex" justifyContent="right"> */}
+					<ToggleButtonGroup
+						value={ceOrBce}
+						exclusive
+						onChange={handleCeOrBce}
+						aria-label="CE or BCE"
+						sx={{ bgcolor: "#fff", mt: 1, height: "61.75px", float: "right" }}
+					>
+						<ToggleButton 
+							value="bce"
+							aria-label="BCE"
 						>
-							<ToggleButton 
-								value="bce"
-								aria-label="BCE"
-								// sx={{ p: 2 }}
-							>
-								BCE
-							</ToggleButton>
-							<ToggleButton 
-								value="ce"
-								aria-label="CE"
-								// sx={{ p: 2 }}
-							>
-								CE
-							</ToggleButton>
-						</ToggleButtonGroup>
-
+							BCE
+						</ToggleButton>
+						<ToggleButton 
+							value="ce"
+							aria-label="CE"
+						>
+							CE
+						</ToggleButton>
+					</ToggleButtonGroup>
+					{/* </div> */}
 
 					<ReactQuill 
 						theme="snow"
