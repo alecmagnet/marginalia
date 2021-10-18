@@ -20,23 +20,14 @@ puts 'Seeded lit_texts...'
 # Create first user
 User.create(username: 'alec', fullname: 'Alec Magnet', password: '123', bio: 'I made this site!', image: 'https://ak1.ostkcdn.com/images/products/is/images/direct/cb4bb9ec6f979b10ea692f6d016c0ea5455e9551')
 
-# Create other users
-5.times do
-	fullname=Faker::FunnyName.unique.name
-	# username=[giant_squid, book_wyrm, mega_flora, reading_rainbow]
-	username=Faker::Twitter.unique.screen_name
-	image=Faker::Avatar.image
-	bio=Faker::Lorem.paragraph(sentence_count: 2..6)
-	User.create(username: username, password: '123', fullname: fullname, image: image, bio: bio)
-end
-
-# Update usernames
-User.find(2).update(username: "giant_squid", image: "https://cdn.drawception.com/drawings/VSHjORJLoF.png")
-User.find(3).update(username: "book_wyrm", image: "https://i.pinimg.com/originals/43/d9/01/43d9012b7c7715d9b60d57fb6e4094e8.jpg")
-User.find(4).update(username: "wyverary", image: "http://www.thanate.com/misc/lj/wyverary01.jpg")
-User.find(5).update(username: "reading_rainbow", image: "https://pbs.twimg.com/profile_images/1232393967859326976/OAnm8b39_400x400.jpg")
-User.find(6).update(username: "wol", image: "https://shop.pbs.org/graphics/products/zoom/HX6482_NEW_1.jpg")
+# Create users
+User.create(fullname: "Nemo Tennyson", username: "giant_squid", password: "123", image: "https://cdn.drawception.com/drawings/VSHjORJLoF.png", bio: "Far, far beneath in the abysmal sea, / His ancient, dreamless, uninvaded sleep / The Kraken sleepeth")
+User.create(fullname: "Falcor Dragonface", username: "book_wyrm", password: "123", image: "https://i.pinimg.com/originals/43/d9/01/43d9012b7c7715d9b60d57fb6e4094e8.jpg", bio: "A dragon's gotta get zen with ephemerality, y'know?")
+User.create(fullname: "Darles Chickens", username: "the_peckwick_papers", password: "123", image: "https://rlv.zcache.com/funny_weird_vintage_photograph_of_chicken_costume_postcard-r2cc5629305ec4fe2b0af0ad708fdf1a0_ucbjp_704.webp", bio: "My father’s family name being Chickens, and my Christian name Darles, my infant tongue could make of both names nothing longer or more explicit than Cheep. So, I called myself Cheep, and came to be called Cheep.")
+User.create(fullname: "Ana Phora" username: "reading_books_reading_rainbows", password: "123", image: "https://pbs.twimg.com/profile_images/1232393967859326976/OAnm8b39_400x400.jpg", bio: "If you want the moon, do not hide from the night. If you want a rose, do not run from the thorns. If you want love, do not hide from yourself.")
+User.create(fullname: "Hermen Eutics", username: "what_does_it_meean", password: "123", image: "http://3.bp.blogspot.com/-4IcLU-g65NA/UM3dOZiYSNI/AAAAAAAAAf8/WEjTiXwGj5U/s1600/schleiermacher.jpg", bio: "I am the branch of knowledge that deals with interpretation, especially of literary or philosophical texts")
 puts 'Seeded Users...'
+User.create(fullname: "Owl", username: "_wol_", password: "123", image: "https://i.pinimg.com/originals/1d/96/f6/1d96f64edd0f8634c8b8f609ab78bf86.jpg", bio: "HIPY PAPY BTHUTHDTH THUTHDA BTHUTHDY" )
 
 
 # Create parent_comments
