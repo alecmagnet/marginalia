@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { Grid } from '@mui/material'
+import { Grid, Tooltip, Button } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 import ComTypeDropdown from "./ComTypeDropdown.js"
+import { HashLink } from 'react-router-hash-link'
+import AddCommentIcon from '@mui/icons-material/AddComment'
 
 export default function CommentsList({ litTextId }) {
 	const [comTypes, setComTypes] = useState(["all"])
@@ -72,6 +74,8 @@ export default function CommentsList({ litTextId }) {
 		return returnArr
 	}
 
+	const newCommentHash = `/texts/${litTextId}#new-comment`
+
 
 	return (
 		<div>
@@ -86,10 +90,19 @@ export default function CommentsList({ litTextId }) {
 					container 
 					justifyContent="center"
 				>
-					<ComTypeDropdown
-						comTypes={comTypes}
-						handleComType={handleComType}
-					/>
+					<div style={{ display:"flex", justifyContent:"center", marginBottom: "32px", }}>
+						<ComTypeDropdown
+							comTypes={comTypes}
+							handleComType={handleComType}
+						/>
+						<Tooltip title="Post a Comment" arrow>
+							<HashLink smooth to={newCommentHash} style={{ color: "#3e2723", height: "62px" }} >
+								<AddCommentIcon
+									sx={{ ml: 3, mt: "1px", p: 0, fontSize: 92 }}
+								/>
+							</HashLink>
+						</Tooltip>
+					</div>
 					{renderComments()}
 					<div id="new-comment" />
 					<CommentNewForm 

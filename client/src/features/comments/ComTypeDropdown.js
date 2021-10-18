@@ -14,7 +14,7 @@ export default function ComTypeDropdown({ comTypes, handleComType }) {
 				value={comTypes}
 				label="View"
 				onChange={handleComType}
-				sx={{ bgcolor: "#fefcf9" }}
+				sx={{ bgcolor: "#f4f3f0" }}
 			>
 				<MenuItem value="all">
 					All 
