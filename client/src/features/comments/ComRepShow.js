@@ -93,6 +93,7 @@ export default function ComRepShow({ comment, litTextId }) {
 		history.push(`/users/${comment.user.id}`)
 	}
 
+	const ghost = <span role="img" aria-label="ghost"> 👻 </span>
 
 	return (
 		<div style={{ position: "relative"}}>
@@ -102,12 +103,18 @@ export default function ComRepShow({ comment, litTextId }) {
 					<CommentType comTypes={renderComment.com_types} />
 				}
 			<Grid item >
-				<Avatar 
+				{renderComment.deleted ? 
+					<Avatar sx={{ bgcolor: "#eee" }}>
+						{ghost}
+					</Avatar>
+				: 
+					<Avatar 
 						alt={renderComment.fullname} 
 						src={renderComment.image} 
 						sx={{ cursor: "pointer", width: 60, height: 60, }} 
 						onClick={() => userClicked()} 
 					/>
+				}
 			</Grid>
 			<Grid justifyContent="left" item xs={9}>
 				<Typography 
