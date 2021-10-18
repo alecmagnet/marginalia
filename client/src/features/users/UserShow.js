@@ -20,7 +20,6 @@ export default function UserShow() {
 	useEffect(() => {
 		dispatch(fetchUserById(params.id))
 	}, [])
-	console.log("Usershow showUser", showUser)
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
@@ -31,7 +30,6 @@ export default function UserShow() {
 	}
 
 	function handleUpdatedUser() {
-		// setShowUser(data) DISPATCH PATCH REQUEST HERE OR IN EDIT FORM?
 		setEditClicked(!editClicked)
 	}
 
@@ -41,12 +39,7 @@ export default function UserShow() {
   const splitDate = trimDate.split(" ")
   const renderDate = `${splitDate[0]} ${splitDate[1]}, ${splitDate[2]}`
 
-	// let litTextIds = []
-	// let renderPreviews = []
 	const undeleted = () => {
-		// if (showUserStatus === "loading" || showUser === []) {
-		// 	return []
-		// } else if (showUser.comments) {
 		if (showUser.comments) {
 			return showUser.comments.filter((c) => c.deleted === false)
 		} else {
@@ -68,13 +61,6 @@ export default function UserShow() {
 			return litTextIds().map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted()} />)
 		}
 	}
-	// if (showUser.comments) {
-	// 	let undeleted = showUser.comments.filter((c) => c.deleted === false)
-	// 	console.log("UserShow:undeleted", undeleted)
-	// 	let arr = undeleted.map((c) => c.lit_text_id)
-	// 	litTextIds = [...new Set(arr)]
-	// 	renderPreviews = litTextIds.map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted} />)
-	// }
 	 
 
 	if (showUserStatus === "loading" || showUser === []) {
@@ -129,7 +115,6 @@ export default function UserShow() {
 					<Divider sx={{ m: 5, }}>
 						<Typography variant="h5" sx={{ textAlign:"center", }} >Comments</Typography>
 					</Divider> 		
-					{/* {user.comments.length > 0 ? <div>{renderPreviews}</div> : */}
 					{undeleted().length > 0 ? 
 						<div>{renderPreviews()}</div> 
 					: showUser.id === user.id ?

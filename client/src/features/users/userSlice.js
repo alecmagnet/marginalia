@@ -5,7 +5,6 @@ export const authorize = createAsyncThunk(
 	async () => {
 		const response = await fetch("/auth")
 		const data = await response.json()
-		console.log("authorize:", data)
     return data
 	}
 )
