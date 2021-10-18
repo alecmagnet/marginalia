@@ -41,6 +41,12 @@ export default function LitTextShow() {
 		// listComments = [...newestFirst]
 	}
 
+	const displayDate = () => {
+		const value = litText.pubdate
+		return value < 0 ? `${Math.abs(value)} BCE` 
+		: value <1000 ? `${value} CE`
+		: value
+	}
 
 
 	if (litTextState.status === "idle" && litTextState.entities.length > 0) {
@@ -82,7 +88,7 @@ export default function LitTextShow() {
 						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
-					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{litText.pubdate}</em></Typography>
+					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
 						<Grid container wrap="nowrap">
 							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
 								<div style={{ position: "flex", }} >

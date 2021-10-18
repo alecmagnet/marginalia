@@ -8,6 +8,7 @@ import { postLitText } from '../litTexts/litTextsSlice'
 
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
+	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [formData, setFormData] = useState({
 		title: "",
 		author: "",
@@ -18,8 +19,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	const [quillData, setQuillData] = useState("")
 	const [previewClicked, setPreviewClicked] = useState(false)
 
-	// const errors = useSelector(state => state.litTexts.errors)
 	const dispatch = useDispatch()
+	// const errors = useSelector(state => state.litTexts.errors)
 
 	const handleProseBoolean = (b) => {
 		setFormData(formData => {return ({
@@ -27,7 +28,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			prose: b
 		})})
 	}
-
 	const handleStoryOrPoemClick = (event, value) => {
 		setStoryOrPoem(value)
 		if (value === "Story") {
@@ -37,12 +37,29 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		}
 	}
 
+	const handleCeOrBceBoolean = (value) => {
+		const absolute = () => Math.abs(parseInt(formData.pubdate))
+		const date = () => value.includes("b") ? -absolute() : absolute()
+		setFormData(formData => {return ({
+			...formData,
+			pubdate: date()
+		})})
+	}
+	const handleCeOrBce = (event, value) => {
+		if (value !== null) {
+			setCeOrBce(() => value)
+			handleCeOrBceBoolean(value)
+		}
+	}
+
 	const handleFormChange = (e) => {
+		const { name, value } = e.target
+		const useValue = name === "pubdate" ? parseInt(value) : value
 		setFormData((formData) => {
 			return (
 				{
 					...formData,
-					[e.target.name]: e.target.value,
+					[name]: useValue,
 				}
 			)
 		})
@@ -57,7 +74,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	}
 	
 	const handleQuillChange = (content) => {
-		console.log("handleQuillCHANGE", content)
+		// console.log("handleQuillCHANGE", content)
 		setQuillData(content)
 		handleFormChange({ target: { name: "content", value: content } })
 	}
@@ -66,6 +83,13 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		let parsedData = parse(`${quillData}`)
 		let returnData = wrapTextContent(parsedData)
 		return returnData
+	}
+
+	const displayDate = () => {
+		const value = formData.pubdate
+		return value < 0 ? `${Math.abs(value)} BCE` 
+		: value <1000 ? `${value} CE`
+		: value
 	}
 
 	const handlePreviewClick = () => {
@@ -146,8 +170,33 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						required
 						id="pubdate"
 						label="Year"
-						sx={{ mt: 1, mb: 2, mx: "5%", backgroundColor: "#fff", width: "90%" }}
+						sx={{ mt: 1, mb: 2, mx: "5%", backgroundColor: "#fff", width: "70%" }}
 					/>
+
+						<ToggleButtonGroup
+							value={ceOrBce}
+							exclusive
+							onChange={handleCeOrBce}
+							aria-label="CE or BCE"
+							sx={{ bgcolor: "#fff", mt: 1, height: "61.75px" }}
+						>
+							<ToggleButton 
+								value="bce"
+								aria-label="BCE"
+								// sx={{ p: 2 }}
+							>
+								BCE
+							</ToggleButton>
+							<ToggleButton 
+								value="ce"
+								aria-label="CE"
+								// sx={{ p: 2 }}
+							>
+								CE
+							</ToggleButton>
+						</ToggleButtonGroup>
+
+
 					<ReactQuill 
 						theme="snow"
 						value={quillData}
@@ -228,7 +277,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
 								<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
 								<Typography variant="h6" sx={{ textAlign:"center" }}>{formData.author}</Typography>
-								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{formData.pubdate}</em></Typography>
+								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
 									<Grid container wrap="nowrap">
 										<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
 											<div style={{ position: "flex", }} >

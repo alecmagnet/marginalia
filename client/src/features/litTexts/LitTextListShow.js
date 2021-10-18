@@ -30,6 +30,13 @@ export default function LitTextListShow({ litText }) {
 		isProse = "Prose"
 	}
 
+	const displayDate = () => {
+		return pubdate < 0 ? `${Math.abs(pubdate)} BCE` 
+		: pubdate <1000 ? `${pubdate} CE`
+		: pubdate
+	}
+
+
 	return (
 		<Grid item >
 			<Paper 
@@ -39,7 +46,7 @@ export default function LitTextListShow({ litText }) {
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
 				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
-				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{pubdate}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
+				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{displayDate()}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
 					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
 						<em>Preview</em>
