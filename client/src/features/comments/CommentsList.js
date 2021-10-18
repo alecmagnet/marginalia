@@ -22,7 +22,6 @@ export default function CommentsList({ litTextId }) {
 	}
 
 	const filteredComments = (arr) => {
-		console.log("filteredComments arr", arr, "comTypes", comTypes)
 		if (comTypes.includes("all")) {
 			return arr
 		} else {
@@ -40,7 +39,6 @@ export default function CommentsList({ litTextId }) {
     const {
       target: { value },
     } = e
-		// console.log("value", value)
 		const inc = (el) => value.includes(el)
 		const incAll4 = inc(1) && inc(2) && inc(3) && inc(4) ? true : false
 		const incAny = !incAll4 && (inc(1) || inc(2) || inc(3) || inc(4))
@@ -55,7 +53,6 @@ export default function CommentsList({ litTextId }) {
 			setComTypes([...value])
 		}
 	}
-	console.log("comTypes", comTypes)
 
 	const renderComments = () => {
 		const toFilter = filteredComments(oldestFirst)
