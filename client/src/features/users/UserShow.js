@@ -17,16 +17,10 @@ export default function UserShow() {
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities[0])
 
-	// let litTextIds = []
 	useEffect(() => {
 		dispatch(fetchUserById(params.id))
-		// .then(() => {
-		// 	// let arr = showUser.comments.map((c) => c.lit_text_id)
-		// 	// litTextIds = [... new Set(arr)]
-		// 	console.log("Usershow showUser", showUser)
-		// })
 	}, [])
-
+	console.log("Usershow showUser", showUser)
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
@@ -47,18 +41,49 @@ export default function UserShow() {
   const splitDate = trimDate.split(" ")
   const renderDate = `${splitDate[0]} ${splitDate[1]}, ${splitDate[2]}`
 
-	let litTextIds = []
-	let renderPreviews = []
-	if (showUser.comments) {
-		let undeleted = showUser.comments.filter((c) => c.deleted === false)
-		console.log("UserShow:undeleted", undeleted)
-		let arr = undeleted.map((c) => c.lit_text_id)
-		litTextIds = [...new Set(arr)]
-		renderPreviews = litTextIds.map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted} />)
+	// let litTextIds = []
+	// let renderPreviews = []
+	const undeleted = () => {
+		// if (showUserStatus === "loading" || showUser === []) {
+		// 	return []
+		// } else if (showUser.comments) {
+		if (showUser.comments) {
+			return showUser.comments.filter((c) => c.deleted === false)
+		} else {
+			return []
+		}
 	}
+	const litTextIds = () => {
+		if (undeleted().length === 0) {
+			return []
+		} else {
+			let arr = undeleted().map((c) => c.lit_text_id)
+			return [...new Set(arr)]
+		}
+	}
+	const renderPreviews = () => {
+		if (litTextIds().length === 0) {
+			return []
+		} else {
+			return litTextIds().map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted()} />)
+		}
+	}
+	// if (showUser.comments) {
+	// 	let undeleted = showUser.comments.filter((c) => c.deleted === false)
+	// 	console.log("UserShow:undeleted", undeleted)
+	// 	let arr = undeleted.map((c) => c.lit_text_id)
+	// 	litTextIds = [...new Set(arr)]
+	// 	renderPreviews = litTextIds.map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted} />)
+	// }
 	 
 
-	if (showUserStatus === "idle") {
+	if (showUserStatus === "loading" || showUser === []) {
+		return (
+			<div className="centered-in-window" >
+				<h1>Loading...</h1>
+			</div>
+		)
+	} else if (showUserStatus === "idle" && typeof(showUser) === "object") {
 		return (
     <Grid 
 			container 
@@ -81,12 +106,12 @@ export default function UserShow() {
 					/>
 					</div>
 					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{showUser.fullname}</b></Typography>
-					<Typography variant="h6" sx={{ textAlign:"center", m: 1, mb: 2, }}><em>@{showUser.username}</em></Typography>
+					<Typography variant="h6" sx={{ textAlign:"center", mb: 2, color: "#616161" }}><em>@{showUser.username}</em></Typography>
 					<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, mx:"20%", backgroundColor: "#fefcf9", }}>
-						<Typography sx={{ fontSize: 20, textAlign:"center", mt:1 }} color="#424242" gutterBottom>
+						<Typography sx={{ fontSize: 17, textAlign:"center", }} color="#757575" gutterBottom>
 							Bio
 						</Typography>				
-						<Typography variant="body2">{showUser.bio}</Typography> 
+						<Typography variant="body2" sx={{ textAlign:"center", }} >{showUser.bio}</Typography> 
 					</Card>
 					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 2, color: "#373737"}}><em>Joined {renderDate}</em></Typography>
 					{showUser.id === user.id ?
@@ -104,24 +129,21 @@ export default function UserShow() {
 					<Divider sx={{ m: 5, }}>
 						<Typography variant="h5" sx={{ textAlign:"center", }} >Comments</Typography>
 					</Divider> 		
-					{user.comments.length > 0 ? <div>{renderPreviews}</div> :
-							<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
-								Go comment on some stories and poems!
-							</Typography>
-							// :
-							// <Typography variant="body2" sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, }} >
-							// 	This user hasn't written any comments yet
-							// </Typography>
+					{/* {user.comments.length > 0 ? <div>{renderPreviews}</div> : */}
+					{undeleted().length > 0 ? 
+						<div>{renderPreviews()}</div> 
+					: showUser.id === user.id ?
+						<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
+							Go comment on some stories and poems!
+						</Typography>
+					:
+						<Typography variant="body2" sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color:"#757575" }} >
+							This user hasn't written any comments yet
+						</Typography>
 					}			 
 				</Paper>
 			</Grid>
 		</Grid>
-		)
-	} else if (showUserStatus === "loading") {
-		return (
-			<div className="centered-in-window" >
-				<h1>Loading...</h1>
-			</div>
 		)
 	} else {
 		return (
