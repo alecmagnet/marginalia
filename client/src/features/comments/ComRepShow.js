@@ -108,14 +108,6 @@ export default function ComRepShow({ comment, litTextId }) {
 		},
 	}))
 
-	// const checkRepliesUnderCorrectComment = () => {
-	// 	return (
-	// 		<span style={{ fontSize: 10 }} >(
-	// 			<span>id: {renderComment.id}</span>
-	// 			{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
-	// 		</span>		
-	// 	)
-	// }
 
 	return (
 		<div style={{ position: "relative"}}>
@@ -153,7 +145,6 @@ export default function ComRepShow({ comment, litTextId }) {
 				<>
 					<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer", mt: 0, pt: 0, color: "#757575", fontWeight: 400 }} ><em>@{renderComment.username}</em></Typography>
 					<Typography variant="body1" sx={{ mt:2, mb:1 }}>
-						{/* checkRepliesUnderCorrectComment() */}
 						{renderComment.content}
 					</Typography>	
 				</>

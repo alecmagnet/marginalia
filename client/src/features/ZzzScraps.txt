@@ -1,12 +1,4 @@
-
-
-
-
-
-
-
 -----------------------------------------------
-
 
 ***IMPORTANT*** FROM LitTextsContainer WETTER SORT METHODS ***IMPORTANT*** 
 	const authorAZ = (texts) => {
@@ -67,7 +59,33 @@
 		return sortArr
 	}										
 
+-----------------------------------------------
 
+***IMPORTANT*** FROM ComRepShow TEST REPLIES UNDER RIGHT COMMENT ***IMPORTANT*** 
+	const checkRepliesUnderCorrectComment = () => {
+		return (
+			<span style={{ fontSize: 10 }} >(
+				<span>id: {renderComment.id}</span>
+				{renderComment.parent_comment_id ? <span>, replying to: {renderComment.parent_comment_id}</span>: null}) 
+			</span>		
+		)
+	}
+
+						checkRepliesUnderCorrectComment()
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+LESS IMPORTANT:
 -----------------------------------------------
 
 
