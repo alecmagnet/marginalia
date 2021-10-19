@@ -11,7 +11,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [formData, setFormData] = useState({
 		title: "",
-		author: "",
+		first_name: "",
+		last_name: "",
 		pubdate: "",
 		content: "",
 		prose: false
@@ -19,6 +20,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	const [quillData, setQuillData] = useState("")
 	const [previewClicked, setPreviewClicked] = useState(false)
 	const [notNum, setNotNum] = useState(false)
+	console.log("formData", setFormData)
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
@@ -112,7 +114,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		dispatch(postLitText(formData))
 		setFormData({
 			title: "",
-			author: "",
+			first_name: "",
+			last_name: "",
 			pubdate: "",
 			content: "",
 			prose: false
@@ -164,39 +167,35 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						autoFocus
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 					/>
-					<TextField
-						onChange={handleFormChange}
-						autoComplete="author"
-						name="author"
-						required
-						id="author"
-						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
-						label="Author"
-					/>
 
 					<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-					<Grid item xs sx={{ mr: 1 }}>
-					<TextField
-						// onChange={handleFormChange}
-						autoComplete="author"
-						name="author"
-						id="author"
-						sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
-						label="Author's first name(s)"
-					/>
-					</Grid>
-					<Grid item xs sx={{ ml: 1 }}>
-					<TextField
-						// onChange={handleFormChange}
-						autoComplete="author"
-						name="author"
-						required
-						id="author"
-						sx={{ backgroundColor: "#fff", width: "100%" }}
-						label="Author's last name"
-					/>
-
-					</Grid>
+						<Tooltip title="You may include middle names and initials" placement="top" arrow>
+							<Grid item xs sx={{ mr: 1 }}>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="first_name"
+									name="first_name"
+									id="first_name"
+									sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
+									label="Author's first name"
+								/>
+							</Grid>
+						</Tooltip>
+						<Tooltip title="If an author only has one name, include it here" placement="top" arrow>
+						<Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow>
+							<Grid item xs sx={{ ml: 1 }}>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="last_name"
+									name="last_name"
+									required
+									id="last_name"
+									sx={{ backgroundColor: "#fff", width: "100%" }}
+									label="Author's last name"
+								/>
+							</Grid>
+						</Tooltip>
+						</Tooltip>
 					</Grid>
 
 
@@ -317,7 +316,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									<Grid item xs={12}>
 								<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
 								<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
-								<Typography variant="h6" sx={{ textAlign:"center" }}>{formData.author}</Typography>
+								<Typography variant="h6" sx={{ textAlign:"center" }}>{`${formData.first_name} ${formData.last_name}`}</Typography>
 								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
 									<Grid container wrap="nowrap">
 										<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
