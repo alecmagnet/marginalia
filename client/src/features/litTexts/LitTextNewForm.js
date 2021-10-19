@@ -173,38 +173,70 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 						label="Author"
 					/>
-					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mb: "-1", mt: 1 }}>We're sorry. For now, <b>Year</b> can only support numbers. Anything else will be removed</Typography> : null}
+
+					<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
+					<Grid item xs sx={{ mr: 1 }}>
 					<TextField
-						onChange={handleFormChange}
-						autoComplete="pubdate"
-						name="pubdate"
-						required
-						id="pubdate"
-						label="Year"
-						sx={{ mt: 1, mb: 2, mx: "5%", backgroundColor: "#fff", width: "70%" }}
+						// onChange={handleFormChange}
+						autoComplete="author"
+						name="author"
+						id="author"
+						sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
+						label="Author's first name(s)"
 					/>
-					{/* <div display="flex" justifyContent="right"> */}
-					<ToggleButtonGroup
-						value={ceOrBce}
-						exclusive
-						onChange={handleCeOrBce}
-						aria-label="CE or BCE"
-						sx={{ bgcolor: "#fff", mt: 1, height: "61.75px", float: "right" }}
-					>
-						<ToggleButton 
-							value="bce"
-							aria-label="BCE"
-						>
-							BCE
-						</ToggleButton>
-						<ToggleButton 
-							value="ce"
-							aria-label="CE"
-						>
-							CE
-						</ToggleButton>
-					</ToggleButtonGroup>
-					{/* </div> */}
+					</Grid>
+					<Grid item xs sx={{ ml: 1 }}>
+					<TextField
+						// onChange={handleFormChange}
+						autoComplete="author"
+						name="author"
+						required
+						id="author"
+						sx={{ backgroundColor: "#fff", width: "100%" }}
+						label="Author's last name"
+					/>
+
+					</Grid>
+					</Grid>
+
+
+					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
+					<Grid container item xs={12} sx={{ mx: "5%", width: "90%"}}>
+						<Grid item xs>
+							<TextField
+								onChange={handleFormChange}
+								autoComplete="pubdate"
+								name="pubdate"
+								required
+								id="pubdate"
+								label="Year"
+								fullWidth
+								sx={{ mt: 1, mb: 2, backgroundColor: "#fff", }}
+							/>
+						</Grid>
+						<Grid item xs="auto" sx={{ ml: 2}}>
+							<ToggleButtonGroup
+								value={ceOrBce}
+								exclusive
+								onChange={handleCeOrBce}
+								aria-label="CE or BCE"
+								sx={{ bgcolor: "#fff", mt: 1, mr: "5%", height: "61.75px", }}
+							>
+								<ToggleButton 
+									value="bce"
+									aria-label="BCE"
+								>
+									BCE
+								</ToggleButton>
+								<ToggleButton 
+									value="ce"
+									aria-label="CE"
+								>
+									CE
+								</ToggleButton>
+							</ToggleButtonGroup>
+						</Grid>
+					</Grid>
 
 					<ReactQuill 
 						theme="snow"
