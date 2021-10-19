@@ -40,6 +40,8 @@ export default function LitTextsContainer () {
 		return sortedArr
 	}
 
+	const byPubdate = (texts) => [...texts].sort((a, b) => a.pubdate - b.pubdate)
+
 	const recentlyAdded = (texts) => {
 		let toSort = [...texts]
 		let sortArr = toSort.sort((a, b) => {
@@ -124,10 +126,10 @@ export default function LitTextsContainer () {
 			arrTwo = [...titleAZ(filtArr)]
 		} else if (litTextsOrder === "titleZ-A") {
 			arrTwo = [...titleAZ(filtArr).reverse()]
-		// } else if (litTextsOrder === "dateNew") {
-		// 	arrTwo = [...byPubdate(filtArr)]
-		// } else if (litTextsOrder === "dateOld") {
-		// 	arrTwo = [...byPubdate(filtArr).reverse()]
+		} else if (litTextsOrder === "dateNew") {
+			arrTwo = [...byPubdate(filtArr)]
+		} else if (litTextsOrder === "dateOld") {
+			arrTwo = [...byPubdate(filtArr).reverse()]
 		} else if (litTextsOrder === "activityNew") {
 			arrTwo = [...recentlyCommented(filtArr)]
 		} else if (litTextsOrder === "activityOld") {

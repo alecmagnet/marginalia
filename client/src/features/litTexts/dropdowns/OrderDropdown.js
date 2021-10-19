@@ -54,12 +54,12 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 				<MenuItem value="titleZ-A">
 					Title {directionElement("titleZ-A")}
 				</MenuItem>
-				{/* <MenuItem value="dateNew">
+				<MenuItem value="dateNew">
 					Date {directionElement("dateNew")}
 				</MenuItem>
 				<MenuItem value="dateOld">
 					Date {directionElement("dateOld")}
-				</MenuItem> */}
+				</MenuItem>
 				<MenuItem value="activityNew">
 					Activity {directionElement("activityNew")}
 				</MenuItem>
