@@ -19,10 +19,11 @@ export default function ComRepShow({ comment, litTextId }) {
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
 
-	const dispatch = useDispatch() 
-
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
+
+	const dispatch = useDispatch() 
+	const history = useHistory()
 
 	const isParentQuestion = () => {
 		if (comment.com_types.find(type => type.id === 2)) {
@@ -32,7 +33,6 @@ export default function ComRepShow({ comment, litTextId }) {
 		}
 	}
 
-	const history = useHistory()
 
 	const showComment = {
 		fullname: comment.user.fullname,
@@ -62,12 +62,16 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	const renderComment = comment.deleted ? deletedComment : showComment
 
+
+	const comTypeIds = comment.com_types.map(type => type.id)
+
 	function handleDelete(e) {
-		setEditClicked(prev => false)
+		setEditClicked(() => false)
 		e.preventDefault()
 		if (comment.replies.length > 0 || comment.parent_comment_id) {
 			const changeCom = {
 				...comment,
+				com_type_ids: [...comTypeIds],
 				deleted: true
 			}
 			dispatch(patchComment(changeCom))
@@ -77,9 +81,6 @@ export default function ComRepShow({ comment, litTextId }) {
 		}
 	}
 
-	function wrapSetErrors(data){
-		setErrors(data)
-	}
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
@@ -94,6 +95,11 @@ export default function ComRepShow({ comment, litTextId }) {
 	const userClicked = () => {
 		history.push(`/users/${comment.user.id}`)
 	}
+
+	function wrapSetErrors(data){
+		setErrors(data)
+	}
+
 
 	const ghost = <span role="img" aria-label="ghost"> 👻 </span>
 
