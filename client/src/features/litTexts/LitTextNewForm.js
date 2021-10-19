@@ -181,8 +181,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								/>
 							</Grid>
 						</Tooltip>
-						<Tooltip title="If an author only has one name, include it here" placement="top" arrow>
-						<Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow>
+						<Tooltip title="If an author only has one name, like Homer or Madonna, include it here" placement="top" arrow>
+						{/* <Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow> */}
 							<Grid item xs sx={{ ml: 1 }}>
 								<TextField
 									onChange={handleFormChange}
@@ -194,7 +194,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									label="Author's last name"
 								/>
 							</Grid>
-						</Tooltip>
+						{/* </Tooltip> */}
 						</Tooltip>
 					</Grid>
 

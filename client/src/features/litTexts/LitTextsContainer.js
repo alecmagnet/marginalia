@@ -7,7 +7,6 @@ import { Typography, Grid, TextField, Button, Tooltip } from '@mui/material'
 import FilterDropdown from './dropdowns/FilterDropdown'
 
 
-// FUTURE GOAL: REFACTOR THIS CODE INTO SMALLER COMPONENTS
 export default function LitTextsContainer () {
 	const [newClicked, setNewClicked] = useState(false)
 	const handleNewClick = () => {
@@ -19,7 +18,7 @@ export default function LitTextsContainer () {
 
 	const authorAZ = (texts) => {
 		let toMap = [...texts]
-		let mappedArr = toMap.map((text) => `${text.author.replace(/^\w.+\s/, "")} ${text.id}`)
+		let mappedArr = toMap.map((text) => `${text.last_name} ${text.id}`)
 		let sortedAuthors = mappedArr.sort()
 		let sortedArr = sortedAuthors.map((auth) => {
 			let sortID = auth.replace(/^\w.+\s/, "")
