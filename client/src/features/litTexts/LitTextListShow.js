@@ -3,7 +3,7 @@ import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 import { Typography, Grid, Paper, Card } from '@mui/material'
 
 export default function LitTextListShow({ litText }) {
-	const { title, author, pubdate, content, id, prose } = litText
+	const { title, first_name, last_name, pubdate, content, id, prose } = litText
 
 	let parsedContent = ""
 	if (content && prose) {
@@ -45,7 +45,7 @@ export default function LitTextListShow({ litText }) {
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
-				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author}</Typography>
+				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{`${first_name} ${last_name}`}</Typography>
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{displayDate()}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
 					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>

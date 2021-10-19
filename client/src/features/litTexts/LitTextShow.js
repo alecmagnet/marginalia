@@ -82,7 +82,7 @@ export default function LitTextShow() {
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
-					<Typography variant="h6" sx={{ textAlign:"center" }}>{litText.author}</Typography>
+					<Typography variant="h6" sx={{ textAlign:"center" }}>{`${litText.first_name} ${litText.last_name}`}</Typography>
 					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
 						<Grid container wrap="nowrap">
 							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
