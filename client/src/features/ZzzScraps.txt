@@ -3,7 +3,71 @@
 
 
 
-										
+
+
+-----------------------------------------------
+
+
+***IMPORTANT*** FROM LitTextsContainer WETTER SORT METHODS ***IMPORTANT*** 
+	const authorAZ = (texts) => {
+		let toMap = [...texts]
+		let mappedArr = toMap.map((text) => `${text.last_name} ${text.id}`)
+		let sortedAuthors = mappedArr.sort()
+		let sortedArr = sortedAuthors.map((auth) => {
+			let sortID = auth.replace(/^\w.+\s/, "")
+			let sortText = toMap.find((text) => parseInt(text.id) === parseInt(sortID))
+			return sortText
+		})
+		return sortedArr		
+	}
+
+	const titleAZ = (texts) => {
+		let toMap = [...texts]
+		let mappedArr = toMap.map((text) => `${text.title} ${text.id}`)
+		let sortedTitles = mappedArr.sort()
+		let sortedArr = sortedTitles.map((title) => {
+			let sortID = title.replace(/^\w.+\s/, "")
+			let sortText = toMap.find((text) => parseInt(text.id) === parseInt(sortID))
+			return sortText
+		})
+		return sortedArr
+	}
+
+	const byPubdate = (texts) => [...texts].sort((a, b) => a.pubdate - b.pubdate)
+
+	const recentlyAdded = (texts) => {
+		let toSort = [...texts]
+		let sortArr = toSort.sort((a, b) => {
+			let dateTimeA = Date.parse(a.created_at) 
+			let dateTimeB = Date.parse(b.created_at)
+			return dateTimeB - dateTimeA
+		})
+		return sortArr
+	}
+
+	const newestComment = (el) => {
+		let toSort = [...el.comments]
+		let sortArr = toSort.sort((a, b) => {
+			let dateTimeA = Date.parse(a.created_at) 
+			let dateTimeB = Date.parse(b.created_at)
+			return dateTimeB - dateTimeA
+		})
+		if (sortArr.length === 0) {
+			return 0
+		} else {
+			let newest = sortArr[0]
+			let newestCreatedAt = Date.parse(newest.created_at)
+			return newestCreatedAt
+		}
+	}
+
+	const recentlyCommented = (texts) => {
+		let toSort = [...texts]
+		let sortArr = toSort.sort((a, b) => newestComment(b) - newestComment(a))
+		return sortArr
+	}										
+
+
 -----------------------------------------------
 
 

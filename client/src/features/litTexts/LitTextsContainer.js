@@ -16,64 +16,47 @@ export default function LitTextsContainer () {
   const { entities, status } = useSelector((state) => state.litTexts)
 	const litTextsArr = [...entities]
 
-	const authorAZ = (texts) => {
-		let toMap = [...texts]
-		let mappedArr = toMap.map((text) => `${text.last_name} ${text.id}`)
-		let sortedAuthors = mappedArr.sort()
-		let sortedArr = sortedAuthors.map((auth) => {
-			let sortID = auth.replace(/^\w.+\s/, "")
-			let sortText = toMap.find((text) => parseInt(text.id) === parseInt(sortID))
-			return sortText
-		})
-		return sortedArr		
+	const authorAZ = (texts) => 
+		[...texts].map((text) => 
+			`${text.last_name} ${text.id}`
+		).sort()
+		.map((auth) => 
+			texts.find((text) => 
+				parseInt(text.id) === parseInt(auth.replace(/^\w.+\s/, ""))
+			)
+		)
+
+	const titleAZ = (texts) => 
+		[...texts].map((text) => 
+			`${text.title} ${text.id}`
+		)
+		.sort()
+		.map((title) => 
+			texts.find((text) => 
+				parseInt(text.id) === parseInt(title.replace(/^\w.+\s/, ""))
+			)
+		)
+
+	const byPubdate = (texts) => 
+		[...texts].sort((a, b) => 
+			a.pubdate - b.pubdate
+		)
+
+	const recentlyAdded = (texts) => 
+		[...texts].sort((a, b) => 
+			Date.parse(b.created_at) - Date.parse(a.created_at)
+		)
+
+	const newestComment = (text) => {
+		const sorted = [...text.comments].sort((a, b) => 
+			Date.parse(b.created_at) - Date.parse(a.created_at)
+		)
+		return sorted.length === 0 ? 0 : Date.parse(sorted[0].created_at)
 	}
-
-	const titleAZ = (texts) => {
-		let toMap = [...texts]
-		let mappedArr = toMap.map((text) => `${text.title} ${text.id}`)
-		let sortedTitles = mappedArr.sort()
-		let sortedArr = sortedTitles.map((title) => {
-			let sortID = title.replace(/^\w.+\s/, "")
-			let sortText = toMap.find((text) => parseInt(text.id) === parseInt(sortID))
-			return sortText
-		})
-		return sortedArr
-	}
-
-	const byPubdate = (texts) => [...texts].sort((a, b) => a.pubdate - b.pubdate)
-
-	const recentlyAdded = (texts) => {
-		let toSort = [...texts]
-		let sortArr = toSort.sort((a, b) => {
-			let dateTimeA = Date.parse(a.created_at) 
-			let dateTimeB = Date.parse(b.created_at)
-			return dateTimeB - dateTimeA
-		})
-		return sortArr
-	}
-
-	const newestComment = (el) => {
-		let toSort = [...el.comments]
-		let sortArr = toSort.sort((a, b) => {
-			let dateTimeA = Date.parse(a.created_at) 
-			let dateTimeB = Date.parse(b.created_at)
-			return dateTimeB - dateTimeA
-		})
-		if (sortArr.length === 0) {
-			return 0
-		} else {
-			let newest = sortArr[0]
-			let newestCreatedAt = Date.parse(newest.created_at)
-			return newestCreatedAt
-		}
-	}
-
-	const recentlyCommented = (texts) => {
-		let toSort = [...texts]
-		let sortArr = toSort.sort((a, b) => newestComment(b) - newestComment(a))
-		return sortArr
-	}
-
+	const recentlyCommented = (texts) => 
+		[...texts].sort((a, b) => 
+			newestComment(b) - newestComment(a)
+		)
 	
 	const [litTextsOrder, setLitTextsOrder] = useState("authorA-Z")
 	const handleLitTextsOrder = (e) => {
