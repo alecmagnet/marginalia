@@ -22,6 +22,7 @@ export default function LitTextShow() {
 	
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
+	console.log("litText", litText)
 	
 	let commentsHash = ""
 	let newCommentHash = ""
