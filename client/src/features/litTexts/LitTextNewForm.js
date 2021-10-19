@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
-import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
+import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { postLitText } from '../litTexts/litTextsSlice' 
 
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue }) {
@@ -142,6 +144,14 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
     ],
   }
 
+	const CustomWidthTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} classes={{ popper: className }} />
+	))({
+		[`& .${tooltipClasses.tooltip}`]: {
+			maxWidth: 400,
+		},
+	});
+
 	return (
 		<Grid item xs={12}>
 			<Paper 
@@ -168,8 +178,18 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 					/>
 
-					<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-						<Tooltip title="You may include middle names and initials" placement="top" arrow>
+					<CustomWidthTooltip title={
+						<div>
+							Include middle names, initials, and most particles like <br/><em>de</em> or <em>von</em> in <b>first name</b> (see <a 
+								href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
+								target="_blank" 
+								style={{ color: "#d1dbe0"}}
+							>guidelines</a>).
+							<br/><br/>If an author only has one name, include it in <b>last name</b>.</div>} 
+						placement="top" 
+						arrow
+					>
+						<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
 							<Grid item xs sx={{ mr: 1 }}>
 								<TextField
 									onChange={handleFormChange}
@@ -180,9 +200,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									label="Author's first name"
 								/>
 							</Grid>
-						</Tooltip>
-						<Tooltip title="If an author only has one name, like Homer or Madonna, include it here" placement="top" arrow>
-						{/* <Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow> */}
 							<Grid item xs sx={{ ml: 1 }}>
 								<TextField
 									onChange={handleFormChange}
@@ -194,9 +211,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									label="Author's last name"
 								/>
 							</Grid>
-						{/* </Tooltip> */}
-						</Tooltip>
-					</Grid>
+						</Grid>
+					</CustomWidthTooltip>
 
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
