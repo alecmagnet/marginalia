@@ -45,6 +45,8 @@ export default function LitTextShow() {
 		: value
 	}
 
+	const renderName = () => litText.fam_name_first ? `${litText.last_name} ${litText.first_name}` : `${litText.first_name} ${litText.last_name}`
+
 
 	if (litTextState.status === "idle" && litTextState.entities.length > 0) {
 		return (
@@ -82,8 +84,13 @@ export default function LitTextShow() {
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
 					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
-					<Typography variant="h6" sx={{ textAlign:"center" }}>{`${litText.first_name} ${litText.last_name}`}</Typography>
-					<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
+					<Typography variant="h6" sx={{ textAlign:"center" }}>{renderName()}</Typography>
+					<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{displayDate()}</Typography>
+					{litText.translator.length > 0 ? 
+						<Typography variant="subtitle2" sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}><em>{`Translated by ${litText.translator}`}</em></Typography>
+					: null }
+
+
 						<Grid container wrap="nowrap">
 							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
 								<div style={{ position: "flex", }} >
@@ -94,6 +101,7 @@ export default function LitTextShow() {
 										</div>
 									:
 										<div className="poetry">
+											<br/>
 											{parsedContent}
 										</div>
 									}

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
-import LitTextNewForm from './LitTextNewForm'
+import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
 import { Typography, Grid, TextField, Button, Tooltip } from '@mui/material'
 import FilterDropdown from './dropdowns/FilterDropdown'
@@ -39,7 +39,7 @@ export default function LitTextsContainer () {
 
 	const byPubdate = (texts) => 
 		[...texts].sort((a, b) => 
-			a.pubdate - b.pubdate
+			b.pubdate - a.pubdate
 		)
 
 	const recentlyAdded = (texts) => 

@@ -5,24 +5,29 @@ import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { postLitText } from '../litTexts/litTextsSlice' 
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import { postLitText } from '../litTextsSlice' 
+import LastName from "./LastName"
 
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
+	const [quillData, setQuillData] = useState("")
+	const [previewClicked, setPreviewClicked] = useState(false)
+	const [notNum, setNotNum] = useState(false)
+	const [famNameFirst, setFamNameFirst] = useState(false)
 	const [formData, setFormData] = useState({
 		title: "",
 		first_name: "",
 		last_name: "",
 		pubdate: "",
 		content: "",
-		prose: false
+		prose: false,
+		fam_name_first: false,
+		translator: ""
 	})
-	const [quillData, setQuillData] = useState("")
-	const [previewClicked, setPreviewClicked] = useState(false)
-	const [notNum, setNotNum] = useState(false)
-	console.log("formData", setFormData)
+	console.log("formData", formData)
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
@@ -55,6 +60,14 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			setCeOrBce(() => value)
 			handleCeOrBceBoolean(value)
 		}
+	}
+
+	const handleFamNameFirstClick = () => {
+		setFamNameFirst(prev => !prev)
+		setFormData(prev => { return({
+			...prev,
+			fam_name_first: !prev.fam_name_first
+		})})
 	}
 
 	const handleFormChange = (e) => {
@@ -120,7 +133,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			last_name: "",
 			pubdate: "",
 			content: "",
-			prose: false
+			prose: false,
+			fam_name_first: false
 		})
 		setQuillData("")
 		setPreviewClicked(false)
@@ -171,14 +185,16 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						autoComplete="title"
 						name="title"
 						required
-						
 						id="title"
 						label="Title"
 						autoFocus
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 					/>
 
-					<CustomWidthTooltip title={
+					<LastName famNameFirst={famNameFirst} handleFamNameFirstClick={handleFamNameFirstClick} handleFormChange={handleFormChange} />
+
+
+					{/* <CustomWidthTooltip title={
 						<div>
 							Include middle names, initials, and most particles like <br/><em>de</em> or <em>von</em> in <b>first name</b> (see <a 
 								href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
@@ -188,9 +204,20 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 							<br/><br/>If an author only has one name, include it in <b>last name</b>.</div>} 
 						placement="top" 
 						arrow
+					> */}
+					{/* <Tooltip title={
+						<div>
+							Include any middle names, initials, and most particles like <em>de</em> or <em>von</em> in <b>FIRST NAME</b> (see <a 
+								href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
+								target="_blank" 
+								style={{ color: "#d1dbe0"}}
+							>guidelines</a>)
+							<br/><br/>If an author only has one name, include it in <b>LAST NAME</b></div>} 
+						placement="top" 
+						arrow
 					>
 						<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-							<Grid item xs sx={{ mr: 1 }}>
+							<Grid item xs sx={{ mr: "5px" }}>
 								<TextField
 									onChange={handleFormChange}
 									autoComplete="first_name"
@@ -200,7 +227,10 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									label="Author's first name"
 								/>
 							</Grid>
-							<Grid item xs sx={{ ml: 1 }}>
+							<Grid item xs="auto">
+								<CompareArrowsIcon sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}/>
+							</Grid>
+							<Grid item xs sx={{ ml: "5px" }}>
 								<TextField
 									onChange={handleFormChange}
 									autoComplete="last_name"
@@ -212,7 +242,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								/>
 							</Grid>
 						</Grid>
-					</CustomWidthTooltip>
+					</Tooltip> */}
+					{/* </CustomWidthTooltip> */}
 
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
