@@ -34,13 +34,13 @@ export default function LitTextListShow({ litText }) {
 	const renderTranslator = () => {
 		if (translator.length > 0) {
 			return (
-				<span style={{ color: "#757575", fontSize: "smaller" }}>(translated by {translator})</span>
+				<span style={{ color: "#757575", fontSize: "smaller" }}><em>Translated by {translator}</em></span>
 			)
 		} else {
 			return ""
 		}
 	}
-	const displayName = () => <>{renderName()} {renderTranslator()}</>
+	// const displayName = () => <>{renderName()} {renderTranslator()}</>
 
 
 	const displayDate = () => {
@@ -58,7 +58,10 @@ export default function LitTextListShow({ litText }) {
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
-				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{displayName()}</Typography>
+				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{renderName()}</Typography>
+				{translator.length > 0 ?
+					<Typography variant="subtitle1" sx={{ textAlign:"center", mt: -1 }}>{renderTranslator()}</Typography> 
+				: null}
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{displayDate()}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 
 				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
