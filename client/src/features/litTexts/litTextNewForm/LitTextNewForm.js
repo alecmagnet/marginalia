@@ -140,31 +140,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		return returnData
 	}
 
-	const displayDate = () => {
-		const value = formData.pubdate
-		return value < 0 ? `${Math.abs(value)} BCE` 
-		: value <1000 ? `${value} CE`
-		: value
-	}
-
-	const displayYear = () => {
-		return (
-			<Grid item xs>
-				<TextField
-					onChange={handleFormChange}
-					autoComplete="pubdate"
-					name="pubdate"
-					required
-					id="pubdate"
-					label="Year"
-					value={formData.pubdate}
-					fullWidth
-					sx={{ mt: "3px", mb: 2, mr: "2px", backgroundColor: "#fff", }}
-				/>
-			</Grid>			
-		)
-	}
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -192,6 +167,32 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		handleNewClick()
 	}
 
+
+	const displayDate = () => {
+		const value = formData.pubdate
+		return value < 0 ? `${Math.abs(value)} BCE` 
+		: value <1000 ? `${value} CE`
+		: value
+	}
+
+	const displayYear = () => {
+		return (
+			<Grid item xs>
+				<TextField
+					onChange={handleFormChange}
+					autoComplete="pubdate"
+					name="pubdate"
+					required
+					id="pubdate"
+					label="Year"
+					value={formData.pubdate}
+					fullWidth
+					sx={{ mt: "3px", mb: 2, mr: "2px", backgroundColor: "#fff", }}
+				/>
+			</Grid>			
+		)
+	}
+
 	const qFormats = [
 		'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet'
@@ -206,13 +207,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
     ],
   }
 
-	const CustomWidthTooltip = styled(({ className, ...props }) => (
-		<Tooltip {...props} classes={{ popper: className }} />
-	))({
-		[`& .${tooltipClasses.tooltip}`]: {
-			maxWidth: 400,
-		},
-	});
 
 	return (
 		<Grid item xs={12}>

@@ -159,6 +159,7 @@ export default function ComRepShow({ comment, litTextId }) {
 					created_at={renderComment.created_at} 
 					updated_at={renderComment.updated_at} 
 					isDeleted={renderComment.deleted} 
+					fromLitTextShow={false}
 				/>
 			</Grid>
 			</Grid>

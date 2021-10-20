@@ -13,7 +13,8 @@ export default function UserTextComPreview({ comment }) {
 					<TimeAgoContainer
 						created_at={comment.created_at} 
 						updated_at={comment.updated_at} 
-						isDeleted={comment.deleted} 							
+						isDeleted={comment.deleted} 	
+						fromLitTextShow={false}						
 					/>
 					</Typography>
 					<Typography variant="body2" sx={{ }} >{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography>

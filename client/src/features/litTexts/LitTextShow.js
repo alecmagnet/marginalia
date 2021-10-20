@@ -9,6 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
 import CommentsList from '../comments/CommentsList'
 import LitTextNewForm from './litTextNewForm/LitTextNewForm'
+import TimeAgoContainer from '../shared/TimeAgoContainer'
 import { fetchLitTextById } from './showTextSlice'
 import { HashLink } from 'react-router-hash-link'
 
@@ -125,6 +126,20 @@ export default function LitTextShow() {
 					</Grid>
 					</Grid>
 					</Grid>
+
+					<div style={{ 
+						display:"flex", 
+						justifyContent:"center", 
+						marginTop: 12, 
+						paddingBottom: 2 
+					}}>
+						<TimeAgoContainer 
+							created_at={litText.created_at} 
+							updated_at={litText.updated_at} 
+							isDeleted={false} 
+							fromLitTextShow={true}
+						/>
+					</div>
 					
 					{ editClicked ?
 						<div>
