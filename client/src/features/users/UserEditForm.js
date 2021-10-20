@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { Paper, Typography, Button } from '@mui/material'
 import { updateUser } from './allUsersSlice'
 import { updateShowUser } from "./showUserSlice"
+import { updateCurrentUser } from "./userSlice"
 
 export default function UserEditForm({ user, handleUpdatedUser }){
 	const [formData, setFormData] = useState(user)
@@ -19,6 +20,7 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 	const onUpdateUser = (data) => {
 		dispatch(updateUser(data))
 		dispatch(updateShowUser(data))
+		dispatch(updateCurrentUser(data))
 	}	
 
 	function handleSubmit(e) {
