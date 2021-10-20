@@ -184,6 +184,9 @@ export default function LitTextsContainer () {
 										handleNewClick={handleNewClick} 
 										handleLitTextsOrder={handleLitTextsOrder} 
 										handlePoetryProseValue={handlePoetryProseValue}
+										isEdit={false}
+										litText={null}
+										reRender={null}
 									/> 
 								: null}
 			

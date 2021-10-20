@@ -27,6 +27,24 @@ export const postLitText = createAsyncThunk(
 	}
 )
 
+export const patchLitText = createAsyncThunk(
+	"litTexts/patchLitText",
+	async (formData) => {
+		try {
+			const response = await fetch(`/lit_texts/${formData.id}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			})
+			return await response.json()
+		}	catch (err) {
+			console.log("err", err, "err.response.data", err.response.data)
+		}
+	}
+)
+
 const litTextsSlice = createSlice({
 	name: "litTexts",
 	initialState: {
@@ -62,6 +80,19 @@ const litTextsSlice = createSlice({
 				state.status = "idle"
 			})
 			.addCase(postLitText.rejected, (state, action) => {
+				state.errors.push(action.error)
+				state.status = "error"
+			})
+			.addCase(patchLitText.pending, (state) => {
+				state.status = "pending"
+			})
+			.addCase(patchLitText.fulfilled, (state, action) => {
+				const index = state.entities.findIndex((text) => parseInt(text.id) === parseInt(action.payload.id))
+				state.entities[index] = action.payload
+				state.errors = []
+				state.status = "idle"
+			})
+			.addCase(patchLitText.rejected, (state, action) => {
 				state.errors.push(action.error)
 				state.status = "error"
 			})

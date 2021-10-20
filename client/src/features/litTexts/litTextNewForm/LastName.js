@@ -4,15 +4,17 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 
-export default function LastName({ famNameFirst, handleFamNameFirstClick, handleFormChange }) {
+export default function LastName({ famNameFirst, handleFamNameFirstClick, handleFormChange, firstName, lastName }) {
 	const nameField = (label) => {
 		const firstLast = label.includes("last") || label.includes("family") ? "last_name" : "first_name"
+		const name = label.includes("last") || label.includes("family") ? lastName : firstName
 		// const isRequired = () => {if (!label.includes("first")) return required}
 		return (
 			<TextField
 				onChange={handleFormChange}
 				autoComplete={firstLast}
 				name={firstLast}
+				value={name}
 				required
 				id={firstLast}
 				sx={{ backgroundColor: "#fff", width: "100%" }}
@@ -67,6 +69,7 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
 					<br/><br/>See <a 
 						href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
+						rel="noreferrer" 
 						target="_blank" 
 						style={{ color: "#d1dbe0"}}
 					>guidelines</a> for where to put particles like <em>de</em>, <em>Del</em>, or <em>von</em> 
@@ -80,6 +83,7 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 							autoComplete="first_name"
 							name="first_name"
 							id="first_name"
+							value={firstName}
 							sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
 							label="Author's first name"
 						/>

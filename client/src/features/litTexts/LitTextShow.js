@@ -1,28 +1,44 @@
 import parse from 'html-react-parser'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid, Paper, Typography, Tooltip, Box } from '@mui/material'
+import { Grid, Paper, Typography, Tooltip, } from '@mui/material'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import ForumIcon from '@mui/icons-material/Forum';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
 import CommentsList from '../comments/CommentsList'
+import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import { fetchLitTextById } from './showTextSlice'
 import { HashLink } from 'react-router-hash-link'
 
 export default function LitTextShow() {
+	const [editClicked, setEditClicked] = useState(false)
+	const [forceRender, setForceRender] = useState(false)
 	const params = useParams()
   const dispatch = useDispatch()
 	const history = useHistory()
 	const location = useLocation()
 	
 	useEffect(() => {
-		if (location.hash.length > 0) history.push(location.pathname)
-		dispatch(fetchLitTextById(params.id))
-	}, [])
+		const onRender = () => {
+			if (location.hash.length > 0) history.push(location.pathname)
+			dispatch(fetchLitTextById(params.id))
+		}
+		onRender()
+	}, [forceRender])
 	
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
 	console.log("litText", litText)
+
+	const handleEditClick = () => {
+		setEditClicked(prev => !prev)
+	}
+
+	const reRender = () => {
+		setForceRender(prev => !prev)
+	}
 	
 	let commentsHash = ""
 	let newCommentHash = ""
@@ -61,7 +77,6 @@ export default function LitTextShow() {
 				<div style={{ 
 					display:"flex", 
 					justifyContent:"center", 
-					alignContent: "center", 
 					marginTop: 12, 
 					paddingBottom: 2 
 				}}>
@@ -110,6 +125,47 @@ export default function LitTextShow() {
 					</Grid>
 					</Grid>
 					</Grid>
+					
+					{ editClicked ?
+						<div>
+							<div style={{ 
+								display:"flex", 
+								justifyContent:"center", 
+								marginTop: 12, 
+								paddingBottom: 2 
+							}}>
+								<Tooltip title="Close editor" arrow>
+									<EditOffOutlinedIcon
+										onClick={() => handleEditClick()}
+										size="large"
+									/> 
+								</Tooltip>
+							</div>
+							<LitTextNewForm 
+								handleNewClick={handleEditClick} 
+								handleLitTextsOrder={null} 
+								handlePoetryProseValue={null}
+								isEdit={true}
+								litText={litText}
+								reRender={reRender}
+							/> 	
+						</div>
+					: 
+						<div style={{ 
+							display:"flex", 
+							justifyContent:"center", 
+							marginTop: 12, 
+							paddingBottom: 2 
+						}}>
+							<Tooltip title="Edit" arrow>
+								<EditOutlinedIcon
+									onClick={() => handleEditClick()}
+									size="large"
+								/> 
+							</Tooltip>
+						</div>
+ 					}
+							
 				</Paper>
 			</Grid>
 			<div style={{padding: 10, marginLeft: "24%", marginRight: "24%", maxWidth: 760}} id="comments" >

@@ -1,4 +1,4 @@
-import { useState, } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
@@ -6,10 +6,10 @@ import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import { postLitText } from '../litTextsSlice' 
+import { postLitText, patchLitText } from '../litTextsSlice' 
 import LastName from "./LastName"
 
-export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue }) {
+export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [quillData, setQuillData] = useState("")
@@ -25,10 +25,40 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		fam_name_first: false,
 		translator: ""
 	})
-	// console.log("formData", formData)
+	console.log("formData", formData)
+
+	useEffect(() => {
+		if (isEdit) {
+			setFormData({
+				id: litText.id,
+				title: litText.title,
+				first_name: litText.first_name,
+				last_name: litText.last_name,
+				pubdate: litText.pubdate,
+				content: litText.content,
+				prose: litText.prose,
+				fam_name_first: litText.fam_name_first,
+				translator: litText.translator
+			})
+			setQuillData(litText.content)
+			if (litText.pubdate < 0) setCeOrBce("bce")
+		}
+	}, [])
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
+
+	const addOrEdit = () => {
+		if (isEdit) {
+			if (litText.prose) {
+				return "Edit this Story or Essay"
+			} else {
+				return "Edit this Poem"
+			}
+		} else {
+			return "Add a New Story or Poem"
+		}
+	}
 
 	const handleProseBoolean = (b) => {
 		setFormData(formData => {return ({
@@ -73,9 +103,10 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		const cleanValue = () => {
 			if (name === "pubdate") {
 				// let noSpace = value.replace(/\s+$/, "")
-				(/\D/).test(value) ? setNotNum(true) : setNotNum(false)
-				let justNum = value.replace(/^\D*/, "").replace(/\D+\d*\D*$/, "")
-				return parseInt(justNum)
+				(/[^-]\D/).test(value) ? setNotNum(true) : setNotNum(false)
+				const justNum = parseInt(value.replace(/^\D*/, "").replace(/\D+\d*\D*$/, ""))
+				return ceOrBce.includes("b") ? -justNum : justNum
+				// return parseInt(justNum)
 			} else {
 				return value
 			}
@@ -116,11 +147,29 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		: value
 	}
 
+	const displayYear = () => {
+		return (
+			<Grid item xs>
+				<TextField
+					onChange={handleFormChange}
+					autoComplete="pubdate"
+					name="pubdate"
+					required
+					id="pubdate"
+					label="Year"
+					value={formData.pubdate}
+					fullWidth
+					sx={{ mt: "3px", mb: 2, mr: "2px", backgroundColor: "#fff", }}
+				/>
+			</Grid>			
+		)
+	}
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		console.log("handleSubmit.formData:", formData)
-		dispatch(postLitText(formData))
+		isEdit ? dispatch(patchLitText(formData)) : dispatch(postLitText(formData))
 		setFormData({
 			title: "",
 			first_name: "",
@@ -134,8 +183,12 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		setQuillData("")
 		setStoryOrPoem("")
 		setFamNameFirst(false)
-		handleLitTextsOrder({ target: { value: "addedNew" }})
-		handlePoetryProseValue({ target: { value: "all" }})
+		if (!isEdit) {
+			handleLitTextsOrder({ target: { value: "addedNew" }})
+			handlePoetryProseValue({ target: { value: "all" }})
+		} else {
+			reRender()
+		}
 		handleNewClick()
 	}
 
@@ -171,10 +224,10 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 					variant="h5" 
 					sx={{ textAlign:"center", mb: 1 }} 
 				>
-					<b>Add a New Story or Poem</b>
+					<b>{addOrEdit()}</b>
 				</Typography>
 
-				<form display="flex" onSubmit={handleSubmit} >
+				<Box component="form" onSubmit={handleSubmit} >
 					<TextField
 						onChange={handleFormChange}
 						autoComplete="title"
@@ -182,27 +235,30 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						required
 						id="title"
 						label="Title"
+						value={formData.title}
 						autoFocus
 						sx={{ mx: "5%", my: 1, backgroundColor: "#fff", width: "90%" }}
 					/>
 
-					<LastName famNameFirst={famNameFirst} handleFamNameFirstClick={handleFamNameFirstClick} handleFormChange={handleFormChange} />
+					<LastName 
+						famNameFirst={famNameFirst} 
+						handleFamNameFirstClick={handleFamNameFirstClick} 
+						handleFormChange={handleFormChange} 
+						firstName={formData.first_name}
+						lastName={formData.last_name}
+					/>
 
-					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
+					{notNum ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
 					<Grid container item xs={12} sx={{ mx: "5%", width: "90%"}}>
 						<Grid container item xs={6} sx={{ pr: "20px"}}>
-							<Grid item xs>
-								<TextField
-									onChange={handleFormChange}
-									autoComplete="pubdate"
-									name="pubdate"
-									required
-									id="pubdate"
-									label="Year"
-									fullWidth
-									sx={{ mt: "3px", mb: 2, mr: "2px", backgroundColor: "#fff", }}
-								/>
-							</Grid>
+							{ isEdit ? 
+								<Tooltip 
+									title={<span>If date is BCE, please leave <b>Year</b> as a negative number</span>}
+									arrow
+								>{displayYear()}
+								</Tooltip>
+							: displayYear() }
+							
 							<Grid item xs="auto">
 								<ToggleButtonGroup
 									value={ceOrBce}
@@ -233,6 +289,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									name="translator"
 									id="translator"
 									label="Translator"
+									value={formData.translator}
 									fullWidth
 									sx={{ mt: "3px", mb: 2, backgroundColor: "#fff", }}
 								/>
@@ -266,14 +323,12 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 							<ToggleButton 
 								value="Poem"
 								aria-label="Poem"
-								// sx={{ p: 2 }}
 							>
 								Poetry
 							</ToggleButton>
 							<ToggleButton 
 								value="Story"
 								aria-label="Story"
-								// sx={{ p: 2 }}
 							>
 								Prose
 							</ToggleButton>
@@ -353,7 +408,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						</div>
 					}
 
-				</form>
+				</Box>
 			</Paper>
 		</Grid>
 	)
