@@ -146,14 +146,14 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 	const qFormats = [
 		'header', 'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent'
+    'list', 'bullet'
 	]
 
 	const qModules = {
     toolbar: [
       [{ 'header': [1, 2, 3, false] }],
       ['bold', 'italic', 'underline','strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      [{'list': 'ordered'}, {'list': 'bullet'}],
       ['clean']
     ],
   }
@@ -195,41 +195,55 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
 					<Grid container item xs={12} sx={{ mx: "5%", width: "90%"}}>
-						<Grid item xs>
-							<TextField
-								onChange={handleFormChange}
-								autoComplete="pubdate"
-								name="pubdate"
-								required
-								id="pubdate"
-								label="Year"
-								fullWidth
-								sx={{ mt: 1, mb: 2, backgroundColor: "#fff", }}
-							/>
+						<Grid container item xs={6} sx={{ pr: "20px"}}>
+							<Grid item xs>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="pubdate"
+									name="pubdate"
+									required
+									id="pubdate"
+									label="Year"
+									fullWidth
+									sx={{ mt: "3px", mb: 2, mr: "2px", backgroundColor: "#fff", }}
+								/>
+							</Grid>
+							<Grid item xs="auto">
+								<ToggleButtonGroup
+									value={ceOrBce}
+									exclusive
+									onChange={handleCeOrBce}
+									aria-label="CE or BCE"
+									sx={{ bgcolor: "#fefcf9", mt: "3px", height: "61.75px", }}
+								>
+									<ToggleButton 
+										value="bce"
+										aria-label="BCE"
+									>
+										BCE
+									</ToggleButton>
+									<ToggleButton 
+										value="ce"
+										aria-label="CE"
+									>
+										CE
+									</ToggleButton>
+								</ToggleButtonGroup>
+							</Grid>
 						</Grid>
-						<Grid item xs="auto" sx={{ ml: 2}}>
-							<ToggleButtonGroup
-								value={ceOrBce}
-								exclusive
-								onChange={handleCeOrBce}
-								aria-label="CE or BCE"
-								sx={{ bgcolor: "#fff", mt: 1, mr: "5%", height: "61.75px", }}
-							>
-								<ToggleButton 
-									value="bce"
-									aria-label="BCE"
-								>
-									BCE
-								</ToggleButton>
-								<ToggleButton 
-									value="ce"
-									aria-label="CE"
-								>
-									CE
-								</ToggleButton>
-							</ToggleButtonGroup>
+						<Grid item xs={6} sx={{ pl: "20px"}}>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="translator"
+									name="translator"
+									id="translator"
+									label="Translator"
+									fullWidth
+									sx={{ mt: "3px", mb: 2, backgroundColor: "#fff", }}
+								/>
 						</Grid>
 					</Grid>
+
 
 					<ReactQuill 
 						theme="snow"
@@ -252,7 +266,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 							exclusive
 							onChange={handleStoryOrPoemClick}
 							aria-label="Story or Poem"
-							sx={{ bgcolor: "#fff", mt: 2, }}
+							sx={{ bgcolor: "#fefcf9", mt: 2, }}
 						>
 							<ToggleButton 
 								value="Poem"
