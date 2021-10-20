@@ -13,7 +13,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [quillData, setQuillData] = useState("")
-	const [previewClicked, setPreviewClicked] = useState(false)
 	const [notNum, setNotNum] = useState(false)
 	const [famNameFirst, setFamNameFirst] = useState(false)
 	const [formData, setFormData] = useState({
@@ -26,7 +25,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		fam_name_first: false,
 		translator: ""
 	})
-	console.log("formData", formData)
+	// console.log("formData", formData)
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
@@ -117,9 +116,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		: value
 	}
 
-	const handlePreviewClick = () => {
-		setPreviewClicked(!previewClicked)
-	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -136,7 +132,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			translator: ""
 		})
 		setQuillData("")
-		setPreviewClicked(false)
 		setStoryOrPoem("")
 		setFamNameFirst(FontFaceSetLoadEvent)
 		handleLitTextsOrder({ target: { value: "addedNew" }})
