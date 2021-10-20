@@ -29,13 +29,15 @@ export default function UserTextShow({ id, comments }) {
 				alignItems="center"
 			>
 				<Grid item xs={9}> 
-					<Paper sx={{ cursor: "pointer", bgcolor: "#424242", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
-				<Typography variant="h6" sx={{ textAlign: "center", color: "#fff", pt: 1, mx: 1, }} >
+					<Paper sx={{ cursor: "pointer", bgcolor: "#d1cac7", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
+				<Typography variant="h6" sx={{ textAlign: "center", pt: 2, ml: 0, mb: -1 }} >
+					<span style={{ fontWeight: 300, fontSize: 24 }}>On </span>
 					<b>{litText.title}</b>
+					<span style={{ fontWeight: 300, fontSize: 24 }}> by {litText.author}</span>
 				</Typography>
-				<Typography variant="subtitle1" sx={{ textAlign: "center", color: "#fff", }} >
+				{/* <Typography variant="subtitle1" sx={{ textAlign: "center", }} >
 					{litText.author}
-				</Typography>				
+				</Typography>				 */}
 				{/* <Typography variant="subtitle2" sx={{ textAlign: "center", color: "#fff", ml: 1, }} >
 					<em>{litText.pubdate}</em>
 				</Typography> */}

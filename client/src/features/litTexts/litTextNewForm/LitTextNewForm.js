@@ -3,11 +3,9 @@ import { useDispatch } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
-import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
-import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import { postLitText, patchLitText } from '../litTextsSlice' 
 import LastName from "./LastName"
+import { postLitText, patchLitText } from '../litTextsSlice' 
+import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
