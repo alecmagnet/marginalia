@@ -57,12 +57,12 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 			>
 				{valuesArr.map((valueArr, index) => {
 					return (
-					<MenuItem 
-						key={index} 
-						value={valueArr[0]}
-					>
-						{valueArr[1]} {directionElement(valueArr[0])}
-					</MenuItem>
+						<MenuItem 
+							key={index} 
+							value={valueArr[0]}
+						>
+							{valueArr[1]} {directionElement(valueArr[0])}
+						</MenuItem>
 					)
 				})}
 			</Select>

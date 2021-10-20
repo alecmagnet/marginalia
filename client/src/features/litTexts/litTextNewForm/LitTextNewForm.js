@@ -271,35 +271,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						</ToggleButtonGroup>
 					</Box>
 
-					{storyOrPoem === "Story" || storyOrPoem === "Poem" ?
-						<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
-						<Tooltip title="Check out the preview before you submit" arrow>
-							<Button 
-								onClick={handlePreviewClick}
-								variant="contained"
-								sx={{ mt: 2, }}
-							>
-								Preview
-							</Button>
-						</Tooltip>
-						</div>
-					:
-						<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center"  }}>
-							<Tooltip title="Select POETRY or PROSE first" arrow>
-								<span>
-									<Button
-										disabled
-										variant="contained"
-										sx={{ mt: 2, }}
-									>
-										Preview
-									</Button>
-								</span>
-							</Tooltip>
-						</div>
-					}
-
-					{previewClicked && (storyOrPoem === "Story" || storyOrPoem === "Poem") ? 
+					{storyOrPoem === "Story" || storyOrPoem === "Poem" ? 
 						<div>
 							<br/>
 							<Paper 
@@ -325,36 +297,36 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								</Grid>
 							</Paper>
 							<br/>
+						</div>
+					: null }
 
-							{quillData.length > 0 && (storyOrPoem === "Story" || storyOrPoem === "Poem") ?
-								<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+					{quillData.length > 0 && (storyOrPoem === "Story" || storyOrPoem === "Poem") ?
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+							<Button
+								type="submit"
+								variant="contained"
+								sx={{ mt: 1, mb: 2, }}
+							>
+								Submit
+							</Button>
+						</div>
+					: storyOrPoem === "Story" || storyOrPoem === "Poem" ?
+						<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
+							<Tooltip title="Text cannot be blank" arrow>
+								<span>
 									<Button
-										type="submit"
+										disabled
 										variant="contained"
-										sx={{ mt: 1, mb: 2, }}
+										sx={{ mt: 2, mb: 2, }}
 									>
 										Submit
 									</Button>
-								</div>
-							:
-								<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
-									<Tooltip title="Text cannot be blank" arrow>
-										<span>
-											<Button
-												disabled
-												variant="contained"
-												sx={{ mt: 2, mb: 2, }}
-											>
-												Submit
-											</Button>
-										</span>
-									</Tooltip>
-								</div>
-							}
+								</span>
+							</Tooltip>
 						</div>
 					:
 						<div style={{ width: "100%", display: "flex", justifyContent: "center", }}>
-							<Tooltip title="Check out the Preview first" arrow>
+							<Tooltip title="Please select POETRY or PROSE first" arrow>
 								<span>
 									<Button
 										disabled
