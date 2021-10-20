@@ -7,7 +7,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 export default function LastName({ famNameFirst, handleFamNameFirstClick, handleFormChange }) {
 	const nameField = (label) => {
 		const firstLast = label.includes("last") || label.includes("family") ? "last_name" : "first_name"
-		// const isRequired = label.includes("first") ? null : {required}
+		// const isRequired = () => {if (!label.includes("first")) return required}
 		return (
 			<TextField
 				onChange={handleFormChange}

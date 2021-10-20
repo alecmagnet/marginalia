@@ -4,6 +4,19 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
 export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
+	const valuesArr = [
+		["authorA-Z", "Author"],
+		["authorZ-A", "Author"],
+		["titleA-Z", "Title"],
+		["titleZ-A", "Title"],
+		["dateNew", "Date"],
+		["dateOld", "Date"],
+		["activityNew", "Activity"],
+		["activityOld", "Activity"],
+		["addedNew", "Added"],
+		["addedOld", "Added"]
+	]
+
 	const directionStyle = { 
 		color: "#616161", 
 		fontSize: "85%", 
@@ -42,36 +55,16 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 				onChange={handleLitTextsOrder}
 				sx={{ bgcolor: "#fefcf9" }}
 			>
-				<MenuItem value="authorA-Z">
-					Author {directionElement("authorA-Z")}
-				</MenuItem>
-				<MenuItem value="authorZ-A">
-					Author {directionElement("authorZ-A")}
-				</MenuItem>
-				<MenuItem value="titleA-Z">
-					Title {directionElement("titleA-Z")}
-				</MenuItem>
-				<MenuItem value="titleZ-A">
-					Title {directionElement("titleZ-A")}
-				</MenuItem>
-				<MenuItem value="dateNew">
-					Date {directionElement("dateNew")}
-				</MenuItem>
-				<MenuItem value="dateOld">
-					Date {directionElement("dateOld")}
-				</MenuItem>
-				<MenuItem value="activityNew">
-					Activity {directionElement("activityNew")}
-				</MenuItem>
-				<MenuItem value="activityOld">
-					Activity {directionElement("activityOld")}
-				</MenuItem>
-				<MenuItem value="addedNew">
-					Added {directionElement("addedNew")}
-				</MenuItem>
-				<MenuItem value="addedOld">
-					Added {directionElement("addedOld")}
-				</MenuItem>
+				{valuesArr.map((valueArr, index) => {
+					return (
+					<MenuItem 
+						key={index} 
+						value={valueArr[0]}
+					>
+						{valueArr[1]} {directionElement(valueArr[0])}
+					</MenuItem>
+					)
+				})}
 			</Select>
 		</FormControl>
 	)

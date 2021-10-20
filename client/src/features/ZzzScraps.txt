@@ -92,6 +92,42 @@ LESS IMPORTANT:
 -----------------------------------------------
 
 
+FROM OrderDropdown WET MENUITEMS
+				<MenuItem value="authorA-Z">
+					Author {directionElement("authorA-Z")}
+				</MenuItem>
+				<MenuItem value="authorZ-A">
+					Author {directionElement("authorZ-A")}
+				</MenuItem>
+				<MenuItem value="titleA-Z">
+					Title {directionElement("titleA-Z")}
+				</MenuItem>
+				<MenuItem value="titleZ-A">
+					Title {directionElement("titleZ-A")}
+				</MenuItem>
+				<MenuItem value="dateNew">
+					Date {directionElement("dateNew")}
+				</MenuItem>
+				<MenuItem value="dateOld">
+					Date {directionElement("dateOld")}
+				</MenuItem>
+				<MenuItem value="activityNew">
+					Activity {directionElement("activityNew")}
+				</MenuItem>
+				<MenuItem value="activityOld">
+					Activity {directionElement("activityOld")}
+				</MenuItem>
+				<MenuItem value="addedNew">
+					Added {directionElement("addedNew")}
+				</MenuItem>
+				<MenuItem value="addedOld">
+					Added {directionElement("addedOld")}
+				</MenuItem>
+
+
+-----------------------------------------------
+
+
 FROM LitTextNewForm FIRST & LAST NAME INPUTS
 						<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
 							<Grid item xs sx={{ mr: "5px" }}>
