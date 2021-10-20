@@ -90,25 +90,24 @@ export default function LitTextShow() {
 						<Typography variant="subtitle2" sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}><em>{`Translated by ${litText.translator}`}</em></Typography>
 					: null }
 
-
-						<Grid container wrap="nowrap">
-							<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
-								<div style={{ position: "flex", }} >
-									<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
-									{litText.prose ?	
-										<div>
-											{parsedContent}
-										</div>
-									:
-										<div className="poetry">
-											<br/>
-											{parsedContent}
-										</div>
-									}
-									</Typography>
+					<Grid container wrap="nowrap">
+						<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+							<div style={{ position: "flex", }} >
+								<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+								{litText.prose ?	
+									<div>
+										{parsedContent}
 									</div>
-							</Grid>
+								:
+									<div className="poetry">
+										<br/>
+										{parsedContent}
+									</div>
+								}
+								</Typography>
+								</div>
 						</Grid>
+					</Grid>
 					</Grid>
 					</Grid>
 				</Paper>

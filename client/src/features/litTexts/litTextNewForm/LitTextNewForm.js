@@ -133,7 +133,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		})
 		setQuillData("")
 		setStoryOrPoem("")
-		setFamNameFirst(FontFaceSetLoadEvent)
+		setFamNameFirst(false)
 		handleLitTextsOrder({ target: { value: "addedNew" }})
 		handlePoetryProseValue({ target: { value: "all" }})
 		handleNewClick()
@@ -293,15 +293,19 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
 								<Typography variant="h6" sx={{ textAlign:"center" }}>{`${formData.first_name} ${formData.last_name}`}</Typography>
 								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
-									<Grid container wrap="nowrap">
-										<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
-											<div style={{ position: "flex", }} >
-												<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
-													{parseQuillData()}
-												</Typography>
-												</div>
-										</Grid>
+								{formData.translator.length > 0 ? 
+									<Typography variant="subtitle2" sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}><em>{`Translated by ${formData.translator}`}</em></Typography>
+								: null }
+
+								<Grid container wrap="nowrap">
+									<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+										<div style={{ position: "flex", }} >
+											<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+												{parseQuillData()}
+											</Typography>
+											</div>
 									</Grid>
+								</Grid>
 								</Grid>
 								</Grid>
 							</Paper>
