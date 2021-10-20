@@ -6,7 +6,6 @@ import parse from 'html-react-parser'
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 import { postLitText } from '../litTextsSlice' 
 import LastName from "./LastName"
 
@@ -101,7 +100,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	}
 	
 	const handleQuillChange = (content) => {
-		// console.log("handleQuillCHANGE", content)
 		setQuillData(content)
 		handleFormChange({ target: { name: "content", value: content } })
 	}
@@ -134,11 +132,13 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			pubdate: "",
 			content: "",
 			prose: false,
-			fam_name_first: false
+			fam_name_first: false,
+			translator: ""
 		})
 		setQuillData("")
 		setPreviewClicked(false)
 		setStoryOrPoem("")
+		setFamNameFirst(FontFaceSetLoadEvent)
 		handleLitTextsOrder({ target: { value: "addedNew" }})
 		handlePoetryProseValue({ target: { value: "all" }})
 		handleNewClick()
@@ -192,59 +192,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 					/>
 
 					<LastName famNameFirst={famNameFirst} handleFamNameFirstClick={handleFamNameFirstClick} handleFormChange={handleFormChange} />
-
-
-					{/* <CustomWidthTooltip title={
-						<div>
-							Include middle names, initials, and most particles like <br/><em>de</em> or <em>von</em> in <b>first name</b> (see <a 
-								href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
-								target="_blank" 
-								style={{ color: "#d1dbe0"}}
-							>guidelines</a>).
-							<br/><br/>If an author only has one name, include it in <b>last name</b>.</div>} 
-						placement="top" 
-						arrow
-					> */}
-					{/* <Tooltip title={
-						<div>
-							Include any middle names, initials, and most particles like <em>de</em> or <em>von</em> in <b>FIRST NAME</b> (see <a 
-								href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
-								target="_blank" 
-								style={{ color: "#d1dbe0"}}
-							>guidelines</a>)
-							<br/><br/>If an author only has one name, include it in <b>LAST NAME</b></div>} 
-						placement="top" 
-						arrow
-					>
-						<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-							<Grid item xs sx={{ mr: "5px" }}>
-								<TextField
-									onChange={handleFormChange}
-									autoComplete="first_name"
-									name="first_name"
-									id="first_name"
-									sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
-									label="Author's first name"
-								/>
-							</Grid>
-							<Grid item xs="auto">
-								<CompareArrowsIcon sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}/>
-							</Grid>
-							<Grid item xs sx={{ ml: "5px" }}>
-								<TextField
-									onChange={handleFormChange}
-									autoComplete="last_name"
-									name="last_name"
-									required
-									id="last_name"
-									sx={{ backgroundColor: "#fff", width: "100%" }}
-									label="Author's last name"
-								/>
-							</Grid>
-						</Grid>
-					</Tooltip> */}
-					{/* </CustomWidthTooltip> */}
-
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#660033", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
 					<Grid container item xs={12} sx={{ mx: "5%", width: "90%"}}>

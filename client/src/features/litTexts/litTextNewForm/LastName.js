@@ -46,7 +46,6 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 		return (
 				<CustomWidthTooltip 
 					title={<div>Author will be alphebetized by family name<br/><br/>Click the arrows to show the author's family name last</div>}
-					placement="top" 
 					arrow
 				>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
@@ -64,14 +63,14 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 		return (
 			<CustomWidthTooltip title={
 				<div>
-					Include middle names, initials, and most particles like <em>de</em> or <em>von</em> in <b>FIRST NAME</b> (see <a 
+					Include middle names and initials in <b>FIRST NAME</b>
+					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
+					<br/><br/>See <a 
 						href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
 						target="_blank" 
 						style={{ color: "#d1dbe0"}}
-					>guidelines</a>)
-					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
+					>guidelines</a> for where to put particles like <em>de</em>, <em>Del</em>, or <em>von</em> 
 					<br/><br/>Click the arrows to show the author's family name first</div>} 
-				placement="top" 
 				arrow
 			>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>

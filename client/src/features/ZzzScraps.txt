@@ -89,6 +89,41 @@ LESS IMPORTANT:
 -----------------------------------------------
 
 
+-----------------------------------------------
+
+
+FROM LitTextNewForm FIRST & LAST NAME INPUTS
+						<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
+							<Grid item xs sx={{ mr: "5px" }}>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="first_name"
+									name="first_name"
+									id="first_name"
+									sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
+									label="Author's first name"
+								/>
+							</Grid>
+							<Grid item xs="auto">
+								<CompareArrowsIcon sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}/>
+							</Grid>
+							<Grid item xs sx={{ ml: "5px" }}>
+								<TextField
+									onChange={handleFormChange}
+									autoComplete="last_name"
+									name="last_name"
+									required
+									id="last_name"
+									sx={{ backgroundColor: "#fff", width: "100%" }}
+									label="Author's last name"
+								/>
+							</Grid>
+						</Grid>
+
+
+-----------------------------------------------
+
+
 FROM LitTextNewForm TOOLTIPS
 						{/* <Tooltip title="You may include middle names and initials" placement="top" arrow> */}
 
