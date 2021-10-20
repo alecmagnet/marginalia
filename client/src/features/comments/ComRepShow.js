@@ -33,9 +33,13 @@ export default function ComRepShow({ comment, litTextId }) {
 		}
 	}
 
+	
+	const renderName = () => comment.user.fam_name_first ? 
+		`${comment.user.last_name} ${comment.user.first_name}` : 
+		`${comment.user.first_name} ${comment.user.last_name}`
 
 	const showComment = {
-		fullname: comment.user.fullname,
+		fullname: renderName(),
 		username: comment.user.username,
 		image: comment.user.image,
 		content: comment.content,

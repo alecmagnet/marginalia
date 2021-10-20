@@ -17,9 +17,12 @@ export default function UserShow() {
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities[0])
 
+	const fetchUser = () => dispatch(fetchUserById(params.id))
+	
 	useEffect(() => {
-		dispatch(fetchUserById(params.id))
+		fetchUser()
 	}, [])
+
 
 	function editButtonClick() {
 		setEditClicked(!editClicked)
@@ -32,6 +35,8 @@ export default function UserShow() {
 	function handleUpdatedUser() {
 		setEditClicked(!editClicked)
 	}
+
+	const renderName = () => showUser.fam_name_first ? `${showUser.last_name} ${showUser.first_name}` : `${showUser.first_name} ${showUser.last_name}`
 
 	const msec = Date.parse(showUser.created_at)
   const parseDate = new Date(msec).toDateString()
@@ -85,13 +90,13 @@ export default function UserShow() {
 					<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
 					<Avatar 
 						variant="rounded"
-						alt={showUser.fullname}
+						alt={renderName()}
 						src={showUser.image}
 						align="center"
 						sx={{ width: 300, height: 300, m: 2, mb: 4, }}
 					/>
 					</div>
-					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{showUser.fullname}</b></Typography>
+					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{renderName()}</b></Typography>
 					<Typography variant="h6" sx={{ textAlign:"center", mb: 2, color: "#616161" }}><em>@{showUser.username}</em></Typography>
 					<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, mx:"20%", backgroundColor: "#fefcf9", }}>
 						<Typography sx={{ fontSize: 17, textAlign:"center", }} color="#757575" gutterBottom>
