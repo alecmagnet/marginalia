@@ -49,12 +49,14 @@ puts 'Seeded comments...'
 # Create com_types
 ComType.create(name: "Reading")
 ComType.create(name: "Question")
-ComType.create(name: "Footnote")
+ComType.create(name: "Lore")
 ComType.create(name: "Answer")
+ComType.create(name: "Feelings")
+ComType.create(name: "Evaluation")
 puts 'Seeded com_types...'
 
 Comment.find_each do |comment|
-	com_type_id=[1, 2, 3].sample
+	com_type_id=[1, 2, 3, 5, 6].sample
 	CommentComType.create(comment_id: comment.id, com_type_id: com_type_id)
 end
 puts 'Seeded unique comment_com_types...'

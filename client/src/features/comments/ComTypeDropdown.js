@@ -22,14 +22,20 @@ export default function ComTypeDropdown({ comTypes, handleComType }) {
 				<MenuItem value={1}>
 					Readings 
 				</MenuItem>
+				<MenuItem value={5}>
+					Feelings 
+				</MenuItem>
 				<MenuItem value={2}>
 					Questions 
 				</MenuItem>
-				<MenuItem value={3}>
-					Footnotes 
-				</MenuItem>
 				<MenuItem value={4}>
 					Answers 
+				</MenuItem>
+				<MenuItem value={3}>
+					Lore 
+				</MenuItem>
+				<MenuItem value={6}>
+					Evaluations 
 				</MenuItem>
 			</Select>
 		</FormControl>
