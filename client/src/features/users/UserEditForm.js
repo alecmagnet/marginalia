@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { Paper, Typography, Button } from '@mui/material'
+import LastName from "../litTexts/litTextNewForm/LastName" 
+import { Paper, Button, Box, TextField } from '@mui/material'
 import { updateUser } from './allUsersSlice'
 import { updateShowUser } from "./showUserSlice"
 import { updateCurrentUser } from "./userSlice"
@@ -8,12 +9,21 @@ import { updateCurrentUser } from "./userSlice"
 export default function UserEditForm({ user, handleUpdatedUser }){
 	const [formData, setFormData] = useState(user)
 
+	const { first_name, last_name, fam_name_first, bio, image } = formData
+
   function handleChange(e) {
 		setFormData({
 			...formData,
 			[e.target.name]: e.target.value,
 		})
   }
+
+	const handleFamNameFirstClick = () => {
+		setFormData({
+			...formData,
+			fam_name_first: !fam_name_first,
+		})		
+	}
 
 	const dispatch = useDispatch()	
 
@@ -42,42 +52,41 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 	}	
 
 	return(
-		<Paper variant="outlined" sx={{ mx: 10, bgcolor: "#fefcf9", justifyContent: "center" }} >
-			<div style={{ display: "flex", justifyContent: "center", padding: 5 }} >
-				<form style={{ 'width': '90%' }} onSubmit={handleSubmit}>
-					<label>
-						<Typography variant="h5" sx={{ textAlign: "center", mt: 2, mb:1, }}>
-							<b>Bio</b>
-						</Typography>
-					<textarea 
-						value={formData.bio} 
-						id="bio"
-						placeholder="tell us about yourself..."
-						name="bio"
-						onChange={handleChange}
-						style={{ width: "99%" }}
-					/></label>
-					<label>
-						<Typography variant="h5" sx={{ textAlign: "center", mt: 2, mb: 1, }}>
-							<b>Profile Picture</b>
-						</Typography>
-					<textarea 
-						value={formData.image} 
-						placeholder="add a profile picture url..."
-						id="image"
-						name="image"
-						onChange={handleChange}
-						style={{ width: "99%" }}
-					/></label>
-					<div style={{ textAlign: "center" }} >
-					<Button 
-						variant="outlined"
-						sx={{textAlign: "center", p: 1, m: 2, color: "#3e2723", }} 
-						type='submit'>
-							<Typography variant="button" sx={{ color: "fff", }} >Submit</Typography></Button>
-					</div>
-				</form>
-			</div>
+		<Paper variant="outlined" sx={{ mx: 5, mt: 3, pt: 4, bgcolor: "#ebe3e1", justifyContent: "center" }} >
+			<Box component="form" onSubmit={handleSubmit} sx={{ justifyContent: "center", }}>
+				<LastName 
+					famNameFirst={fam_name_first} 
+					handleFamNameFirstClick={handleFamNameFirstClick} 
+					handleFormChange={handleChange} 
+					firstName={first_name}
+					lastName={last_name}
+					isAuthor={false}
+				/>
+				<TextField 
+					value={bio} 
+					id="bio"
+					label="Bio"
+					name="bio"
+					onChange={handleChange}
+					sx={{ width: "90%", mx: "5%", mt: 1, backgroundColor: "#fff",  }}
+				/>
+				<TextField 
+					value={image} 
+					label="Picture URL"
+					id="image"
+					name="image"
+					onChange={handleChange}
+					sx={{ width: "90%", mx: "5%", mt: 3, backgroundColor: "#fff",  }}
+				/>
+				<div style={{ textAlign: "center" }} >
+				<Button 
+					variant="contained"
+					sx={{textAlign: "center", p: 1, m: 2, my: 3, color: "fff", }} 
+					type='submit'>
+						Submit
+				</Button>
+				</div>
+			</Box>
     </Paper>
 	)
 }

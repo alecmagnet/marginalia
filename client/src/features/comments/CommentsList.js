@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { Grid, Tooltip, Button } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 import ComTypeDropdown from "./ComTypeDropdown.js"

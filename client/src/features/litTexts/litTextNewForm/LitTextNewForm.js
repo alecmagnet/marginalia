@@ -238,6 +238,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 						handleFormChange={handleFormChange} 
 						firstName={formData.first_name}
 						lastName={formData.last_name}
+						isAuthor={true}
 					/>
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}

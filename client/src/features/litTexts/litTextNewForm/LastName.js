@@ -4,8 +4,17 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 
-export default function LastName({ famNameFirst, handleFamNameFirstClick, handleFormChange, firstName, lastName }) {
-	const nameField = (label) => {
+export default function LastName({ 
+	famNameFirst, 
+	handleFamNameFirstClick, 
+	handleFormChange, 
+	firstName, 
+	lastName, 
+	isAuthor 
+}) {
+
+	const nameField = (labelArg) => {
+		const label = labelArg.toLowerCase()
 		const firstLast = label.includes("last") || label.includes("family") ? "last_name" : "first_name"
 		const name = label.includes("last") || label.includes("family") ? lastName : firstName
 		// const isRequired = () => {if (!label.includes("first")) return required}
@@ -21,6 +30,39 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 				label={label}
 			/>			
 		)
+	}
+
+	const nameLabel = (nameType) => {
+		if (isAuthor) {
+			return `Author's ${nameType.toLowerCase()}`
+		} else {
+			return nameType
+		}
+	}
+	
+	const firstLastTt = () => {
+		if (isAuthor) {
+			return (
+				<div>
+					Include middle names and initials in <b>FIRST NAME</b>
+					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
+					<br/><br/>See <a 
+						href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
+						rel="noreferrer" 
+						target="_blank" 
+						style={{ color: "#d1dbe0"}}
+					>guidelines</a> for where to put particles like <em>de</em>, <em>Del</em>, or <em>von</em> 
+					<br/><br/>Click the arrows to show the author's family name first
+				</div>				
+			)
+		} else {
+			return (
+				<div>
+					Include middle names and initials in <b>FIRST NAME</b>
+					<br/><br/>Click the arrows to list your family name first
+				</div>
+			)
+		}
 	}
 
 	const compareArrow = () => {
@@ -47,33 +89,23 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 	if(famNameFirst) {
 		return (
 				<CustomWidthTooltip 
-					title={<div>Author will be alphebetized by family name<br/><br/>Click the arrows to show the author's family name last</div>}
+					title={<div>{isAuthor ? "Author" : "You"} will be alphebetized by family name<br/><br/>Click the arrows to show family name last</div>}
 					arrow
 				>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
 					<Grid item xs sx={{ mr: "5px" }}>
-						{nameField("Author's family name")}
+						{nameField(nameLabel("Family name"))}
 					</Grid>
 					{compareArrow()}
 					<Grid item xs sx={{ ml: "5px" }}>
-						{nameField("Author's given name(s)")}
+						{nameField(nameLabel("Given name"))}
 					</Grid>
 				</Grid>
 			</CustomWidthTooltip>
 		)
 	} else {
 		return (
-			<CustomWidthTooltip title={
-				<div>
-					Include middle names and initials in <b>FIRST NAME</b>
-					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
-					<br/><br/>See <a 
-						href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
-						rel="noreferrer" 
-						target="_blank" 
-						style={{ color: "#d1dbe0"}}
-					>guidelines</a> for where to put particles like <em>de</em>, <em>Del</em>, or <em>von</em> 
-					<br/><br/>Click the arrows to show the author's family name first</div>} 
+			<CustomWidthTooltip title={firstLastTt()} 
 				arrow
 			>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
@@ -85,12 +117,12 @@ export default function LastName({ famNameFirst, handleFamNameFirstClick, handle
 							id="first_name"
 							value={firstName}
 							sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
-							label="Author's first name"
+							label={nameLabel("First name")}
 						/>
 					</Grid>
 					{compareArrow()}
 					<Grid item xs sx={{ ml: "5px" }}>
-						{nameField("Author's last name")}
+						{nameField(nameLabel("Last name"))}
 					</Grid>
 				</Grid>
 			</CustomWidthTooltip>

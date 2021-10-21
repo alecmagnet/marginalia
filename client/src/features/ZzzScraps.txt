@@ -91,6 +91,18 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+FROM LastName NAME LABEL FUNCTION
+	const nameLabel = (nameType) => {
+		if (isAuthor && nameType === "Given") {
+			return "Author's given name(s)"
+		} else if (isAuthor) {
+			return "Author's family name" 
+		} else {
+			return `${nameType} name`
+		}
+	}
+
+-----------------------------------------------
 
 FROM LitTextNewForm PREVIEW & SUBMIT BUTTON TERNARIES
 					{storyOrPoem === "Story" || storyOrPoem === "Poem" ?
@@ -190,9 +202,7 @@ FROM LitTextNewForm PREVIEW & SUBMIT BUTTON TERNARIES
 						</div>
 					}
 
-
 -----------------------------------------------
-
 
 FROM OrderDropdown WET MENUITEMS
 				<MenuItem value="authorA-Z">
@@ -225,7 +235,6 @@ FROM OrderDropdown WET MENUITEMS
 				<MenuItem value="addedOld">
 					Added {directionElement("addedOld")}
 				</MenuItem>
-
 
 -----------------------------------------------
 
