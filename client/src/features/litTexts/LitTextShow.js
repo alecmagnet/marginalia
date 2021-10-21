@@ -2,7 +2,7 @@ import parse from 'html-react-parser'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid, Paper, Typography, Tooltip, } from '@mui/material'
+import { Grid, Paper, Typography, Tooltip, IconButton } from '@mui/material'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 import ForumIcon from '@mui/icons-material/Forum';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -20,7 +20,7 @@ export default function LitTextShow() {
   const dispatch = useDispatch()
 	const history = useHistory()
 	const location = useLocation()
-	
+
 	useEffect(() => {
 		const onRender = () => {
 			if (location.hash.length > 0) history.push(location.pathname)
@@ -29,9 +29,10 @@ export default function LitTextShow() {
 		onRender()
 	}, [forceRender])
 	
+	const user = useSelector((state) => state.user.entities[0])
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
-	console.log("litText", litText)
+	// console.log("litText", litText, "user", user)
 
 	const handleEditClick = () => {
 		setEditClicked(prev => !prev)
@@ -172,12 +173,24 @@ export default function LitTextShow() {
 							marginTop: 12, 
 							paddingBottom: 2 
 						}}>
-							<Tooltip title="Edit" arrow>
-								<EditOutlinedIcon
-									onClick={() => handleEditClick()}
-									size="large"
-								/> 
-							</Tooltip>
+							{user.usertype === "librarian" ?
+								<Tooltip title="Edit" arrow>
+									<EditOutlinedIcon
+										onClick={() => handleEditClick()}
+										size="large"
+									/> 
+								</Tooltip>
+							:
+								<Tooltip title={<div style={{ textAlign: "center" }}>We're sorry. You must be a Marginalia libarian to edit texts.<br/>Please contact the site admin if you want to become a librarian.</div>} arrow>
+									<div>
+									<IconButton disabled>
+									<EditOutlinedIcon
+										size="large"
+									/> 
+									</IconButton>
+									</div>
+								</Tooltip>
+							}
 						</div>
  					}
 							

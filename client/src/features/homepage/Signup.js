@@ -23,7 +23,7 @@ function Signup() {
 		fullname: "",
 		image: "",
 		bio: "",
-		// usertype: ""
+		usertype: "reader"
 	});
 
 	const [errors, setErrors] = useState([])
