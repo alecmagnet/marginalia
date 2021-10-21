@@ -21,9 +21,9 @@ export default function UserShow() {
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities[0])
 
-	const fetchUser = () => dispatch(fetchUserById(params.id))
 	
 	useEffect(() => {
+		const fetchUser = () => dispatch(fetchUserById(params.id))
 		fetchUser()
 	}, [])
 
@@ -99,7 +99,6 @@ export default function UserShow() {
 	if (showUserStatus === "loading" || showUser === []) {
 		return (
 			<div className="centered-in-window" >
-				{/* <h1>Loading...</h1> */}
 				<div className="dot-flashing"></div>
 			</div>
 		)

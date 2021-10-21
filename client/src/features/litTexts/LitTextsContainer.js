@@ -148,7 +148,6 @@ export default function LitTextsContainer () {
 				>
 				{status === "loading" ?
 					<div className="centered-in-window" >
-							{/* <h1>Loading...</h1> */}
 							<div className="dot-flashing"></div>
 					</div>
 				:

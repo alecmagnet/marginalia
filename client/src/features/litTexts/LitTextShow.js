@@ -193,7 +193,6 @@ export default function LitTextShow() {
 	} else {
 		return (
 			<div className="centered-in-window" >
-				{/* <h1>Loading...</h1> */}
 				<div className="dot-flashing"></div>
 			</div>
 		)

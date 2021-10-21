@@ -16,7 +16,6 @@ import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
 import { addLoginUser } from './features/users/userSlice'
-// import TestParseLitText from './TestParseLitText';
 
 export default function App() {
   const [authorized, setAuthorized] = useState(false)
@@ -90,13 +89,11 @@ export default function App() {
 
                 <Route exact path='/'>
                   <Homepage />
-                  {/* <TestFormNewText /> */}
                 </Route>
               </Fragment>
             : userState.status === "pending" || commentsState.status === "pending" ?
               <Fragment>
                 <div className="centered-in-window" >
-                  {/* <h1>Loading...</h1> */}
                   <div className="dot-flashing"></div>
                 </div>
               </Fragment>

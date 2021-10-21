@@ -12,17 +12,15 @@ export default function UsersContainer() {
 	const filteredArr = toFilterUsers.filter((u) => u.id !== user.id)
 	const otherUsers = [...filteredArr]
 
-	const alphabetical = (users) => {
-		let toMap = [...users]
-		let mappedArr = toMap.map((user) => `${user.fullname.replace(/^\w.+\s/, "")} ${user.id}`)
-		let sortedLastNames = mappedArr.sort()
-		let sortedArr = sortedLastNames.map((nameId) => {
-			let sortID = nameId.replace(/^\w.+\s/, "")
-			let sortUser = toMap.find((user) => parseInt(user.id) === parseInt(sortID))
-			return sortUser
-		})
-		return sortedArr
-	}
+	const alphabetical = (users) => 
+		[...users].map((user) => 
+			`${user.last_name} ${user.id}`)
+		.sort()
+		.map((nameId) => 
+			users.find((user) => 
+			parseInt(user.id) === parseInt(nameId.replace(/^\w.+\s/, ""))
+		)
+	)
 
 	const recentlyJoined = (users) => {
 		let toSort = [...users]
@@ -155,12 +153,8 @@ export default function UsersContainer() {
 					</div>
 				: 
 					<div className="centered-in-window" >
-							{/* <h1>Loading...</h1> */}
 							<div className="dot-flashing"></div>
 					</div>
-				// : <div className="centered-in-window" >
-				// 			<h1>We're sorry. There's been an error</h1>
-				// 	</div>
 				}
 			</Grid>
 		</Grid>
