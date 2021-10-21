@@ -105,7 +105,7 @@ export default function Navbar() {
 			<AppBar position="static" >
 				<Toolbar>
           <Tooltip title="Home" arrow>
-						<img src={logoWhite} alt="Marginalia Logo" style={{ height: "69px", paddingRight: "20px", paddingBottom: "1px", cursor: "pointer"}} onClick={handleNameClick} />
+						<img src={logoWhite} alt="Marginalia Logo" style={{ height: "70px", paddingRight: "20px", paddingBottom: "0px", cursor: "pointer"}} onClick={handleNameClick} />
 					</Tooltip>
           <Tooltip title="Home" arrow>
 						<Typography
