@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import UserEditForm from './UserEditForm'
 import UserTextShow from "./UserTextShow"
 import { fetchUserById } from './showUserSlice'
-import { Grid, Paper, Typography, Avatar, Button, Card, Divider } from '@mui/material'
+import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, Box } from '@mui/material'
 
 
 export default function UserShow() {
 	const [editClicked, setEditClicked] = useState(false)
-	
+	const [deleteClicked, setDeleteClicked] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null);
+
 	const history = useHistory()
 	const params = useParams()
 	const dispatch = useDispatch()
@@ -24,9 +26,17 @@ export default function UserShow() {
 	}, [])
 
 
-	function editButtonClick() {
+	const editButtonClick = () => {
 		setEditClicked(!editClicked)
 	}
+
+	const handleDeleteClick = (e) => {
+    setAnchorEl(e.currentTarget);
+		setDeleteClicked(prev => !prev)
+	}
+	const canBeOpen = deleteClicked && Boolean(anchorEl);
+  const popperId = canBeOpen ? 'transition-popper' : undefined;
+
 
 	const goCommentClick = () => {
 		history.push("/texts")
@@ -71,7 +81,8 @@ export default function UserShow() {
 	if (showUserStatus === "loading" || showUser === []) {
 		return (
 			<div className="centered-in-window" >
-				<h1>Loading...</h1>
+				{/* <h1>Loading...</h1> */}
+				<div class="dot-flashing"></div>
 			</div>
 		)
 	} else if (showUserStatus === "idle" && typeof(showUser) === "object") {
@@ -131,6 +142,56 @@ export default function UserShow() {
 							This user hasn't written any comments yet
 						</Typography>
 					}			 
+					{showUser.id === user.id ?
+						<>
+							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
+								<Button variant="contained" onClick={handleDeleteClick} >
+									Delete Profile
+								</Button>
+							</div>
+							<Popper 
+								id={popperId} 
+								open={deleteClicked} 
+								anchorEl={anchorEl} 
+								// placement="top" 
+								// sx={{ p: 3 }}
+								modifiers={[
+									{
+										name: 'preventOverflow',
+										enabled: true,
+										options: {
+											altAxis: true,
+											altBoundary: true,
+											tether: true,
+											rootBoundary: 'document',
+											padding: 8,
+										},
+									}
+								]}
+								transition>
+								{({ TransitionProps }) => (
+									<Fade {...TransitionProps} timeout={350}>
+										<Box sx={{ border: 1, p: 3, m: 2, bgcolor: 'background.paper', justifyContent: "center", borderColor: "#660000" }}>
+											<Typography variant="h6" sx={{ textAlign: "center", mb: 1, color: "#660000" }}>
+												Are you sure you want to delete your profile?
+											</Typography>
+											<Typography variant="subtitle1" sx={{ textAlign: "center", fontSize: 22, mb: 3 }}>
+												This action cannot be undone!
+											</Typography>
+											<Box component="div" sx={{ display:"flex", width: "100%", justifyContent: "center", }}>
+												<Button variant="contained" onClick={handleDeleteClick} sx={{ mr: 4, mb: 2, bgcolor: "6d4c41" }}>
+													Cancel
+												</Button>
+												<Button variant="contained" sx={{ mb: 2, bgcolor: "#660000" }}>
+													Delete
+												</Button>
+											</Box>
+										</Box>
+									</Fade>
+								)}
+							</Popper>
+						</>
+					: null}
 				</Paper>
 			</Grid>
 		</Grid>

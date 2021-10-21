@@ -96,7 +96,8 @@ export default function App() {
             : userState.status === "pending" || commentsState.status === "pending" ?
               <Fragment>
                 <div className="centered-in-window" >
-                  <h1>Loading...</h1>
+                  {/* <h1>Loading...</h1> */}
+                  <div class="dot-flashing"></div>
                 </div>
               </Fragment>
             : 

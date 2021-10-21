@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { addSignupUser } from '../users/userSlice'
-import LastName from '../litTexts/litTextNewForm/LastName'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'

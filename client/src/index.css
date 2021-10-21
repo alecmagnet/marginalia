@@ -45,8 +45,63 @@ div.poetry > p {
    padding: 0px;
 }
 
+div.fromQuill > p {
+   margin: 0px;
+   padding: 0px;
+}
+
 .direction {
   color: "#616161"; 
   font-size: "85%"; 
-  padding-left: "4px"; 
+  padding-left: "8px"; 
+}
+
+.dot-flashing {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #3e2723;
+  color: #3e2723;
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: .5s;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #3e2723;
+  color: #3e2723;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 30px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #3e2723;
+  color: #3e2723;
+  animation: dotFlashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+  0% {
+    background-color: #3e2723;
+  }
+  50%,
+  100% {
+    background-color: #d7ccc8;
+  }
 }

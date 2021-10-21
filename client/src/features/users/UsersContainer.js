@@ -155,7 +155,8 @@ export default function UsersContainer() {
 					</div>
 				: 
 					<div className="centered-in-window" >
-							<h1>Loading...</h1>
+							{/* <h1>Loading...</h1> */}
+							<div class="dot-flashing"></div>
 					</div>
 				// : <div className="centered-in-window" >
 				// 			<h1>We're sorry. There's been an error</h1>
