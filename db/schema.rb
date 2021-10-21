@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_191751) do
+ActiveRecord::Schema.define(version: 2021_10_21_200938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,10 @@ ActiveRecord::Schema.define(version: 2021_10_20_191751) do
     t.string "last_name"
     t.boolean "fam_name_first"
     t.string "translator"
+    t.bigint "uploader_id"
+    t.bigint "edit_user_id"
+    t.index ["edit_user_id"], name: "index_lit_texts_on_edit_user_id"
+    t.index ["uploader_id"], name: "index_lit_texts_on_uploader_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,4 +84,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_191751) do
   add_foreign_key "comments", "comments", column: "parent_comment_id"
   add_foreign_key "comments", "lit_texts"
   add_foreign_key "comments", "users"
+  add_foreign_key "lit_texts", "users", column: "edit_user_id"
+  add_foreign_key "lit_texts", "users", column: "uploader_id"
 end

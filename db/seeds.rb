@@ -52,7 +52,7 @@ ComType.create(name: "Question")
 ComType.create(name: "Lore")
 ComType.create(name: "Answer")
 ComType.create(name: "Feelings")
-ComType.create(name: "Evaluation")
+ComType.create(name: "Critique")
 puts 'Seeded com_types...'
 
 Comment.find_each do |comment|

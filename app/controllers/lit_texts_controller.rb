@@ -9,7 +9,7 @@ class LitTextsController < ApplicationController
 	# GET /lit_texts/:id
 	def show
 		lit_text = find_lit_text
-		render json: lit_text, include: ['comments.user', 'comments.com_types'], status: :ok
+		render json: lit_text, include: ['comments.user', 'comments.com_types', 'uploader'], status: :ok
 	end
 
 	# POST /lit_texts
@@ -43,7 +43,7 @@ class LitTextsController < ApplicationController
   end
 
 	def lit_text_params
-		permitted = params.permit(:id, :title, :first_name, :last_name, :pubdate, :content, :fam_name_first, :translator, :prose)
+		permitted = params.permit(:id, :title, :first_name, :last_name, :pubdate, :content, :fam_name_first, :translator, :prose, :uploader_id,:edit_user_id)
     sanitized = permitted.to_h
     if sanitized.key?(:content)
       sanitized[:content] = sanitizer.sanitize(sanitized[:content])
