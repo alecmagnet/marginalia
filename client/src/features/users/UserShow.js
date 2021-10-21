@@ -53,7 +53,7 @@ export default function UserShow() {
 			method: "DELETE",
 		})
 		.then(r => {
-			console.log(r)
+			// console.log(r)
 			if (r.ok) {
 				setErrors([])
 				dispatch(logoutUser())
