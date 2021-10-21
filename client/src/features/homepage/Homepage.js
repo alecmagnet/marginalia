@@ -254,7 +254,7 @@ export default function Homepage() {
 		return(
 			<div className="centered-in-window" >
 				{/* <h1>Loading...</h1> */}
-				<div class="dot-flashing"></div>
+				<div className="dot-flashing"></div>
 			</div>
 		)
 	}

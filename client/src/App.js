@@ -97,7 +97,7 @@ export default function App() {
               <Fragment>
                 <div className="centered-in-window" >
                   {/* <h1>Loading...</h1> */}
-                  <div class="dot-flashing"></div>
+                  <div className="dot-flashing"></div>
                 </div>
               </Fragment>
             : 
