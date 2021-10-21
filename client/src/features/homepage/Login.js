@@ -27,7 +27,6 @@ export default function Login() {
 	const [errors, setErrors] = useState([])
 
 	const userState = useSelector((state) => state.user)
-  // const user = userState.entities.length > 0 ? userState.entities[0] : null
 
 	function handleChange(e) {
 		setFormData({
@@ -35,24 +34,6 @@ export default function Login() {
 			[e.target.id]: e.target.value,
 		})
 	}
-
-	// function onLogin(e) {
-	// 	e.preventDefault();
-	// 	dispatch(loginUser(formData))
-	// 		.then (() => {
-	// 			// if (userState.entities.length > 0 && userState.status === "idle") {
-	// 			if (userState.errors.length > 0) {
-	// 				setErrors([...userState.errors])
-	// 			} else {
-	// 				dispatch(fetchLitTexts())
-	// 				dispatch(fetchAllUsers())
-	// 				dispatch(fetchComments())					
-	// 				setErrors([])
-	// 				history.push('/')
-	// 			}
-	// 		}
-	// 	)
-  // }
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -138,44 +119,13 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-								<Typography variant="subtitle" sx={{ color: "#546e7a", textDecoration: "underline", cursor: "pointer"}} onClick={handleSignupClick} >
+								<Typography variant="subtitle" sx={{ color: "#0a2e76", textDecoration: "underline", cursor: "pointer"}} onClick={handleSignupClick} >
 									Don't have an account? Sign Up
 								</Typography>
-                {/* <Link to='/signup' variant="body2" color="#29434e" sx={{ color: "#29434e"}}>
-                  {"Don't have an account? Sign Up"}
-                </Link> */}
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
 	)
-	// 	<div>
-	// 		{errors?errors.map(e => <div key={e.id} style={{ color: "red" }} >{e}</div>):null}
-	// 		{userState.entities.length > 0 ? <h1>You are already logged in!</h1> : null}
-	// 		<form onSubmit={handleSubmit}>
-	// 			<input
-	// 				className="centered-in-div" 
-	// 				type="text"
-	// 				id="username"
-	// 				value={formData.username}
-	// 				placeholder={"username"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ paddingTop: 10 }} />
-	// 			<input
-	// 				className="centered-in-div" 
-	// 				type="password"
-	// 				id="password"
-	// 				value={formData.password}
-	// 				placeholder={"password"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ paddingTop: 10 }} />
-	// 			<button type="submit" className="centered-in-div" >Login</button>
-	// 		</form>
-  //       <div style={{ paddingTop: 10 }} />
-	// 			<Link to='/signup'>Don't have an account? Sign up</Link>
-	// 	</div>
-  // );
 }

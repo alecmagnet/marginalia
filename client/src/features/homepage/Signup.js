@@ -115,7 +115,7 @@ function Signup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 0 }}>
            
             {errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
            
@@ -217,7 +217,7 @@ function Signup() {
               Sign Up
             </Button>
             <Box display="flex" justifyContent="center">
-								<Typography variant="subtitle" sx={{ color: "#546e7a", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
+								<Typography variant="subtitle" sx={{ color: "#0a2e76", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
 									Already have an account? Sign in
 								</Typography>
             </Box>
@@ -225,67 +225,6 @@ function Signup() {
         </Box>
       </Container>
   );
-
-
-	// 	<div >
-	// 		{errors ? errors.map(e => <div key={e} style={{ color: "red" }} >{e}</div>) : null}
-	// 		<form 
-	// 			onSubmit={handleSubmit}
-	// 			className="centered-in-div" 
-	// 			style = {{ 
-	// 				width: 156 
-	// 			}}
-	// 		>
-	// 			<input
-	// 				style={{ marginTop: 5 }}
-	// 				type="text"
-	// 				id="username"
-	// 				value={formData.username}
-	// 				placeholder={"username"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ padding: 5 }} />
-	// 			<input
-	// 				type="text"
-	// 				id="fullname"
-	// 				value={formData.fullname}
-	// 				placeholder={"full name"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ padding: 5 }} />
-	// 			<input
-	// 				type="password"
-	// 				id="password"
-	// 				value={formData.password}
-	// 				placeholder={"password"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ padding: 5 }} />
-	// 			<input
-	// 				type="text"
-	// 				id="image"
-	// 				value={formData.image}
-	// 				placeholder={"profile picture url"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ padding: 5 }} />
-	// 			<input
-	// 				type="text"
-	// 				id="bio"
-	// 				value={formData.bio}
-	// 				placeholder={"bio"}
-	// 				onChange={handleChange}
-	// 			/>
-  //       <div style={{ padding: 5 }} />
-	// 			<button 
-	// 				type="submit"
-	// 				className="centered-in-div" 
-	// 			>Signup</button>
-	// 		</form>
-  //       <div style={{ padding: 5 }} />
-	// 			<Link to='/login'>Already have an account? Log in</Link>
-	// 	</div>
-  // );
 }
 
 export default Signup
