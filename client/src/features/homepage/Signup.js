@@ -70,16 +70,14 @@ function Signup() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#a69b97" }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: "#8c7b75" }}>
+            <LockOutlinedIcon size="large" />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 						{errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
                 <TextField
 									onChange={handleChange}
                   autoComplete="fullname"
@@ -88,10 +86,10 @@ function Signup() {
                   fullWidth
                   id="fullname"
                   label="Full Name"
+                  sx={{ bgcolor: "#f5f5f5" }}
                   autoFocus
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
 									onChange={handleChange}
                   required
@@ -100,9 +98,9 @@ function Signup() {
                   label="Username"
                   name="username"
                   autoComplete="new-username"
+                  sx={{ mt: 3, bgcolor: "#f5f5f5" }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
 									onChange={handleChange}
                   required
@@ -111,20 +109,20 @@ function Signup() {
                   label="Password"
                   type="password"
                   id="password"
+                  sx={{ mt: 3, bgcolor: "#f5f5f5"  }}
                   autoComplete="new-password"
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
 									onChange={handleChange}
                   fullWidth
                   name="image"
                   label="Profile Picture URL"
                   id="image"
+                  sx={{ mt: 3, bgcolor: "#f5f5f5" }}
                   autoComplete="new-image"
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <TextField
 									onChange={handleChange}
                   fullWidth
@@ -132,9 +130,9 @@ function Signup() {
                   label="About Me"
                   id="bio"
                   autoComplete="new-bio"
+                  sx={{ mt: 3, bgcolor: "#f5f5f5" }}
                 />
-              </Grid>
-            </Grid>
+                 
             <Button
               type="submit"
               fullWidth
@@ -143,13 +141,11 @@ function Signup() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="center">
-              <Grid item>
+            <Box display="flex" justifyContent="center">
 								<Typography variant="subtitle" sx={{ color: "#546e7a", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
 									Already have an account? Sign in
 								</Typography>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
         </Box>
       </Container>
