@@ -5,7 +5,6 @@ export const fetchUserById = createAsyncThunk(
 	async (id) => {
 		const response = await fetch(`/users/${id}`)
 		const data = await response.json()
-		console.log(data)
     return data
 	})
 
@@ -18,7 +17,6 @@ const showUserSlice = createSlice({
 	},
 	reducers: {
 		updateShowUser(state, action) {
-			// const index = state.entities.findIndex((com) => parseInt(com.id) === parseInt(action.payload.id))
 			state.entities = action.payload
 			state.status = "idle"
 		},		

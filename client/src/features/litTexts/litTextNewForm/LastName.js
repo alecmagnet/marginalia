@@ -13,11 +13,9 @@ export default function LastName({
 	isAuthor 
 }) {
 
-	const nameField = (labelArg) => {
-		const label = labelArg.toLowerCase()
-		const firstLast = label.includes("last") || label.includes("family") ? "last_name" : "first_name"
-		const name = label.includes("last") || label.includes("family") ? lastName : firstName
-		// const isRequired = () => {if (!label.includes("first")) return required}
+	const nameField = (label) => {
+		const firstLast = label.includes("ast") || label.includes("amily") ? "last_name" : "first_name"
+		const name = label.includes("ast") || label.includes("amily") ? lastName : firstName
 		return (
 			<TextField
 				onChange={handleFormChange}
@@ -69,8 +67,8 @@ export default function LastName({
 				<Grid item xs="auto">
 					<CompareArrowsIcon 
 						onClick={handleFamNameFirstClick}
-						sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}/
-					>
+						sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}
+					/>
 				</Grid>
 		)
 	}
