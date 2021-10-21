@@ -173,7 +173,7 @@ export default function LitTextShow() {
 							marginTop: 12, 
 							paddingBottom: 2 
 						}}>
-							{user.usertype === "librarian" ?
+							{user.usertype === "Librarian" ?
 								<Tooltip title="Edit" arrow>
 									<EditOutlinedIcon
 										onClick={() => handleEditClick()}

@@ -23,7 +23,7 @@ function Signup() {
 		fullname: "",
 		image: "",
 		bio: "",
-		usertype: "reader"
+		usertype: "Reader"
 	});
 
 	const [errors, setErrors] = useState([])
@@ -217,7 +217,7 @@ function Signup() {
               Sign Up
             </Button>
             <Box display="flex" justifyContent="center">
-								<Typography variant="subtitle" sx={{ color: "#0a2e76", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
+								<Typography variant="subtitle" sx={{ color: "#455a64", textDecoration: "underline", cursor: "pointer"}} onClick={handleLoginClick} >
 									Already have an account? Sign in
 								</Typography>
             </Box>

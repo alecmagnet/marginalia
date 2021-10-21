@@ -132,7 +132,7 @@ export default function UserShow() {
 						</Typography>				
 						<Typography variant="body2" sx={{ textAlign:"center", }} >{showUser.bio}</Typography> 
 					</Card>
-					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 2, color: "#373737"}}><em>Joined {renderDate}</em></Typography>
+					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 2, color: "#373737"}}><em>Joined {renderDate}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{showUser.usertype}</em></Typography>
 					{showUser.id === user.id ?
 						<div>
 							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>

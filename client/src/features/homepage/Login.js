@@ -119,7 +119,7 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-								<Typography variant="subtitle" sx={{ color: "#0a2e76", textDecoration: "underline", cursor: "pointer"}} onClick={handleSignupClick} >
+								<Typography variant="subtitle" sx={{ color: "#455a64", textDecoration: "underline", cursor: "pointer"}} onClick={handleSignupClick} >
 									Don't have an account? Sign Up
 								</Typography>
               </Grid>
