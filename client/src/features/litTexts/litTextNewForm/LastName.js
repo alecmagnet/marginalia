@@ -48,8 +48,7 @@ export default function LastName({
 					<br/><br/>If an author only has one name, include it in <b>LAST NAME</b>
 					<br/><br/>See <a 
 						href="https://libguides.dickinson.edu/citing/mla7capitalization/" 
-						rel="noreferrer" 
-						target="_blank" 
+						rel="noreferrer" target="_blank" 
 						style={{ color: "#d1dbe0"}}
 					>guidelines</a> for where to put particles like <em>de</em>, <em>Del</em>, or <em>von</em> 
 					<br/><br/>Click the arrows to show the author's family name first

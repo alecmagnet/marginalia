@@ -276,7 +276,7 @@ FROM LitTextNewForm TOOLTIPS
 
 						{/* </Tooltip>
 						<Tooltip title="If an author only has one name, include it here" placement="top" arrow> */}
-						{/* <Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow> */}
+						{/* <Tooltip title={<span>For where to put particles like <em>de</em> or <em>von,</em> see the <a href="https://libguides.dickinson.edu/citing/mla7capitalization/" rel="noreferrer" target="_blank" style={{ color: "#c9dee8" }}>MLA guidelines</a></span>} placement="bottom" arrow> */}
 
 						{/* </Tooltip> */}
 						{/* </Tooltip> */}
