@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
-import { Typography, Grid, TextField, Button, Tooltip } from '@mui/material'
+import { Typography, Grid, TextField, Button, Tooltip, Paper } from '@mui/material'
 import FilterDropdown from './dropdowns/FilterDropdown'
 
 
@@ -130,7 +130,7 @@ export default function LitTextsContainer () {
 		let mappedArr = toMap.map((text) => <LitTextListShow key={text.id} litText={text} />)
 		return mappedArr
 	}
-	
+
 
   return (
     <Grid 
@@ -166,22 +166,29 @@ export default function LitTextsContainer () {
 								poetryProseValue={poetryProseValue}
 								handlePoetryProseValue={handlePoetryProseValue}
 							/>
+							<Paper sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}>
 							<TextField 
+								elevation={1}
 								id="search"
 								label="Search"
 								variant="filled"
-								sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}
+								sx={{ width: "100%" }}
+								// sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}
 								onChange={e => handleSearch(e)}
 							/>
+							</Paper>
+							<Paper sx={{ ml: 2, mt: "8px", height: "61.75px" }}>
 							<Tooltip title="Add New Story or Poem" arrow>
 								<Button
 									onClick={() => handleNewClick()} 
 									variant="contained"
-									sx={{ ml: 2, mt: "8px", p: 0, height: "62px" }}
+									sx={{ height: "61.75px" }}
+									// sx={{ ml: 2, mt: "8px", p: 0, height: "61.75px" }}
 								>
 									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
 								</Button>
 							</Tooltip>
+							</Paper>
 						</div>
 
 								{newClicked ? 

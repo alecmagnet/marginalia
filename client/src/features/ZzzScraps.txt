@@ -91,6 +91,34 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+FROM OrderDropdown DIRECTION FUNCTIONS
+	const directionStyle = { 
+		color: "#616161", 
+		fontSize: "85%", 
+		paddingLeft: "4px" 
+	}
+
+	const directionLabel = (val) => {
+		let valTag = val.slice(val.length - 3)
+		if (valTag === "A-Z") {
+			return "(a-z)"
+		} else if (valTag === "Z-A") {
+			return "(z-a)"
+		} else if (valTag === "New") {
+			return "(newest first)"
+		} else if (valTag === "Old") {
+			return "(oldest first)"
+		}
+	}
+
+	const directionElement = (val) => {
+		return (
+			<span style={directionStyle}>
+				{directionLabel(val)}
+			</span>
+		)
+	}
+	
 -----------------------------------------------
 
 FROM FilterDropDown WET MENUITEMS
