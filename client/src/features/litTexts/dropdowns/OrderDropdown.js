@@ -2,19 +2,22 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import IconButton	from '@mui/material/IconButton'
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import { Paper, Box } from '@mui/material'
 
-export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
+export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, handleReverseClick }) {
 	const valuesArr = [
-		["authorA-Z", "Author"],
-		["authorZ-A", "Author"],
-		["titleA-Z", "Title"],
-		["titleZ-A", "Title"],
-		["dateNew", "Date"],
-		["dateOld", "Date"],
-		["activityNew", "Activity"],
-		["activityOld", "Activity"],
-		["addedNew", "Added"],
-		["addedOld", "Added"]
+		["author", "Author"],
+		// ["authorZ-A", "Author"],
+		["title", "Title"],
+		// ["titleZ-A", "Title"],
+		["date", "Date"],
+		// ["dateOld", "Date"],
+		["activity", "Activity"],
+		// ["activityOld", "Activity"],
+		["added", "Added"],
+		// ["addedOld", "Added"]
 	]
 
 	const directionStyle = { 
@@ -45,15 +48,17 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 	}
 	
 	return (
-		<FormControl sx={{ minWidth: "232px", ml: 0, mt: 1, }} >
+		<FormControl sx={{ minWidth: "152px", mt: 1, }} >
+			<Paper sx={{ bgcolor: "#fefcf9" }}>
 			<InputLabel id="arrange-by-label">Arrange By</InputLabel>
 			<Select
+				// variant="standard" 
 				labelId="arrange-by-label"
 				id="arrange-by"
 				value={litTextsOrder}
 				label="Arrange By"
 				onChange={handleLitTextsOrder}
-				sx={{ bgcolor: "#fefcf9" }}
+				sx={{ bgcolor: "#fefcf9", minWidth: "132px", }}
 			>
 				{valuesArr.map((valueArr, index) => {
 					return (
@@ -61,11 +66,16 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder }) {
 							key={index} 
 							value={valueArr[0]}
 						>
-							{valueArr[1]} {directionElement(valueArr[0])}
+							{valueArr[1]} 
+							{/* {directionElement(valueArr[0])} */}
 						</MenuItem>
 					)
 				})}
 			</Select>
+			<IconButton onClick={handleReverseClick}>
+				<CompareArrowsIcon sx={{ transform: "rotate(90deg)"}}/>
+			</IconButton>
+			</Paper>
 		</FormControl>
 	)
 }

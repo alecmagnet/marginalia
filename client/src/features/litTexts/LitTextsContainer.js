@@ -8,66 +8,85 @@ import FilterDropdown from './dropdowns/FilterDropdown'
 
 
 export default function LitTextsContainer () {
-	const [newClicked, setNewClicked] = useState(false)
-	const handleNewClick = () => {
-		setNewClicked(prev => !prev)
-	}
-
-  const { entities, status } = useSelector((state) => state.litTexts)
+	const { entities, status } = useSelector((state) => state.litTexts)
 	const litTextsArr = [...entities]
 
+	// const [stateObjLTC, setStateObjLTC] = useState({
+	// 	filteredLitTexts: [...litTextsArr],
+	// 	litTextsOrder: "author",
+	// 	isReversed: false,
+	// 	newClicked: false,
+	// 	poetryProseValue: "all"
+	// })
+	const initialFiltered = () => [...litTextsArr]
+	const initialUnclicked = () => false
+	const initialOrder = () => "author"
+	const initialPPVal = () => "all"
+
+	const [filteredLitTexts, setFilteredLitTexts] = useState(initialFiltered)
+	const [newClicked, setNewClicked] = useState(initialUnclicked)
+	const [isReversed, setIsReversed] = useState(initialUnclicked)
+	const [litTextsOrder, setLitTextsOrder] = useState(initialOrder)
+	const [poetryProseValue, setPoetryProseValue] = useState(initialPPVal) 
+	
+	useEffect(() => {if (litTextsArr.length > 0) {
+		setFilteredLitTexts([...litTextsArr])
+		// setStateObjLTC(prev => {return ({
+		// 	...prev,
+		// 	filteredLitTexts: [...litTextsArr]
+		// })})
+	}}, [entities])
+
+	const handleNewClick = () => {
+		setNewClicked(prev => !prev)
+	}		
+	const handleReverseClick = () => {
+		setIsReversed(prev => !prev)
+	}		
+	const handleLitTextsOrder = (e) => {
+		setLitTextsOrder(e.target.value)
+	}			
+	const handlePoetryProseValue = (e) => {
+		setPoetryProseValue(e.target.value)
+	}		
+
+	const handleOrderAfterNewTextAdd = () => {
+		setLitTextsOrder(() => "author")
+		setIsReversed(() => false)
+		setPoetryProseValue(() => "all")
+	} 		
+
 	const authorAZ = (texts) => 
-		[...texts].map((text) => 
-			`${text.last_name} ${text.id}`
-		).sort()
-		.map((auth) => 
-			texts.find((text) => 
-				parseInt(text.id) === parseInt(auth.replace(/^\w.+\s/, ""))
-			)
+		[...texts].sort((a, b) => 
+			a.last_name.localeCompare(b.last_name) || a.first_name.localeCompare(b.first_name)
+		)	
+
+	const titleAZ = (texts) => 	
+		[...texts].sort((a, b) => a.title.localeCompare(b.title)
 		)
 
-	const titleAZ = (texts) => 
-		[...texts].map((text) => 
-			`${text.title} ${text.id}`
-		)
-		.sort()
-		.map((title) => 
-			texts.find((text) => 
-				parseInt(text.id) === parseInt(title.replace(/^\w.+\s/, ""))
-			)
-		)
-
-	const byPubdate = (texts) => 
+	const byPubdate = (texts) => 	
 		[...texts].sort((a, b) => 
 			b.pubdate - a.pubdate
-		)
+		)	
 
-	const recentlyAdded = (texts) => 
+	const recentlyAdded = (texts) => 	
 		[...texts].sort((a, b) => 
 			Date.parse(b.created_at) - Date.parse(a.created_at)
-		)
+		)	
 
 	const newestComment = (text) => {
 		const sorted = [...text.comments].sort((a, b) => 
 			Date.parse(b.created_at) - Date.parse(a.created_at)
-		)
+		)	
 		return sorted.length === 0 ? 0 : Date.parse(sorted[0].created_at)
-	}
+	}	
 	const recentlyCommented = (texts) => 
 		[...texts].sort((a, b) => 
 			newestComment(b) - newestComment(a)
-		)
+		)	
+
 	
-	const [litTextsOrder, setLitTextsOrder] = useState("authorA-Z")
-	const handleLitTextsOrder = (e) => {
-		setLitTextsOrder(e.target.value)
-	}
-
-	const [filteredLitTexts, setFilteredLitTexts] = useState([...litTextsArr])
-	useEffect(() => {if (litTextsArr.length > 0) {
-		setFilteredLitTexts([...litTextsArr])
-	}}, [entities])
-
 	const handleSearch = (e) => {
 		let keyword = e.target.value.toLowerCase()
 		if (keyword === "") {
@@ -83,10 +102,6 @@ export default function LitTextsContainer () {
 		}
 	}
 
-	const [poetryProseValue, setPoetryProseValue] = useState("all") 
-	const handlePoetryProseValue = (e) => {
-		setPoetryProseValue(e.target.value)
-	}
 	const filterRawArr = (rawArr) => {
 		let formArr = [...rawArr]
 		if (poetryProseValue === "poetry") {
@@ -98,28 +113,27 @@ export default function LitTextsContainer () {
 	}
 
 	const renderLitTexts = () => {
-		let rawArr = [...filteredLitTexts]
-		let filtArr = filterRawArr(rawArr)
+		let filtArr = filterRawArr([...filteredLitTexts])
 		let arrTwo = []
-		if (litTextsOrder === "authorA-Z") {
+		if (litTextsOrder === "author" && !isReversed) {
 			arrTwo = [...authorAZ(filtArr)]
-		} else if (litTextsOrder === "authorZ-A") {
+		} else if (litTextsOrder === "author") {
 			arrTwo = [...authorAZ(filtArr).reverse()]
-		} else if (litTextsOrder === "titleA-Z") {
+		} else if (litTextsOrder === "title" && !isReversed) {
 			arrTwo = [...titleAZ(filtArr)]
-		} else if (litTextsOrder === "titleZ-A") {
+		} else if (litTextsOrder === "title") {
 			arrTwo = [...titleAZ(filtArr).reverse()]
-		} else if (litTextsOrder === "dateNew") {
+		} else if (litTextsOrder === "date" && !isReversed) {
 			arrTwo = [...byPubdate(filtArr)]
-		} else if (litTextsOrder === "dateOld") {
+		} else if (litTextsOrder === "date") {
 			arrTwo = [...byPubdate(filtArr).reverse()]
-		} else if (litTextsOrder === "activityNew") {
+		} else if (litTextsOrder === "activity" && !isReversed) {
 			arrTwo = [...recentlyCommented(filtArr)]
-		} else if (litTextsOrder === "activityOld") {
+		} else if (litTextsOrder === "activity") {
 			arrTwo = [...recentlyCommented(filtArr).reverse()]
-		} else if (litTextsOrder === "addedNew") {
+		} else if (litTextsOrder === "added" && !isReversed) {
 			arrTwo = [...recentlyAdded(filtArr)]
-		} else if (litTextsOrder === "addedOld") {
+		} else if (litTextsOrder === "added") {
 			arrTwo = [...recentlyAdded(filtArr).reverse()]
 		}
 		let toMap = [...arrTwo]
@@ -156,6 +170,7 @@ export default function LitTextsContainer () {
 							<OrderDropdown 
 								litTextsOrder={litTextsOrder} 
 								handleLitTextsOrder={handleLitTextsOrder} 
+								handleReverseClick={handleReverseClick}
 							/>
 							<FilterDropdown
 								poetryProseValue={poetryProseValue}
@@ -182,7 +197,7 @@ export default function LitTextsContainer () {
 								{newClicked ? 
 									<LitTextNewForm 
 										handleNewClick={handleNewClick} 
-										handleLitTextsOrder={handleLitTextsOrder} 
+										handleLitTextsOrder={handleOrderAfterNewTextAdd} 
 										handlePoetryProseValue={handlePoetryProseValue}
 										isEdit={false}
 										litText={null}

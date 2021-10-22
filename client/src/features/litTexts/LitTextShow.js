@@ -32,7 +32,7 @@ export default function LitTextShow() {
 	const user = useSelector((state) => state.user.entities[0])
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
-	// console.log("litText", litText, "user", user)
+	console.log("litText", litText, "user", user)
 
 	const handleEditClick = () => {
 		setEditClicked(prev => !prev)
@@ -136,7 +136,9 @@ export default function LitTextShow() {
 					}}>
 						<TimeAgoContainer 
 							created_at={litText.created_at} 
+							uploader={litText.uploader.name}
 							updated_at={litText.updated_at} 
+							editor={litText.edit_user}
 							isDeleted={false} 
 							fromLitTextShow={true}
 						/>

@@ -86,8 +86,131 @@
 
 
 LESS IMPORTANT:
+
+
+
 -----------------------------------------------
 
+-----------------------------------------------
+
+FROM OrderDropdown BEFORE REVERSE BUTTON
+	const valuesArr = [
+		["authorA-Z", "Author"],
+		["authorZ-A", "Author"],
+		["titleA-Z", "Title"],
+		["titleZ-A", "Title"],
+		["dateNew", "Date"],
+		["dateOld", "Date"],
+		["activityNew", "Activity"],
+		["activityOld", "Activity"],
+		["addedNew", "Added"],
+		["addedOld", "Added"]
+	]
+
+	const directionStyle = { 
+		color: "#616161", 
+		fontSize: "85%", 
+		paddingLeft: "4px" 
+	}
+
+	const directionLabel = (val) => {
+		let valTag = val.slice(val.length - 3)
+		if (valTag === "A-Z") {
+			return "(a-z)"
+		} else if (valTag === "Z-A") {
+			return "(z-a)"
+		} else if (valTag === "New") {
+			return "(newest first)"
+		} else if (valTag === "Old") {
+			return "(oldest first)"
+		}
+	}
+
+	const directionElement = (val) => {
+		return (
+			<span style={directionStyle}>
+				{directionLabel(val)}
+			</span>
+		)
+	}
+	
+	return (
+		<FormControl sx={{ minWidth: "252px", mt: 1, }} >
+			<Paper sx={{ bgcolor: "#fefcf9", }}>
+			<InputLabel id="arrange-by-label">Arrange By</InputLabel>
+			<Select
+				labelId="arrange-by-label"
+				id="arrange-by"
+				value={litTextsOrder}
+				label="Arrange By"
+				onChange={handleLitTextsOrder}
+				sx={{ bgcolor: "#fefcf9", minWidth: "232px" }}
+			>
+				{valuesArr.map((valueArr, index) => {
+					return (
+						<MenuItem 
+							key={index} 
+							value={valueArr[0]}
+						>
+							{valueArr[1]} {directionElement(valueArr[0])}
+						</MenuItem>
+					)
+				})}
+			</Select>
+			<Box component="span" sx={{ border: '2px grey' }}>
+			<IconButton sx={{ border: '2px grey' }}>
+				<CompareArrowsIcon sx={{ transform: "rotate(90deg)"}}/>
+			</IconButton>
+			</Box>
+			</Paper>
+		</FormControl>
+	)
+}
+
+-----------------------------------------------
+
+FROM LitTextsContainer MEDIUM-DRY RENDER FUNCTION
+	const renderLitTexts = () => {
+		let filtArr = filterRawArr([...filteredLitTexts])
+		let arrTwo = []
+		if (litTextsOrder === "authorA-Z") {
+			arrTwo = [...authorAZ(filtArr)]
+		} else if (litTextsOrder === "authorZ-A") {
+			arrTwo = [...authorAZ(filtArr).reverse()]
+		} else if (litTextsOrder === "titleA-Z") {
+			arrTwo = [...titleAZ(filtArr)]
+		} else if (litTextsOrder === "titleZ-A") {
+			arrTwo = [...titleAZ(filtArr).reverse()]
+		} else if (litTextsOrder === "dateNew") {
+			arrTwo = [...byPubdate(filtArr)]
+		} else if (litTextsOrder === "dateOld") {
+			arrTwo = [...byPubdate(filtArr).reverse()]
+		} else if (litTextsOrder === "activityNew") {
+			arrTwo = [...recentlyCommented(filtArr)]
+		} else if (litTextsOrder === "activityOld") {
+			arrTwo = [...recentlyCommented(filtArr).reverse()]
+		} else if (litTextsOrder === "addedNew") {
+			arrTwo = [...recentlyAdded(filtArr)]
+		} else if (litTextsOrder === "addedOld") {
+			arrTwo = [...recentlyAdded(filtArr).reverse()]
+		}
+		let toMap = [...arrTwo]
+		let mappedArr = toMap.map((text) => <LitTextListShow key={text.id} litText={text} />)
+		return mappedArr
+	}
+
+-----------------------------------------------
+
+FROM UsersContainer ALPHABETICAL SORT FUNCTION
+	const alphabetical = (users) => 
+		[...users].map((user) => 
+			`${user.last_name} ${user.id}`)
+		.sort()
+		.map((nameId) => 
+			users.find((user) => 
+			parseInt(user.id) === parseInt(nameId.replace(/^\w.+\s/, ""))
+		)
+	)
 
 -----------------------------------------------
 

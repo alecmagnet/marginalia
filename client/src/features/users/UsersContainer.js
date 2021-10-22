@@ -13,14 +13,16 @@ export default function UsersContainer() {
 	const otherUsers = [...filteredArr]
 
 	const alphabetical = (users) => 
-		[...users].map((user) => 
-			`${user.last_name} ${user.id}`)
-		.sort()
-		.map((nameId) => 
-			users.find((user) => 
-			parseInt(user.id) === parseInt(nameId.replace(/^\w.+\s/, ""))
-		)
-	)
+		[...users].sort((a, b) => a.last_name.localeCompare(b.last_name) || a.first_name.localeCompare(b.first_name))
+		//THIS WAS MY ORIGINAL PLAN FOR SORTING, THO ONLY BY LAST NAME.
+		// [...users].map((user) => 
+		// 	`${user.last_name} ${user.id}`)
+		// .sort()
+		// .map((nameId) => 
+		// 	users.find((user) => 
+		// 	parseInt(user.id) === parseInt(nameId.replace(/^\w.+\s/, ""))
+		// )
+	
 
 	const recentlyJoined = (users) => {
 		let toSort = [...users]
@@ -131,7 +133,7 @@ export default function UsersContainer() {
 									value="recentlyAdded"
 									aria-label="Most recently added"
 								>
-									Recently Added
+									Recently Joined
 								</ToggleButton>
 								<ToggleButton 
 									value="recentComment"

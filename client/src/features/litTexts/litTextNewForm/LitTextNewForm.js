@@ -157,7 +157,8 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		setStoryOrPoem("")
 		setFamNameFirst(false)
 		if (!isEdit) {
-			handleLitTextsOrder({ target: { value: "addedNew" }})
+			// handleLitTextsOrder({ target: { value: "added" }})
+			handleLitTextsOrder()
 			handlePoetryProseValue({ target: { value: "all" }})
 		} else {
 			reRender()
