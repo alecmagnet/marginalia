@@ -97,35 +97,51 @@ export default function LitTextShow() {
 					elevation={9} 
 					sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5", justifyContent:"center", }}
 				>
-						<Typography variant="subtitle1" sx={{ textAlign:"center", color:"#616161", pb: 0, cursor: "default" }}><em>{isProse}</em></Typography>
+					<Typography 
+						variant="subtitle1" 
+						sx={{ textAlign:"center", color:"#616161", pb: 0, cursor: "default" }}
+					>
+						<em>{isProse}</em>
+					</Typography>
 					<Grid container wrap="nowrap">
 						<Grid item xs={12}>
-					<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}><b>{litText.title}</b></Typography>
-					<Typography variant="h6" sx={{ textAlign:"center" }}>{renderName()}</Typography>
-					<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{displayDate()}</Typography>
-					{litText.translator.length > 0 ? 
-						<Typography variant="subtitle2" sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}><em>{`Translated by ${litText.translator}`}</em></Typography>
-					: null }
-
-					<Grid container wrap="nowrap">
-						<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
-							<div style={{ position: "flex", }} >
-								<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
-								{litText.prose ?	
-									<div>
-										{parsedContent}
-									</div>
-								:
-									<div className="poetry">
-										<br/>
-										{parsedContent}
-									</div>
-								}
+							<Typography variant="h4" sx={{ textAlign:"center", mt: 1 }}>
+								<b>{litText.title}</b>
+							</Typography>
+							<Typography variant="h6" sx={{ textAlign:"center" }}>
+								{renderName()}
+							</Typography>
+							<Typography variant="subtitle1" sx={{ textAlign:"center" }}>
+								{displayDate()}
+							</Typography>
+							{litText.translator.length > 0 ? 
+								<Typography 
+									variant="subtitle2" 
+									sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}
+								>
+									<em>{`Translated by ${litText.translator}`}</em>
 								</Typography>
-								</div>
+							: null }
+
+							<Grid container wrap="nowrap">
+								<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
+									<div style={{ position: "flex", }} >
+										<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+										{litText.prose ?	
+											<div>
+												{parsedContent}
+											</div>
+										:
+											<div className="poetry">
+												<br/>
+												{parsedContent}
+											</div>
+										}
+										</Typography>
+									</div>
+								</Grid>
+							</Grid>
 						</Grid>
-					</Grid>
-					</Grid>
 					</Grid>
 
 					<div style={{ 

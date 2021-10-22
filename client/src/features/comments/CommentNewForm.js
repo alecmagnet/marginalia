@@ -62,7 +62,7 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 			item xs={12} 
 			sx={{ maxWidth: 700, minWidth: 450, width: "100%" }}
 		>
-      <Paper sx={{ 
+      <Paper elevation={6} sx={{ 
 				maxWidth: 650, 
 				px:3, pt:4, pb:1, 
 				mb:2, 
