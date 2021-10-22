@@ -11,13 +11,6 @@ export default function LitTextsContainer () {
 	const { entities, status } = useSelector((state) => state.litTexts)
 	const litTextsArr = [...entities]
 
-	// const [stateObjLTC, setStateObjLTC] = useState({
-	// 	filteredLitTexts: [...litTextsArr],
-	// 	litTextsOrder: "author",
-	// 	isReversed: false,
-	// 	newClicked: false,
-	// 	poetryProseValue: "all"
-	// })
 	const initialFiltered = () => [...litTextsArr]
 	const initialUnclicked = () => false
 	const initialOrder = () => "author"
@@ -31,10 +24,6 @@ export default function LitTextsContainer () {
 	
 	useEffect(() => {if (litTextsArr.length > 0) {
 		setFilteredLitTexts([...litTextsArr])
-		// setStateObjLTC(prev => {return ({
-		// 	...prev,
-		// 	filteredLitTexts: [...litTextsArr]
-		// })})
 	}}, [entities])
 
 	const handleNewClick = () => {

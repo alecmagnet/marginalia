@@ -87,9 +87,26 @@
 
 LESS IMPORTANT:
 
-
+-----------------------------------------------
 
 -----------------------------------------------
+
+-----------------------------------------------
+
+FROM LitTextsContainer STATE OBJECT
+	const [stateObjLTC, setStateObjLTC] = useState({
+		filteredLitTexts: [...litTextsArr],
+		litTextsOrder: "author",
+		isReversed: false,
+		newClicked: false,
+		poetryProseValue: "all"
+	})
+
+	// FROM useEffect:
+		setStateObjLTC(prev => {return ({
+			...prev,
+			filteredLitTexts: [...litTextsArr]
+		})})	
 
 -----------------------------------------------
 
