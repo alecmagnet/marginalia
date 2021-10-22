@@ -123,6 +123,7 @@ export default function UsersContainer() {
 								aria-label="Arrange Users"
 								sx={{ bgcolor: "#fffaf5", }}
 							>
+								{/* TODO: Dry up this code by mapping through an array of options */}
 								<ToggleButton 
 									value="alphabetical"
 									aria-label="Alphabetical"

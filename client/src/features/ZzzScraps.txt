@@ -93,6 +93,19 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+FROM FilterDropDown WET MENUITEMS
+				<MenuItem value="all">
+					All 
+				</MenuItem>
+				<MenuItem value="poetry">
+					Poetry 
+				</MenuItem>
+				<MenuItem value="prose">
+					Prose 
+				</MenuItem>
+
+-----------------------------------------------
+
 FROM LitTextsContainer STATE OBJECT
 	const [stateObjLTC, setStateObjLTC] = useState({
 		filteredLitTexts: [...litTextsArr],

@@ -101,6 +101,7 @@ export default function LitTextsContainer () {
 		return formArr
 	}
 
+	//TO-DO: Dry up this code by mapping through an array of options, if possible
 	const renderLitTexts = () => {
 		let filtArr = filterRawArr([...filteredLitTexts])
 		let arrTwo = []

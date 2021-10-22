@@ -7,6 +7,7 @@ import LastName from "./LastName"
 import { postLitText, patchLitText } from '../litTextsSlice' 
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 
+// I broke this out into its own component at first because I thought it might be reusable. In my next project, I will work to keep my New and Edit forms similar enough that I can actually reuse a form component
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
@@ -100,11 +101,9 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		const { name, value } = e.target
 		const cleanValue = () => {
 			if (name === "pubdate") {
-				// let noSpace = value.replace(/\s+$/, "")
 				(/[^-]\D/).test(value) ? setNotNum(true) : setNotNum(false)
 				const justNum = parseInt(value.replace(/^\D*/, "").replace(/\D+\d*\D*$/, ""))
 				return ceOrBce.includes("b") ? -justNum : justNum
-				// return parseInt(justNum)
 			} else {
 				return value
 			}

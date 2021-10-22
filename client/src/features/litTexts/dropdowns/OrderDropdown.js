@@ -72,9 +72,11 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, hand
 					)
 				})}
 			</Select>
+			<Box component="span" variant="outlined" elevation={0} sx={{ height: "61px" }}>
 			<IconButton onClick={handleReverseClick}>
 				<CompareArrowsIcon sx={{ transform: "rotate(90deg)"}}/>
 			</IconButton>
+			</Box>
 			</Paper>
 		</FormControl>
 	)

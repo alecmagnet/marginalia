@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { Paper } from '@mui/material'
 
 export default function FilterDropdown({ poetryProseValue, handlePoetryProseValue }) {
+	const valueArr = ["All", "Poetry", "Prose"]
 	return (
 		<FormControl sx={{ minWidth: "112px", ml: 2, mt: 1, }} >
 			<InputLabel id="filter-by-label">View</InputLabel>
@@ -17,15 +18,11 @@ export default function FilterDropdown({ poetryProseValue, handlePoetryProseValu
 				onChange={handlePoetryProseValue}
 				sx={{ minWidth: "112px", bgcolor: "#fefcf9" }}
 				>
-				<MenuItem value="all">
-					All 
-				</MenuItem>
-				<MenuItem value="poetry">
-					Poetry 
-				</MenuItem>
-				<MenuItem value="prose">
-					Prose 
-				</MenuItem>
+				{valueArr.map(val => 
+					<MenuItem value={val.toLowerCase()}>
+						{val}
+					</MenuItem>)
+				}
 			</Select>
 		</Paper>
 		</FormControl>

@@ -62,6 +62,7 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 					lastName={last_name}
 					isAuthor={false}
 				/>
+				{/* TODO: Dry up this code by mapping through an array of options */}
 				<TextField 
 					value={bio} 
 					id="bio"
