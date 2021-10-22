@@ -41,6 +41,10 @@ export default function LitTextShow() {
 	const reRender = () => {
 		setForceRender(prev => !prev)
 	}
+
+	const handleUploaderClick = () => {
+		history.push(`/users/${litText.uploader_id}`)
+	}
 	
 	let commentsHash = ""
 	let newCommentHash = ""
@@ -157,6 +161,7 @@ export default function LitTextShow() {
 							editor={litText.edit_user}
 							isDeleted={false} 
 							fromLitTextShow={true}
+							handleUploaderClick={handleUploaderClick}
 						/>
 					</div>
 					
@@ -191,7 +196,7 @@ export default function LitTextShow() {
 							marginTop: 12, 
 							paddingBottom: 2 
 						}}>
-							{user.usertype === "Librarian" ?
+							{user.usertype === "Librarian" || user.id === litText.uploader_id ?
 								<Tooltip title="Edit" arrow>
 									<EditOutlinedIcon
 										onClick={() => handleEditClick()}
