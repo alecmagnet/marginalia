@@ -14,7 +14,7 @@ export default function UsersContainer() {
 
 	const alphabetical = (users) => 
 		[...users].sort((a, b) => a.last_name.localeCompare(b.last_name) || a.first_name.localeCompare(b.first_name))
-		//THIS WAS MY ORIGINAL PLAN FOR SORTING, THO ONLY BY LAST NAME.
+		//ORIGINAL PLAN FOR SORTING, THO ONLY BY LAST NAME.
 		// [...users].map((user) => 
 		// 	`${user.last_name} ${user.id}`)
 		// .sort()
