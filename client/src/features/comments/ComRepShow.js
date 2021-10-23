@@ -9,7 +9,6 @@ import { destroyComment, patchComment } from "./commentsSlice"
 import { Avatar, Grid, Typography, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-// import ConfirmationPopper from "../shared/ConfirmationPopper"
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCommentIcon from '@mui/icons-material/AddComment'
