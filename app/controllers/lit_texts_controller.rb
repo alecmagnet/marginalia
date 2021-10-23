@@ -1,4 +1,11 @@
 class LitTextsController < ApplicationController
+	skip_before_action :authorize, only: [:recent]
+
+	# GET /recent_lit_texts
+	def recent
+		lit_texts = LitText.last(7) 
+		render json: lit_texts, each_serializer: RecentLitTextSerializer, status: :ok
+	end
 
 	# GET /lit_texts
 	def index

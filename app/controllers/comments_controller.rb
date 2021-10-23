@@ -1,4 +1,13 @@
 class CommentsController < ApplicationController
+	skip_before_action :authorize, only: [:recent]
+
+	# GET /recent-comments
+	def recent
+		last_coms = Comment.last(12)
+		comments = last_coms.filter{|com| com.deleted == false}
+		# comments = Comment.last(9)
+		render json: comments, each_serializer: RecentCommentSerializer, status: :ok
+	end
 
 	# GET /comments
 	def index
@@ -61,6 +70,4 @@ class CommentsController < ApplicationController
 	def find_comment
 		Comment.find(params[:id])
 	end
-
-
 end
