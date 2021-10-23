@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
@@ -6,18 +6,22 @@ import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 import { destroyComment, patchComment } from "./commentsSlice"
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Avatar, Grid, Typography, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+// import ConfirmationPopper from "../shared/ConfirmationPopper"
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCommentIcon from '@mui/icons-material/AddComment'
+import { Button, Popper, Fade, Box } from '@mui/material'
 
 
 export default function ComRepShow({ comment, litTextId }) {
 	const [editClicked, setEditClicked] = useState(false)
 	const [replyClicked, setReplyClicked] = useState(false)
 	const [errors, setErrors] = useState([])
+	const [deleteClicked, setDeleteClicked] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
 
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
@@ -33,13 +37,8 @@ export default function ComRepShow({ comment, litTextId }) {
 		}
 	}
 
-	
-	const renderName = () => comment.user.fam_name_first ? 
-		`${comment.user.last_name} ${comment.user.first_name}` : 
-		`${comment.user.first_name} ${comment.user.last_name}`
-
-	const showComment = {
-		fullname: renderName(),
+	const showComment = useMemo(() => {return ({
+		fullname: comment.user.name,
 		username: comment.user.username,
 		image: comment.user.image,
 		content: comment.content,
@@ -49,12 +48,11 @@ export default function ComRepShow({ comment, litTextId }) {
 		deleted: comment.deleted,
 		id: comment.id,
 		com_types: comment.com_types
-	}
+	})}, [comment])
 
-	const deletedComment = {
+	const deletedComment = useMemo(() => {return ({
 		fullname: "",
 		username: "",
-		image: "https://ih1.redbubble.net/image.110003985.7172/flat,750x1000,075,f.u2.jpg",
 		content: <em style={{ color: "#616161" }}>[this comment was deleted]</em>,
 		created_at: comment.created_at,
 		updated_at: comment.updated_at,
@@ -62,12 +60,20 @@ export default function ComRepShow({ comment, litTextId }) {
 		deleted: true,
 		id: comment.id,
 		com_types: []
-	}
+	})}, [comment])
 
-	const renderComment = comment.deleted ? deletedComment : showComment
+	const renderComment = useMemo(() => {
+		return comment.deleted ? deletedComment : showComment}, [comment])
 
 
 	const comTypeIds = comment.com_types.map(type => type.id)
+
+	const handleDeleteClick = (e) => {
+    setAnchorEl(e.currentTarget)
+		setDeleteClicked(prev => !prev)
+	}
+	const canBeOpen = deleteClicked && Boolean(anchorEl)
+  const popperId = canBeOpen ? 'transition-popper' : undefined	
 
 	function handleDelete(e) {
 		setEditClicked(() => false)
@@ -177,9 +183,45 @@ export default function ComRepShow({ comment, litTextId }) {
 					: null}
 					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
 						<div style={{ justifyContent: "right" }} >
-							<DeleteTooltip title="Delete" arrow>
-								<DeleteIcon size="large" sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:1 }} onClick={handleDelete} /> 
-							</DeleteTooltip>
+							<IconButton id="deleteButton1" onClick={handleDeleteClick} sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:0 }}>
+								<DeleteTooltip title="Delete" arrow>
+									<DeleteIcon size="large" sx={{ color: "#732626" }} /> 
+								</DeleteTooltip>
+							</IconButton>
+		<Popper 
+			id={popperId} 
+			open={deleteClicked} 
+			anchorEl={anchorEl} 
+			placement="top" 
+			modifiers={[
+				{
+					name: 'preventOverflow',
+					enabled: true,
+					options: {
+						altAxis: true,
+						altBoundary: true,
+						tether: true,
+						rootBoundary: 'document',
+						padding: 5,
+					},
+				}
+			]}
+			transition>
+			{({ TransitionProps }) => (
+				<Fade {...TransitionProps} timeout={350}>
+					<Box sx={{ border: 1, p: 3, m: 2, bgcolor: 'background.paper', display:"flex", justifyContent: "center", borderColor: "#660000" }}>
+							<Button variant="contained" onClick={handleDeleteClick} sx={{ mr: 3, bgcolor: "6d4c41" }}>
+								Cancel
+							</Button>
+							<Button variant="contained" onClick={handleDelete} sx={{ bgcolor: "#660000" }}>
+								Delete
+							</Button>
+						{/* </Box> */}
+					</Box>
+				</Fade>
+			)}
+		</Popper>	
+									{/* : null} */}
 							<Tooltip title="Edit" arrow >
 								<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
 							</Tooltip>

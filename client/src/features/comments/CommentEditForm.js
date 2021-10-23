@@ -69,7 +69,6 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 			<ToggleGroup 
 				comTypes={formData.com_type_ids} 
 				handleComTypes={handleComTypes} 
-				// isParent={isParent} 
 				isParentQuestion={isParentQuestion()}
 			/>			
 			<form style={{ width: "100%" }} onSubmit={handleSubmit} > 

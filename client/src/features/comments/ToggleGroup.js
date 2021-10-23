@@ -18,7 +18,8 @@ export default function ToggleGroup({ comTypes, handleComTypes, isParentQuestion
 				sx={{ bgcolor: "#fefcf9", mb: 1 }}
 			>
 			{optionArr.map(op => 
-				<ToggleButton 
+				<ToggleButton
+					key={op[0]} 
 					value={op[0]}
 					aria-label={op[1]}
 				>	

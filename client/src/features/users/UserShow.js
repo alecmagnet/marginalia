@@ -11,7 +11,7 @@ import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, B
 export default function UserShow() {
 	const [editClicked, setEditClicked] = useState(false)
 	const [deleteClicked, setDeleteClicked] = useState(false)
-	const [anchorEl, setAnchorEl] = useState(null);
+	const [anchorEl, setAnchorEl] = useState(null)
 	const [errors, setErrors] = useState([])
 
 	const history = useHistory()

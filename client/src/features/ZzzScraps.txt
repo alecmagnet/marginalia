@@ -91,6 +91,17 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+-----------------------------------------------
+
+-----------------------------------------------
+
+FROM ComRepShow BEFORE :NAME METHOD ON BACKEND
+	// const renderName = () => comment.user.fam_name_first ? 
+	// 	`${comment.user.last_name} ${comment.user.first_name}` : 
+	// 	`${comment.user.first_name} ${comment.user.last_name}`
+
+-----------------------------------------------
+
 FROM OrderDropdown DIRECTION FUNCTIONS
 	const directionStyle = { 
 		color: "#616161", 

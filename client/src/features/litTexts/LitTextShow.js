@@ -32,7 +32,7 @@ export default function LitTextShow() {
 	const user = useSelector((state) => state.user.entities[0])
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
-	console.log("litText", litText, "user", user)
+	// console.log("litText", litText, "user", user)
 
 	const handleEditClick = () => {
 		setEditClicked(prev => !prev)
