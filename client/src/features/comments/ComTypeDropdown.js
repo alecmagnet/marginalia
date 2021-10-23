@@ -4,6 +4,15 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
 export default function ComTypeDropdown({ comTypes, handleComType }) {
+	const itemsArr = [
+		["all", "All"],
+		[1, "Readings"],
+		[2, "Questions"],
+		[4, "Answers"],
+		[3, "Lore"],
+		[5, "Feelings"],
+		[6, "Critiques"],
+	]
 	return (
 		<FormControl sx={{ minWidth: "112px", ml: 2, mt: 1, }} >
 			<InputLabel id="filter-by-comType">View</InputLabel>
@@ -16,27 +25,11 @@ export default function ComTypeDropdown({ comTypes, handleComType }) {
 				onChange={handleComType}
 				sx={{ bgcolor: "#f4f3f0" }}
 			>
-				<MenuItem value="all">
-					All 
-				</MenuItem>
-				<MenuItem value={1}>
-					Readings 
-				</MenuItem>
-				<MenuItem value={5}>
-					Feelings 
-				</MenuItem>
-				<MenuItem value={2}>
-					Questions 
-				</MenuItem>
-				<MenuItem value={4}>
-					Answers 
-				</MenuItem>
-				<MenuItem value={3}>
-					Lore 
-				</MenuItem>
-				<MenuItem value={6}>
-					Evaluations 
-				</MenuItem>
+				{itemsArr.map(item => 
+					<MenuItem value={item[0]}>
+						{item[1]} 
+					</MenuItem>
+				)}
 			</Select>
 		</FormControl>
 	)
