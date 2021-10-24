@@ -18,16 +18,10 @@ import { fetchComments } from './features/comments/commentsSlice';
 import { addLoginUser } from './features/users/userSlice'
 
 export default function App() {
-  const [authorized, setAuthorized] = useState(false)
-  const dispatch = useDispatch()
-
   const commentsState = useSelector((state) => state.comments)  
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
-  
-  const handleAuth = () => {
-    setAuthorized(true)
-  }
+  const dispatch = useDispatch()
 
   const onAuth = () => {
     fetch("/auth").then((res) => {
@@ -37,7 +31,7 @@ export default function App() {
           dispatch(fetchLitTexts())
           dispatch(fetchAllUsers())
           dispatch(fetchComments())
-          handleAuth()
+          // handleAuth()
         });
       } 
     });
