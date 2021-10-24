@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Avatar, Paper, Card } from '@mui/material'
+import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Avatar, Paper } from '@mui/material'
 import HpButtons from './HpButtons'
 import LitTextListShow from "../litTexts/LitTextListShow"
 import TimeAgoContainer from '../shared/TimeAgoContainer';

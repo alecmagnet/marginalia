@@ -28,8 +28,6 @@ export default function ComRepShow({ comment, litTextId }) {
 	const dispatch = useDispatch() 
 	const history = useHistory()
 
-	console.log("history", history)
-
 	const isParentQuestion = () => {
 		if (comment.com_types.find(type => type.id === 2)) {
 				return true

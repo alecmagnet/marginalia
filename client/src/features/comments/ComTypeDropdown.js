@@ -26,7 +26,7 @@ export default function ComTypeDropdown({ comTypes, handleComType }) {
 				sx={{ bgcolor: "#f4f3f0" }}
 			>
 				{itemsArr.map(item => 
-					<MenuItem value={item[0]}>
+					<MenuItem key={item[0]} value={item[0]}>
 						{item[1]} 
 					</MenuItem>
 				)}

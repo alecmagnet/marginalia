@@ -1,5 +1,5 @@
 import { useEffect, useState, Fragment } from 'react'
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import './App.css';
@@ -20,7 +20,6 @@ import { addLoginUser } from './features/users/userSlice'
 export default function App() {
   const [authorized, setAuthorized] = useState(false)
   const dispatch = useDispatch()
-  const history = useHistory()
 
   const commentsState = useSelector((state) => state.comments)  
   const userState = useSelector((state) => state.user)
