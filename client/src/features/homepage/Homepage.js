@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Avatar, Paper, Card } from '@mui/material'
 import HpButtons from './HpButtons'
 import LitTextListShow from "../litTexts/LitTextListShow"
@@ -33,8 +33,6 @@ export default function Homepage() {
 		getComments()
 		getLitTexts()
 	}, [])
-	console.log("Comments", comments)
-	// console.log("litTexts", litTexts)
 
 
 	const handleComsOrTexts = (event, newOrder) => {
@@ -42,6 +40,8 @@ export default function Homepage() {
 	}
 
 	const handleImgButtonClick = (e) => {
+		userState.entities.length === 0 && e !== "signup" ?
+    history.push('/login') :
 		history.push(`/${e}`)
 	}
 

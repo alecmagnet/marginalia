@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { addSignupUser } from '../users/userSlice'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -100,7 +99,6 @@ function Signup() {
 
 	return (
 			<Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -118,17 +116,6 @@ function Signup() {
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 0 }}>
            
             {errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
-           
-            {/* <TextField
-              onChange={handleChange}
-              autoComplete="fullname"
-              name="fullname"
-              required
-              fullWidth
-              id="fullname"
-              label="Full Name"
-              sx={{ bgcolor: "#f5f5f5" }}
-            /> */}
 
             <TextField
               onChange={handleChange}
@@ -165,16 +152,6 @@ function Signup() {
                 </>
               }
             </Grid>
-
-
-				{/* <LastName 
-					famNameFirst={formData.fam_name_first} 
-					handleFamNameFirstClick={handleFamNameFirstClick} 
-					handleFormChange={handleChange} 
-					firstName={formData.first_name}
-					lastName={formData.last_name}
-					isAuthor={false}
-				/> */}
 
             <TextField
               onChange={handleChange}

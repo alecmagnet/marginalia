@@ -1,19 +1,22 @@
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 import { Typography, Grid, Paper, Card } from '@mui/material'
 
 export default function LitTextListShow({ litText }) {
 	const { title, author_name, pubdate, content, id, prose, translator } = litText
-
-	console.log('litText', litText)
+	const userState = useSelector((state) => state.user)
+  
 	let parsedContent = ""
 	if (content && prose) {
 		parsedContent = content.replace(/(<([^>]+)>)/gi, " ")
 	} else if (content && !prose) {
 		parsedContent = content
 			.replace(/\u00A0/g, "")
-			.replace(/(<\/p><br>)|(<\/p><br\/>)|(<br\/><br\/>)|(<br><br>)|(<\/p><p><\/p>)/g, " // ")
-			.replace(/(<\/p>)|(<br\/>)|(<br>)/g, " / ")
+			// .replace(/(<\/p><br>)|(<\/p><br\/>)|(<br\/><br\/>)|(<br><br>)|(<\/p><p><\/p>)/g, " // ")
+			// .replace(/(<\/p>)|(<br\/>)|(<br>)/g, " / ")
+			.replace(/(<\/p><br\/*>)|(<br\/*><br\/*>)|(<\/p><p><\/p>)/g, " // ")
+			.replace(/(<\/p>)|(<br\/*>)/g, " / ")
 			.replace(/(<([^>]+)>)/gi, " ")
 	}
 	const firstHundred = parsedContent.slice(0, 130)
@@ -21,6 +24,8 @@ export default function LitTextListShow({ litText }) {
 
 	const history = useHistory()
 	const handlePaperClick = () => {
+		userState.entities.length === 0 ?
+    history.push('/login') :
 		history.push(`/texts/${id}`)
 	}
 

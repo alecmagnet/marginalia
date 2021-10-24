@@ -40,9 +40,7 @@ export default function App() {
           dispatch(fetchComments())
           handleAuth()
         });
-      } else {
-        history.push("/login")
-      }
+      } 
     });
   }
 
@@ -59,9 +57,6 @@ export default function App() {
         main: "#263238",
       },
     },
-    // typography: {
-    //   fontFamily: "Georgia"
-    // }
   })
 
   return (
@@ -99,16 +94,15 @@ export default function App() {
               </Fragment>
             : 
               <Fragment>
-                <div className="centered-in-window" >
-                  <div style={{ padding: 15 }} >
-                  <Route exact path="/login">
-                    <Login />
-                  </Route>
-                  <Route exact path="/signup">
-                    <Signup />
-                  </Route>
-                  </div>
-                </div>
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/signup">
+                  <Signup />
+                </Route>
+                <Route exact path='/'>
+                  <Homepage />
+                </Route>
               </Fragment>
             }      
           </Switch>

@@ -50,22 +50,30 @@ export default function Navbar() {
     history.push('/login')
 	}
 
-  const handleLogout = () => {
+	const handleSignupClick = () => {
 		handleMenuClose()
+    history.push('/signup')
+	}
+
+  const handleLogout = () => {
     dispatch(logoutUser())
-    history.push('/login')
+		handleLoginClick()
 	}
 
 	const handleTextsClick = () => {
-		history.push('/texts')
+		userState.entities.length === 0 ?
+    history.push('/login') :
+		history.push('/texts') 
 	}
 
 	const handleUsersClick = () => {
+		userState.entities.length === 0 ?
+    history.push('/login') :
 		history.push('/users')
 	}
 
 	const handleAboutClick = () => {
-		// history.push('/users')
+		history.push('/about')
 	}
 
 	const handleNameClick = () => {
@@ -91,10 +99,10 @@ export default function Navbar() {
     >
 			{userState.entities.length > 0 ?
 				<MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-				: <MenuItem onClick={handleLoginClick}>Login</MenuItem> }
+				: <MenuItem onClick={handleLoginClick}>Log in</MenuItem> }
 			{userState.entities.length > 0 ?
 				<MenuItem onClick={handleLogout}>Logout</MenuItem>
-				: null}
+				: <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>}
     </Menu>
   );
 
@@ -123,22 +131,23 @@ export default function Navbar() {
 						</Typography>
 					</Tooltip>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
+          {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box> */}
 						<Tooltip title="About" arrow>
 							<IconButton aria-label="about" color="inherit" onClick={handleAboutClick} >
-								<InfoIcon sx={{ fontSize: 31, pl: 1 }} />
+								<InfoIcon sx={{ fontSize: 32, px: 2, mb: -1  }} />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Users" arrow>
-							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} >
-								<PeopleIcon sx={{ fontSize: 39, pl: 2 }} />
+							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} sx={{ px: 2, mb: -1 }}>
+								<PeopleIcon sx={{ fontSize: 35, }} />
 							</IconButton>
 						</Tooltip>
             <Tooltip title="Texts" arrow>
 							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
-								<MenuBookIcon sx={{ fontSize: 40, pl: 2 }} />
+								<MenuBookIcon sx={{ fontSize: 35, px: 2, mb: -1 }} />
 							</IconButton>
 						</Tooltip>
+
 						{userState.entities.length === 0 ?
 							<Tooltip title="Me" arrow>
 								<IconButton
@@ -172,26 +181,4 @@ export default function Navbar() {
       {renderMenu}
     </Box>
 	)
-
-	// 	<header style={{ backgroundColor: "Gainsboro", 'paddingTop':5, 'paddingBottom':5 }} >
-	// 		<Link to='/' style={{ 'paddingLeft':15, 'paddingRight':15, fontSize:30 }} >Marginalia</Link>
-	// 		{/* {user && allUsers ? */}
-	// 		{userState.entities.length > 0 ?
-	// 			<Fragment>
-	// 				<Link to='/users'>Users</Link>
-	// 				<Link to='/texts' style={{ 'paddingLeft':15}} >Texts</Link>
-	// 			</Fragment>
-	// 		: null}
-	// 		{userState.entities.length > 0 ? 
-	// 			<Fragment>
-	// 				<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} >
-	// 					<span style={{'paddingLeft':15, 'paddingRight':15}}>Welcome, <Link to={`/users/${user.id}`} >{user.fullname}</Link></span>
-	// 					<button onClick={handleLogout}>Logout</button>
-	// 				</span>				
-	// 			</Fragment>
-	// 		:
-	// 			<span style={{ float: "right", 'paddingRight':15, 'paddingTop':10 }} ><b><Link to='/login'>Please login</Link></b></span>
-	// 		}
-	// 	</header>
-	// )
 }
