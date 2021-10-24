@@ -28,6 +28,8 @@ export default function ComRepShow({ comment, litTextId }) {
 	const dispatch = useDispatch() 
 	const history = useHistory()
 
+	console.log("history", history)
+
 	const isParentQuestion = () => {
 		if (comment.com_types.find(type => type.id === 2)) {
 				return true
@@ -126,126 +128,133 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	return (
 		<div style={{ position: "relative"}}>
-		<Grid item xs={12} >
-		<Grid container spacing={2} wrap="nowrap">
-				{renderComment.deleted ? null : 
-					<CommentType comTypes={renderComment.com_types} />
-				}
-			<Grid item >
-				{renderComment.deleted ? 
-					<Avatar sx={{ bgcolor: "#eee" }}>
-						{ghost}
-					</Avatar>
-				: 
-					<Avatar 
-						alt={renderComment.fullname} 
-						src={renderComment.image} 
-						sx={{ cursor: "pointer", width: 60, height: 60, }} 
-						onClick={() => userClicked()} 
-					/>
-				}
-			</Grid>
-			<Grid justifyContent="left" item xs={9}>
-				<Typography 
-					onClick={userClicked} 
-					sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1, pb: 0 }} 
-				>
-					{renderComment.fullname}
-				</Typography>
-				{renderComment.deleted ? 
-					<Typography variant="body1" sx={{ mt:"12px", mb:1 }}>
-						{renderComment.content}
-					</Typography>	 
-				: 
-				<>
-					<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer", mt: 0, pt: 0, color: "#757575", fontWeight: 400 }} ><em>@{renderComment.username}</em></Typography>
-					<Typography variant="body1" sx={{ mt:2, mb:1 }}>
-						{renderComment.content}
-					</Typography>	
-				</>
-				}
-				<TimeAgoContainer 
-					created_at={renderComment.created_at} 
-					updated_at={renderComment.updated_at} 
-					isDeleted={renderComment.deleted} 
-					fromLitTextShow={false}
-				/>
-			</Grid>
-			</Grid>
-			<Grid item xs={12}>
-				{errors ? errors.map((e) => <div>{e}</div>) : null}
-				<div style={{ position: "relative" }}>
-					{!renderComment.parent_comment_id && !renderComment.deleted ?
-            <Tooltip title="Reply" arrow>
-							<AddCommentIcon size="large" sx={{ color: "#757575", ml:9, mt:2, mb:1 }} onClick={replyButtonClick}/> 
-						</Tooltip>
-					: null}
-					{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
-						<div style={{ justifyContent: "right" }} >
-							<IconButton id="deleteButton1" onClick={handleDeleteClick} sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:0 }}>
-								<DeleteTooltip title="Delete" arrow>
-									<DeleteIcon size="large" sx={{ color: "#732626" }} /> 
-								</DeleteTooltip>
-							</IconButton>
-		<Popper 
-			id={popperId} 
-			open={deleteClicked} 
-			anchorEl={anchorEl} 
-			placement="top" 
-			modifiers={[
-				{
-					name: 'preventOverflow',
-					enabled: true,
-					options: {
-						altAxis: true,
-						altBoundary: true,
-						tether: true,
-						rootBoundary: 'document',
-						padding: 5,
-					},
-				}
-			]}
-			transition>
-			{({ TransitionProps }) => (
-				<Fade {...TransitionProps} timeout={350}>
-					<Box sx={{ border: 1, p: 3, m: 2, bgcolor: 'background.paper', display:"flex", justifyContent: "center", borderColor: "#660000" }}>
-							<Button variant="contained" onClick={handleDeleteClick} sx={{ mr: 3, bgcolor: "6d4c41" }}>
-								Cancel
-							</Button>
-							<Button variant="contained" onClick={handleDelete} sx={{ bgcolor: "#660000" }}>
-								Delete
-							</Button>
-						{/* </Box> */}
-					</Box>
-				</Fade>
-			)}
-		</Popper>	
-									{/* : null} */}
-							<Tooltip title="Edit" arrow >
-								<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
-							</Tooltip>
-							{!renderComment.parent_comment_id ? null: <AddCommentIcon sx={{ visibility: "hidden", mt:2, mb:2}} />}
-							</div>
-					: null}					
-				</div>
-				{editClicked ? 
-					<CommentEditForm 
-						comment={comment}
-						editButtonClick={editButtonClick}
-						wrapSetErrors={wrapSetErrors}
-					/> 
-				: null}
-				{replyClicked ? 
-					<CommentNewForm 
-						litTextId={litTextId} 
-						parentCommentId={comment.id} 
-						replyButtonClick={replyButtonClick} 						
-						isParentQuestion={isParentQuestion()}
-					/>
-				: null} 
+			<Grid item xs={12} >
+				<Grid container spacing={2} wrap="nowrap">
 
-			</Grid>
-		</Grid>	
+					{renderComment.deleted ? null : 
+						<CommentType comTypes={renderComment.com_types} />
+					}
+
+					<Grid item >
+						{renderComment.deleted ? 
+							<Avatar sx={{ bgcolor: "#eee" }}>
+								{ghost}
+							</Avatar>
+						: 
+							<Avatar 
+								alt={renderComment.fullname} 
+								src={renderComment.image} 
+								sx={{ cursor: "pointer", width: 60, height: 60, }} 
+								onClick={() => userClicked()} 
+							/>
+						}
+					</Grid>
+
+					<Grid justifyContent="left" item xs={9}>
+						<Typography 
+							onClick={userClicked} 
+							sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1, pb: 0 }} 
+						>
+							{renderComment.fullname}
+						</Typography>
+
+						{renderComment.deleted ? 
+							<Typography variant="body1" sx={{ mt:"12px", mb:1 }}>
+								{renderComment.content}
+							</Typography>	 
+						: 
+						<>
+							<Typography variant="subtitle2" onClick={userClicked} sx={{ cursor: "pointer", mt: 0, pt: 0, color: "#757575", fontWeight: 400 }} ><em>@{renderComment.username}</em></Typography>
+							<Typography variant="body1" sx={{ mt:2, mb:1 }}>
+								{renderComment.content}
+							</Typography>	
+						</>
+						}
+
+						<TimeAgoContainer 
+							created_at={renderComment.created_at} 
+							updated_at={renderComment.updated_at} 
+							isDeleted={renderComment.deleted} 
+							fromLitTextShow={false}
+						/>
+					</Grid>
+				</Grid>
+
+				<Grid item xs={12}>
+					{errors ? errors.map((e) => <div>{e}</div>) : null}
+					<div style={{ position: "relative" }}>
+						{!renderComment.parent_comment_id && !renderComment.deleted ?
+							<Tooltip title="Reply" arrow>
+								<AddCommentIcon size="large" sx={{ color: "#757575", ml:9, mt:2, mb:1 }} onClick={replyButtonClick}/> 
+							</Tooltip>
+						: null}
+						{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
+							<div style={{ justifyContent: "right" }} >
+								<IconButton id="deleteButton1" onClick={handleDeleteClick} sx={{ color: "#732626", position: "absolute", right: 45, bottom: 5, mt:2, mb:0 }}>
+									<DeleteTooltip title="Delete" arrow>
+										<DeleteIcon size="large" sx={{ color: "#732626" }} /> 
+									</DeleteTooltip>
+								</IconButton>
+								<Popper 
+									id={popperId} 
+									open={deleteClicked} 
+									anchorEl={anchorEl} 
+									placement="top" 
+									modifiers={[
+										{
+											name: 'preventOverflow',
+											enabled: true,
+											options: {
+												altAxis: true,
+												altBoundary: true,
+												tether: true,
+												rootBoundary: 'document',
+												padding: 5,
+											},
+										}
+									]}
+									transition>
+									{({ TransitionProps }) => (
+										<Fade {...TransitionProps} timeout={350}>
+											<Box sx={{ border: 1, p: 3, m: 2, bgcolor: 'background.paper', display:"flex", justifyContent: "center", borderColor: "#660000" }}>
+													<Button variant="contained" onClick={handleDeleteClick} sx={{ mr: 3, bgcolor: "6d4c41" }}>
+														Cancel
+													</Button>
+													<Button variant="contained" onClick={handleDelete} sx={{ bgcolor: "#660000" }}>
+														Delete
+													</Button>
+												{/* </Box> */}
+											</Box>
+										</Fade>
+									)}
+								</Popper>	
+								<Tooltip title="Edit" arrow >
+									<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
+								</Tooltip>
+								{!renderComment.parent_comment_id ? null: <AddCommentIcon sx={{ visibility: "hidden", mt:2, mb:2}} />}
+								</div>
+						: null}					
+					</div>
+					
+					{editClicked ? 
+						<CommentEditForm 
+							comment={comment}
+							editButtonClick={editButtonClick}
+							wrapSetErrors={wrapSetErrors}
+						/> 
+					: null}
+
+					{replyClicked ? 
+						<CommentNewForm 
+							litTextId={litTextId} 
+							parentCommentId={comment.id} 
+							replyButtonClick={replyButtonClick} 						
+							isParentQuestion={isParentQuestion()}
+						/>
+					: null} 
+
+				</Grid>
+			</Grid>	
 		</div>
 	)
 }

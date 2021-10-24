@@ -19,7 +19,7 @@ export default function FilterDropdown({ poetryProseValue, handlePoetryProseValu
 				sx={{ minWidth: "112px", bgcolor: "#fefcf9" }}
 				>
 				{valueArr.map(val => 
-					<MenuItem value={val.toLowerCase()}>
+					<MenuItem key={val} value={val.toLowerCase()}>
 						{val}
 					</MenuItem>)
 				}

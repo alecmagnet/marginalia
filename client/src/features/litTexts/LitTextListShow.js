@@ -3,27 +3,21 @@ import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 import { Typography, Grid, Paper, Card } from '@mui/material'
 
 export default function LitTextListShow({ litText }) {
-	const { title, first_name, last_name, pubdate, content, id, prose, translator, fam_name_first } = litText
+	const { title, author_name, pubdate, content, id, prose, translator } = litText
 
+	console.log('litText', litText)
 	let parsedContent = ""
 	if (content && prose) {
 		parsedContent = content.replace(/(<([^>]+)>)/gi, " ")
 	} else if (content && !prose) {
-		parsedContent = content.replaceAll('</p><br/>', " // ")
+		parsedContent = content
 			.replace(/\u00A0/g, "")
-			.replaceAll('</p><br>', " // ")
-			.replaceAll('</p><br/>', " // ")
-			.replaceAll('<br/><br/>', " // ")
-			.replaceAll('<br><br>', " // ")
-			.replaceAll('</p><p></p>', " // ")
-			.replaceAll('</p>', " / ")
-			.replaceAll('<br>', " / ")
-			.replaceAll('<br/>', " / ")
-			.replace(/\s\s+/, " ")
+			.replace(/(<\/p><br>)|(<\/p><br\/>)|(<br\/><br\/>)|(<br><br>)|(<\/p><p><\/p>)/g, " // ")
+			.replace(/(<\/p>)|(<br\/>)|(<br>)/g, " / ")
 			.replace(/(<([^>]+)>)/gi, " ")
 	}
-	const firstHundred = parsedContent.slice(0, 150)
-	const showContent = firstHundred.replace(/\s.\w+$/, "")
+	const firstHundred = parsedContent.slice(0, 130)
+	const showContent = firstHundred.replace(/(\s\S+$)|(\W+\s\S+$)|(\W+$)/, "")
 
 	const history = useHistory()
 	const handlePaperClick = () => {
@@ -35,7 +29,6 @@ export default function LitTextListShow({ litText }) {
 		isProse = "Prose"
 	}
 
-	const renderName = () => fam_name_first ? `${last_name} ${first_name}` : `${first_name} ${last_name}`
 	const renderTranslator = () => {
 		if (translator.length > 0) {
 			return (
@@ -45,7 +38,6 @@ export default function LitTextListShow({ litText }) {
 			return ""
 		}
 	}
-	// const displayName = () => <>{renderName()} {renderTranslator()}</>
 
 
 	const displayDate = () => {
@@ -59,17 +51,20 @@ export default function LitTextListShow({ litText }) {
 		<Grid item >
 			<Paper 
 				elevation={6} 
-				sx={{ p:3, m: 3, cursor: "pointer", backgroundColor: "#fffaf5" }}
+				sx={{ p:3, m: 3, cursor: "pointer", }}
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
-				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{renderName()}</Typography>
+				<Typography variant="subtitle1" sx={{ textAlign:"center" }}>{author_name}</Typography>
 				{translator.length > 0 ?
 					<Typography variant="subtitle1" sx={{ textAlign:"center", mt: -1 }}>{renderTranslator()}</Typography> 
 				: null}
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{displayDate()}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 
-				<Card variant="outlined" sx={{ p:2, pt: 0, mt:2, mb:2, backgroundColor: "#fefcf9" }}>
+				<Card 
+					variant="outlined" 
+					sx={{ p:2, pt: 0, my:2, mx:5, }}
+				>
 					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
 						<em>Preview</em>
 					</Typography>				

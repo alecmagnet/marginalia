@@ -1,260 +1,225 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, } from '@mui/material'
-import LitTextListShow from '../litTexts/LitTextListShow'
-import UserHomePageShow from '../users/UserHomePageShow.js'
+import { useSelector } from 'react-redux';
+import { Typography, Grid, Box, ToggleButton, ToggleButtonGroup, Avatar, Paper, Card } from '@mui/material'
+import HpButtons from './HpButtons'
+import LitTextListShow from "../litTexts/LitTextListShow"
+import TimeAgoContainer from '../shared/TimeAgoContainer';
 
 export default function Homepage() {
-  const litTextsState = useSelector((state) => state.litTexts)
-	const allUsersState = useSelector((state) => state.allUsers)
-	const getEntities = (state) => state.entities
-  const userState = useSelector((state) => state.user)
-  const user = userState.entities.length > 0 ? userState.entities[0] : null
+	const initialState = () => []
+	const initialComs = () => "coms"
+	const [comments, setComments] = useState(initialState())
+	const [litTexts, setLitTexts] = useState(initialState())
+	const [comsOrTexts, setComsOrTexts] = useState(initialComs())
 	const history = useHistory()
 
-	let recentlyAdded = []
-	if (litTextsState.status === "idle" && litTextsState.entities.length > 0) {
-		let toSort = [...getEntities(litTextsState)]
-		let toSortTwo = [...toSort]
-		let sortArr = toSortTwo.sort((a, b) => {
-			let dateTimeA = Date.parse(a.created_at) 
-			let dateTimeB = Date.parse(b.created_at)
-			return dateTimeB - dateTimeA
-		})
-		let sliceArr = sortArr.slice(0,4)
-		recentlyAdded = sliceArr
+	const userState = useSelector((state) => state.user)
+  const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
+	
+	const getComments = () => {
+		fetch('/recent_comments')
+		.then(r => r.json())
+		.then(data => setComments(() => data))
 	}
 
-	let recentlyJoined = []
-	if (allUsersState.status === "idle" && allUsersState.entities.length > 0) {
-		let toSort = [...getEntities(allUsersState)]
-		let toSortTwo = [...toSort]
-		let sortArr = toSortTwo.sort((a, b) => {
-			let dateTimeA = Date.parse(a.created_at) 
-			let dateTimeB = Date.parse(b.created_at)
-			return dateTimeB - dateTimeA
-		})
-		let sliceArr = sortArr.slice(0,4)
-		recentlyJoined = sliceArr
+	const getLitTexts = () => {
+		fetch('/recent_lit_texts')
+		.then(r => r.json())
+		.then(data => setLitTexts(() => data))
 	}
 
-	const [ litTextOrder, setLitTextOrder ] = useState("recentlyAdded")
-	const [ allUserOrder, setAllUserOrder ] = useState("recentlyAdded")
+	useEffect(() => {
+		getComments()
+		getLitTexts()
+	}, [])
+	console.log("Comments", comments)
+	// console.log("litTexts", litTexts)
 
-	const handleLitTextOrder = (event, newOrder) => {
-		setLitTextOrder(newOrder)
+
+	const handleComsOrTexts = (event, newOrder) => {
+		setComsOrTexts(() => newOrder)
 	}
 
-	const handleAllUserOrder = (event, newOrder) => {
-		setAllUserOrder(newOrder)
+	const handleImgButtonClick = (e) => {
+		history.push(`/${e}`)
 	}
 
-	const newestComment = (el) => {
-		let sortArrRaw = [...el.comments]
-		let sortArr = sortArrRaw.sort((a, b) => {
-			let dateTimeA = Date.parse(a.created_at) 
-			let dateTimeB = Date.parse(b.created_at)
-			return dateTimeB - dateTimeA
-		})
-		if (sortArr.length === 0) {
-			return 0
+
+	const imgBtnTitles = () => {
+		if (user) {
+			return [
+				{
+					"name": "Library",
+					"value": "texts"
+				}, 
+				{
+					"name": "Members",
+					"value": "users"
+				},
+			]
 		} else {
-			let newest = sortArr[0]
-			// console.log(newest)
-			let newestCreatedAt = Date.parse(newest.created_at)
-			return newestCreatedAt
+			return [
+				{
+					"name": "Log in",
+					"value": "login"
+				}, 
+				{
+					"name": "Sign up",
+					"value": "signup"
+				},
+			]
 		}
 	}
 
-	const recentlyCommented = (arr) => {
-		let sortArrRaw = [...arr]
-		let sortArr = sortArrRaw.sort((a, b) => newestComment(b) - newestComment(a))
-		let topFour = sortArr.slice(0,4)
-		return topFour
-	}
+	const images = [
+		{
+			url: 'https://az334034.vo.msecnd.net/images-5/vanitas-still-life-with-a-candlestick-musical-instruments-dutch-books-a-writing-set-an-astrological-and-a-terrestial-globe-and-an-hourglass-all-on-a-draped-table-evert-collier-1662-55185426.jpg',
+			title: imgBtnTitles()[0].name,
+			value: imgBtnTitles()[0].value,
+			width: '50%',
+		},
+		{
+			url: 'https://image.invaluable.com/housePhotos/sothebys/97/580697/H0046-L88399130.jpg',
+			title: imgBtnTitles()[1].name,
+			value: imgBtnTitles()[1].value,
+			width: '50%',
+		},
+	]
 
-	const handleClickLitTexts = () => {
-		history.push("/texts")
-	}
 
-	const handleClickAllUsers = () => {
-		history.push("/users")
-	}
+	const toggleArr = [
+		["coms", "Newest Comments"],
+		["texts", "Recently Added Texts"]
+	]
 
-	const renderLitTexts = () => {
-		if (litTextOrder === "recentlyAdded") {
-			let toMap = [...recentlyAdded]
-			let mappedArr = toMap.map((lt) => <LitTextListShow key={lt.id} litText={lt} />)
-			return mappedArr
-		} else if (litTextOrder === "recentComment") {
-			let rawArr = [...getEntities(litTextsState)]
-			let arrTwo = recentlyCommented(rawArr)
-			let toMap = [...arrTwo]
-			let mappedArr = toMap.map((lt) => <LitTextListShow key={lt.id} litText={lt} />)
-			return mappedArr
-		}
-	}
 
-	const renderAllUsers = () => {
-		if (allUserOrder === "recentlyAdded") {
-			let toMap = [...recentlyJoined]
-			let mappedArr = toMap.map((u) => <UserHomePageShow key={u.id} showUser={u} />)
-			return mappedArr
-		} else if (allUserOrder === "recentComment") {
-			let rawArr = [...getEntities(allUsersState)]
-			let arrTwo = recentlyCommented(rawArr)
-			let toMap = [...arrTwo]
-			let mappedArr = toMap.map((u) => <UserHomePageShow key={u.id} showUser={u} />)
-			return mappedArr
-		}
-	}
 
-	if (user && litTextsState.entities.length > 0 && allUsersState.entities.length > 0) {
-		return(
-			<Grid container spacing={3} justifyContent="center" >
-				<Grid item
-					xs={6}
-					justifyContent="center"
-					sx={{ mt: 5, }}
-				>
-					<Box sx={{ bgcolor:"primary.dark", }} >
-						<Box
-							onClick={handleClickLitTexts}
-							sx={{ p: 3, cursor: "pointer", }}
+	const displayRecentComments = () => {
+		return comments.sort(
+			(a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
+		).map(com => {
+			const comLitText = { 
+				"title": com.lit_text_title,
+				"author_name": com.lit_text_author,
+				"pubdate": com.lit_text_date,
+				"content": com.lit_text_preview, 
+				"id": com.lit_text_id, 
+				"prose": com.lit_text_prose, 
+				"translator": com.lit_text_translator 
+			}
+			return (
+				<Grid container item xs={10}>
+					<Paper
+						sx={{ width: "100%", p: 2, my: 1, pt: 4 }}
+						elevation={2}
+					>
+						<Grid container item xs={12}>
+					{/* ADD COMTYPES */}
+					<Grid item xs >
+							<Avatar 
+								alt={com.user_fullname} 
+								src={com.user_image} 
+								sx={{ cursor: "pointer", width: 120, height: 120, ml: 5, mt: 1 }} 
+								onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
+							/>
+					</Grid>
+					<Grid justifyContent="left" item xs={9.5}>
+						<Box sx={{ ml: 2, mt: 1 }}>
+						<Typography 
+							onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
+							sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1 }} 
 						>
-							<Typography 
-								variant="h3"
-								sx={{ color: "#fff", textAlign: "center", m: 1, }}
-							>
-								{"POEMS & STORIES"}
-							</Typography>
-							<Typography 
-								variant="h6"
-								sx={{ color: "#81a8bb", textAlign: "center", textDecoration: "underline", }}
-							>
-								View All
-							</Typography>
+							{com.user_fullname}
+						</Typography>
+						<Typography variant="body1" sx={{ mt:"12px", mb:1 }}>
+							{com.content}
+						</Typography>	
+						<TimeAgoContainer 
+							created_at={com.created_at} 
+							updated_at={com.updated_at} 
+							isDeleted={false} 
+							fromLitTextShow={false}
+						/>
 						</Box>
-						<Box textAlign="center">
-							<ToggleButtonGroup
-								value={litTextOrder}
-								exclusive
-								onChange={handleLitTextOrder}
-								aria-label="Arrange Poem and Story Previews"
-								sx={{ bgcolor: "#fffaf5", }}
-							>
-								<ToggleButton 
-									value="recentlyAdded"
-									aria-label="Most recently added"
-								>
-									Recently Added
-								</ToggleButton>
-								<ToggleButton 
-									value="recentComment"
-									aria-label="Most recent comment"
-								>
-									Recent Activity
-								</ToggleButton>
-							</ToggleButtonGroup>
-						</Box>
-						{renderLitTexts()}
-						<Box 
-							textAlign="center"
-							justifyContent="center"
-							sx={{ p: 2 }}
-						>
-							<Box
-								textAlign="center"
-								onClick={handleClickLitTexts}
-								sx={{ 
-									bgcolor: "#fffaf5", 
-									borderRadius: 9, 
-									cursor: "pointer",
-									pt: 1, pb: 1, 
-									mb: 4, ml: 20, mr: 20, 
-								}}
-							>
-								See More...
-							</Box>
-						</Box>
-					</Box>
+					</Grid>
+						<LitTextListShow key={com.lit_text_id} litText={comLitText}/>
+					</Grid>
+					</Paper>
 				</Grid>
-
-				<Grid item
-					xs={4}
-					sx={{ mt: 5 }}
-				>
-					<Box sx={{ bgcolor:"primary.dark", }} >
-						<Box
-							onClick={handleClickAllUsers}
-							sx={{ p: 3, cursor: "pointer", }}
-						>
-							<Typography 
-								variant="h3"
-								sx={{ color: "#fff", textAlign: "center", m: 1, }}
-							>
-								USERS
-							</Typography>
-							<Typography 
-								variant="h6"
-								sx={{ color: "#81a8bb", textAlign: "center", textDecoration: "underline", }}
-							>
-								View All
-							</Typography>
-						</Box>
-						<Box textAlign="center">
-							<ToggleButtonGroup
-								value={allUserOrder}
-								exclusive
-								onChange={handleAllUserOrder}
-								aria-label="Arrange User Previews"
-								sx={{ bgcolor: "#fffaf5", }}
-							>
-								<ToggleButton 
-									value="recentlyAdded"
-									aria-label="Most recently added"
-								>
-									Recently Joined
-								</ToggleButton>
-								<ToggleButton 
-									value="recentComment"
-									aria-label="Most recent comment"
-								>
-									Recent Activity
-								</ToggleButton>
-
-							</ToggleButtonGroup>
-						</Box>
-						{renderAllUsers()}
-						<Box 
-							textAlign="center"
-							justifyContent="center"
-							sx={{ p: 2 }}
-						>
-							<Box
-								textAlign="center"
-								onClick={handleClickAllUsers}
-								sx={{ 
-									bgcolor: "#fffaf5", 
-									borderRadius: 9, 
-									cursor: "pointer",
-									pt: 1, pb: 1, 
-									mb: 4, ml: 12, mr: 12, 
-								}}
-							>
-								See More...
-							</Box>
-						</Box>
-					</Box>
-				</Grid>
- 			</Grid>
-		)
-	} else {
-		return(
-			<div className="centered-in-window" >
-				<div className="dot-flashing"></div>
-			</div>
-		)
+			)
+		})
 	}
+
+	const displayTextPreviews = () => 
+		litTexts.sort(
+			(a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
+		).map(
+			text => <LitTextListShow key={text.id} litText={text}/>
+		)
+
+
+	return(
+		<Grid container justifyContent="center">
+
+			<Grid item xs={10} sx={{ mt: 3 }}>
+				<HpButtons images={images} handleImgButtonClick={handleImgButtonClick} />
+			</Grid>
+
+			<Grid item xs={12}>
+				<Typography 
+					id="top" 
+					variant="h2" 
+					textAlign="center" 
+					sx={{ pt:2, pb:2, fontWeight: 410 }}
+				>
+					Recent Activity
+				</Typography>
+			</Grid>
+
+
+			{comments.length > 0 && litTexts.length >0 ?
+				<>
+					<Box textAlign="center" sx={{ pb: 2 }}>
+						<ToggleButtonGroup
+							exclusive
+							value={comsOrTexts}
+							onChange={handleComsOrTexts}
+							aria-label="Newest comments or recent texts"
+						>
+							{toggleArr.map(el => {return (
+								<ToggleButton 
+									value={el[0]}
+									aria-label={el[1]}
+									sx={{ color: "fff"}}
+								>
+									{el[1]}
+								</ToggleButton>
+							)})}
+						</ToggleButtonGroup>
+					</Box>
+
+					{comsOrTexts === "coms" ? 
+						<>
+							
+							{/* RECENT COMMENTS */}	
+							{displayRecentComments()}
+						</>
+					:
+						<>
+							
+							{/* RECENT LITTEXTS */}
+							<Grid container item xs={10}>
+								{displayTextPreviews()}
+							</Grid>
+						</>
+					}
+				</>
+			: 
+				<div className="centered-in-window" >
+						<div className="dot-flashing"></div>
+				</div>
+			}					
+		</Grid>
+	)
 }

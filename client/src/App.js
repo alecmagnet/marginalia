@@ -11,7 +11,7 @@ import LitTextsContainer from './features/litTexts/LitTextsContainer';
 import LitTextShow from './features/litTexts/LitTextShow';
 import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
-import Homepage from './features/homepage/Homepage'
+import Homepage from './features/homepage/Homepage';
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
@@ -22,8 +22,8 @@ export default function App() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const userState = useSelector((state) => state.user)
   const commentsState = useSelector((state) => state.comments)  
+  const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
   
   const handleAuth = () => {

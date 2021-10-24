@@ -3,7 +3,7 @@ class LitTextsController < ApplicationController
 
 	# GET /recent_lit_texts
 	def recent
-		lit_texts = LitText.last(7) 
+		lit_texts = LitText.last(5) 
 		render json: lit_texts, each_serializer: RecentLitTextSerializer, status: :ok
 	end
 

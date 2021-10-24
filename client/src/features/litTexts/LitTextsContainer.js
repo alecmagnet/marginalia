@@ -126,9 +126,7 @@ export default function LitTextsContainer () {
 		} else if (litTextsOrder === "added") {
 			arrTwo = [...recentlyAdded(filtArr).reverse()]
 		}
-		let toMap = [...arrTwo]
-		let mappedArr = toMap.map((text) => <LitTextListShow key={text.id} litText={text} />)
-		return mappedArr
+		return [...arrTwo].map((text) => <LitTextListShow key={text.id} litText={text} />)
 	}
 
 
@@ -148,7 +146,7 @@ export default function LitTextsContainer () {
 
 			</Grid>
 			<Grid 
-				item xs={9}
+				item xs={10}
 				>
 				{status === "loading" ?
 					<div className="centered-in-window" >
