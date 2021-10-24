@@ -34,6 +34,7 @@ export default function LitTextsContainer () {
 	}		
 	const handleLitTextsOrder = (e) => {
 		setLitTextsOrder(e.target.value)
+		setIsReversed(() => false)
 	}			
 	const handlePoetryProseValue = (e) => {
 		setPoetryProseValue(e.target.value)
