@@ -200,19 +200,11 @@ export default function Homepage() {
 					</Box>
 
 					{comsOrTexts === "coms" ? 
-						<>
-							
-							{/* RECENT COMMENTS */}	
-							{displayRecentComments()}
-						</>
+						displayRecentComments()
 					:
-						<>
-							
-							{/* RECENT LITTEXTS */}
-							<Grid container item xs={10}>
-								{displayTextPreviews()}
-							</Grid>
-						</>
+						<Grid container item xs={10}>
+							{displayTextPreviews()}
+						</Grid>
 					}
 				</>
 			: 

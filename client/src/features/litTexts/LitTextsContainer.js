@@ -143,9 +143,7 @@ export default function LitTextsContainer () {
 				justify="center">
 					<Typography id="top" variant="h2" justify="center" sx={{ pt:4, pb:3, fontWeight: 410 }}>Library</Typography>
 			</Grid>
-			<Grid item xs={9}>
 
-			</Grid>
 			<Grid 
 				item xs={10}
 				>

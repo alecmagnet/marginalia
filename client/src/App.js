@@ -12,6 +12,7 @@ import LitTextShow from './features/litTexts/LitTextShow';
 import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage';
+import AboutPage from './features/homepage/AboutPage';
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
@@ -75,10 +76,16 @@ export default function App() {
                   <UserShow />
                 </Route>
 
+                <Route exact path='/about'>
+                  <AboutPage />
+                </Route>
+
                 <Route exact path='/'>
                   <Homepage />
                 </Route>
+
               </Fragment>
+              
             : userState.status === "pending" || commentsState.status === "pending" ?
               <Fragment>
                 <div className="centered-in-window" >

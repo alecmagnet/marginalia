@@ -131,7 +131,6 @@ export default function Navbar() {
 						</Typography>
 					</Tooltip>
           <Box sx={{ flexGrow: 1 }} />
-          {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box> */}
 						<Tooltip title="About" arrow>
 							<IconButton aria-label="about" color="inherit" onClick={handleAboutClick} >
 								<InfoIcon sx={{ fontSize: 32, px: 2, mb: -1  }} />
