@@ -47,43 +47,59 @@ export default function Homepage() {
 
 
 	const imgBtnTitles = () => {
-		if (user) {
-			return [
-				{
-					"name": "Library",
-					"value": "texts"
-				}, 
-				{
-					"name": "Members",
-					"value": "users"
-				},
-			]
-		} else {
-			return [
-				{
-					"name": "Log in",
-					"value": "login"
-				}, 
-				{
-					"name": "Sign up",
-					"value": "signup"
-				},
-			]
+		const imgBtnConditional = () => {
+			if (user) {
+				return [
+					{
+						"name": "Library",
+						"value": "texts"
+					}, 
+					{
+						"name": "Members",
+						"value": "users"
+					},
+				]
+			} else {
+				return [
+					{
+						"name": "Log in",
+						"value": "login"
+					}, 
+					{
+						"name": "Sign up",
+						"value": "signup"
+					},
+				]
+			}
 		}
+		return [
+			...imgBtnConditional(),
+			{
+				"name": "About",
+				"value": "about"
+			}
+		]
 	}
+	console.log(imgBtnTitles())
 
 	const images = [
 		{
 			url: 'https://az334034.vo.msecnd.net/images-5/vanitas-still-life-with-a-candlestick-musical-instruments-dutch-books-a-writing-set-an-astrological-and-a-terrestial-globe-and-an-hourglass-all-on-a-draped-table-evert-collier-1662-55185426.jpg',
 			title: imgBtnTitles()[0].name,
 			value: imgBtnTitles()[0].value,
-			width: '50%',
+			width: '33.33%',
 		},
 		{
 			url: 'https://image.invaluable.com/housePhotos/sothebys/97/580697/H0046-L88399130.jpg',
 			title: imgBtnTitles()[1].name,
 			value: imgBtnTitles()[1].value,
-			width: '50%',
+			width: '33.34%',
+		},
+		{
+			url: 'https://i.pinimg.com/originals/3b/2e/92/3b2e9253eb51787a860a36807702c66e.jpg',
+			title: imgBtnTitles()[2].name,
+			value: imgBtnTitles()[2].value,
+			width: '33.33%',
 		},
 	]
 

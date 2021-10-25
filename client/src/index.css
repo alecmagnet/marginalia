@@ -50,6 +50,11 @@ div.fromQuill > p {
    padding: 0px;
 }
 
+.link {
+  color: "#455a64";
+}
+
+
 .direction {
   color: "#616161"; 
   font-size: "85%"; 

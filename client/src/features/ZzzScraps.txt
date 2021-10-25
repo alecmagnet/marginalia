@@ -93,6 +93,87 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+FROM About DRAFT OF DEPENDENCIES ARRAY TO DRY UP CODE
+	const dependencyLinks = [
+		["MUI", "https://mui.com/"],
+		["Quill", "https://quilljs.com/"],
+		["React-Quill", "https://github.com/zenoamaro/react-quill"],
+		["html-react-parser, "https://github.com/remarkablemark/html-react-parser#readme"],
+		["Rails Html Sanitizers, "https://github.com/rails/rails-html-sanitizer"],
+		["bcrypt", "https://github.com/bcrypt-ruby/bcrypt-ruby"],
+	]
+
+							>Flatiron</a>. It's coded using JS, React, Redux, Ruby, and Rails, along with <a
+							href="https://mui.com/"
+							rel="noreferrer" target="_blank" 
+							style={{ color: "#455a64"}}
+						>MUI</a>, <a
+							href="https://quilljs.com/"
+							rel="noreferrer" target="_blank" 
+							style={{ color: "#455a64"}}
+						>Quill</a>, and a few other dependencies. You can see the repo on <a
+
+			<Grid 
+				item xs={9} 
+				align="center" 
+				justify="center">
+					<Typography id="top" variant="h2" sx={{ pt:4, pb:3, fontWeight: 399 }}>About <span> </span>
+							<Box component="span" sx={{ fontFamily: "Didot", fontWeight: "440", fontSize: 90 }}>
+								Marginalia
+							</Box>
+					</Typography>
+			</Grid>
+
+							<li>
+								Securely sign up, log in, log out, and remain authorized on refresh
+							</li>
+							<li>
+								Upload poems, stories, and other literary texts 
+							</li>
+							<li>
+								Edit texts they uploaded
+							</li>
+							<ul>
+								<li>
+									Or, if the user is a &ldquo;librarian&rdquo; user-type, edit any uploaded text
+								</li>
+							</ul>
+							<li>
+								Browse, search, filter, and read those texts
+							</li>
+							<li>
+								Post comments on texts and replies to other comments
+							</li>
+							<li>
+								Edit and delete their own comments
+							</li>
+							<ul>
+								<li>
+									If a comment has replies or is a reply, deleting it will leave a ghost that says &ldquo;comment was deleted&rdquo; rather than simply vanishing
+								</li>
+							</ul>
+							<li>
+								Assign their comments multiple comment types, such &ldquo;question&rdquo; or &ldquo;critique&rdquo;
+							</li>
+							<ul>
+								<li>
+									Add and remove comment types from their comments
+								</li>
+							</ul>
+							<li>
+								Browse, search, and filter all comments on a particular text
+							</li>
+							<li>
+								Browse, search, and filter other users&rsquo; profiles
+							</li>
+							<li>
+								Edit their own profile
+							</li>
+							<li>
+								Delete their account
+							</li>
+
+
 -----------------------------------------------
 
 FROM ComRepShow BEFORE :NAME METHOD ON BACKEND
