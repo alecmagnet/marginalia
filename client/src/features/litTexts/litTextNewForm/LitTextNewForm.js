@@ -24,7 +24,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		fam_name_first: false,
 		translator: ""
 	})
-	console.log("formData", formData)
+	// console.log("formData", formData)
 
 	useEffect(() => {
 		if (isEdit) {
@@ -42,7 +42,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 			setQuillData(litText.content)
 			if (litText.pubdate < 0) setCeOrBce("bce")
 		}
-	}, [])
+	}, [litText, isEdit])
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
