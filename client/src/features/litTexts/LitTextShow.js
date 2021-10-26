@@ -78,7 +78,7 @@ export default function LitTextShow() {
 			alignItems="center"
 		>
 			<Grid 
-				item xs={9} sx={{ maxWidth: 850 }}
+				item xs={11} sm={12} md={11}
 			>
 				<div style={{ 
 					display:"flex", 
@@ -99,7 +99,7 @@ export default function LitTextShow() {
 				</div>
 				<Paper 
 					elevation={9} 
-					sx={{ p:3, m: 3, mt: 1, backgroundColor: "#fffaf5", justifyContent:"center", }}
+					sx={{ p:3, m: 3, mt: 1, justifyContent:"center", minWidth: "350px" }}
 				>
 					<Typography 
 						variant="subtitle1" 
@@ -215,15 +215,19 @@ export default function LitTextShow() {
 								</Tooltip>
 							}
 						</div>
- 					}
-							
+ 					}		
 				</Paper>
 			</Grid>
-			<div style={{padding: 10, marginLeft: "24%", marginRight: "24%", maxWidth: 760}} id="comments" >
-					<CommentsList 
-						litTextId={litText.id} 
-					/>
-			</div>
+			<Grid 
+				id="comments"
+				container item 
+				xs={10} sm={11} md={10} 
+				justifyContent="center" 
+			>
+				<CommentsList 
+					litTextId={litText.id} 
+				/>
+			</Grid>
 		</Grid>
 		)
 	} else {
