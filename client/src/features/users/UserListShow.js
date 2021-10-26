@@ -5,7 +5,13 @@ import { Typography, Grid, Paper, Avatar } from '@mui/material'
 export default function UserListShow({ showUser }) {
 	const { username, name, bio, id, image } = showUser
 	const firstSixty = bio ? `${bio.slice(0, 65)}` : ""
-	const showBio = firstSixty.replace(/\s.\w+$/, "")
+	const showBio = () => {
+		if (firstSixty.length > 50) {
+			return <span>{firstSixty.replace(/\s.\w+$/, "")}&nbsp;.&nbsp;.&nbsp;.</span>
+		} else {
+			return firstSixty
+		}
+	}
 
 	const history = useHistory()
 	const handlePaperClick = () => {
@@ -31,7 +37,7 @@ export default function UserListShow({ showUser }) {
 					<Grid justifyContent="left" item xs={9}>
 						<Typography variant="h5" sx={{ pt:"3px" }} ><b>{name}</b></Typography>
 						<Typography variant="subtitle1" sx={{ color: "#616161", mt: -1 }} ><em>@{username}</em></Typography>
-						<Typography variant="body2" sx={{ mt: 2, mb: 2 }} ><span style={{ color: "#494949", fontSize: 19 }} >B<span style={{ fontVariant: "small-caps", fontSize: 21 }} >io</span>:</span> {showBio}&nbsp;.&nbsp;.&nbsp;.</Typography> 
+						<Typography variant="body2" sx={{ mt: 2, mb: 2 }} ><span style={{ color: "#494949", fontSize: 19 }} >B<span style={{ fontVariant: "small-caps", fontSize: 21 }} >io</span>:</span> {showBio()}</Typography> 
 						<TotalCommentsAndReplies Id={showUser.id} source="user" />
 					</Grid>
 				</Grid>
