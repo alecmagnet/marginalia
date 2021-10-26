@@ -25,6 +25,9 @@ export default function ComRepShow({ comment, litTextId }) {
   const userState = useSelector((state) => state.user)
   const userId = userState.entities.length > 0 ? userState.entities[0].id : null
 
+	// const commentState = useSelector((state) => state.comments)
+	// const undeletedChildren = () => [...commentState.entities].filter(com => com.parent_comment_id === comment.id && com.deleted === false)
+
 	const dispatch = useDispatch() 
 	const history = useHistory()
 
