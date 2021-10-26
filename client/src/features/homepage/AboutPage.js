@@ -1,4 +1,4 @@
-import { Typography, Grid, Box, Button, Tooltip, Paper } from '@mui/material'
+import { Typography, Grid, Box, Stack, Button, Tooltip, Avatar } from '@mui/material'
 import { useHistory, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import HpButtons from './HpButtons'
@@ -71,12 +71,12 @@ export default function AboutPage() {
 	]
 
 
-	const toggleArr = [
-		["about", "About"],
-		["coding", "Coding"],
-		[],
-	]
-
+	const buttonArr = ["What Is It?", "How Do I Use It?", "How Was It Made?", "Who Made It?"]
+	const buttons = <Stack spacing={2} direction="row" sx={{ mb: 1 }}>
+		{buttonArr.map(item => 
+			<Button variant="text" id={item} key={buttonArr.indexOf(item)}>{item}</Button>
+			)}
+	</Stack>
 
 	const userStoryItems = [
 		["Securely sign up, log in, log out, and remain authorized on refresh"],
@@ -116,16 +116,74 @@ export default function AboutPage() {
 		["bcrypt", "https://github.com/bcrypt-ruby/bcrypt-ruby"],
 	]
 
-	const otherDeps = dependencyLinks.map(item => {
+	const myProfiles = [
+		["LinkedIn", "https://www.linkedin.com/in/alec-magnet/"],
+		["GitHub", "https://github.com/alecmagnet"],
+		["Medium", "https://medium.com/@alecmagnet"],
+	]
+
+	const linkList = (arr) => arr.map(item => {
 		return(
-			<span>{item === dependencyLinks[dependencyLinks.length - 1] ? "and " : null}
+			<span key={arr.indexOf(item)}>{item === arr[arr.length - 1] ? "and " : null}
 				<a
 				href={item[1]}
 				rel="noreferrer" target="_blank" 
 				style={{ color: "#455a64"}}
-			>{item[0]}</a>{item === dependencyLinks[dependencyLinks.length - 1] ? null : ", "}</span> 		
+			>{item[0]}</a>{item === arr[arr.length - 1] ? null : ", "}</span> 		
 		)
 	})
+
+
+	const whatIsMargArr = [
+		"Marginalia is a social reading and annotation site where people can have conversations with one another about literary works they share and read.",
+		<span>The word <em>marginalia</em> refers to the notes and markings that readers make in the margins of page. These notes leave traces of a reader&rsquo;s progress through a text. They also provide a way for readers to communicate with one another, sometimes from across centuries. The first poem in our database – appropriately, &ldquo;<Link to="/texts/1" style={{ color: "#455a64" }}>Marginalia</Link>&rdquo; by Billy Collins – conveys how moving these moments of unexpected contact with another reader can be.</span>,
+		"This app, Marginalia, seeks to restore the social dimension of reading by providing a venue for readers to speak with one another through the comments they leave on literary texts."
+	]
+
+	const whatCanUserArr = [
+		<span>
+			A user of Marginalia can:
+			<ul>
+				{storyList(userStoryItems)}
+			</ul>
+		</span>
+	]
+
+	const howWasItMadeArr = [
+		<span>
+			Marginalia was my final project for software engineering bootcamp at <a 
+				href="https://flatironschool.com/campus-and-online-coding-bootcamp/" 
+				rel="noreferrer" target="_blank" 
+				style={{ color: "#455a64"}}
+			>Flatiron</a>. Please check out the repo on <a
+				href="https://github.com/alecmagnet/marginalia"
+				rel="noreferrer" target="_blank" 
+				style={{ color: "#455a64"}}
+			>GitHub</a>.
+		</span>,
+		<span>
+			I coded Marginalia using JS, React, Redux, Ruby, and Rails, along with several other dependencies, including {linkList(dependencyLinks)}.
+		</span>,
+		<span>
+			Through trial and a <em>lot</em> of error, I learned a crucial lesson about coding, which I plan to apply from here on out: <b>
+				Plan for modularity by making your code as straightforward and standardized as possible!
+			</b>
+		</span>,
+		"Since you can't anticipate all the ways you might reuse a component, your needs to be flexible.",
+		"The main thing that tripped me up here was style. I taught myself to use MUI as I went, so the components I wrote early on use a lot of unnessary styling that only really works in the instance where I first call them. As I update this project, I hope I to simplify my style and make those components more reusable.",
+		"Another thing you'll notice as you look through my repo is that I learned how to make my code drier along the way. That, too, requires simple, standardized code. It's harder to map through an array of menu items if you need to put different sx props on the first and last ones. I got much better at this as I went. Next time, I won't give myself so many tangles to smooth out and refactor."
+	]
+
+	const whoMadeItArr = [
+		"I did. Hello! My name is Alec Magnet. I graduate from coding bootcamp in October 2021 after thirteen years teaching literature and writing at the City College of New York, Marymount Manhattan College, and elsewhere. Now I'm looking for a full-stack software engineering position position where I can put the talents and enthusiasm I developed as an educator to use building tools that can use to learn, grow, and flourish.",
+		<span>Check me out on {linkList(myProfiles)}.</span>
+	]
+
+	const contentGrafs = (arr) => arr.map(item => 
+		<Typography key={arr.indexOf(item)} variant="body1" sx={{ pt: 2 }} >
+			{item} 
+		</Typography>		
+	)
 
 
 	return(
@@ -150,66 +208,35 @@ export default function AboutPage() {
 				</Typography>
 			</Grid>
 
+			<Grid item xs display="flex" justifyContent="center">
+				{buttons}
+			</Grid>
+
 			<Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}>
 				<Box sx={{ p: 6, pt: 1, mt: 0, }}>
-					<Typography variant="h4" justify="center" sx={{  }}>
+					<Typography id="Top" variant="h4" justify="center" sx={{  }}>
 						What is Marginalia?
 					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						Marginalia is a social reading and annotation site where people can have conversations with one another about literary works they share and read. 
+					{contentGrafs(whatIsMargArr)}
+					<Typography id="User Story" variant="h4" justify="center" sx={{ mt: 3 }}>
+						How Do I Use It?
 					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						The word <em>marginalia</em> refers to the notes and markings that readers make in the margins of page. These notes leave traces of a reader&rsquo;s progress through a text. They also provide a way for readers to communicate with one another, sometimes from across centuries. The first poem in our database – appropriately, &ldquo;<Link to="/texts/1" style={{ color: "#455a64" }}>Marginalia</Link>&rdquo; by Billy Collins – conveys how moving these moments of unexpected contact with another reader can be.  
+					{contentGrafs(whatCanUserArr)}
+					<Typography id="Coding" variant="h4" justify="center" sx={{ pt: 1 }}>
+						How Was It Made?
 					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						This app, Marginalia, seeks to restore the social dimension of reading by providing a venue for readers to speak with one another through the comments they leave on literary texts. 						
+					{contentGrafs(howWasItMadeArr)}
+					<Typography id="Bio" variant="h4" justify="center" sx={{ pt: 3 }}>
+						Who Made It?
 					</Typography>
-					<Typography variant="h4" justify="center" sx={{ mt: 3 }}>
-						What Can a User Do?
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						A user of Marginalia can:
-						<ul>
-							{storyList(userStoryItems)}
-						</ul>
-					</Typography>
-					<Typography variant="h4" justify="center" sx={{ pt: 1 }}>
-						What Did I Learn While Coding It?
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						Marginalia was my final project for software engineering bootcamp at <a 
-							href="https://flatironschool.com/campus-and-online-coding-bootcamp/" 
-							rel="noreferrer" target="_blank" 
-							style={{ color: "#455a64"}}
-						>Flatiron</a>. Please check out the repo on <a
-							href="https://github.com/alecmagnet/marginalia"
-							rel="noreferrer" target="_blank" 
-							style={{ color: "#455a64"}}
-						>GitHub</a>. 
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						I coded Marginalia using JS, React, Redux, Ruby, and Rails, along with several other dependencies, including {otherDeps}.   
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						Through trial and a <em>lot</em> of error, I learned a crucial lesson about coding, which I plan to apply from here on out: <b>
-							Plan for modularity by making your code as straightforward and standardized as possible!
-						</b>
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						Since you can't anticipate all the ways you might want to reuse a component, your needs to be flexible.   
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						The main thing that tripped me up here was style. Since I was teaching myself MUI as I went, the components I wrote early on use a lot of unnessary styling that only really works in the instance where I first call them. As I update this project, I hope I to simplify my style and make those components more reusable. 
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-						Another thing you'll notice as you look through my repo is that I learned how to make my code drier along the way. That, too, requires simple, standardized code. It's harder to map through an array of menu items if you need to put different sx props on the first and last ones. I got much better at this as I went. Next time, I won't give myself so many tangles to smooth out and refactor.  
-					</Typography>
-					<Typography variant="h4" justify="center" sx={{ pt: 3 }}>
-						Who Am I?
-					</Typography>
-					<Typography variant="body1" sx={{ pt: 2 }} >
-
-					</Typography>
+					<Avatar
+						variant="square"
+						alt="Alec Magnet" 
+						src="https://avatars.githubusercontent.com/u/85529561?v=4" 
+						sx={{ float: "left", cursor: "pointer", width: 135, height: 135, mt: 3, mr: 2, ml: 0 }} 
+						onClick={() => history.push("/users/1")} 
+					/>
+					{contentGrafs(whoMadeItArr)}				
 				</Box>
 			</Box>
 		</Grid>			
