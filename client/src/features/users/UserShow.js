@@ -6,7 +6,7 @@ import UserTextShow from "./UserTextShow"
 import LitTextListShow from '../litTexts/LitTextListShow'
 import { fetchUserById } from './showUserSlice'
 import { logoutUser } from '../users/userSlice'
-import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Grid, Typography, Avatar, Button, Divider, Popper, Fade, Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
 
 
 export default function UserShow() {
@@ -21,7 +21,6 @@ export default function UserShow() {
 
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities[0])
-	console.log("showUser from UserShow:", showUser)
 
 	useEffect(() => {
 		const fetchUser = () => dispatch(fetchUserById(params.id))
@@ -50,7 +49,6 @@ export default function UserShow() {
 	const showUserLitTexts = () => litTextsArr.filter(text => text.uploader_id === showUser.id)
 	// const showUserEditTexts = () => litTextsArr.filter(text => text.edit_user_id === showUser.id)
 	// console.log("UserShow showUserEditTexts", showUserEditTexts())
-	console.log("UserShow", "showUserLitTexts", showUserLitTexts())
 
 
 	const handleDeleteClick = (e) => {
