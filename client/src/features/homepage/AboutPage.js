@@ -199,6 +199,7 @@ export default function AboutPage() {
 
 	return(
     <Grid 
+			id = "top"
 			container 
 			justifyContent="Center"	
 			alignItems="center"
@@ -224,7 +225,7 @@ export default function AboutPage() {
 			</Grid>
 
 			<Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}>
-				<Box sx={{ p: 6, pt: 1, mt: 0, }}>
+				<Box sx={{ px: 6, pt: 1, pb: 3, mt: 0, }}>
 					<Typography id="what-is-it" variant="h4" justify="center" sx={{  }}>
 						What is Marginalia?
 					</Typography>
@@ -250,6 +251,9 @@ export default function AboutPage() {
 					{contentGrafs(whoMadeItArr)}				
 				</Box>
 			</Box>
-		</Grid>			
+			<HashLink smooth to="#top"> 
+				<Button variant="text">Top</Button>
+			</HashLink>
+		</Grid>		
 	)
 }
