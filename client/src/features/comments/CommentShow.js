@@ -14,7 +14,7 @@ export default function CommentShow({ comment, replies, litTextId }) {
 		<>
 		{unDeletedArr.length > 0 || undeletedChildren().length > 0 ?
 		<Grid 
-			item xs={10} sx={{ maxWidth: 800, minWidth: 500 }}
+			item xs={10} sx={{ minWidth: 350 }}
 		>
       <Paper sx={{ px:3, pt:4, pb:1, mb:2, }} elevation={3}>			
 			<ComRepShow 
