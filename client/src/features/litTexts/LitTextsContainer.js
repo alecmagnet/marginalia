@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
@@ -9,7 +9,7 @@ import FilterDropdown from './dropdowns/FilterDropdown'
 
 export default function LitTextsContainer () {
 	const { entities, status } = useSelector((state) => state.litTexts)
-	const litTextsArr = [...entities]
+	const litTextsArr = useMemo(() => {return [...entities]}, [entities])
 
 	const initialFiltered = () => [...litTextsArr]
 	const initialUnclicked = () => false
@@ -24,7 +24,7 @@ export default function LitTextsContainer () {
 	
 	useEffect(() => {if (litTextsArr.length > 0) {
 		setFilteredLitTexts([...litTextsArr])
-	}}, [entities])
+	}}, [litTextsArr])
 
 	const handleNewClick = () => {
 		setNewClicked(prev => !prev)
