@@ -200,7 +200,7 @@ export default function UserShow() {
 						{showUser.bio}
 					</Typography> 
 					<Typography variant="body2" sx={{ 
-						mb: 2, mt: 3, mb: 4, color: "#373737"
+						mb: 4, mt: 3, color: "#373737"
 					}}>
 						<em>Joined {renderDate}
 							<span style={{ 

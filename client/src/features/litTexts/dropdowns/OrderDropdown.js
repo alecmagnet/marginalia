@@ -4,7 +4,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton	from '@mui/material/IconButton'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
-import { Paper, Box, useTheme} from '@mui/material'
+import { Paper, Box } from '@mui/material'
 
 export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, handleReverseClick }) {
 	const valuesArr = [
@@ -29,12 +29,12 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, hand
 	// }
 
 
-	const theme = useTheme();
-	const hoverColor =
-		theme.palette.mode === "light"
-			? "rgba(0, 0, 0, 0.23)"
-			: "rgba(255, 255, 255, 0.23)";
-	const activeColor = theme.palette.primary.main;	
+	// const theme = useTheme();
+	// const hoverColor =
+	// 	theme.palette.mode === "light"
+	// 		? "rgba(0, 0, 0, 0.23)"
+	// 		: "rgba(255, 255, 255, 0.23)";
+	// const activeColor = theme.palette.primary.main;	
 
 	
 	return (

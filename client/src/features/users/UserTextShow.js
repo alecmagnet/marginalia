@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useHistory } from "react-router"
-import { Paper, Grid, Typography } from '@mui/material'
+import { Paper, Grid } from '@mui/material'
 import UserTextComPreview from './UserTextComPreview'
 import LitTextListShow from "../litTexts/LitTextListShow"
 
