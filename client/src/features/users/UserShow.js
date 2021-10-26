@@ -25,7 +25,7 @@ export default function UserShow() {
 	useEffect(() => {
 		const fetchUser = () => dispatch(fetchUserById(params.id))
 		fetchUser()
-	}, [])
+	}, [params.id, dispatch])
 
 	const handleToggleClick = (event, newOption) => {
 		setDisplayToggledOption(() => newOption)
