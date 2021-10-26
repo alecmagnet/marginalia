@@ -16,7 +16,7 @@ export default function CommentShow({ comment, replies, litTextId }) {
 		<Grid 
 			item xs={10} sx={{ maxWidth: 800, minWidth: 500 }}
 		>
-      <Paper sx={{ px:3, pt:4, pb:1, mb:2, backgroundColor: "#fefcf9" }} elevation={3}>			
+      <Paper sx={{ px:3, pt:4, pb:1, mb:2, }} elevation={3}>			
 			<ComRepShow 
 				key={comment.id} 
 				comment={comment}

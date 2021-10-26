@@ -59,19 +59,17 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
   
   return (
 		<Grid 
-			item xs={12} 
-			sx={{ maxWidth: 700, minWidth: 450, width: "100%" }}
+			item xs={10} sm={11} md={10} 
+			sx={{ minWidth: 350, width: "100%" }}
 		>
       <Paper elevation={6} sx={{ 
-				maxWidth: 650, 
 				px:3, pt:4, pb:1, 
 				mb:2, 
-				backgroundColor: "#ebe3e1" 
+				backgroundColor: "#fefcf9" 
 			}} >			
 				<ToggleGroup 
 					comTypes={formData.com_type_ids} 
 					handleComTypes={handleComTypes} 
-					// isParent={false}
 					isParentQuestion={isParentQuestion} 
 				/>
 				<form 
