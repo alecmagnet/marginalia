@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from 'react'
+import { useEffect, useCallback, Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -24,7 +24,7 @@ export default function App() {
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
   const dispatch = useDispatch()
 
-  const onAuth = () => {
+  const onAuth = useCallback(() => {
     fetch("/auth").then((res) => {
       if (res.ok) {
         res.json().then((data) => {
@@ -32,15 +32,14 @@ export default function App() {
           dispatch(fetchLitTexts())
           dispatch(fetchAllUsers())
           dispatch(fetchComments())
-          // handleAuth()
         });
       } 
     });
-  }
+  }, [dispatch])
 
   useEffect(() => {
     onAuth()
-  }, [])
+  }, [onAuth])
 
   const theme = createTheme({
     palette: {
