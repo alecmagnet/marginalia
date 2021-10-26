@@ -3,7 +3,7 @@ import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 import { Typography, Grid, Paper, Avatar } from '@mui/material'
 
 export default function UserListShow({ showUser }) {
-	const { username, first_name, last_name, fam_name_first, bio, id, image } = showUser
+	const { username, name, bio, id, image } = showUser
 	const firstSixty = bio ? `${bio.slice(0, 65)}` : ""
 	const showBio = firstSixty.replace(/\s.\w+$/, "")
 
@@ -12,7 +12,6 @@ export default function UserListShow({ showUser }) {
 		history.push(`/users/${id}`)
 	}
 
-	const renderName = () => fam_name_first ? `${last_name} ${first_name}` : `${first_name} ${last_name}`
 	
 	return (
 		<Grid item >
@@ -24,13 +23,13 @@ export default function UserListShow({ showUser }) {
 				<Grid container spacing={3} wrap="nowrap">
 					<Grid item >
 						<Avatar 
-							alt={renderName()} 
+							alt={name} 
 							src={image} 
 							sx={{ width: 163, height: 163 }}
 						/>
 					</Grid>
 					<Grid justifyContent="left" item xs={9}>
-						<Typography variant="h5" sx={{ pt:"3px" }} ><b>{renderName()}</b></Typography>
+						<Typography variant="h5" sx={{ pt:"3px" }} ><b>{name}</b></Typography>
 						<Typography variant="subtitle1" sx={{ color: "#616161", mt: -1 }} ><em>@{username}</em></Typography>
 						<Typography variant="body2" sx={{ mt: 2, mb: 2 }} ><span style={{ color: "#494949", fontSize: 19 }} >B<span style={{ fontVariant: "small-caps", fontSize: 21 }} >io</span>:</span> {showBio}&nbsp;.&nbsp;.&nbsp;.</Typography> 
 						<TotalCommentsAndReplies Id={showUser.id} source="user" />
