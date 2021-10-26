@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import UserListShow from './UserListShow'
 import { Typography, Grid, ToggleButton, ToggleButtonGroup, Box, TextField, } from '@mui/material'
@@ -8,9 +8,7 @@ export default function UsersContainer() {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
-	const toFilterUsers = [...entities]
-	const filteredArr = toFilterUsers.filter((u) => u.id !== user.id)
-	const otherUsers = [...filteredArr]
+	const otherUsers = useMemo(() => {return [...[...entities].filter((u) => u.id !== user.id)]}, [entities, user.id])
 
 	const alphabetical = (users) => 
 		[...users].sort((a, b) => a.last_name.localeCompare(b.last_name) || a.first_name.localeCompare(b.first_name))
@@ -64,7 +62,7 @@ export default function UsersContainer() {
 
 	const [filteredUsers, setFilteredUsers] = useState([...otherUsers])
 
-	useEffect(() => {if (otherUsers.length > 0) setFilteredUsers([...otherUsers])}, [entities])
+	useEffect(() => {if (otherUsers.length > 0) setFilteredUsers([...otherUsers])}, [otherUsers])
 
 	const handleSearch = (e) => {
 		let keyword = e.target.value.toLowerCase()
