@@ -104,7 +104,7 @@ export default function AboutPage() {
 	]
 
 	const storyList = arr => arr.map(item => {
-		const itemLi = itemElement => <li>{itemElement}</li>
+		const itemLi = itemElement => <li><Typography variant="body1" component="span">{itemElement}</Typography></li>
 		if (item.length === 1) {
 			return itemLi(item[0]) 
 		} else {
@@ -154,9 +154,6 @@ export default function AboutPage() {
 	const whatCanUserArr = [
 		<span>
 			A user of Marginalia can:
-			<ul>
-				{storyList(userStoryItems)}
-			</ul>
 		</span>
 	]
 
@@ -234,6 +231,11 @@ export default function AboutPage() {
 						How Do I Use It?
 					</Typography>
 					{contentGrafs(whatCanUserArr)}
+					<Box sx={{ mt: 2 }}>
+						<ul>
+							{storyList(userStoryItems)}
+						</ul>
+					</Box>
 					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
 						How Was It Made?
 					</Typography>
