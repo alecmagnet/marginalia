@@ -1,12 +1,18 @@
-import { Typography, Grid, Box, Stack, Button, Tooltip, Avatar } from '@mui/material'
+import { useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { HashLink } from 'react-router-hash-link'
+import { Typography, Grid, Box, Stack, Button, Avatar } from '@mui/material'
 import HpButtons from './HpButtons'
 
 export default function AboutPage() {
 	const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
 	const history = useHistory()
+
+	useEffect(() => {
+		if (history.location.hash.length > 0) history.push("/about")
+	}, [])
 
 	const handleImgButtonClick = (e) => {
 		userState.entities.length === 0 && e !== "signup" ?
@@ -73,9 +79,14 @@ export default function AboutPage() {
 
 	const buttonArr = ["What Is It?", "How Do I Use It?", "How Was It Made?", "Who Made It?"]
 	const buttons = <Stack spacing={2} direction="row" sx={{ mb: 1 }}>
-		{buttonArr.map(item => 
-			<Button variant="text" id={item} key={buttonArr.indexOf(item)}>{item}</Button>
-			)}
+		{buttonArr.map(item => {
+			const itemHash = `/about#${item.slice(0, -1).toLowerCase().replaceAll(" ", "-")}`
+			return (
+				<HashLink smooth to={itemHash}> 
+					<Button variant="text" id={item} key={buttonArr.indexOf(item)}>{item}</Button>
+				</HashLink>
+			)
+		})}
 	</Stack>
 
 	const userStoryItems = [
@@ -214,19 +225,19 @@ export default function AboutPage() {
 
 			<Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}>
 				<Box sx={{ p: 6, pt: 1, mt: 0, }}>
-					<Typography id="Top" variant="h4" justify="center" sx={{  }}>
+					<Typography id="what-is-it" variant="h4" justify="center" sx={{  }}>
 						What is Marginalia?
 					</Typography>
 					{contentGrafs(whatIsMargArr)}
-					<Typography id="User Story" variant="h4" justify="center" sx={{ mt: 3 }}>
+					<Typography id="how-do-i-use-it" variant="h4" justify="center" sx={{ mt: 3 }}>
 						How Do I Use It?
 					</Typography>
 					{contentGrafs(whatCanUserArr)}
-					<Typography id="Coding" variant="h4" justify="center" sx={{ pt: 1 }}>
+					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
 						How Was It Made?
 					</Typography>
 					{contentGrafs(howWasItMadeArr)}
-					<Typography id="Bio" variant="h4" justify="center" sx={{ pt: 3 }}>
+					<Typography id="who-made-it" variant="h4" justify="center" sx={{ pt: 3 }}>
 						Who Made It?
 					</Typography>
 					<Avatar

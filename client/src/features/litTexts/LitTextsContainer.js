@@ -170,7 +170,6 @@ export default function LitTextsContainer () {
 								label="Search"
 								variant="filled"
 								sx={{ width: "100%" }}
-								// sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}
 								onChange={e => handleSearch(e)}
 							/>
 							</Paper>
@@ -180,7 +179,6 @@ export default function LitTextsContainer () {
 									onClick={() => handleNewClick()} 
 									variant="contained"
 									sx={{ height: "61.75px" }}
-									// sx={{ ml: 2, mt: "8px", p: 0, height: "61.75px" }}
 								>
 									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
 								</Button>
