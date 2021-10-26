@@ -12,7 +12,7 @@ export default function AboutPage() {
 
 	useEffect(() => {
 		if (history.location.hash.length > 0) history.push("/about")
-	}, [])
+	}, [history])
 
 	const handleImgButtonClick = (e) => {
 		userState.entities.length === 0 && e !== "signup" ?
@@ -82,7 +82,7 @@ export default function AboutPage() {
 		{buttonArr.map(item => {
 			const itemHash = `/about#${item.slice(0, -1).toLowerCase().replaceAll(" ", "-")}`
 			return (
-				<HashLink smooth to={itemHash}> 
+				<HashLink smooth to={itemHash} key={buttonArr.indexOf(item)}> 
 					<Button variant="text" id={item} key={buttonArr.indexOf(item)}>{item}</Button>
 				</HashLink>
 			)
