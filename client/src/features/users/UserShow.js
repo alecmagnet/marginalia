@@ -6,14 +6,14 @@ import UserTextShow from "./UserTextShow"
 import LitTextListShow from '../litTexts/LitTextListShow'
 import { fetchUserById } from './showUserSlice'
 import { logoutUser } from '../users/userSlice'
-import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, Box } from '@mui/material'
+import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, Box, ToggleButton, ToggleButtonGroup } from '@mui/material'
 
 
 export default function UserShow() {
-	const [editClicked, setEditClicked] = useState(false)
 	const [deleteClicked, setDeleteClicked] = useState(false)
 	const [anchorEl, setAnchorEl] = useState(null)
 	const [errors, setErrors] = useState([])
+	const [displayToggledOption, setDisplayToggledOption] = useState("Comments")
 
 	const history = useHistory()
 	const params = useParams()
@@ -27,6 +27,22 @@ export default function UserShow() {
 		const fetchUser = () => dispatch(fetchUserById(params.id))
 		fetchUser()
 	}, [])
+
+	const handleToggleClick = (event, newOption) => {
+		setDisplayToggledOption(() => newOption)
+	}
+
+	const toggleOptionsArr = ["Comments", "Texts Uploaded"]
+
+	const makeToggleButton = (option) =>
+		<ToggleButton 
+			key={toggleOptionsArr.indexOf(option)} 
+			value={option}
+			aria-label={option}
+		>
+			{option}
+		</ToggleButton>
+
 	
 	const litTextsState = useSelector((state) => state.litTexts)
 	const litTextsArr = [...litTextsState.entities]
@@ -34,12 +50,8 @@ export default function UserShow() {
 	const showUserLitTexts = () => litTextsArr.filter(text => text.uploader_id === showUser.id)
 	// const showUserEditTexts = () => litTextsArr.filter(text => text.edit_user_id === showUser.id)
 	// console.log("UserShow showUserEditTexts", showUserEditTexts())
-	console.log("UserShow showUserLitTexts", showUserLitTexts())
+	console.log("UserShow", "showUserLitTexts", showUserLitTexts())
 
-
-	const editButtonClick = () => {
-		setEditClicked(!editClicked)
-	}
 
 	const handleDeleteClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -53,9 +65,6 @@ export default function UserShow() {
 		history.push("/texts")
 	}
 
-	const handleUpdatedUser = () => {
-		setEditClicked(!editClicked)
-	}
 
 	const deleteUser = () => {
 		fetch(`/users/${user.id}`, {
@@ -98,13 +107,58 @@ export default function UserShow() {
 			return [...new Set(arr)]
 		}
 	}
-	const renderPreviews = () => {
+	const renderComPreviews = () => {
 		if (litTextIds().length === 0) {
 			return []
 		} else {
 			return litTextIds().map((id) => <UserTextShow key={`lt${id}`} id={id} comments={undeleted()} />)
 		}
 	}
+
+	const renderUploadPreviews = () =>
+		<Grid container item xs={11}>
+			{showUserLitTexts().map(text => <LitTextListShow key={text.id} litText={text}/>)}
+		</Grid>
+
+
+	const goDoWhatLink = (what) => 
+		<Typography 
+			variant="body2" 
+			onClick={goCommentClick} 
+			sx={{ 
+				textAlign:"center", 
+				m: 1, mt: 3, mb: 2, 
+				color: "#546e7a", 
+				textDecoration: "underline", 
+				cursor: "pointer", 
+			}}
+		>
+			{`Go ${what} some stories and poems!`}
+		</Typography>
+
+	const hasNotWhatYet = (what) =>
+		<Typography 
+			variant="body2" 
+			sx={{ 
+				textAlign:"center", 
+				mx: 1, mt: 3, mb: 2, 
+				color:"#757575" 
+			}}
+		>
+			{`This user hasn't ${what} yet`}
+		</Typography>
+
+
+	const showWhat = (lengthArr, what) => 
+		lengthArr.length > 0 ? 
+			<Grid item container justifyContent="center">
+				{what}
+			</Grid> 
+		: showUser.id === user.id ?
+			<>{goDoWhatLink("comment on")}</>
+		:
+			<>{hasNotWhatYet("written any comments")}</>
+
 	 
 
 	if (showUserStatus === "loading" || showUser === []) {
@@ -115,87 +169,79 @@ export default function UserShow() {
 		)
 	} else if (showUserStatus === "idle" && typeof(showUser) === "object") {
 		return (
-    <Grid 
-			container 
-			justifyContent="Center"	
-			sx={{ pt: 5, px: 3 }}
-			spacing={3}
-		>
-			<Grid	item xs="auto">
-				<Avatar 
-					variant="rounded"
-					alt={renderName()}
-					src={showUser.image}
-					align="center"
-					sx={{ width: 300, height: 300, mr: 2, ml: 3, mt: 1 }}
-				/>
-			</Grid>
-			<Grid item xs sx={{ mr: 2, mt: 2 }}>
-				<Typography variant="h4" sx={{ }}>
-					<b>{renderName()}</b>
-				</Typography>
-				<Typography variant="h6" sx={{ mb: 2, color: "#616161" }}>
-					<em>@{showUser.username}</em>
-				</Typography>
+			<Grid 
+				container 
+				justifyContent="Center"	
+				sx={{ pt: 5, px: 3 }}
+				spacing={3}
+			>
+				<Grid	item xs="auto">
+					<Avatar 
+						variant="rounded"
+						alt={renderName()}
+						src={showUser.image}
+						align="center"
+						sx={{ width: 300, height: 300, mr: 2, ml: 3, mt: 1 }}
+					/>
+				</Grid>
+				<Grid item xs sx={{ mr: 2, mt: 2 }}>
+					<Typography variant="h4" sx={{ }}>
+						<b>{renderName()}</b>
+					</Typography>
+					<Typography variant="h6" sx={{ mb: 2, color: "#616161" }}>
+						<em>@{showUser.username}</em>
+					</Typography>
 
-				<Typography sx={{ fontSize: 19, mb: "-1px", mt: 3 }} color="#757575" gutterBottom>
-					Bio
-				</Typography>				
-				<Typography variant="body2" sx={{ }} >
-					{showUser.bio}
-				</Typography> 
-				<Typography variant="body2" sx={{ 
-					mb: 2, mt: 3, mb: 4, color: "#373737"
-				}}>
-					<em>Joined {renderDate}
-						<span style={{ 
-							marginLeft: "13px", 
-							marginRight: "13px"
-						}}>❧</span>
-						{showUser.usertype}
-					</em>
-				</Typography>
-				<Button variant="contained" onClick={editButtonClick} >Edit</Button>
-			</Grid>
+					<Typography 
+						sx={{ fontSize: 19, mb: "-1px", mt: 3 }} 
+						color="#757575" 
+					>
+						Bio
+					</Typography>				
+					<Typography variant="body2" sx={{ }} >
+						{showUser.bio}
+					</Typography> 
+					<Typography variant="body2" sx={{ 
+						mb: 2, mt: 3, mb: 4, color: "#373737"
+					}}>
+						<em>Joined {renderDate}
+							<span style={{ 
+								marginLeft: "13px", 
+								marginRight: "13px"
+							}}>❧</span>
+							{showUser.usertype}
+						</em>
+					</Typography>
+				</Grid>
 
-			<Grid container item xs={12} justifyContent="center">
-					{showUser.id === user.id ?
-							<Grid container item sx={12} justifyContent="center">
-								{/* <Button variant="contained" onClick={editButtonClick} >Edit</Button> */}
-								{editClicked ?
-									<UserEditForm 
-									user={user}
-									handleUpdatedUser={handleUpdatedUser} /> 
-									: null}
-							</Grid>
-					: null}
+				<Grid container item xs={12} justifyContent="center">
 					<Divider sx={{ mx: 2, mb: 6, mt: 3, width: "90%" }} textAlign="center">
-						<Typography variant="h5" sx={{ mb: -2 }} >Comments</Typography>
+						<ToggleButtonGroup 
+							value={displayToggledOption}
+							onChange={handleToggleClick}
+							aria-label="Display"
+							exclusive
+							sx={{ mb: -2 }} 
+						>
+							{toggleOptionsArr.map(option => 
+								makeToggleButton(option)
+							)}
+							{showUser.id === user.id ?
+								makeToggleButton("Edit Profile")
+							: null}
+						</ToggleButtonGroup>
 					</Divider>	
-					{undeleted().length > 0 ? 
-						<Grid item container justifyContent="center">
-							{renderPreviews()}
-						</Grid> 
-					: showUser.id === user.id ?
-						<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
-							Go comment on some stories and poems!
-						</Typography>
-					:
-						<Typography variant="body2" sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color:"#757575" }} >
-							This user hasn't written any comments yet
-						</Typography>
-					}			 
-					{showUserLitTexts().length > 0 ?
-						<>
-						<Divider sx={{ mx: 2, mb: 6, mt: 3, width: "90%" }} textAlign="center">
-							<Typography variant="h5" sx={{ mb: -2 }} >Texts Uploaded</Typography>
-						</Divider>
-						<Grid container item xs={11}>
-							{showUserLitTexts().map(text => <LitTextListShow key={text.id} litText={text}/>)}
-						</Grid>
-						</>
-					: null}
-					{showUser.id === user.id ?
+					{displayToggledOption === "Edit Profile" ?
+						<UserEditForm 
+							user={user}
+						/>
+					: displayToggledOption === "Texts Uploaded" ?
+						showWhat(showUserLitTexts(), renderUploadPreviews())
+					: displayToggledOption === "Comments" ?
+						showWhat(undeleted(), renderComPreviews())
+					: setDisplayToggledOption("Comments")
+					}
+					{showUser.id === user.id && displayToggledOption === "Edit Profile" ?
 						<>
 
 							{errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
@@ -209,8 +255,6 @@ export default function UserShow() {
 								id={popperId} 
 								open={deleteClicked} 
 								anchorEl={anchorEl} 
-								// placement="top" 
-								// sx={{ p: 3 }}
 								modifiers={[
 									{
 										name: 'preventOverflow',

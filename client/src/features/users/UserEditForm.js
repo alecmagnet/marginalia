@@ -6,7 +6,7 @@ import { updateUser } from './allUsersSlice'
 import { updateShowUser } from "./showUserSlice"
 import { updateCurrentUser } from "./userSlice"
 
-export default function UserEditForm({ user, handleUpdatedUser }){
+export default function UserEditForm({ user }){
 	const [formData, setFormData] = useState(user)
 
 	const { first_name, last_name, fam_name_first, bio, image } = formData
@@ -46,7 +46,6 @@ export default function UserEditForm({ user, handleUpdatedUser }){
 		.then((data) => {
 			onUpdateUser(data)
 			setFormData(data)
-			handleUpdatedUser()
 		})
 		.catch((errors) => console.log(errors))
 	}	
