@@ -80,7 +80,7 @@ export default function Homepage() {
 			}
 		]
 	}
-	console.log(imgBtnTitles())
+	// console.log(imgBtnTitles())
 
 	const images = [
 		{
@@ -132,15 +132,15 @@ export default function Homepage() {
 					>
 						<Grid container item xs={12}>
 					{/* ADD COMTYPES */}
-					<Grid item xs >
+					<Grid item xs="auto">
 							<Avatar 
 								alt={com.user_fullname} 
 								src={com.user_image} 
-								sx={{ cursor: "pointer", width: 120, height: 120, ml: 5, mt: 1 }} 
+								sx={{ cursor: "pointer", width: 120, height: 120, ml: 3, mr: 1, mt: 0 }} 
 								onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
 							/>
 					</Grid>
-					<Grid justifyContent="left" item xs={9.5}>
+					<Grid justifyContent="left" item>
 						<Box sx={{ ml: 2, mt: 1 }}>
 						<Typography 
 							onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
@@ -205,6 +205,7 @@ export default function Homepage() {
 						>
 							{toggleArr.map(el => {return (
 								<ToggleButton 
+									key={el[0]}
 									value={el[0]}
 									aria-label={el[1]}
 									sx={{ color: "fff"}}

@@ -93,6 +93,16 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+-----------------------------------------------
+
+FROM UserTextComPreview COMMENT PREVIEW
+	const contentSlice = comment.content.slice(0, 35)
+	const showContent = contentSlice.replace(/\s.\w+$/, "")
+
+						<Typography variant="body2" sx={{ }} >{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography>
+
+-----------------------------------------------
+
 FROM About DRAFT OF DEPENDENCIES ARRAY TO DRY UP CODE
 	const dependencyLinks = [
 		["MUI", "https://mui.com/"],

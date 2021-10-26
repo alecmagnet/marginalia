@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import UserEditForm from './UserEditForm'
 import UserTextShow from "./UserTextShow"
+import LitTextListShow from '../litTexts/LitTextListShow'
 import { fetchUserById } from './showUserSlice'
 import { logoutUser } from '../users/userSlice'
 import { Grid, Paper, Typography, Avatar, Button, Card, Divider, Popper, Fade, Box } from '@mui/material'
@@ -20,12 +21,20 @@ export default function UserShow() {
 
 	const { entities:showUser, status:showUserStatus } = useSelector((state) => state.showUser)
 	const user = useSelector((state) => state.user.entities[0])
+	console.log("showUser from UserShow:", showUser)
 
-	
 	useEffect(() => {
 		const fetchUser = () => dispatch(fetchUserById(params.id))
 		fetchUser()
 	}, [])
+	
+	const litTextsState = useSelector((state) => state.litTexts)
+	const litTextsArr = [...litTextsState.entities]
+
+	const showUserLitTexts = () => litTextsArr.filter(text => text.uploader_id === showUser.id)
+	// const showUserEditTexts = () => litTextsArr.filter(text => text.edit_user_id === showUser.id)
+	// console.log("UserShow showUserEditTexts", showUserEditTexts())
+	console.log("UserShow showUserLitTexts", showUserLitTexts())
 
 
 	const editButtonClick = () => {
@@ -64,7 +73,9 @@ export default function UserShow() {
 		})
 	}
 
-	const renderName = () => showUser.fam_name_first ? `${showUser.last_name} ${showUser.first_name}` : `${showUser.first_name} ${showUser.last_name}`
+	const renderName = () => showUser.fam_name_first ? 
+		`${showUser.last_name} ${showUser.first_name}` : 
+		`${showUser.first_name} ${showUser.last_name}`
 
 	const msec = Date.parse(showUser.created_at)
   const parseDate = new Date(msec).toDateString()
@@ -107,49 +118,64 @@ export default function UserShow() {
     <Grid 
 			container 
 			justifyContent="Center"	
+			sx={{ pt: 5, px: 3 }}
+			spacing={3}
 		>
-			<Grid 
-				item xs={9} sx={{ maxWidth: 850 }}
-			>
-				<Paper 
-					elevation={9} 
-					sx={{ p:3, m: 3, backgroundColor: "#fffaf5" }}
-				>
-					<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
-					<Avatar 
-						variant="rounded"
-						alt={renderName()}
-						src={showUser.image}
-						align="center"
-						sx={{ width: 300, height: 300, m: 2, mb: 4, }}
-					/>
-					</div>
-					<Typography variant="h4" sx={{ textAlign:"center" }}><b>{renderName()}</b></Typography>
-					<Typography variant="h6" sx={{ textAlign:"center", mb: 2, color: "#616161" }}><em>@{showUser.username}</em></Typography>
-					<Card variant="outlined" sx={{ p:1, pt: 0, mt:0, mb:2, mx:"20%", backgroundColor: "#fefcf9", }}>
-						<Typography sx={{ fontSize: 17, textAlign:"center", }} color="#757575" gutterBottom>
-							Bio
-						</Typography>				
-						<Typography variant="body2" sx={{ textAlign:"center", }} >{showUser.bio}</Typography> 
-					</Card>
-					<Typography variant="body2" sx={{ textAlign:"center", m: 1, mb: 2, color: "#373737"}}><em>Joined {renderDate}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{showUser.usertype}</em></Typography>
+			<Grid	item xs="auto">
+				<Avatar 
+					variant="rounded"
+					alt={renderName()}
+					src={showUser.image}
+					align="center"
+					sx={{ width: 300, height: 300, mr: 2, ml: 3, mt: 1 }}
+				/>
+			</Grid>
+			<Grid item xs sx={{ mr: 2, mt: 2 }}>
+				<Typography variant="h4" sx={{ }}>
+					<b>{renderName()}</b>
+				</Typography>
+				<Typography variant="h6" sx={{ mb: 2, color: "#616161" }}>
+					<em>@{showUser.username}</em>
+				</Typography>
+
+				<Typography sx={{ fontSize: 19, mb: "-1px", mt: 3 }} color="#757575" gutterBottom>
+					Bio
+				</Typography>				
+				<Typography variant="body2" sx={{ }} >
+					{showUser.bio}
+				</Typography> 
+				<Typography variant="body2" sx={{ 
+					mb: 2, mt: 3, mb: 4, color: "#373737"
+				}}>
+					<em>Joined {renderDate}
+						<span style={{ 
+							marginLeft: "13px", 
+							marginRight: "13px"
+						}}>❧</span>
+						{showUser.usertype}
+					</em>
+				</Typography>
+				<Button variant="contained" onClick={editButtonClick} >Edit</Button>
+			</Grid>
+
+			<Grid container item xs={12} justifyContent="center">
 					{showUser.id === user.id ?
-						<div>
-							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
-								<Button variant="contained" onClick={editButtonClick} >Edit</Button>
-							</div>
-							{editClicked ?
-								<UserEditForm 
-								user={user}
-								handleUpdatedUser={handleUpdatedUser} /> 
-							: null}
-						</div>
+							<Grid container item sx={12} justifyContent="center">
+								{/* <Button variant="contained" onClick={editButtonClick} >Edit</Button> */}
+								{editClicked ?
+									<UserEditForm 
+									user={user}
+									handleUpdatedUser={handleUpdatedUser} /> 
+									: null}
+							</Grid>
 					: null}
-					<Divider sx={{ m: 5, }}>
-						<Typography variant="h5" sx={{ textAlign:"center", }} >Comments</Typography>
-					</Divider> 		
+					<Divider sx={{ mx: 2, mb: 6, mt: 3, width: "90%" }} textAlign="center">
+						<Typography variant="h5" sx={{ mb: -2 }} >Comments</Typography>
+					</Divider>	
 					{undeleted().length > 0 ? 
-						<div>{renderPreviews()}</div> 
+						<Grid item container justifyContent="center">
+							{renderPreviews()}
+						</Grid> 
 					: showUser.id === user.id ?
 						<Typography variant="body2" onClick={goCommentClick} sx={{ textAlign:"center", m: 1, mt: 3, mb: 2, color: "#546e7a", textDecoration: "underline", cursor: "pointer", }}>
 							Go comment on some stories and poems!
@@ -159,16 +185,26 @@ export default function UserShow() {
 							This user hasn't written any comments yet
 						</Typography>
 					}			 
+					{showUserLitTexts().length > 0 ?
+						<>
+						<Divider sx={{ mx: 2, mb: 6, mt: 3, width: "90%" }} textAlign="center">
+							<Typography variant="h5" sx={{ mb: -2 }} >Texts Uploaded</Typography>
+						</Divider>
+						<Grid container item xs={11}>
+							{showUserLitTexts().map(text => <LitTextListShow key={text.id} litText={text}/>)}
+						</Grid>
+						</>
+					: null}
 					{showUser.id === user.id ?
 						<>
 
 							{errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}
 
-							<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
+							<Box sx={{ display:"flex", width: "100%", justifyContent: "center", m: 3 }}>
 								<Button variant="contained" onClick={handleDeleteClick} >
 									Delete Profile
 								</Button>
-							</div>
+							</Box>
 							<Popper 
 								id={popperId} 
 								open={deleteClicked} 
@@ -212,9 +248,8 @@ export default function UserShow() {
 							</Popper>
 						</>
 					: null}
-				</Paper>
+				</Grid>
 			</Grid>
-		</Grid>
 		)
 	} else {
 		return (

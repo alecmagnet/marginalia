@@ -2,51 +2,45 @@ import { useSelector } from "react-redux"
 import { useHistory } from "react-router"
 import { Paper, Grid, Typography } from '@mui/material'
 import UserTextComPreview from './UserTextComPreview'
+import LitTextListShow from "../litTexts/LitTextListShow"
 
 export default function UserTextShow({ id, comments }) {
-  const litTextsArr = useSelector((state) => state.litTexts.entities)
+  const litTextsState = useSelector((state) => state.litTexts)
+	const litTextsArr = [...litTextsState.entities]
 
-	let litText = []
-	let renderComments = []
-	if (litTextsArr.length > 0) {
-		litText = litTextsArr.find((t) => t.id === id)
-		let commentsArr = comments.filter((c) => c.lit_text_id === id)
-		renderComments = commentsArr.map((c) => {
-			return(<UserTextComPreview key={`ltc${c.id}`} comment={c} />)
-		})
+	const litText = () => [...litTextsArr].find((t) => t.id === id)
+	const renderComments = () => {
+		const commentsArr = comments.filter((c) => c.lit_text_id === id)
+		return (
+			commentsArr.map((c) => <UserTextComPreview key={`ltc${c.id}`} comment={c}/>)
+		)
 	}
+	// console.log("litTexts from UserTextShow", litText())
 	
 	const history = useHistory()
 	const handleClick = () => {
 		history.push(`/texts/${id}`)
 	}
 
-	return(
-		<Grid item xs={12} alignItems="center">
-			<Grid 
-				container 
-				justifyContent="Center"	
-				alignItems="center"
+	return (
+		<>
+		{litTextsArr.length === 0 ?
+			<div className="centered-in-window" >
+					<div className="dot-flashing"></div>
+			</div>
+		:
+			<Grid container item xs={10} alignItems="center" justifyContent="Center">
+			<Paper 
+				sx={{ cursor: "pointer", m: 2, mt: 0, p: 3, borderRadius: 2, }} 
+				onClick={() => handleClick()} 
+				elevation={3}
 			>
-				<Grid item xs={9}> 
-					<Paper sx={{ cursor: "pointer", bgcolor: "#d1cac7", m: 2, mt: 0, pb: "5px", borderRadius: 2, }} onClick={() => handleClick()} >
-				<Typography variant="h6" sx={{ textAlign: "center", pt: 2, ml: 0, mb: -1 }} >
-					<span style={{ fontWeight: 300, fontSize: 24 }}>On </span>
-					<b>{litText.title}</b>
-					<span style={{ fontWeight: 300, fontSize: 24 }}> by {litText.author}</span>
-				</Typography>
-				{/* <Typography variant="subtitle1" sx={{ textAlign: "center", }} >
-					{litText.author}
-				</Typography>				 */}
-				{/* <Typography variant="subtitle2" sx={{ textAlign: "center", color: "#fff", ml: 1, }} >
-					<em>{litText.pubdate}</em>
-				</Typography> */}
 				<div>
-				{renderComments.length > 0 ? renderComments : "previews loading..."}
+				{renderComments().length > 0 ? renderComments() : "previews loading..."}
 				</div>
-			</Paper>
+				<LitTextListShow key={litText().id} litText={litText()}/>
+				</Paper>
 				</Grid>
-			</Grid>
-		</Grid>
+		}</>
 	)
 }

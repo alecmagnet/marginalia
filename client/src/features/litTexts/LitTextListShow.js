@@ -6,6 +6,7 @@ import { Typography, Grid, Paper, Card } from '@mui/material'
 export default function LitTextListShow({ litText }) {
 	const { title, author_name, pubdate, content, id, prose, translator } = litText
 	const userState = useSelector((state) => state.user)
+	// console.log("from LitTextListShow: litText:", litText, "translator", translator)
   
 	let parsedContent = ""
 	if (content && prose) {
@@ -13,8 +14,6 @@ export default function LitTextListShow({ litText }) {
 	} else if (content && !prose) {
 		parsedContent = content
 			.replace(/\u00A0/g, "")
-			// .replace(/(<\/p><br>)|(<\/p><br\/>)|(<br\/><br\/>)|(<br><br>)|(<\/p><p><\/p>)/g, " // ")
-			// .replace(/(<\/p>)|(<br\/>)|(<br>)/g, " / ")
 			.replace(/(<\/p><br\/*>)|(<br\/*><br\/*>)|(<\/p><p><\/p>)/g, " // ")
 			.replace(/(<\/p>)|(<br\/*>)/g, " / ")
 			.replace(/(<([^>]+)>)/gi, " ")
