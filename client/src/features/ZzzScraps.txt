@@ -93,6 +93,11 @@ LESS IMPORTANT:
 
 -----------------------------------------------
 
+FROM UserShow FULL NAME FUNCTION
+	const renderName = () => showUser.fam_name_first ? 
+		`${showUser.last_name} ${showUser.first_name}` : 
+		`${showUser.first_name} ${showUser.last_name}`
+		
 -----------------------------------------------
 
 FROM UserTextComPreview COMMENT PREVIEW

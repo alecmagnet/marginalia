@@ -47,8 +47,6 @@ export default function UserShow() {
 	const litTextsArr = [...litTextsState.entities]
 
 	const showUserLitTexts = () => litTextsArr.filter(text => text.uploader_id === showUser.id)
-	// const showUserEditTexts = () => litTextsArr.filter(text => text.edit_user_id === showUser.id)
-	// console.log("UserShow showUserEditTexts", showUserEditTexts())
 
 
 	const handleDeleteClick = (e) => {
@@ -79,10 +77,6 @@ export default function UserShow() {
 			}
 		})
 	}
-
-	const renderName = () => showUser.fam_name_first ? 
-		`${showUser.last_name} ${showUser.first_name}` : 
-		`${showUser.first_name} ${showUser.last_name}`
 
 	const msec = Date.parse(showUser.created_at)
   const parseDate = new Date(msec).toDateString()
@@ -176,7 +170,7 @@ export default function UserShow() {
 				<Grid	item xs="auto">
 					<Avatar 
 						variant="rounded"
-						alt={renderName()}
+						alt={showUser.name}
 						src={showUser.image}
 						align="center"
 						sx={{ width: 300, height: 300, mr: 2, ml: 3, mt: 1 }}
@@ -184,7 +178,7 @@ export default function UserShow() {
 				</Grid>
 				<Grid item xs sx={{ mr: 2, mt: 2 }}>
 					<Typography variant="h4" sx={{ }}>
-						<b>{renderName()}</b>
+						<b>{showUser.name}</b>
 					</Typography>
 					<Typography variant="h6" sx={{ mb: 2, color: "#616161" }}>
 						<em>@{showUser.username}</em>
