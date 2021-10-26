@@ -125,7 +125,7 @@ export default function Homepage() {
 				"translator": com.lit_text_translator 
 			}
 			return (
-				<Grid container item xs={10}>
+				<Grid container item xs={10} key={com.id}>
 					<Paper
 						sx={{ width: "100%", p: 2, my: 1, pt: 4 }}
 						elevation={2}
