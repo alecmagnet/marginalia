@@ -62,7 +62,7 @@ export default function ComRepShow({ comment, litTextId }) {
 	})}, [comment])
 
 	const renderComment = useMemo(() => {
-		return comment.deleted ? deletedComment : showComment}, [comment])
+		return comment.deleted ? deletedComment : showComment}, [comment, deletedComment, showComment])
 
 
 	const comTypeIds = comment.com_types.map(type => type.id)
