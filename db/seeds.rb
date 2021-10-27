@@ -4,16 +4,16 @@ require 'bcrypt'
 puts 'Seeding...'
 
 # Create users
-User.create(username: 'alec', first_name: 'Alec', last_name: 'Magnet', family_name_first: false, password: '123', bio: 'I made this site!', image: 'https://ak1.ostkcdn.com/images/products/is/images/direct/cb4bb9ec6f979b10ea692f6d016c0ea5455e9551', usertype: "Librarian")
-User.create(first_name: "Darles", last_name: "Chickens", family_name_first: false, username: "the_peckwick_papers", password: "123", image: "https://rlv.zcache.com/funny_weird_vintage_photograph_of_chicken_costume_postcard-r2cc5629305ec4fe2b0af0ad708fdf1a0_ucbjp_704.webp", bio: "My father’s family name being Chickens, and my Christian name Darles, my infant tongue could make of both names nothing longer or more explicit than...", usertype: "Librarian")
-User.create(first_name: "Ana", last_name: "Phora" family_name_first: false, username: "reading_books_reading_rainbows", password: "123", image: "https://i.pinimg.com/originals/e6/4f/42/e64f427e1f8f13d45684563079a2a62e.jpg", bio: "I came. I saw. I read books. I read rainbows.", usertype: "Reader")
-User.create(first_name: "Hermen", last_name: "Eutics", family_name_first: false, username: "what_does_it_meean", password: "123", image: "http://3.bp.blogspot.com/-4IcLU-g65NA/UM3dOZiYSNI/AAAAAAAAAf8/WEjTiXwGj5U/s1600/schleiermacher.jpg", bio: "I am the branch of knowledge that deals with interpretation, especially of literary or philosophical texts", usertype: "Reader")
-User.create(first_name: "Nemo", last_name: "Tennyson", family_name_first: false, username: "giant_squid", password: "123", image: "https://cdn.shopify.com/s/files/1/0262/6845/products/Kracken-Vintage_web_540x.jpg?v=1549834440", bio: "Far, far beneath in the abysmal sea, / His ancient, dreamless, uninvaded sleep / The Kraken sleepeth", usertype: "Librarian")
-User.create(first_name: "Falcor", last_name: "Smaug", family_name_first: false, username: "book_wyrm", password: "123", image: "https://i.pinimg.com/originals/e9/fc/d9/e9fcd9579446b8b8fbbf20ae24063955.jpg", bio: "A dragon's gotta get zen with ephemerality", usertype: "Reader")
+User.create(username: 'alec', first_name: 'Alec', last_name: 'Magnet', fam_name_first: false, password: '123', bio: 'I made this site!', image: 'https://avatars.githubusercontent.com/u/85529561?v=4', usertype: "Librarian")
+User.create(first_name: "Darles", last_name: "Chickens", fam_name_first: false, username: "the_peckwick_papers", password: "123", image: "https://rlv.zcache.com/funny_weird_vintage_photograph_of_chicken_costume_postcard-r2cc5629305ec4fe2b0af0ad708fdf1a0_ucbjp_704.webp", bio: "My father’s family name being Chickens, and my Christian name Darles, my infant tongue could make of both names nothing longer or more explicit than...", usertype: "Librarian")
+User.create(first_name: "Ana", last_name: "Phora", fam_name_first: false, username: "reading_books_reading_rainbows", password: "123", image: "https://i.pinimg.com/originals/e6/4f/42/e64f427e1f8f13d45684563079a2a62e.jpg", bio: "I came. I saw. I read books. I read rainbows.", usertype: "Reader")
+User.create(first_name: "Hermen", last_name: "Eutics", fam_name_first: false, username: "what_does_it_meean", password: "123", image: "http://3.bp.blogspot.com/-4IcLU-g65NA/UM3dOZiYSNI/AAAAAAAAAf8/WEjTiXwGj5U/s1600/schleiermacher.jpg", bio: "I am the branch of knowledge that deals with interpretation, especially of literary or philosophical texts", usertype: "Reader")
+User.create(first_name: "Nemo", last_name: "Tennyson", fam_name_first: false, username: "giant_squid", password: "123", image: "https://cdn.shopify.com/s/files/1/0262/6845/products/Kracken-Vintage_web_540x.jpg?v=1549834440", bio: "Far, far beneath in the abysmal sea, / His ancient, dreamless, uninvaded sleep / The Kraken sleepeth", usertype: "Librarian")
+User.create(first_name: "Falcor", last_name: "Smaug", fam_name_first: false, username: "book_wyrm", password: "123", image: "https://i.pinimg.com/originals/e9/fc/d9/e9fcd9579446b8b8fbbf20ae24063955.jpg", bio: "A dragon's gotta get zen with ephemerality", usertype: "Reader")
 puts 'Seeded Users...'
-User.create(first_name: "Rong", last_name: "Zhong", family_name_first: true, username: "xing", password: "123", image: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Shen_Zhou._Reading_in_Autumn_Scenery.Palace_Museum_Beijing.jpg", bio: "When the words are over but the meaning still lingers on...", usertype: "Librarian")
-User.create(first_name: "Scary", last_name: "Wollstonecraft", family_name_first: false, username: "vindication", password: "123", image: "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwODMxNDE5MzA2NjE1ODk2/gettyimages-159826910.jpg", bio: "Virtue can only flourish among equals.", usertype: "Librarian")
-User.create(first_name: "Fyodor", last_name: "Dogstoyevsky", family_name_first: false, username: "barkaramazov", password: "123", image: "http://mrdogtraining.com/uploads/3/4/8/0/34803297/fullsizerender_1_orig.jpeg", bio: "Hello, this is Dogstoyevsky.", usertype: "Librarian")
+User.create(first_name: "Rong", last_name: "Zhong", fam_name_first: true, username: "xing", password: "123", image: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Shen_Zhou._Reading_in_Autumn_Scenery.Palace_Museum_Beijing.jpg", bio: "When the words are over but the meaning still lingers on...", usertype: "Librarian")
+User.create(first_name: "Scary", last_name: "Wollstonecraft", fam_name_first: false, username: "vindication", password: "123", image: "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwODMxNDE5MzA2NjE1ODk2/gettyimages-159826910.jpg", bio: "Virtue can only flourish among equals.", usertype: "Librarian")
+User.create(first_name: "Fyodor", last_name: "Dogstoyevsky", fam_name_first: false, username: "barkaramazov", password: "123", image: "http://mrdogtraining.com/uploads/3/4/8/0/34803297/fullsizerender_1_orig.jpeg", bio: "Hello, this is Dogstoyevsky.", usertype: "Librarian")
 
 puts 'Seeded users...'
 
@@ -46,7 +46,7 @@ LitText.all.each {|lt| lt.update(uploader: User.find(lt.uploader_id))}
 puts 'Seeded lit_texts...'
 
 # Create parent_comments
-15.times do
+12.times do
 	user_id=User.ids.sample
 	lit_text_id=LitText.ids.sample
 	content=Faker::Lorem.paragraph(sentence_count: 2..6)
@@ -54,7 +54,7 @@ puts 'Seeded lit_texts...'
 end
 
 # Create replies
-15.times do
+12.times do
 	user_id=User.ids.sample
 	parent_comment=Comment.all.sample
 	lit_text_id=parent_comment.lit_text_id
