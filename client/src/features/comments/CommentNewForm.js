@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { postComment } from './commentsSlice'
 import { addCommentToLitText } from '../litTexts/litTextsSlice'
 import { addCommentToUser } from '../users/allUsersSlice'
-import { Grid, Paper, TextareaAutosize, Button, } from '@mui/material'
+import { Grid, Paper, TextareaAutosize, Button, Typography } from '@mui/material'
 import ToggleGroup from './ToggleGroup'
 
-
+// TODO: Merge this form with CommentEditForm
 export default function CommentNewForm({ litTextId, parentCommentId, replyButtonClick, isParentQuestion }) {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
@@ -18,6 +18,7 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 		content: "",
 		com_type_ids: []
 	});
+	const [error, setError] = useState(null)
 
 	const addNewWhat = parentCommentId ? "Post a new reply..." : "Post a new comment..."
 
@@ -28,7 +29,7 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 				[e.target.name]: e.target.value,
 			})
 		})
-		console.log("handleChange", formData)
+		// console.log("handleChange", formData)
   }
 
 	const handleComTypes = (event, newComTypes) => {
@@ -38,22 +39,27 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 				com_type_ids: newComTypes 
 			})
 		})
-		console.log("handleComTypes", formData.com_type_ids)
+		setError(() => null)
+		// console.log("handleComTypes", formData.com_type_ids)
 	}
 
 	const dispatch = useDispatch()
 	
   function handleSubmit(e) {
     e.preventDefault();
-		dispatch(postComment(formData))
-		dispatch(addCommentToLitText(formData))
-		dispatch(addCommentToUser(formData))
-		setFormData({
-				...formData,
-				content: "",
-				com_type_ids: []
-			})
-		if (parentCommentId) replyButtonClick((prevState) => !prevState)
+		if (formData.com_type_ids.length === 0) {
+			setError(() => "☟You must select at least one type☟")
+		} else {
+			dispatch(postComment(formData))
+			dispatch(addCommentToLitText(formData))
+			dispatch(addCommentToUser(formData))
+			setFormData({
+					...formData,
+					content: "",
+					com_type_ids: []
+				})
+			if (parentCommentId) replyButtonClick((prevState) => !prevState)
+		}
 	}
 
   
@@ -67,11 +73,22 @@ export default function CommentNewForm({ litTextId, parentCommentId, replyButton
 				mb:2, 
 				backgroundColor: "#fefcf9" 
 			}} >			
+
+				{error ? 
+					<Typography 
+						variant="body2" 
+						sx={{ color: "#701010", textAlign: "center", my: 1 }}
+					>
+						<b>{error}</b>
+					</Typography> 
+				: null}
+
 				<ToggleGroup 
 					comTypes={formData.com_type_ids} 
 					handleComTypes={handleComTypes} 
 					isParentQuestion={isParentQuestion} 
 				/>
+
 				<form 
 					style={{ width: "100%" }} 
 					onSubmit={handleSubmit} 
