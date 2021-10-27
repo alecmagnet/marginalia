@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import parse from 'html-react-parser'
@@ -9,6 +9,8 @@ import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonG
 
 // I broke this out into its own component at first because I thought it might be reusable. In my next project, I will work to keep my New and Edit forms similar enough that I can actually reuse a form component
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
+	const user = useSelector((state) => state.user.entities[0])
+
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [quillData, setQuillData] = useState("")
@@ -22,7 +24,9 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		content: "",
 		prose: false,
 		fam_name_first: false,
-		translator: ""
+		translator: "",
+		uploader_id: user.id,
+		edit_user_id: ""
 	})
 	// console.log("formData", formData)
 
@@ -37,12 +41,14 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 				content: litText.content,
 				prose: litText.prose,
 				fam_name_first: litText.fam_name_first,
-				translator: litText.translator
+				translator: litText.translator,
+				uploader_id: litText.uploader_id,
+				edit_user_id: user.id
 			})
 			setQuillData(litText.content)
 			if (litText.pubdate < 0) setCeOrBce("bce")
 		}
-	}, [litText, isEdit])
+	}, [litText, isEdit, user])
 
 	const dispatch = useDispatch()
 	// const errors = useSelector(state => state.litTexts.errors)
@@ -205,6 +211,10 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
     ],
   }
 
+	const renderName = () => formData.fam_name_first ? 
+		`${formData.last_name} ${formData.first_name}` : 
+		`${formData.first_name} ${formData.last_name}`
+
 
 	return (
 		<Grid item xs={12}>
@@ -339,7 +349,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 									<Grid item xs={12}>
 								<Typography variant="h6" sx={{ textAlign:"center", textColor: "#616161", fontVariant: "small-caps", mb: 1 }}><em>preview</em></Typography>
 								<Typography variant="h4" sx={{ textAlign:"center" }}><b>{formData.title}</b></Typography>
-								<Typography variant="h6" sx={{ textAlign:"center" }}>{`${formData.first_name} ${formData.last_name}`}</Typography>
+								<Typography variant="h6" sx={{ textAlign:"center" }}>{renderName()}</Typography>
 								<Typography variant="subtitle1" sx={{ textAlign:"center" }}><em>{displayDate()}</em></Typography>
 								{formData.translator.length > 0 ? 
 									<Typography variant="subtitle2" sx={{ textAlign:"center", color: "#8e8e8e", mt: 1 }}><em>{`Translated by ${formData.translator}`}</em></Typography>
@@ -348,7 +358,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								<Grid container wrap="nowrap">
 									<Grid item xs={12} justifyContent="center" sx={{ display: "flex", }}>
 										<div style={{ position: "flex", }} >
-											<Typography variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
+											<Typography component="span" variant="body1" sx={{ pb:3, pr:3, pl:3, pt:2, }}>
 												{parseQuillData()}
 											</Typography>
 											</div>

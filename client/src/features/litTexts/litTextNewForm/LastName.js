@@ -114,12 +114,12 @@ export default function LastName({
 							id="first_name"
 							value={firstName}
 							sx={{ mr: 1, backgroundColor: "#fff", width: "100%" }}
-							label={nameLabel("First name")}
+							label={nameLabel("Given name(s)")}
 						/>
 					</Grid>
 					{compareArrow()}
 					<Grid item xs sx={{ ml: "5px" }}>
-						{nameField(nameLabel("Last name"))}
+						{nameField(nameLabel("Family name"))}
 					</Grid>
 				</Grid>
 			</CustomWidthTooltip>

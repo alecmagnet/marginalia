@@ -41,7 +41,7 @@ export default function LitTextsContainer () {
 	}		
 
 	const handleOrderAfterNewTextAdd = () => {
-		setLitTextsOrder(() => "author")
+		setLitTextsOrder(() => "added")
 		setIsReversed(() => false)
 		setPoetryProseValue(() => "all")
 	} 		
