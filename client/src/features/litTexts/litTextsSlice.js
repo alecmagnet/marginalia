@@ -12,20 +12,45 @@ export const fetchLitTexts = createAsyncThunk(
 export const postLitText = createAsyncThunk(
 	"litTexts/postLitText",
 	async (formData) => {
-		try {
-			const response = await fetch("/lit_texts", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-			})
-			return await response.json()
-		}	catch (err) {
-			console.log("err", err, "err.response.data", err.response.data)
+		const response = await fetch("/lit_texts", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+		if (!response.ok) {
+			return Promise.reject(new Error("We're sorry. There's been an error."))
+		} else {
+			return response.json()
 		}
-	}
-)
+	})
+		// const data = () => {
+		// 	const returnVal = () => await response.json()
+		// } 
+		// return await data()
+		// response.json()
+		// console.log("data", data)
+
+// 	}
+// )
+// export const postLitText = createAsyncThunk(
+// 	"litTexts/postLitText",
+// 	async (formData) => {
+// 		try {
+// 			const response = await fetch("/lit_texts", {
+// 				method: "POST",
+// 				headers: {
+// 					"Content-Type": "application/json",
+// 				},
+// 				body: JSON.stringify(formData),
+// 			})
+// 			return await response.json()
+// 		}	catch (err) {
+// 			console.log("err", err, "err.response.data", err.response.data)
+// 		}
+// 	}
+// )
 
 export const patchLitText = createAsyncThunk(
 	"litTexts/patchLitText",

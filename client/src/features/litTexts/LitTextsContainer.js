@@ -196,6 +196,8 @@ export default function LitTextsContainer () {
 										reRender={null}
 									/> 
 								: null}
+
+				{status === "error" ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", my: 1 }}><b>We're sorry. There's been an error uploading your text.</b></Typography> : null}
 			
 						{renderLitTexts()}
 

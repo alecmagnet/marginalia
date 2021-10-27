@@ -7,10 +7,11 @@ import LastName from "./LastName"
 import { postLitText, patchLitText } from '../litTextsSlice' 
 import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonGroup, Box, Tooltip } from '@mui/material'
 
-// I broke this out into its own component at first because I thought it might be reusable. In my next project, I will work to keep my New and Edit forms similar enough that I can actually reuse a form component
+// I put this form into its own component at first because I thought it might be reusable. In my next project, I will work to keep my New and Edit forms similar enough that I can actually reuse a form component
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
 	const user = useSelector((state) => state.user.entities[0])
-
+	const litTextsState = useSelector((state) => state.litTexts)
+	const [error, setError] = useState(null)
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [quillData, setQuillData] = useState("")
@@ -51,7 +52,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 	}, [litText, isEdit, user])
 
 	const dispatch = useDispatch()
-	// const errors = useSelector(state => state.litTexts.errors)
 
 	const addOrEdit = () => {
 		if (isEdit) {
@@ -146,7 +146,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log("handleSubmit.formData:", formData)
+		// console.log("handleSubmit.formData:", formData)
 		isEdit ? dispatch(patchLitText(formData)) : dispatch(postLitText(formData))
 		setFormData({
 			title: "",
@@ -162,7 +162,6 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 		setStoryOrPoem("")
 		setFamNameFirst(false)
 		if (!isEdit) {
-			// handleLitTextsOrder({ target: { value: "added" }})
 			handleLitTextsOrder()
 			handlePoetryProseValue({ target: { value: "all" }})
 		} else {
