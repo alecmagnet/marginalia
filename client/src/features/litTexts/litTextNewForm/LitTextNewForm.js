@@ -10,8 +10,6 @@ import { Grid, Paper, TextField, Button, Typography, ToggleButton, ToggleButtonG
 // I put this form into its own component at first because I thought it might be reusable. In my next project, I will work to keep my New and Edit forms similar enough that I can actually reuse a form component
 export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, handlePoetryProseValue, isEdit, litText, reRender }) {
 	const user = useSelector((state) => state.user.entities[0])
-	const litTextsState = useSelector((state) => state.litTexts)
-	const [error, setError] = useState(null)
 	const [storyOrPoem, setStoryOrPoem] = useState("")
 	const [ceOrBce, setCeOrBce] = useState("ce")
 	const [quillData, setQuillData] = useState("")
