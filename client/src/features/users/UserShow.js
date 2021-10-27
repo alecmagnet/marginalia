@@ -141,15 +141,15 @@ export default function UserShow() {
 		</Typography>
 
 
-	const showWhat = (lengthArr, what) => 
+	const showWhat = (lengthArr, what, doneWhat) => 
 		lengthArr.length > 0 ? 
 			<Grid item container justifyContent="center">
 				{what}
 			</Grid> 
 		: showUser.id === user.id ?
-			<>{goDoWhatLink("comment on")}</>
+			<>{goDoWhatLink(doneWhat[0])}</>
 		:
-			<>{hasNotWhatYet("written any comments")}</>
+			<>{hasNotWhatYet(doneWhat[1])}</>
 
 	 
 
@@ -228,9 +228,9 @@ export default function UserShow() {
 							user={user}
 						/>
 					: displayToggledOption === "Texts Uploaded" ?
-						showWhat(showUserLitTexts(), renderUploadPreviews())
+						showWhat(showUserLitTexts(), renderUploadPreviews(), ["upload", "uploaded any texts"])
 					: displayToggledOption === "Comments" ?
-						showWhat(undeleted(), renderComPreviews())
+						showWhat(undeleted(), renderComPreviews(), ["comment on", "written any comments"])
 					: setDisplayToggledOption("Comments")
 					}
 					{showUser.id === user.id && displayToggledOption === "Edit Profile" ?
