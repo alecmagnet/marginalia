@@ -6,13 +6,14 @@ import CommentEditForm from "./CommentEditForm"
 import CommentType from "./CommentType"
 import CommentNewForm from "./CommentNewForm"
 import { destroyComment, patchComment } from "./commentsSlice"
-import { Avatar, Grid, Typography, IconButton } from '@mui/material'
+import { Avatar, Grid, Typography, IconButton, Button, Popper, Fade, Box } from '@mui/material'
 import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import EditIcon from '@mui/icons-material/Edit'
+import EditOffIcon from '@mui/icons-material/EditOff'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCommentIcon from '@mui/icons-material/AddComment'
-import { Button, Popper, Fade, Box } from '@mui/material'
+import CancelIcon from '@mui/icons-material/Cancel'
 
 
 export default function ComRepShow({ comment, litTextId }) {
@@ -183,7 +184,9 @@ export default function ComRepShow({ comment, litTextId }) {
 					<div style={{ position: "relative" }}>
 						{!renderComment.parent_comment_id && !renderComment.deleted ?
 							<Tooltip title="Reply" arrow>
-								<AddCommentIcon size="large" sx={{ color: "#757575", ml:9, mt:2, mb:1 }} onClick={replyButtonClick}/> 
+								<IconButton sx={{ color: "#757575", ml:9, mt:2, }} onClick={replyButtonClick}>
+									{replyClicked ? <CancelIcon/> : <AddCommentIcon/>} 
+								</IconButton>
 							</Tooltip>
 						: null}
 						{parseInt(comment.user.id) === parseInt(userId) && !renderComment.deleted ? 
@@ -227,7 +230,9 @@ export default function ComRepShow({ comment, litTextId }) {
 									)}
 								</Popper>	
 								<Tooltip title="Edit" arrow >
-									<EditIcon size="large" sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:2, mb:1  }} onClick={editButtonClick} /> 
+									<IconButton sx={{ color: "#757575", position: "absolute", right: 5, bottom: 5, mt:3, }} onClick={editButtonClick} >
+									{editClicked ? <EditOffIcon/> : <EditIcon/>}
+									</IconButton> 
 								</Tooltip>
 								{!renderComment.parent_comment_id ? null: <AddCommentIcon sx={{ visibility: "hidden", mt:2, mb:2}} />}
 								</div>
