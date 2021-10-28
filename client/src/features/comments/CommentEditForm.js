@@ -51,7 +51,7 @@ export default function CommentEditForm({ comment, editButtonClick }) {
 				com_type_ids: newComTypes 
 			})
 		})
-		console.log("handleComTypes", formData.com_type_ids)
+		// console.log("handleComTypes", formData.com_type_ids)
 	}
 	
   function handleSubmit(e) {

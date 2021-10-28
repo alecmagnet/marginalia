@@ -3,10 +3,10 @@ import { ToggleButton, ToggleButtonGroup, Box, } from '@mui/material'
 export default function ToggleGroup({ comTypes, handleComTypes, isParentQuestion }) {
 	const optionArr = [
 		[1, "Reading"],
+		[5, "Feelings"],
 		[2, "Question"],
 		[3, "Lore"],
-		[5, "Feelings"],
-		[6, "Critique"]
+		[6, "Critique"],
 	]
 	return (
 		<Box textAlign="center">
@@ -17,15 +17,6 @@ export default function ToggleGroup({ comTypes, handleComTypes, isParentQuestion
 				size="small"
 				sx={{ bgcolor: "#fefcf9", mb: 1 }}
 			>
-			{optionArr.map(op => 
-				<ToggleButton
-					key={op[0]} 
-					value={op[0]}
-					aria-label={op[1]}
-				>	
-					{op[1]}			
-				</ToggleButton>
-			)}
 				{isParentQuestion ? 
 					<ToggleButton 
 						value={4}
@@ -34,6 +25,15 @@ export default function ToggleGroup({ comTypes, handleComTypes, isParentQuestion
 						Answer
 					</ToggleButton>				
 				: null }
+				{optionArr.map(op => 
+					<ToggleButton
+						key={op[0]} 
+						value={op[0]}
+						aria-label={op[1]}
+					>	
+						{op[1]}			
+					</ToggleButton>
+				)}
 			</ToggleButtonGroup>
 		</Box>
 	)

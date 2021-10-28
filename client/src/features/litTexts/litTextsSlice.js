@@ -25,32 +25,6 @@ export const postLitText = createAsyncThunk(
 			return response.json()
 		}
 	})
-		// const data = () => {
-		// 	const returnVal = () => await response.json()
-		// } 
-		// return await data()
-		// response.json()
-		// console.log("data", data)
-
-// 	}
-// )
-// export const postLitText = createAsyncThunk(
-// 	"litTexts/postLitText",
-// 	async (formData) => {
-// 		try {
-// 			const response = await fetch("/lit_texts", {
-// 				method: "POST",
-// 				headers: {
-// 					"Content-Type": "application/json",
-// 				},
-// 				body: JSON.stringify(formData),
-// 			})
-// 			return await response.json()
-// 		}	catch (err) {
-// 			console.log("err", err, "err.response.data", err.response.data)
-// 		}
-// 	}
-// )
 
 export const patchLitText = createAsyncThunk(
 	"litTexts/patchLitText",
@@ -65,7 +39,7 @@ export const patchLitText = createAsyncThunk(
 			})
 			return await response.json()
 		}	catch (err) {
-			console.log("err", err, "err.response.data", err.response.data)
+			// console.log("err", err, "err.response.data", err.response.data)
 		}
 	}
 )
@@ -81,8 +55,6 @@ const litTextsSlice = createSlice({
 		addCommentToLitText(state, action) {
 			const index = state.entities.findIndex((text) => parseInt(text.id) === parseInt(action.payload.lit_text_id))
 			const thisText = state.entities[index]
-			console.log("addCommentToLitText index", thisText)
-			console.log("addCommentToLitText comments", thisText.comments)
 			thisText.comments.push(action.payload)
 			state.status = "idle"
 		},

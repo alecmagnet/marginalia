@@ -35,7 +35,6 @@ export const patchComment = createAsyncThunk(
 			body: JSON.stringify(formData),
 		})
 		const data = await response.json()
-		console.log("patchComment:", data)
     return data
 	}
 )
