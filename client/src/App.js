@@ -99,6 +99,9 @@ export default function App() {
                 <Route exact path="/signup">
                   <Signup />
                 </Route>
+                <Route exact path='/about'>
+                  <AboutPage />
+                </Route>
                 <Route exact path='/'>
                   <Homepage />
                 </Route>
