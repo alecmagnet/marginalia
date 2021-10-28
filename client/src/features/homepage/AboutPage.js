@@ -14,11 +14,7 @@ export default function AboutPage() {
 		if (history.location.hash.length > 0) history.push("/about")
 	}, [history])
 
-	const handleImgButtonClick = (e) => {
-		// userState.entities.length === 0 && e !== "signup" ?
-    // history.push('/login') :
-		history.push(`/${e}`)
-	}
+	const handleImgButtonClick = (e) => history.push(`/${e}`)
 
 	const imgBtnTitles = () => {
 		const imgBtnConditional = () => {

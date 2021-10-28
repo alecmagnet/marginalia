@@ -39,11 +39,7 @@ export default function Homepage() {
 		setComsOrTexts(() => newOrder)
 	}
 
-	const handleImgButtonClick = (e) => {
-		userState.entities.length === 0 && e !== "signup" ?
-    history.push('/login') :
-		history.push(`/${e}`)
-	}
+	const handleImgButtonClick = e => history.push(`/${e}`)
 
 
 	const imgBtnTitles = () => {
