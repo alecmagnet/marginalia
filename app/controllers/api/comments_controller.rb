@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Api::CommentsController < ApplicationController
 	skip_before_action :authorize, only: [:recent]
 
 	# GET /recent-comments

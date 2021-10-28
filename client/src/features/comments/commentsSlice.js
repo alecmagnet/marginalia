@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchComments = createAsyncThunk(
 	"comments/fetchComments", 
 	async () => {
-		const response = await fetch("/comments")
+		const response = await fetch("/api/comments")
 		const data = await response.json()
     return data
 	}
@@ -12,7 +12,7 @@ export const fetchComments = createAsyncThunk(
 export const postComment = createAsyncThunk(
 	"comments/postComment",
 	async (formData) => {
-		const response = await fetch("/comments", {
+		const response = await fetch("/api/comments", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const postComment = createAsyncThunk(
 export const patchComment = createAsyncThunk(
 	"comments/patchComment",
 	async (formData) => {
-		const response = await fetch(`/comments/${formData.id}`, {
+		const response = await fetch(`/api/comments/${formData.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const patchComment = createAsyncThunk(
 export const destroyComment = createAsyncThunk(
 	"comments/destroyComment",
 	async (id) => {
-		fetch(`/comments/${id}`, {
+		fetch(`/api/comments/${id}`, {
 			method: 'DELETE'
 		})
 		return (id)

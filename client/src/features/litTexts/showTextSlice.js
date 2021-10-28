@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchLitTextById = createAsyncThunk(
 	"showText/fetchLitTextById", 
 	async (id) => {
-		const response = await fetch(`/lit_texts/${id}`)
+		const response = await fetch(`/api/lit_texts/${id}`)
 		const data = await response.json()
     return data
 	})

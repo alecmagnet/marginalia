@@ -1,4 +1,4 @@
-class CommentComTypesController < ApplicationController
+class Api::CommentComTypesController < ApplicationController
 		# GET /comment_com_types
 	def index
 		comment_com_types = CommentComType.all 

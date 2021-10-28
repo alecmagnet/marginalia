@@ -1,4 +1,4 @@
-class LitTextsController < ApplicationController
+class Api::LitTextsController < ApplicationController
 	skip_before_action :authorize, only: [:recent]
 
 	# GET /recent_lit_texts

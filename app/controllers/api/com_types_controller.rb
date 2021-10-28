@@ -1,4 +1,4 @@
-class ComTypesController < ApplicationController
+class Api::ComTypesController < ApplicationController
 
 	# GET /com_types
 	def index

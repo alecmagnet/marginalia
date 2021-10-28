@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchAllUsers = createAsyncThunk(
 	"allUsers/fetchAllUsers", 
 	async () => {
-		const response = await fetch("/users")
+		const response = await fetch("/api/users")
 		const data = await response.json()
     return data
 	}

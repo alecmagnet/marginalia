@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchLitTexts = createAsyncThunk(
 	"litTexts/fetchLitTexts", 
 	async () => {
-		const response = await fetch("/lit_texts")
+		const response = await fetch("/api/lit_texts")
 		const data = await response.json()
     return data
 	}
@@ -12,7 +12,7 @@ export const fetchLitTexts = createAsyncThunk(
 export const postLitText = createAsyncThunk(
 	"litTexts/postLitText",
 	async (formData) => {
-		const response = await fetch("/lit_texts", {
+		const response = await fetch("/api/lit_texts", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const patchLitText = createAsyncThunk(
 	"litTexts/patchLitText",
 	async (formData) => {
 		try {
-			const response = await fetch(`/lit_texts/${formData.id}`, {
+			const response = await fetch(`/api/lit_texts/${formData.id}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",

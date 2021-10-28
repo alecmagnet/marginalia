@@ -35,7 +35,7 @@ export default function UserEditForm({ user }){
 
 	function handleSubmit(e) {
 		e.preventDefault()
-		fetch(`/users/${user.id}`, {
+		fetch(`/api/users/${user.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"

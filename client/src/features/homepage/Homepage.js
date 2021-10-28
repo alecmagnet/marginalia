@@ -18,13 +18,13 @@ export default function Homepage() {
   const user = userState.entities.length > 0 && userState.errors.length === 0 ? userState.entities[0] : null
 	
 	const getComments = () => {
-		fetch('/recent_comments')
+		fetch('/api/recent_comments')
 		.then(r => r.json())
 		.then(data => setComments(() => data))
 	}
 
 	const getLitTexts = () => {
-		fetch('/recent_lit_texts')
+		fetch('/api/recent_lit_texts')
 		.then(r => r.json())
 		.then(data => setLitTexts(() => data))
 	}

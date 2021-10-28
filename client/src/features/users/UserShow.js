@@ -63,7 +63,7 @@ export default function UserShow() {
 
 
 	const deleteUser = () => {
-		fetch(`/users/${user.id}`, {
+		fetch(`/api/users/${user.id}`, {
 			method: "DELETE",
 		})
 		.then(r => {

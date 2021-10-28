@@ -25,7 +25,7 @@ export default function App() {
   const dispatch = useDispatch()
 
   const onAuth = useCallback(() => {
-    fetch("/auth").then((res) => {
+    fetch("/api/auth").then((res) => {
       if (res.ok) {
         res.json().then((data) => {
           dispatch(addLoginUser(data))

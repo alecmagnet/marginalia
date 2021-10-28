@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
 	skip_before_action :authorize, only: [:create, :auth_show]
 
 	# POST /signup
