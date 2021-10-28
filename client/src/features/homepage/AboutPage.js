@@ -15,8 +15,8 @@ export default function AboutPage() {
 	}, [history])
 
 	const handleImgButtonClick = (e) => {
-		userState.entities.length === 0 && e !== "signup" ?
-    history.push('/login') :
+		// userState.entities.length === 0 && e !== "signup" ?
+    // history.push('/login') :
 		history.push(`/${e}`)
 	}
 
