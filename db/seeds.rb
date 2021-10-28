@@ -5,7 +5,7 @@ puts 'Seeding...'
 
 # Create users
 alec = User.create(username: 'alec', first_name: 'Alec', last_name: 'Magnet', fam_name_first: false, password: '123', bio: 'I made this site!', image: 'https://avatars.githubusercontent.com/u/85529561?v=4', usertype: "Librarian")
-User.create(first_name: "Darles", last_name: "Chickens", fam_name_first: false, darles = username: "the_peckwick_papers", password: "123", image: "https://rlv.zcache.com/funny_weird_vintage_photograph_of_chicken_costume_postcard-r2cc5629305ec4fe2b0af0ad708fdf1a0_ucbjp_704.webp", bio: "My father’s family name being Chickens, and my Christian name Darles, my infant tongue could make of both names nothing longer or more explicit than...", usertype: "Librarian")
+darles = User.create(first_name: "Darles", last_name: "Chickens", fam_name_first: false, username: "the_peckwick_papers", password: "123", image: "https://rlv.zcache.com/funny_weird_vintage_photograph_of_chicken_costume_postcard-r2cc5629305ec4fe2b0af0ad708fdf1a0_ucbjp_704.webp", bio: "My father’s family name being Chickens, and my Christian name Darles, my infant tongue could make of both names nothing longer or more explicit than...", usertype: "Librarian")
 ana = User.create(first_name: "Ana", last_name: "Phora", fam_name_first: false, username: "reading_books_reading_rainbows", password: "123", image: "https://i.pinimg.com/originals/e6/4f/42/e64f427e1f8f13d45684563079a2a62e.jpg", bio: "I came. I saw. I read books. I read rainbows.", usertype: "Reader")
 hermen = User.create(first_name: "Hermen", last_name: "Eutics", fam_name_first: false, username: "what_does_it_meean", password: "123", image: "http://3.bp.blogspot.com/-4IcLU-g65NA/UM3dOZiYSNI/AAAAAAAAAf8/WEjTiXwGj5U/s1600/schleiermacher.jpg", bio: "I am the branch of knowledge that deals with interpretation, especially of literary or philosophical texts", usertype: "Reader")
 mega = User.create(first_name: "Megafauna", last_name: "Tennyson", fam_name_first: false, username: "giant_squid", password: "123", image: "https://cdn.shopify.com/s/files/1/0262/6845/products/Kracken-Vintage_web_540x.jpg?v=1549834440", bio: "Far, far beneath in the abysmal sea, / His ancient, dreamless, uninvaded sleep / The Kraken sleepeth", usertype: "Librarian")
@@ -51,14 +51,14 @@ crit = ComType.create(name: "Critique")
 puts 'Seeded com_types...'
 
 # Create planned comments
-Comment.create(user_id: 1, lit_text_id: collins.id, content: "This reminds me of school. We used to leave messages in our textbooks for the younger kids", deleted:false, parent_comment_id: null)
+Comment.create(user_id: 1, lit_text_id: collins.id, content: "This reminds me of school. We used to leave messages in our textbooks for the younger kids", deleted:false)
 CommentComType.create(comment_id: 1, com_type_id: feel.id)
 
-Comment.create(user_id: 7, lit_text_id: collins.id, content: "The analogy of the locket to describe his memory of the last note is beautiful. A locket and a marginal note both preserve memories. Mostly privately, but sometimes shared -- sometimes in moments of unexpected contact as moving as this one.", deleted:false, parent_comment_id: null)
+Comment.create(user_id: 7, lit_text_id: collins.id, content: "The analogy of the locket to describe his memory of the last note is beautiful. A locket and a marginal note both preserve memories. Mostly privately, but sometimes shared -- sometimes in moments of unexpected contact as moving as this one.", deleted:false)
 CommentComType.create(comment_id: 2, com_type_id: read.id)
 CommentComType.create(comment_id: 2, com_type_id: feel.id)
 
-com3 = Comment.create(user_id: 1, lit_text_id: collins.id, content: "Why do you think he chose egg salad?", deleted:false, parent_comment_id: null)
+com3 = Comment.create(user_id: 1, lit_text_id: collins.id, content: "Why do you think he chose egg salad?", deleted:false)
 CommentComType.create(comment_id: com3.id, com_type_id: ques.id)
 
 Comment.create(user_id: 3, lit_text_id: collins.id, content: "Well, eggs are associated with rebirth. Eggs are associated new beginnings", deleted:false, parent_comment_id: com3.id)
@@ -73,41 +73,41 @@ Comment.create(user_id: 2, lit_text_id: collins.id, content: "Monster!", deleted
 CommentComType.create(comment_id: 6, com_type_id: feel.id)
 CommentComType.create(comment_id: 6, com_type_id: crit.id)
 
-gorman_com = Comment.create(user_id: 8, lit_text_id: gorman.id, content: "Amanda Gorman looked and sounded like the dawning sun as she recited this poem at the inauguration", deleted:false, parent_comment_id: null)
+gorman_com = Comment.create(user_id: 8, lit_text_id: gorman.id, content: "Amanda Gorman looked and sounded like the dawning sun as she recited this poem at the inauguration", deleted:false)
 CommentComType.create(comment_id: gorman_com.id, com_type_id: feel.id)
 CommentComType.create(comment_id: gorman_com.id, com_type_id: lore.id)
 
 gorm_reply = Comment.create(user_id: 3, lit_text_id: gorman.id, content: "Like the sun and like a sunflower, “a new dawn blooms.” I miss feeling that way", deleted:false, parent_comment_id: gorman_com.id)
 CommentComType.create(comment_id: gorm_reply.id, com_type_id: feel.id)
 
-maud = Comment.create(user_id: mega.id, lit_text_id: dickinson.id, content: "So waste not thou; but come; for all the vales / Await thee; azure pillars of the hearth / Arise to thee; the children call, and I / Thy shepherd pipe, and sweet is every sound, / Sweeter thy voice, but every sound is sweet; / Myriads of rivulets hurrying thro' the lawn, / The moan of doves in immemorial elms, / And murmuring of innumerable bees.", deleted:false, parent_comment_id: null)
+maud = Comment.create(user_id: mega.id, lit_text_id: dickinson.id, content: "So waste not thou; but come; for all the vales / Await thee; azure pillars of the hearth / Arise to thee; the children call, and I / Thy shepherd pipe, and sweet is every sound, / Sweeter thy voice, but every sound is sweet; / Myriads of rivulets hurrying thro' the lawn, / The moan of doves in immemorial elms, / And murmuring of innumerable bees.", deleted:false)
 CommentComType.create(comment_id: maud.id, com_type_id: feel.id)
 CommentComType.create(comment_id: maud.id, com_type_id: lore.id)
 
-sentence = Comment.create(user_id: scary.id, lit_text_id: kincaid_id, content: "Just one long sentence, relentlessly trying to roll over your objections", deleted:false, parent_comment_id: null)
+sentence = Comment.create(user_id: scary.id, lit_text_id: kincaid.id, content: "Just one long sentence, relentlessly trying to roll over your objections", deleted:false)
 CommentComType.create(comment_id: sentence.id, com_type_id: read.id)
 CommentComType.create(comment_id: sentence.id, com_type_id: feel.id)
 
-sent_reply = Comment.create(user_id: falcor.id, lit_text_id: kincaid.id, content: "Kincaid said it was based on her memories of the way her mother talked to her", deleted:false, parent_comment_id: null)
+sent_reply = Comment.create(user_id: falcor.id, lit_text_id: kincaid.id, content: "Kincaid said it was based on her memories of the way her mother talked to her", deleted:false)
 CommentComType.create(comment_id: sent_reply.id, com_type_id: lore.id)
 
-relate = Comment.create(user_id: scary.id, lit_text_id: lu.id, content: "Well, this feels pretty dang relatable", deleted:false, parent_comment_id: null)
+relate = Comment.create(user_id: scary.id, lit_text_id: lu.id, content: "Well, this feels pretty dang relatable", deleted:false)
 CommentComType.create(comment_id: relate.id, com_type_id: feel.id)
 
-eyeball = Comment.create(user_id: dog.id, lit_text_id: lee.id, content: "Ralph Waldo Emerson (1803–1882) was the leading figure of American Transcendentalism. “Transparent soul” is probably a reference to Emerson’s dream of being a “transparent eyeball” that takes in all light and doesn’t reflect anything back.", deleted:false, parent_comment_id: null)
+eyeball = Comment.create(user_id: dog.id, lit_text_id: lee.id, content: "Ralph Waldo Emerson (1803–1882) was the leading figure of American Transcendentalism. “Transparent soul” is probably a reference to Emerson’s dream of being a “transparent eyeball” that takes in all light and doesn’t reflect anything back.", deleted:false)
 CommentComType.create(comment_id: eyeball.id, com_type_id: lore.id)
 CommentComType.create(comment_id: eyeball.id, com_type_id: read.id)
 
-paris = Comment.create(user_id: scary.id, lit_text_id: sappho.id, content: "I dig that she doesn't even mention Paris. It's the goddess who seduced Helen, not him. Where do you think Anactória fits into that analogy?", deleted:false, parent_comment_id: null)
+paris = Comment.create(user_id: scary.id, lit_text_id: sappho.id, content: "I dig that she doesn't even mention Paris. It's the goddess who seduced Helen, not him. Where do you think Anactória fits into that analogy?", deleted:false)
 CommentComType.create(comment_id: paris.id, com_type_id: read.id)
 CommentComType.create(comment_id: paris.id, com_type_id: ques.id)
 
-campo = Comment.create(user_id: rong.id, lit_text_id: frank.id, content: "“Whether we hear a prayer of hope in the poem’s stunning last line, or a desperate plea that we endure, or even an arch impatience in our silly imperfections, in the end we can confess our inexplicable, undiagnosable, love — and, more than by any medicine I can prescribe, be saved by it.” —Rafael Campo", deleted:false, parent_comment_id: null)
+campo = Comment.create(user_id: rong.id, lit_text_id: frank.id, content: "“Whether we hear a prayer of hope in the poem’s stunning last line, or a desperate plea that we endure, or even an arch impatience in our silly imperfections, in the end we can confess our inexplicable, undiagnosable, love — and, more than by any medicine I can prescribe, be saved by it.” —Rafael Campo", deleted:false)
 CommentComType.create(comment_id: campo.id, com_type_id: read.id)
 CommentComType.create(comment_id: campo.id, com_type_id: feel.id)
 CommentComType.create(comment_id: campo.id, com_type_id: lore.id)
 
-bald = Comment.create(user_id: falcor.id, lit_text_id: frank.id, content: "Do you think bald Britney is the millenial version of this moment?", deleted:false, parent_comment_id: null)
+bald = Comment.create(user_id: falcor.id, lit_text_id: frank.id, content: "Do you think bald Britney is the millenial version of this moment?", deleted:false)
 CommentComType.create(comment_id: bald.id, com_type_id: ques.id)
 
 free = Comment.create(user_id: dog.id, lit_text_id: frank.id, content: "FREE BRITNEY!! [Update] I guess Britney is free now. REJOICE!!", deleted:false, parent_comment_id: bald.id)
@@ -115,10 +115,10 @@ CommentComType.create(comment_id: free.id, com_type_id: feel.id)
 CommentComType.create(comment_id: free.id, com_type_id: lore.id)
 
 
-face = Comment.create(user_id: falcor.id, lit_text_id: lee.id, content: "When the speaker says that he's going to eat Emerson's face, do you think that's fully violent, or is there some love in that as well?", deleted:false, parent_comment_id: null)
+face = Comment.create(user_id: falcor.id, lit_text_id: lee.id, content: "When the speaker says that he's going to eat Emerson's face, do you think that's fully violent, or is there some love in that as well?", deleted:false)
 CommentComType.create(comment_id: face.id, com_type_id: ques.id)
 
-bee = Comment.create(user_id: ana.id, lit_text_id: dickinson.id, content: "BEE with me!! 🐝 💖", deleted:false, parent_comment_id: null)
+bee = Comment.create(user_id: ana.id, lit_text_id: dickinson.id, content: "BEE with me!! 🐝 💖", deleted:false)
 CommentComType.create(comment_id: bee.id, com_type_id: feel.id)
 
 Comment.create(user_id: hermen.id, lit_text_id: dickinson.id, content: "What are the hermeneutics of the bee?", deleted:false, parent_comment_id: bee.id)
