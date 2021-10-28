@@ -140,7 +140,7 @@ export default function Homepage() {
 								onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
 							/>
 					</Grid>
-					<Grid justifyContent="left" item>
+					<Grid justifyContent="left" item xs>
 						<Box sx={{ ml: 2, mt: 1 }}>
 						<Typography 
 							onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
