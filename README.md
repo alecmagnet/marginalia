@@ -12,14 +12,6 @@ This app seeks to restore the social dimension of reading by providing a venue f
 - [Repo](https://github.com/alecmagnet/marginalia)
 - [Live](https://magnets-marginalia.herokuapp.com/about)
 
-## Made With  
-
-- [Ruby on Rails](https://rubyonrails.org/) 
-- [React](https://reactjs.org/)
-- [Redux](https://redux.js.org/) & [Redux Toolkit](https://redux-toolkit.js.org/)
-- [MUI](https://mui.com/) (Material UI)
-- [Quill](https://quilljs.com/)
-
 ## Getting Started  
 
 To run this project locally, run the following commands:
@@ -57,6 +49,14 @@ A user of Marginalia can:
 * Browse, search, and filter other users’ profiles
 * Edit their own profile
 * Delete their account
+
+## Made With  
+
+- [Ruby on Rails](https://rubyonrails.org/) 
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/) & [Redux Toolkit](https://redux-toolkit.js.org/)
+- [MUI](https://mui.com/) (Material UI)
+- [Quill](https://quilljs.com/)
 
 ## Author
 
