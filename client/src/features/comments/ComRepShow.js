@@ -128,13 +128,13 @@ export default function ComRepShow({ comment, litTextId }) {
 	return (
 		<div style={{ position: "relative"}}>
 			<Grid item xs={12} >
-				<Grid container spacing={2} wrap="nowrap">
+				<Grid container spacing={2} >
 
 					{renderComment.deleted ? null : 
 						<CommentType comTypes={renderComment.com_types} />
 					}
 
-					<Grid item >
+					<Grid item xs="auto">
 						{renderComment.deleted ? 
 							<Avatar sx={{ bgcolor: "#eee" }}>
 								{ghost}
@@ -149,7 +149,7 @@ export default function ComRepShow({ comment, litTextId }) {
 						}
 					</Grid>
 
-					<Grid justifyContent="left" item xs={9}>
+					<Grid justifyContent="left" item xs={11} sm>
 						<Typography 
 							onClick={userClicked} 
 							sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1, pb: 0 }} 
