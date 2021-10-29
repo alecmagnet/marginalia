@@ -29,7 +29,7 @@ export default function UserTextShow({ id, comments }) {
 					<div className="dot-flashing"></div>
 			</div>
 		:
-			<Grid container item xs={10} alignItems="center" justifyContent="Center">
+			<Grid container item xs={12} sm={10} alignItems="center" justifyContent="Center">
 			<Paper 
 				sx={{ cursor: "pointer", m: 2, mt: 0, p: 3, borderRadius: 2, }} 
 				onClick={() => handleClick()} 

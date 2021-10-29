@@ -108,7 +108,7 @@ export default function UserShow() {
 	}
 
 	const renderUploadPreviews = () =>
-		<Grid container item xs={11}>
+		<Grid container item xs={12} sm={11}>
 			{showUserLitTexts().map(text => <LitTextListShow key={text.id} litText={text}/>)}
 		</Grid>
 
@@ -207,13 +207,13 @@ export default function UserShow() {
 				</Grid>
 
 				<Grid container item xs={12} justifyContent="center">
-					<Divider sx={{ mx: 2, mb: 6, mt: 3, width: "90%" }} textAlign="center">
+					<Divider sx={{ mx: 3, mb: 3, width: "90%" }} textAlign="center"/>
 						<ToggleButtonGroup 
 							value={displayToggledOption}
 							onChange={handleToggleClick}
 							aria-label="Display"
 							exclusive
-							sx={{ mb: -2 }} 
+							sx={{ mb: 4 }} 
 						>
 							{toggleOptionsArr.map(option => 
 								makeToggleButton(option)
@@ -222,7 +222,7 @@ export default function UserShow() {
 								makeToggleButton("Edit Profile")
 							: null}
 						</ToggleButtonGroup>
-					</Divider>	
+					{/* </Divider>	 */}
 					{displayToggledOption === "Edit Profile" ?
 						<UserEditForm 
 							user={user}

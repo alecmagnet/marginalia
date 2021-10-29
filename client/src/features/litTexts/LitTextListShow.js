@@ -57,7 +57,7 @@ export default function LitTextListShow({ litText }) {
 			<Paper 
 				elevation={6} 
 				mx={{ md: 3 }}
-				sx={{ p:3, my: 3, cursor: "pointer", }}
+				sx={{ p:3, my: 1, cursor: "pointer", }}
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
