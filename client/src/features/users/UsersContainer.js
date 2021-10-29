@@ -71,7 +71,7 @@ export default function UsersContainer() {
 		} else {
 			let results = otherUsers.filter((u) => 
 					u.username.toLowerCase().includes(keyword) ||
-					u.fullname.toLowerCase().includes(keyword) ||
+					u.name.toLowerCase().includes(keyword) ||
 					u.bio.toLowerCase().includes(keyword) 
 			)
 			setFilteredUsers(results)
