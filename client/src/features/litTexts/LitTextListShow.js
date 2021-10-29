@@ -7,7 +7,6 @@ export default function LitTextListShow({ litText }) {
 	const { title, author_name, pubdate, content, id, prose, translator } = litText
 	const userState = useSelector((state) => state.user)
 	const location = useLocation()
-	// console.log("from LitTextListShow: litText:", litText, "translator", translator)
   
 	let parsedContent = ""
 	if (content && prose) {

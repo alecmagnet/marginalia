@@ -84,7 +84,7 @@ export default function LitTextsContainer () {
 		} else {
 			let results = litTextsArr.filter((lt) => 
 					lt.title.toLowerCase().includes(keyword) ||
-					lt.author.toLowerCase().includes(keyword) ||
+					lt.author_name.toLowerCase().includes(keyword) ||
 					lt.pubdate.toString().toLowerCase().includes(keyword) ||
 					lt.content.toLowerCase().includes(keyword)
 			)
