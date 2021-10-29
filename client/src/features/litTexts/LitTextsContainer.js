@@ -145,7 +145,7 @@ export default function LitTextsContainer () {
 			</Grid>
 
 			<Grid 
-				item xs={10}
+				item xs={12} md={10}
 				>
 				{status === "loading" ?
 					<div className="centered-in-window" >

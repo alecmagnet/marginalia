@@ -217,7 +217,7 @@ export default function Homepage() {
 					{comsOrTexts === "coms" ? 
 						displayRecentComments()
 					:
-						<Grid container item xs={10}>
+						<Grid container item xs={12} md={10}>
 							{displayTextPreviews()}
 						</Grid>
 					}

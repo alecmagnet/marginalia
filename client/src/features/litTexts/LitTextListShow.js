@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
-import { Typography, Grid, Paper, Card } from '@mui/material'
+import { Typography, Grid, Paper, Card, Box } from '@mui/material'
 
 export default function LitTextListShow({ litText }) {
 	const { title, author_name, pubdate, content, id, prose, translator } = litText
@@ -52,10 +52,12 @@ export default function LitTextListShow({ litText }) {
 
 
 	return (
-		<Grid item >
+		<Grid container item xs={12} justifyContent="center">
+			<Grid container item xs={12} md={11}>
 			<Paper 
 				elevation={6} 
-				sx={{ p:3, m: 3, cursor: "pointer", }}
+				mx={{xs: 0, md: 3}}
+				sx={{ p:3, my: 3, cursor: "pointer", }}
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
@@ -65,19 +67,33 @@ export default function LitTextListShow({ litText }) {
 				: null}
 				<Typography variant="body2" sx={{ textAlign:"center", color: "#494949" }}>{displayDate()}<span style={{ marginLeft: "13px", marginRight: "13px"}}>❧</span>{isProse}</Typography>
 
-				<Card 
-					variant="outlined" 
-					sx={{ p:2, pt: 0, my:1, mx:0, }}
+				<Grid container item
+					xs={12}
+					justifyContent="center"
 				>
-					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
-						<em>Preview</em>
-					</Typography>				
-					<Typography variant="body1">{showContent}&nbsp;.&nbsp;.&nbsp;.</Typography> 
-				</Card>
-				<div style={{ display:"flex", width: "100%", justifyContent: "center", }}>
+					<Grid item xs={12} md={11}>
+						<Card
+							variant="outlined" 
+							sx={{ p:2, pt: 0, my:1, }}
+						>
+							<Typography 
+								sx={{ fontSize: 14, textAlign:"center", mt:1 }} 
+								color="text.secondary" 
+								gutterBottom
+							>
+								<em>Preview</em>
+							</Typography>				
+							<Typography variant="body1">
+								{showContent}&nbsp;.&nbsp;.&nbsp;.
+							</Typography> 
+						</Card>
+					</Grid>
+				</Grid>
+				<Box component="div" justifyContent="center" sx={{ display:"flex", width: "100%", }}>
 					<TotalCommentsAndReplies Id={litText.id} source="litText" />				
-				</div>
+				</Box>
 			</Paper>
+			</Grid>
 		</Grid>
 	)
 }
