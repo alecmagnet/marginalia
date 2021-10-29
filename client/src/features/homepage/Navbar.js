@@ -133,17 +133,17 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
 						<Tooltip title="About" arrow>
 							<IconButton aria-label="about" color="inherit" onClick={handleAboutClick} >
-								<InfoIcon sx={{ fontSize: 32, px: 2, mb: -1  }} />
+								<InfoIcon sx={{ fontSize: 32, px: 1, mb: -1  }} />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Users" arrow>
-							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} sx={{ px: 2, mb: -1 }}>
+							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} sx={{ px: 1, mb: -1 }}>
 								<PeopleIcon sx={{ fontSize: 35, }} />
 							</IconButton>
 						</Tooltip>
             <Tooltip title="Texts" arrow>
 							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
-								<MenuBookIcon sx={{ fontSize: 35, px: 2, mb: -1 }} />
+								<MenuBookIcon sx={{ fontSize: 35, px: 1, mb: -1 }} />
 							</IconButton>
 						</Tooltip>
 

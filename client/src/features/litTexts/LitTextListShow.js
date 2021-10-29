@@ -67,7 +67,7 @@ export default function LitTextListShow({ litText }) {
 
 				<Card 
 					variant="outlined" 
-					sx={{ p:2, pt: 0, my:2, mx:5, }}
+					sx={{ p:2, pt: 0, my:1, mx:0, }}
 				>
 					<Typography sx={{ fontSize: 14, textAlign:"center", mt:1 }} color="text.secondary" gutterBottom>
 						<em>Preview</em>

@@ -121,22 +121,24 @@ export default function Homepage() {
 				"translator": com.lit_text_translator 
 			}
 			return (
-				<Grid container item xs={10} key={com.id}>
+				<Grid container item xs={12} md={10} key={com.id}>
 					<Paper
 						sx={{ width: "100%", p: 2, my: 1, pt: 4 }}
 						elevation={2}
 					>
 						<Grid container item xs={12}>
 					{/* ADD COMTYPES */}
-					<Grid item xs="auto">
+					<Grid container item xs={12} md="auto" justifyContent="center">
+						<Grid item xs="auto">
 							<Avatar 
 								alt={com.user_fullname} 
 								src={com.user_image} 
 								sx={{ cursor: "pointer", width: 120, height: 120, ml: 3, mr: 1, mt: 0 }} 
 								onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
 							/>
+						</Grid>
 					</Grid>
-					<Grid justifyContent="left" item xs>
+					<Grid justifyContent="left" item xs={11} md>
 						<Box sx={{ ml: 2, mt: 1 }}>
 						<Typography 
 							onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
