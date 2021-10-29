@@ -1,24 +1,53 @@
-# README
+# MARGINALIA
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Marginalia is a social reading and annotation app, where users can have conversations with one another about literary works they upload, comment on, and read.  
 
-Things you may want to cover:
+The word *marginalia* refers to the notes and markings that readers make in the margins of page. Back when books were too expensive not to share – or even when more people borrowed physical books from the library – these notes provides a way for readers to communicate with one another, sometimes from across centuries.  
 
-* Ruby version
+This app seeks to restore the social dimension of reading by providing a venue for readers to speak with one another through the comments and replies they leave on literary texts.  
 
-* System dependencies
+## Links
+- [Repo](https://github.com/alecmagnet/marginalia)
+- [Live](https://magnets-marginalia.herokuapp.com/about)
 
-* Configuration
+# Made With
 
-* Database creation
+- [Ruby on Rails](https://rubyonrails.org/) 
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/) & [Redux Toolkit](https://redux-toolkit.js.org/)
+- [MUI](https://mui.com/) (Material UI)
+- [Quill](https://quilljs.com/)
 
-* Database initialization
+# Getting Started
 
-* How to run the test suite
+To run this project locally, run the following commands:
+<br />
 
-* Services (job queues, cache servers, search engines, etc.)
+```javascript
+bundle install
+npm install --prefix client
+rails db:create db:migrate db:seed
+rails s
+npm start --prefix client
+```
 
-* Deployment instructions
+# User Story
 
-* ...
+A user of Marginalia can:
+
+* Securely sign up, log in, log out, and remain authorized on refresh
+* See a preview on the homepage of most recently posted comments and most recently uploaded texts 
+* Browse, search, filter, and read uploaded literary texts
+* Upload poems, stories, and other literary texts
+* Edit a text if they uploaded it or are a librarian-type user
+* Post comments on texts and replies to other comments
+* Edit and delete their own comments
+  * If a comment has replies or is a reply to another comment, deleting it will leave a ghost that says “comment was deleted.” Otherwise, It will simply vanish
+* Assign their comments multiple comment types, such “question” or “critique”
+* Add and remove comment types from their comments
+* Browse, search, and filter all comments on a particular text
+* Browse, search, and filter other users’ profiles
+* Edit their own profile
+* Delete their account
+
+
