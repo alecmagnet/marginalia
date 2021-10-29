@@ -79,7 +79,7 @@ export default function LitTextShow() {
 			alignItems="center"
 		>
 			<Grid 
-				item xs={11} sm={12} md={11}
+				item xs={12} md={10}
 			>
 				<div style={{ 
 					display:"flex", 
@@ -100,7 +100,7 @@ export default function LitTextShow() {
 				</div>
 				<Paper 
 					elevation={9} 
-					sx={{ p:3, m: 3, mt: 1, justifyContent:"center", minWidth: "350px" }}
+					sx={{ p:3, mb: 3, mt: 1, justifyContent:"center", minWidth: "350px" }}
 				>
 					<Typography 
 						variant="subtitle1" 
