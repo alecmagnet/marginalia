@@ -199,7 +199,7 @@ export default function AboutPage() {
 			alignItems="center"
 		>
 
-			<Grid item xs={10} sx={{ mt: 3 }}>
+			<Grid item xs={11} md={10} sx={{ mt: 3 }}>
 				<HpButtons images={images} handleImgButtonClick={handleImgButtonClick} />
 			</Grid>
 
@@ -218,8 +218,9 @@ export default function AboutPage() {
 				{buttons}
 			</Grid>
 
-			<Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}>
-				<Box sx={{ px: 6, pt: 1, pb: 3, mt: 0, }}>
+			<Grid item xs={12} sm={9}  justifyContent="center" sx={{ pt: 1, pb: 3, }}>
+			{/* <Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}> */}
+			 	{/* <Box sx={{ px: 6, pt: 1, pb: 3, mt: 0, }}> */}
 					<Typography id="what-is-it" variant="h4" justify="center" sx={{  }}>
 						What is Marginalia?
 					</Typography>
@@ -248,11 +249,14 @@ export default function AboutPage() {
 						onClick={() => history.push("/users/1")} 
 					/>
 					{contentGrafs(whoMadeItArr)}				
-				</Box>
-			</Box>
-			<HashLink smooth to="#top"> 
-				<Button variant="text">Top</Button>
-			</HashLink>
+				{/* </Box>
+			</Box> */}
+			</Grid>
+			<Grid item xs={12} display="flex" justifyContent="center">
+				<HashLink smooth to="#top"> 
+					<Button variant="text">Top</Button>
+				</HashLink>
+			</Grid>
 		</Grid>		
 	)
 }
