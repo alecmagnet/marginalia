@@ -208,12 +208,13 @@ export default function UserShow() {
 
 				<Grid container item xs={12} justifyContent="center" display="nowrap">
 					<Divider sx={{ mx: 3, mb: 3, width: "90%" }} textAlign="center"/>
+						{/* <Grid item xs={11} sm={10} justifyContent="center">  */}
 						<ToggleButtonGroup 
 							value={displayToggledOption}
 							onChange={handleToggleClick}
 							aria-label="Display"
 							exclusive
-							sx={{ mb: 4 }} 
+							sx={{ mb: 2 }} 
 						>
 							{toggleOptionsArr.map(option => 
 								makeToggleButton(option)
@@ -222,7 +223,7 @@ export default function UserShow() {
 								makeToggleButton("Edit Profile")
 							: null}
 						</ToggleButtonGroup>
-						<br/>
+					<Divider sx={{ width: "90%", visibility: "hidden" }} textAlign="center"/>
 					{/* </Divider>	 */}
 					{displayToggledOption === "Edit Profile" ?
 						<Grid item xs={11} sm={10} justifyContent="center"> 
