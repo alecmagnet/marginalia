@@ -103,7 +103,7 @@ export default function UsersContainer() {
 				item xs={9} 
 				align="center" 
 				justify="center">
-					<Typography variant="h2" justify="center" sx={{pt:4, pb:3, fontWeight: 410 }}>Users</Typography>
+					<Typography variant="h2" justify="center" sx={{pt:4, pb:3, fontWeight: 410 }}>Members</Typography>
 			</Grid>
 			<Grid item xs={9}>
 
