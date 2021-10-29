@@ -7,9 +7,8 @@ import { Paper } from '@mui/material'
 export default function FilterDropdown({ poetryProseValue, handlePoetryProseValue }) {
 	const valueArr = ["All", "Poetry", "Prose"]
 	return (
-		<FormControl sx={{ minWidth: "112px", ml: 2, mt: 1, }} >
+		<FormControl sx={{ minWidth: "112px", }} >
 			<InputLabel id="filter-by-label">View</InputLabel>
-			<Paper>
 			<Select
 				labelId="filter-by-label"
 				id="filter-by"
@@ -24,7 +23,6 @@ export default function FilterDropdown({ poetryProseValue, handlePoetryProseValu
 					</MenuItem>)
 				}
 			</Select>
-		</Paper>
 		</FormControl>
 	)
 }

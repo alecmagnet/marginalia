@@ -38,8 +38,8 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, hand
 
 	
 	return (
-		<FormControl sx={{ minWidth: "152px", mt: 1, }} >
-			<Paper sx={{ bgcolor: "#fefcf9" }}>
+		<FormControl sx={{ minWidth: "152px", bgcolor: "#fefcf9" }} >
+			<Box>
 			<InputLabel id="arrange-by-label">Arrange By</InputLabel>
 			<Select
 				labelId="arrange-by-label"
@@ -126,7 +126,7 @@ export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, hand
 				<CompareArrowsIcon sx={{ transform: "rotate(90deg)"}}/>
 			</IconButton>
 			</Box>
-			</Paper>
+			</Box>
 		</FormControl>
 	)
 }

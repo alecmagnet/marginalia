@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, Fragment } from 'react'
 import LitTextListShow from "./LitTextListShow"
 import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import OrderDropdown from './dropdowns/OrderDropdown'
@@ -145,63 +145,75 @@ export default function LitTextsContainer () {
 			</Grid>
 
 			<Grid 
-				item xs={12} md={10}
+				container item xs={12} justifyContent="center"
 				>
 				{status === "loading" ?
 					<div className="centered-in-window" >
 							<div className="dot-flashing"></div>
 					</div>
 				:
-				<div>
-						<div style={{ display:"flex", justifyContent:"center", marginBottom: "32px" }}>
-							<OrderDropdown 
-								litTextsOrder={litTextsOrder} 
-								handleLitTextsOrder={handleLitTextsOrder} 
-								handleReverseClick={handleReverseClick}
-							/>
-							<FilterDropdown
-								poetryProseValue={poetryProseValue}
-								handlePoetryProseValue={handlePoetryProseValue}
-							/>
-							<Paper sx={{ mt: "8px", mb: 2, ml: 2, width: "36%" }}>
-							<TextField 
-								elevation={1}
-								id="search"
-								label="Search"
-								variant="filled"
-								sx={{ width: "100%" }}
-								onChange={e => handleSearch(e)}
-							/>
-							</Paper>
-							<Paper sx={{ ml: 2, mt: "8px", height: "61.75px" }}>
-							<Tooltip title="Add New Story or Poem" arrow>
-								<Button
-									onClick={() => handleNewClick()} 
-									variant="contained"
-									sx={{ height: "61.75px" }}
-								>
-									<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
-								</Button>
-							</Tooltip>
-							</Paper>
+					<Fragment>
+						<div style={{ justifyContent:"center", marginBottom: "32px" }}>
+							<Grid 
+								container item xs={12} 
+								columnSpacing={3} 
+								rowSpacing={1}
+								justifyContent="center"
+								// sx={{ mt: "8px", mb: 2}}
+							>
+								<Grid item xs="auto">
+									<OrderDropdown 
+										litTextsOrder={litTextsOrder} 
+										handleLitTextsOrder={handleLitTextsOrder} 
+										handleReverseClick={handleReverseClick}
+									/>
+								</Grid>
+								<Grid item xs="auto">
+									<FilterDropdown
+										poetryProseValue={poetryProseValue}
+										handlePoetryProseValue={handlePoetryProseValue}
+									/>
+								</Grid>
+								<Grid item xs={10} md>
+										<TextField 
+											elevation={1}
+											id="search"
+											label="Search"
+											variant="filled"
+											sx={{ width: "100%" }}
+											onChange={e => handleSearch(e)}
+										/>
+								</Grid>
+								<Grid item xs="auto">
+										<Tooltip title="Add New Story or Poem" arrow>
+											<Button
+												onClick={() => handleNewClick()} 
+												variant="contained"
+												sx={{ height: "61.75px" }}
+											>
+												<Typography variant="body2" sx={{ fontColor: "#fefcf9", fontSize: "40px", marginTop: "0px", fontWeight: "999"}}>+</Typography>
+											</Button>
+										</Tooltip>
+								</Grid>
+							</Grid>
 						</div>
 
-								{newClicked ? 
-									<LitTextNewForm 
-										handleNewClick={handleNewClick} 
-										handleLitTextsOrder={handleOrderAfterNewTextAdd} 
-										handlePoetryProseValue={handlePoetryProseValue}
-										isEdit={false}
-										litText={null}
-										reRender={null}
-									/> 
-								: null}
+						{newClicked ? 
+							<LitTextNewForm 
+								handleNewClick={handleNewClick} 
+								handleLitTextsOrder={handleOrderAfterNewTextAdd} 
+								handlePoetryProseValue={handlePoetryProseValue}
+								isEdit={false}
+								litText={null}
+								reRender={null}
+							/> 
+						: null}
 
-				{status === "error" ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", my: 1 }}><b>We're sorry. There's been an error uploading your text.</b></Typography> : null}
+						{status === "error" ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", my: 1 }}><b>We're sorry. There's been an error uploading your text.</b></Typography> : null}
 			
 						{renderLitTexts()}
 
-					</div>
+					</Fragment>
 				}
 			</Grid>
 		</Grid>
