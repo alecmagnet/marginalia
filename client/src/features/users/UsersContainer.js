@@ -109,7 +109,7 @@ export default function UsersContainer() {
 
 			</Grid>
 			<Grid 
-				item xs={9}
+				item xs={12} sm={10} md={9}
 				>
 				{status === "idle" ? 
 					<div>
