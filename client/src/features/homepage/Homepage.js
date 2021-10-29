@@ -124,7 +124,7 @@ export default function Homepage() {
 				<Grid container item xs={12} md={10} key={com.id}>
 					<Paper
 						sx={{ width: "100%", p: 2, my: 1, pt: 4 }}
-						elevation={2}
+						elevation={4}
 					>
 						<Grid container item xs={12}>
 					{/* ADD COMTYPES */}

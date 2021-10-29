@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import TotalCommentsAndReplies from '../shared/TotalCommentsAndReplies'
 import { Typography, Grid, Paper, Card, Box } from '@mui/material'
@@ -6,6 +6,7 @@ import { Typography, Grid, Paper, Card, Box } from '@mui/material'
 export default function LitTextListShow({ litText }) {
 	const { title, author_name, pubdate, content, id, prose, translator } = litText
 	const userState = useSelector((state) => state.user)
+	const location = useLocation()
 	// console.log("from LitTextListShow: litText:", litText, "translator", translator)
   
 	let parsedContent = ""
@@ -51,13 +52,16 @@ export default function LitTextListShow({ litText }) {
 	}
 
 
+	const elevationProp = () => location.pathname.includes("texts") ? 6 : 2
+
+
 	return (
 		<Grid container item xs={12} justifyContent="center">
 			<Grid container item xs={12} md={11}>
 			<Paper 
-				elevation={6} 
+				elevation={elevationProp()} 
 				mx={{ md: 3 }}
-				sx={{ p:3, my: 1, cursor: "pointer", }}
+				sx={{ p:3, mt: 2, cursor: "pointer", }}
 				onClick={handlePaperClick}
 			>
 				<Typography variant="h5" sx={{ textAlign:"center" }}><b>{title}</b></Typography>
