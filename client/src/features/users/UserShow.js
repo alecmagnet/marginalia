@@ -206,7 +206,7 @@ export default function UserShow() {
 					</Typography>
 				</Grid>
 
-				<Grid container item xs={12} justifyContent="center">
+				<Grid container item xs={12} justifyContent="center" display="nowrap">
 					<Divider sx={{ mx: 3, mb: 3, width: "90%" }} textAlign="center"/>
 						<ToggleButtonGroup 
 							value={displayToggledOption}
@@ -222,11 +222,14 @@ export default function UserShow() {
 								makeToggleButton("Edit Profile")
 							: null}
 						</ToggleButtonGroup>
+						<br/>
 					{/* </Divider>	 */}
 					{displayToggledOption === "Edit Profile" ?
-						<UserEditForm 
-							user={user}
-						/>
+						<Grid item xs={11} sm={10} justifyContent="center"> 
+							<UserEditForm 
+								user={user}
+							/>
+						</Grid>
 					: displayToggledOption === "Texts Uploaded" ?
 						showWhat(showUserLitTexts(), renderUploadPreviews(), ["upload", "uploaded any texts"])
 					: displayToggledOption === "Comments" ?
