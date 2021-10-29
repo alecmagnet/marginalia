@@ -4,7 +4,7 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton	from '@mui/material/IconButton'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
-import { Paper, Box } from '@mui/material'
+import { Box } from '@mui/material'
 
 export default function OrderDropdown({ litTextsOrder, handleLitTextsOrder, handleReverseClick }) {
 	const valuesArr = [
