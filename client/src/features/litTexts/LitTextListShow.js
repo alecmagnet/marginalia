@@ -56,7 +56,7 @@ export default function LitTextListShow({ litText }) {
 			<Grid container item xs={12} md={11}>
 			<Paper 
 				elevation={6} 
-				mx={{xs: 0, md: 3}}
+				mx={{ md: 3 }}
 				sx={{ p:3, my: 3, cursor: "pointer", }}
 				onClick={handlePaperClick}
 			>

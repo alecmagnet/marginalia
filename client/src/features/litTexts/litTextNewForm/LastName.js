@@ -67,7 +67,7 @@ export default function LastName({
 				<Grid item xs="auto">
 					<CompareArrowsIcon 
 						onClick={handleFamNameFirstClick}
-						sx={{ height: "62px", color: "#3e2723", cursor: "pointer" }}
+						sx={{ height: "62px", color: "#3e2723", cursor: "pointer", mx: "5px" }}
 					/>
 				</Grid>
 		)
@@ -90,11 +90,11 @@ export default function LastName({
 					arrow
 				>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-					<Grid item xs sx={{ mr: "5px" }}>
+					<Grid item xs >
 						{nameField(nameLabel("Family name"))}
 					</Grid>
 					{compareArrow()}
-					<Grid item xs sx={{ ml: "5px" }}>
+					<Grid item xs={12} sm >
 						{nameField(nameLabel("Given name"))}
 					</Grid>
 				</Grid>
@@ -106,7 +106,7 @@ export default function LastName({
 				arrow
 			>
 				<Grid container item xs={12} sx={{ mx: "5%", my: 1, width: "90%"}}>
-					<Grid item xs sx={{ mr: "5px" }}>
+					<Grid item xs >
 						<TextField
 							onChange={handleFormChange}
 							autoComplete="first_name"
@@ -118,7 +118,7 @@ export default function LastName({
 						/>
 					</Grid>
 					{compareArrow()}
-					<Grid item xs sx={{ ml: "5px" }}>
+					<Grid item xs={12} sm >
 						{nameField(nameLabel("Family name"))}
 					</Grid>
 				</Grid>

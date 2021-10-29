@@ -159,7 +159,6 @@ export default function LitTextsContainer () {
 								columnSpacing={3} 
 								rowSpacing={1}
 								justifyContent="center"
-								// sx={{ mt: "8px", mb: 2}}
 							>
 								<Grid item xs="auto">
 									<OrderDropdown 

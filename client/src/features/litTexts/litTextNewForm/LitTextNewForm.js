@@ -214,10 +214,11 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 
 	return (
-		<Grid item xs={12}>
+		<Grid container display="flex" justifyContent="center" columnSpacing={1}>
+			<Grid item xs={12} md={11} lg={9} xl={7} >
 			<Paper 
 				elevation={6} 
-				sx={{ p:3, m: 3, mt: 3, backgroundColor: "#ebe3e1" }}
+				sx={{ p:3, my: 3, mt: 3, backgroundColor: "#ebe3e1", maxWidth: "1100" }}
 			>
 				<Typography 
 					variant="h5" 
@@ -250,7 +251,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 					{notNum ? <Typography variant="body2" sx={{ color: "#701010", textAlign: "center", mt: 1 }}>We're sorry. <b>Year</b> can only include numbers for now. </Typography> : null}
 					<Grid container item xs={12} sx={{ mx: "5%", width: "90%"}}>
-						<Grid container item xs={6} sx={{ pr: "20px"}}>
+						<Grid container item xs={12} sm={6} sx={{ pr: "20px"}}>
 							{ isEdit ? 
 								<Tooltip 
 									title={<span>If date is BCE, please leave <b>Year</b> as a negative number</span>}
@@ -282,7 +283,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 								</ToggleButtonGroup>
 							</Grid>
 						</Grid>
-						<Grid item xs={6} sx={{ pl: "20px"}}>
+						<Grid item xs={12} sm={6} sx={{ pl: "20px"}}>
 								<TextField
 									onChange={handleFormChange}
 									autoComplete="translator"
@@ -410,6 +411,7 @@ export default function LitTextNewForm({ handleLitTextsOrder, handleNewClick, ha
 
 				</Box>
 			</Paper>
+			</Grid>
 		</Grid>
 	)
 }
