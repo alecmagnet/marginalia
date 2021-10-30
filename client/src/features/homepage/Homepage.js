@@ -138,11 +138,15 @@ export default function Homepage() {
 							/>
 						</Grid>
 					</Grid>
-					<Grid justifyContent="left" item xs={11} md>
+					<Grid 
+						item xs={11} md
+						justifyContent="left" 
+						onClick={() => handleImgButtonClick(`texts/${com.lit_text_id}#${com.id}`)} 
+						sx={{ cursor: "pointer" }} 
+					>
 						<Box sx={{ ml: 2, mt: 1 }}>
 						<Typography 
-							onClick={() => handleImgButtonClick(`users/${com.user_id}`)} 
-							sx={{ cursor: "pointer", fontSize: 25, fontWeight: 401, mb: -1 }} 
+							sx={{ fontSize: 25, fontWeight: 401, mb: -1 }} 
 						>
 							{com.user_fullname}
 						</Typography>

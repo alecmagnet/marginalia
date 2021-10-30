@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux"
-import { useHistory } from "react-router"
 import { Paper, Grid } from '@mui/material'
 import UserTextComPreview from './UserTextComPreview'
 import LitTextListShow from "../litTexts/LitTextListShow"
@@ -17,10 +16,6 @@ export default function UserTextShow({ id, comments }) {
 	}
 	// console.log("litTexts from UserTextShow", litText())
 	
-	const history = useHistory()
-	const handleClick = () => {
-		history.push(`/texts/${id}`)
-	}
 
 	return (
 		<>
@@ -32,7 +27,7 @@ export default function UserTextShow({ id, comments }) {
 			<Grid container item xs={12} sm={10} alignItems="center" justifyContent="Center">
 			<Paper 
 				sx={{ cursor: "pointer", m: 2, mt: 0, p: 3, borderRadius: 2, }} 
-				onClick={() => handleClick()} 
+				// onClick={() => handleClick()} 
 				elevation={3}
 			>
 				<div>

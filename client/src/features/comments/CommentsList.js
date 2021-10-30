@@ -1,19 +1,25 @@
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useSelector } from "react-redux"
+import { useLocation } from 'react-router-dom'
 import { Grid, Tooltip, IconButton } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 import ComTypeDropdown from "./ComTypeDropdown.js"
-// import { HashLink } from 'react-router-hash-link'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 
 export default function CommentsList({ litTextId }) {
 	const [comTypes, setComTypes] = useState(["all"])
 
 	const stateComments = useSelector((state) => state.comments)
-	const allComments = [...stateComments.entities]
+	const allComments = useMemo(() => { return [...stateComments.entities]}, [stateComments.entities])
 	const showTextComments = allComments.filter((c) => c.lit_text_id === litTextId)
-
+	
+	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
+	const location = useLocation()
+	useEffect(() => {
+		if (location.hash.length > 0 && allComments.length > 0) scrollTo(location.hash.slice(1))
+	}, [location, allComments])
+	
 	const parentComments = showTextComments.filter((c) => c.parent_comment_id === null)
 	const oldestFirst = parentComments.sort((a, b) => a.id - b.id)
 
@@ -72,9 +78,6 @@ export default function CommentsList({ litTextId }) {
 		return returnArr
 	}
 
-	const newCommentHash = `/texts/${litTextId}#new-comment`
-	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
-
 
 	return (
 		<div>
@@ -101,7 +104,6 @@ export default function CommentsList({ litTextId }) {
 							>
 								<AddCommentIcon
 									sx={{ mb: "0px", p: 0, fontSize: 50, }}
-									onClick={() => scrollTo("new-comment")}
 								/>
 							</IconButton>
 						</Tooltip>
