@@ -126,7 +126,7 @@ export default function ComRepShow({ comment, litTextId }) {
 
 
 	return (
-		<div style={{ position: "relative"}}>
+		<div id={comment.id} style={{ position: "relative"}}>
 			<Grid item xs={12} >
 				<Grid container spacing={2} >
 

@@ -11,7 +11,6 @@ import CommentsList from '../comments/CommentsList'
 import LitTextNewForm from './litTextNewForm/LitTextNewForm'
 import TimeAgoContainer from '../shared/TimeAgoContainer'
 import { fetchLitTextById } from './showTextSlice'
-import { HashLink } from 'react-router-hash-link'
 
 export default function LitTextShow() {
 	const [editClicked, setEditClicked] = useState(false)
@@ -21,8 +20,10 @@ export default function LitTextShow() {
 	const history = useHistory()
 	const location = useLocation()
 
+	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
+
 	const onRender = useCallback(() => {
-		if (location.hash.length > 0) history.push(location.pathname)
+		// if (location.hash.length > 0) history.push(location.pathname)
 		dispatch(fetchLitTextById(params.id))
 	}, [dispatch, history, location.hash.length, location.pathname, params.id])
 
@@ -47,10 +48,6 @@ export default function LitTextShow() {
 		history.push(`/users/${litText.uploader_id}`)
 	}
 	
-	let commentsHash = ""
-	let newCommentHash = ""
-	if (litTextState.entities.length > 0) commentsHash = `/texts/${litText.id}#comments`
-	if (litTextState.entities.length > 0) newCommentHash = `/texts/${litText.id}#new-comment`
 
 	let parsedContent = ""
 	let isProse = "Poetry"
@@ -88,14 +85,10 @@ export default function LitTextShow() {
 					paddingBottom: 2 
 				}}>
 					<Tooltip title="Comments" arrow>
-						<HashLink smooth to={commentsHash} style={{ marginRight: 18, color: "#757575" }}>
-								<ForumIcon size="small" sx={{mt: 3 }} />
-							</HashLink>
+						<ForumIcon size="small" sx={{mt: 3, mr: '18px', color: "#757575" }} onClick={() => scrollTo("comments")}/>
 					</Tooltip>
 					<Tooltip title="New Comment" arrow>
-						<HashLink smooth to={newCommentHash} style={{ color: "#757575" }}>
-							<AddCommentIcon size="small" sx={{mt: 3 }} />
-						</HashLink>
+						<AddCommentIcon size="small" sx={{mt: 3, mr: '18px', color: "#757575" }} onClick={() => scrollTo("new-comment")}/>
 					</Tooltip>
 				</div>
 				<Paper 

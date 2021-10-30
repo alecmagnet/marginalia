@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { Grid, Tooltip } from '@mui/material'
+import { Grid, Tooltip, IconButton } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
 import ComTypeDropdown from "./ComTypeDropdown.js"
-import { HashLink } from 'react-router-hash-link'
+// import { HashLink } from 'react-router-hash-link'
 import AddCommentIcon from '@mui/icons-material/AddComment'
 
 export default function CommentsList({ litTextId }) {
@@ -73,6 +73,7 @@ export default function CommentsList({ litTextId }) {
 	}
 
 	const newCommentHash = `/texts/${litTextId}#new-comment`
+	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
 
 
 	return (
@@ -94,11 +95,15 @@ export default function CommentsList({ litTextId }) {
 							handleComType={handleComType}
 						/>
 						<Tooltip title="Post a Comment" arrow>
-							<HashLink smooth to={newCommentHash} style={{ color: "#3e2723", height: "62px" }} >
+							<IconButton 
+								onClick={() => scrollTo("new-comment")} 
+								sx={{ color: "#757575",  ml: 3, mt: "10px"}} 
+							>
 								<AddCommentIcon
-									sx={{ ml: 3, mt: "1px", p: 0, fontSize: 92 }}
+									sx={{ mb: "0px", p: 0, fontSize: 50, }}
+									onClick={() => scrollTo("new-comment")}
 								/>
-							</HashLink>
+							</IconButton>
 						</Tooltip>
 					</div>
 					{renderComments()}
