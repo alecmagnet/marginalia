@@ -25,16 +25,16 @@ export default function LitTextShow() {
 		dispatch(fetchLitTextById(params.id))
 	}, [dispatch, params.id])
 
-	useEffect(() => {
-		onRender()
-	}, [forceRender, onRender])
-	
 	const user = useSelector((state) => state.user.entities[0])
 	const litTextState = useSelector((state) => state.showText)
 	const litText = litTextState.entities.length > 0 ? litTextState.entities[0] : null
 	// console.log("litText", litText, "user", user)
 
-	const handleEditClick = () => {
+	useEffect(() => {
+		onRender()
+	}, [forceRender, onRender])
+
+	const handleEditClick = () => {	
 		setEditClicked(prev => !prev)
 	}
 

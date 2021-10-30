@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import { useHistory } from "react-router"
+import { useState, useMemo, useRef, useEffect } from "react"
+import { useHistory, useLocation } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import TimeAgoContainer from "../shared/TimeAgoContainer"
 import CommentEditForm from "./CommentEditForm"
@@ -28,6 +28,13 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	const dispatch = useDispatch() 
 	const history = useHistory()
+	const location = useLocation()
+	const elementRef = useRef()
+
+	useEffect(() => {
+		const comDivRef = elementRef.current
+		if (location.hash.includes(`${comment.id}`)) comDivRef.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}, [location, comment.id])
 
 	const isParentQuestion = () => {
 		if (comment.com_types.find(type => type.id === 2)) {
@@ -110,6 +117,8 @@ export default function ComRepShow({ comment, litTextId }) {
 		setErrors(data)
 	}
 
+	const isNavToComment = () => {if (location.hash.includes(`${comment.id}`)) return <div ref={elementRef}/>}
+
 
 	const ghost = <span role="img" aria-label="ghost"> 👻 </span>
 
@@ -127,6 +136,7 @@ export default function ComRepShow({ comment, litTextId }) {
 
 	return (
 		<div id={comment.id} style={{ position: "relative"}}>
+			{isNavToComment()}
 			<Grid item xs={12} >
 				<Grid container spacing={2} >
 

@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo } from "react"
 import { useSelector } from "react-redux"
-import { useLocation } from 'react-router-dom'
 import { Grid, Tooltip, IconButton } from '@mui/material'
 import CommentNewForm from '../comments/CommentNewForm.js'
 import CommentShow from "./CommentShow"
@@ -15,10 +14,6 @@ export default function CommentsList({ litTextId }) {
 	const showTextComments = allComments.filter((c) => c.lit_text_id === litTextId)
 	
 	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
-	const location = useLocation()
-	useEffect(() => {
-		if (location.hash.length > 0 && allComments.length > 0) scrollTo(location.hash.slice(1))
-	}, [location, allComments])
 	
 	const parentComments = showTextComments.filter((c) => c.parent_comment_id === null)
 	const oldestFirst = parentComments.sort((a, b) => a.id - b.id)
@@ -66,14 +61,22 @@ export default function CommentsList({ litTextId }) {
 		const toFilter = filteredComments(oldestFirst)
 		const returnArr = toFilter.map((c) => {
 			let replies = showTextComments.filter((r) => r.parent_comment_id === c.id)
-			return(
+			const commentShowCall = 
 				<CommentShow 
 					key={c.id} 
 					comment={c} 
 					litTextId={litTextId} 
 					replies={replies} 
 				/>
-			)	
+			// if (location.hash.includes(`${c.id}`)) {
+			// 	return (
+			// 		<div ref={comDivRef} key={c.id}>				
+			// 			{commentShowCall}
+			// 		</div>
+			// 	)
+			// } else {
+				return commentShowCall
+			// }
 		})
 		return returnArr
 	}
