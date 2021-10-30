@@ -84,6 +84,8 @@ export default function UserShow() {
   const splitDate = trimDate.split(" ")
   const renderDate = `${splitDate[0]} ${splitDate[1]}, ${splitDate[2]}`
 
+	const scrollToTop = () => document.getElementById("top").scrollIntoView({ behavior: 'smooth', block: 'start' })
+
 	const undeleted = () => {
 		if (showUser.comments) {
 			return showUser.comments.filter((c) => c.deleted === false)
@@ -166,6 +168,7 @@ export default function UserShow() {
 				justifyContent="Center"	
 				sx={{ pt: 5, px: 3 }}
 				spacing={3}
+				id="top" 
 			>
 				<Grid	item xs="auto">
 					<Avatar 
@@ -229,6 +232,7 @@ export default function UserShow() {
 						<Grid item xs={11} sm={10} justifyContent="center"> 
 							<UserEditForm 
 								user={user}
+								scrollToTop={scrollToTop}
 							/>
 						</Grid>
 					: displayToggledOption === "Texts Uploaded" ?

@@ -6,10 +6,13 @@ import { updateUser } from './allUsersSlice'
 import { updateShowUser } from "./showUserSlice"
 import { updateCurrentUser } from "./userSlice"
 
-export default function UserEditForm({ user }){
+export default function UserEditForm({ user, scrollToTop }){
 	const [formData, setFormData] = useState(user)
-
 	const { first_name, last_name, fam_name_first, bio, image } = formData
+
+	// useEffect(() => {
+	// 	setAnchorTarget(document.getElementById(top))
+	// }, [top])
 
   function handleChange(e) {
 		setFormData({
@@ -46,6 +49,7 @@ export default function UserEditForm({ user }){
 		.then((data) => {
 			onUpdateUser(data)
 			setFormData(data)
+			scrollToTop()
 		})
 		.catch((errors) => console.log(errors))
 	}	
