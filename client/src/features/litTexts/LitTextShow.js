@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import { useParams, useLocation, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState, useCallback } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { Grid, Paper, Typography, Tooltip, IconButton } from '@mui/material'
@@ -18,14 +18,12 @@ export default function LitTextShow() {
 	const params = useParams()
   const dispatch = useDispatch()
 	const history = useHistory()
-	const location = useLocation()
 
 	const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
 
 	const onRender = useCallback(() => {
-		// if (location.hash.length > 0) history.push(location.pathname)
 		dispatch(fetchLitTextById(params.id))
-	}, [dispatch, history, location.hash.length, location.pathname, params.id])
+	}, [dispatch, params.id])
 
 	useEffect(() => {
 		onRender()
