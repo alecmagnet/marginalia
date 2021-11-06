@@ -41,6 +41,7 @@ class Api::UsersController < ApplicationController
 	def destroy
 		user = find_user
 		if user.id == session[:user_id]
+			Comment.where(user_id: user.id).each {|com| com.update(user_id: 1, deleted: true)}
 			user.destroy
 			session.delete :user_id
 			head :no_content
