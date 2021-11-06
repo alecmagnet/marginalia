@@ -136,12 +136,12 @@ export default function Navbar() {
 								<InfoIcon sx={{ fontSize: 32, px: 1, mb: -1  }} />
 							</IconButton>
 						</Tooltip>
-						<Tooltip title="Users" arrow>
+						<Tooltip title="Members" arrow>
 							<IconButton aria-label="all users" color="inherit" onClick={handleUsersClick} sx={{ px: 1, mb: -1 }}>
 								<PeopleIcon sx={{ fontSize: 35, }} />
 							</IconButton>
 						</Tooltip>
-            <Tooltip title="Texts" arrow>
+            <Tooltip title="Library" arrow>
 							<IconButton aria-label="all texts" color="inherit" onClick={handleTextsClick} >
 								<MenuBookIcon sx={{ fontSize: 35, px: 1, mb: -1 }} />
 							</IconButton>
