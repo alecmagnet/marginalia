@@ -175,7 +175,7 @@ export default function AboutPage() {
 			</b>
 		</span>,
 		"Since you can't anticipate all the ways you might reuse a component, your needs to be flexible.",
-		"The main thing that tripped me up here was style. I taught myself to use MUI as I went, so the components I wrote early on use a lot of unnessary styling that only really works in the instance where I first call them. As I update this project, I hope I to simplify my style and make those components more reusable.",
+		"The main thing that tripped me up here was style. I taught myself to use MUI as I went, so the components I wrote early on use a lot of unnecessary styling that only really works in the instance where I first call them. As I update this project, I hope I to simplify my style and make those components more reusable.",
 		"Another thing you'll notice as you look through my repo is that I learned how to make my code drier along the way. That, too, requires simple, standardized code. It's harder to map through an array of menu items if you need to put different sx props on the first and last ones. I got much better at this as I went. Next time, I won't give myself so many tangles to smooth out and refactor."
 	]
 

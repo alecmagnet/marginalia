@@ -11,6 +11,7 @@ This app seeks to restore the social dimension of reading by providing a venue f
 ## Links
 - [Repo](https://github.com/alecmagnet/marginalia)
 - [Live](https://magnets-marginalia.herokuapp.com/about)
+- [Demo](https://www.youtube.com/watch?v=g2aug6ulkn4)
 
 ## Getting Started  
 
