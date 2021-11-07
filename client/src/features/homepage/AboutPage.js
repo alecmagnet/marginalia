@@ -250,7 +250,7 @@ export default function AboutPage() {
 						How Was It Made?
 					</Typography>
 					{contentGrafs(howWasItMadeArr)}
-					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
+					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 3 }}>
 						What Features Remain to Be Added?
 					</Typography>
 					{contentGrafs(whatFeaturesToAdd)}
