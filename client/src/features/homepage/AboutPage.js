@@ -179,6 +179,18 @@ export default function AboutPage() {
 		"Another thing you'll notice as you look through my repo is that I learned how to make my code drier along the way. That, too, requires simple, standardized code. It's harder to map through an array of menu items if you need to put different sx props on the first and last ones. I got much better at this as I went. Next time, I won't give myself so many tangles to smooth out and refactor."
 	]
 
+	const whatFeaturesToAdd = [
+		"This app was an ambitious project for me. I taught myself Redux and MUI from scratch to build it, and I learned a ton along the way. Even after after the weeks I’ve worked on it since graduating, there are still a number of features I’d like to add.",
+		"The most important is that I would like users to be able to comment not just on a whole text, but also on one specific line of a poem or one sentence of a story. I’m not sure how I’ll make that work yet, but here’s my plan so far:",
+		"I’ll add a new table to my database called passages and update my models so that each litText has_many passages and each passage has_many comments. When a user uploads a text, I’ll break the content up and create a new passage for each unit. Poems will be more straightforward, since each line can be a unit, but I still need to figure out exactly how to do it with prose texts. Then I’ll refactor how I’m rendering them on the front-end so that, when a user hovers over a passage, it highlights in yellow, and when a user clicks on one, all the comments that belong to it appear, along with a form to post a new comment.",
+		<span>I’d also like to create a model for hashtags that a user could add to both comments and texts. That way, I could learn how to use <a
+				href="https://www.itsolutionstuff.com/post/laravel-many-to-many-polymorphic-relationship-tutorialexample.html"
+				rel="noreferrer" target="_blank" 
+				style={{ color: "#455a64"}}
+			>polymorphic many-to-many relationships</a> — each hashtag would have_many taggables, which could be either comments or texts.</span>,
+		"In fact, there are many more features I’d like to add, but the last one I’ll mention here is a search field within the Navbar. After a user types in three or four characters, I’d have a popper appear underneath. The popper would call a component that filters through all the texts, comments, and user profiles and displays previews of any that contain the phrase typed into the search field. I might reuse the container components for Members and Library — after all, modularity is the name of the game! But I’d like the previews to be narrower, so that I can include several columns of them."
+	]
+
 	const whoMadeItArr = [
 		"I did. Hello! My name is Alec Magnet. I graduate from coding bootcamp in October 2021 after thirteen years teaching literature and writing at the City College of New York, Marymount Manhattan College, and elsewhere. Now I'm looking for a full-stack software engineering position position where I can put the talents and enthusiasm I developed as an educator to use building tools that can use to learn, grow, and flourish.",
 		<span key={8}>Check me out on {linkList(myProfiles)}.</span>
@@ -238,6 +250,10 @@ export default function AboutPage() {
 						How Was It Made?
 					</Typography>
 					{contentGrafs(howWasItMadeArr)}
+					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
+						What Features Remain to Be Added?
+					</Typography>
+					{contentGrafs(whatFeaturesToAdd)}
 					<Typography id="who-made-it" variant="h4" justify="center" sx={{ pt: 3 }}>
 						Who Made It?
 					</Typography>
