@@ -174,13 +174,13 @@ export default function AboutPage() {
 				Plan for modularity by making your code as straightforward and standardized as possible!
 			</b>
 		</span>,
-		"Since you can't anticipate all the ways you might reuse a component, your needs to be flexible.",
-		"The main thing that tripped me up here was style. I taught myself to use MUI as I went, so the components I wrote early on use a lot of unnecessary styling that only really works in the instance where I first call them. As I update this project, I hope I to simplify my style and make those components more reusable.",
+		"Since you can't anticipate all the ways you might reuse a component, each one needs to be flexible.",
+		"The main thing that tripped me up here was style. I taught myself to use MUI as I went, so the components I wrote early on use a lot of unnecessary styling that only really works in the instance where I first call them. As I update this project, I hope to simplify my style and make those components more reusable.",
 		"Another thing you'll notice as you look through my repo is that I learned how to make my code drier along the way. That, too, requires simple, standardized code. It's harder to map through an array of menu items if you need to put different sx props on the first and last ones. I got much better at this as I went. Next time, I won't give myself so many tangles to smooth out and refactor."
 	]
 
 	const whatFeaturesToAdd = [
-		"This app was an ambitious project for me. I taught myself Redux and MUI from scratch to build it, and I learned a ton along the way. Even after after the weeks I’ve worked on it since graduating, there are still a number of features I’d like to add.",
+		"This app was an ambitious project for me. I taught myself Redux and MUI from scratch to build it, and I learned a ton along the way. Even after the weeks I’ve worked on it since graduating, there are still a number of features I’d like to add.",
 		"The most important is that I would like users to be able to comment not just on a whole text, but also on one specific line of a poem or one sentence of a story. I’m not sure how I’ll make that work yet, but here’s my plan so far:",
 		"I’ll add a new table to my database called passages and update my models so that each litText has_many passages and each passage has_many comments. When a user uploads a text, I’ll break the content up and create a new passage for each unit. Poems will be more straightforward, since each line can be a unit, but I still need to figure out exactly how to do it with prose texts. Then I’ll refactor how I’m rendering them on the front-end so that, when a user hovers over a passage, it highlights in yellow, and when a user clicks on one, all the comments that belong to it appear, along with a form to post a new comment.",
 		<span>I’d also like to create a model for hashtags that a user could add to both comments and texts. That way, I could learn how to use <a
@@ -192,7 +192,7 @@ export default function AboutPage() {
 	]
 
 	const whoMadeItArr = [
-		"I did. Hello! My name is Alec Magnet. I graduate from coding bootcamp in October 2021 after thirteen years teaching literature and writing at the City College of New York, Marymount Manhattan College, and elsewhere. Now I'm looking for a full-stack software engineering position position where I can put the talents and enthusiasm I developed as an educator to use building tools that can use to learn, grow, and flourish.",
+		"I did. Hello! My name is Alec Magnet. I graduate from coding bootcamp in October 2021 after thirteen years teaching literature and writing at the City College of New York, Marymount Manhattan College, and elsewhere. Now I'm looking for a full-stack software engineering position where I can put the talents and enthusiasm I developed as an educator to use building tools people can use to learn, grow, and flourish.",
 		<span key={8}>Check me out on {linkList(myProfiles)}.</span>
 	]
 
