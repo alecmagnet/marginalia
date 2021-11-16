@@ -1,5 +1,5 @@
 class Api::LitTextsController < ApplicationController
-	skip_before_action :authorize, only: [:recent]
+	skip_before_action :authorize, only: [:recent, :index, :show]
 
 	# GET /recent_lit_texts
 	def recent

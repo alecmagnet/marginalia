@@ -8,7 +8,13 @@ export default function UsersContainer() {
   const userState = useSelector((state) => state.user)
   const user = userState.entities.length > 0 ? userState.entities[0] : null
 
-	const otherUsers = useMemo(() => {return [...[...entities].filter((u) => u.id !== user.id)]}, [entities, user.id])
+	const otherUsers = useMemo(() => {
+		if (user) {
+			return [...[...entities].filter((u) => u.id !== user.id)]
+		} else {
+			return [...entities]
+		}
+	}, [entities, user])
 
 	const alphabetical = (users) => 
 		[...users].sort((a, b) => a.last_name.localeCompare(b.last_name) || a.first_name.localeCompare(b.first_name))

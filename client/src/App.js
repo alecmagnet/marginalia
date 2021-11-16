@@ -39,7 +39,10 @@ export default function App() {
 
   useEffect(() => {
     onAuth()
-  }, [onAuth])
+    dispatch(fetchLitTexts())
+    dispatch(fetchAllUsers())
+    dispatch(fetchComments())
+  }, [onAuth, dispatch])
 
   const theme = createTheme({
     palette: {
@@ -98,6 +101,19 @@ export default function App() {
                 </Route>
                 <Route exact path="/signup">
                   <Signup />
+                </Route>
+
+                <Route exact path='/texts'>
+                  <LitTextsContainer />
+                </Route>
+                <Route exact path='/texts/:id'>
+                  <LitTextShow />
+                </Route>
+                <Route exact path='/users'>
+                  <UsersContainer />
+                </Route>
+                <Route exact path='/users/:id'>
+                  <UserShow />
                 </Route>
                 <Route exact path='/about'>
                   <AboutPage />

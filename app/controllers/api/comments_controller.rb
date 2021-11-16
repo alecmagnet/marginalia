@@ -1,5 +1,5 @@
 class Api::CommentsController < ApplicationController
-	skip_before_action :authorize, only: [:recent]
+	skip_before_action :authorize, only: [:recent, :index, :show]
 
 	# GET /recent-comments
 	def recent

@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-	skip_before_action :authorize, only: [:create, :auth_show]
+	skip_before_action :authorize, only: [:create, :auth_show, :index, :show]
 
 	# POST /signup
 	def create

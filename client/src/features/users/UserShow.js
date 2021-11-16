@@ -148,7 +148,7 @@ export default function UserShow() {
 			<Grid item container justifyContent="center">
 				{what}
 			</Grid> 
-		: showUser.id === user.id ?
+		: user && showUser.id === user.id ?
 			<>{goDoWhatLink(doneWhat[0])}</>
 		:
 			<>{hasNotWhatYet(doneWhat[1])}</>
@@ -211,7 +211,6 @@ export default function UserShow() {
 
 				<Grid container item xs={12} justifyContent="center" display="nowrap">
 					<Divider sx={{ mx: 3, mb: 3, width: "90%" }} textAlign="center"/>
-						{/* <Grid item xs={11} sm={10} justifyContent="center">  */}
 						<ToggleButtonGroup 
 							value={displayToggledOption}
 							onChange={handleToggleClick}
@@ -222,7 +221,7 @@ export default function UserShow() {
 							{toggleOptionsArr.map(option => 
 								makeToggleButton(option)
 							)}
-							{showUser.id === user.id ?
+							{user && showUser.id === user.id ?
 								makeToggleButton("Edit Profile")
 							: null}
 						</ToggleButtonGroup>
@@ -241,7 +240,7 @@ export default function UserShow() {
 						showWhat(undeleted(), renderComPreviews(), ["comment on", "written any comments"])
 					: setDisplayToggledOption("Comments")
 					}
-					{showUser.id === user.id && displayToggledOption === "Edit Profile" ?
+					{user && showUser.id === user.id && displayToggledOption === "Edit Profile" ?
 						<>
 
 							{errors ? errors.map(e => <div key={e} style={{ color: "#660033", textAlign: "center" }} >{e}</div>) : null}

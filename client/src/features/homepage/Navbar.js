@@ -61,14 +61,14 @@ export default function Navbar() {
 	}
 
 	const handleTextsClick = () => {
-		userState.entities.length === 0 ?
-    history.push('/login') :
+		// userState.entities.length === 0 ?
+    // history.push('/login') :
 		history.push('/texts') 
 	}
 
 	const handleUsersClick = () => {
-		userState.entities.length === 0 ?
-    history.push('/login') :
+		// userState.entities.length === 0 ?
+    // history.push('/login') :
 		history.push('/users')
 	}
 
