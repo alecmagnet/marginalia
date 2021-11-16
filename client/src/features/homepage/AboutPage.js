@@ -231,42 +231,38 @@ export default function AboutPage() {
 			</Grid>
 
 			<Grid item xs={12} sm={9}  justifyContent="center" sx={{ pt: 1, pb: 3, }}>
-			{/* <Box justifyContent="center" sx={{ width: "90%", mx: "5%", }}> */}
-			 	{/* <Box sx={{ px: 6, pt: 1, pb: 3, mt: 0, }}> */}
-					<Typography id="what-is-it" variant="h4" justify="center" sx={{  }}>
-						What is Marginalia?
-					</Typography>
-					{contentGrafs(whatIsMargArr)}
-					<Typography id="how-do-i-use-it" variant="h4" justify="center" sx={{ mt: 3 }}>
-						How Do I Use It?
-					</Typography>
-					{contentGrafs(whatCanUserArr)}
-					<Box sx={{ mt: 2 }}>
-						<ul>
-							{storyList(userStoryItems)}
-						</ul>
-					</Box>
-					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
-						How Was It Made?
-					</Typography>
-					{contentGrafs(howWasItMadeArr)}
-					<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 3 }}>
-						What Features Remain to Be Added?
-					</Typography>
-					{contentGrafs(whatFeaturesToAdd)}
-					<Typography id="who-made-it" variant="h4" justify="center" sx={{ pt: 3 }}>
-						Who Made It?
-					</Typography>
-					<Avatar
-						variant="square"
-						alt="Alec Magnet" 
-						src="https://avatars.githubusercontent.com/u/85529561?v=4" 
-						sx={{ float: "left", cursor: "pointer", width: 135, height: 135, mt: 3, mr: 2, ml: 0 }} 
-						onClick={() => history.push("/users/1")} 
-					/>
-					{contentGrafs(whoMadeItArr)}				
-				{/* </Box>
-			</Box> */}
+				<Typography id="what-is-it" variant="h4" justify="center" sx={{  }}>
+					What is Marginalia?
+				</Typography>
+				{contentGrafs(whatIsMargArr)}
+				<Typography id="how-do-i-use-it" variant="h4" justify="center" sx={{ mt: 3 }}>
+					How Do I Use It?
+				</Typography>
+				{contentGrafs(whatCanUserArr)}
+				<Box sx={{ mt: 2 }}>
+					<ul>
+						{storyList(userStoryItems)}
+					</ul>
+				</Box>
+				<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 1 }}>
+					How Was It Made?
+				</Typography>
+				{contentGrafs(howWasItMadeArr)}
+				<Typography id="how-was-it-made" variant="h4" justify="center" sx={{ pt: 3 }}>
+					What Features Remain to Be Added?
+				</Typography>
+				{contentGrafs(whatFeaturesToAdd)}
+				<Typography id="who-made-it" variant="h4" justify="center" sx={{ pt: 3 }}>
+					Who Made It?
+				</Typography>
+				<Avatar
+					variant="square"
+					alt="Alec Magnet" 
+					src="https://avatars.githubusercontent.com/u/85529561?v=4" 
+					sx={{ float: "left", cursor: "pointer", width: 135, height: 135, mt: 3, mr: 2, ml: 0 }} 
+					onClick={() => history.push("/users/1")} 
+				/>
+				{contentGrafs(whoMadeItArr)}				
 			</Grid>
 			<Grid item xs={12} display="flex" justifyContent="center">
 				<HashLink smooth to="#top"> 
