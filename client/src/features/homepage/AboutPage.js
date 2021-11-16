@@ -226,7 +226,7 @@ export default function AboutPage() {
 				</Typography>
 			</Grid>
 
-			<Grid item xs display="flex" justifyContent="center">
+			<Grid item xs={12} display="flex" justifyContent="center">
 				{buttons}
 			</Grid>
 
