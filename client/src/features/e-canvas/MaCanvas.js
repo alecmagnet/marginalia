@@ -720,24 +720,17 @@ export default function MaCanvas() {
 	const [prices, setPrices] = useState([])
 	const canvasRef = useRef()
 
-	// If my fetch request returned a lot more data, 
-	// I would use Object.entries (maybe with .slice?) 
-	// to iterate over just the graph's date-range 
-	// instead of the whole object
-	const getClosingPricesArr = (obj) => {
+	// If my fetch request returned a lot more data, I would use 
+	// Object.entries (maybe with .slice?) to iterate over just 
+	// the graph's date-range instead of the whole object
+	const getClosingPricesArr = useCallback((obj) => {
 		let result = []
 		for (const property in obj) {
 			result.push([property, Number(obj[property]["4. close"])])
 		}
 		return result
-	}
+	}, [])
 
-	// const returnArr = []
-	// let obj = returnObj["Time Series (Daily)"]
-	// for (const property in obj) {
-	// 	returnArr.push([property, obj[property]["4. close"]])
-	// }
-	// console.log("returnArr", returnArr)
 
 	const makeSmaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
 		let result = []
@@ -762,16 +755,16 @@ export default function MaCanvas() {
 			setPrices(() => getClosingPricesArr(data["Time Series (Daily)"]))
 		})
 		.catch(error => console.log(error))
-	}, [])
+	}, [getClosingPricesArr])
 
 	useEffect(() => {
 		// fetchPrices()
 		setPrices(() => getClosingPricesArr(returnObj["Time Series (Daily)"]))
 		const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-	}, [fetchPrices, ])
+	}, [fetchPrices, getClosingPricesArr])
 	
-	console.log("makeSmaArr", makeSmaArr(prices))
+	if (prices.length > 0) console.log("makeSmaArr", makeSmaArr(prices))
 
 	return (
 		<Grid container justifyContent="center" spacing={2}>
