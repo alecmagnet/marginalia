@@ -60,7 +60,7 @@ export default function MovingAvgContainer() {
 			</Grid>
 			<Grid item xs={12} textAlign='center' >
 				<IconButton
-					disabled={daysAgo >= 80}
+					disabled={daysAgo >= 59}
 					onClick={() => handleDayClick("back")}
 				>
 					<ArrowBackIosNewIcon />
