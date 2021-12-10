@@ -28,7 +28,7 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 			minVal = Math.min(minVal, movAvg, arr[i].price)
 			let trimmedDate = () => {
 				if (i % 2 !== 0) {return ''}
-				else {return arr[i].date.substring(5).replaceAll('0', '').replace('-', '/')}
+				else {return arr[i].date.substring(5).replace(/0(?=\d)/g, '').replace('-', '/')}
 			}
 			dataArr.push({
 				date: trimmedDate(),
