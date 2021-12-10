@@ -17,6 +17,7 @@ import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
 import { addLoginUser } from './features/users/userSlice'
+import MovingAvgContainer from './features/maCanvas/MovingAvgContainer';
 
 export default function App() {
   const commentsState = useSelector((state) => state.comments)  
@@ -57,6 +58,11 @@ export default function App() {
         <Fragment>
           <Navbar />
           <Switch>
+
+            <Route exact path='/canvas'>
+              <MovingAvgContainer />
+            </Route>
+            
             {user ?
               <Fragment>
                 <Route exact path='/texts'>
