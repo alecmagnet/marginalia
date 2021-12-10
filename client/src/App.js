@@ -13,6 +13,8 @@ import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage';
 import AboutPage from './features/homepage/AboutPage';
+import MaCanvas from './features/e-canvas/MaCanvas';
+
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
@@ -101,6 +103,10 @@ export default function App() {
                 </Route>
                 <Route exact path="/signup">
                   <Signup />
+                </Route>
+
+                <Route exact path="/canvas">
+                  <MaCanvas />
                 </Route>
 
                 <Route exact path='/texts'>
