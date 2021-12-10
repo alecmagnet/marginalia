@@ -38,7 +38,7 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		// BASED ON THE SIZE OF THE DIFF BETWEEN MAX & MIN.
 		const valMax = Math.ceil(maxVal/step)*step + step
 		const valMin = Math.floor(minVal/step)*step - step
-		context.font = "40 pt Verdana"
+		context.font = "17px Roboto"
 
 		const columnSize = 50
 		const rowSize = 50
@@ -47,12 +47,11 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		const yScale = (canvas.height - columnSize - margin) / (valMax - valMin)
 		const xScale = (canvas.width - rowSize) / days
 
-		context.clearRect(0, 0, canvas.width, canvas.height)
 		context.strokeStyle="#cfd8dc"; 
 		context.beginPath();
-		for (let i=1; i<days; i++) {
+		for (let i=1; i<=days; i++) {
 			const x = i * xScale
-			const monthDay = dataArr[i].date
+			const monthDay = dataArr[i-1].date
 			context.fillText(monthDay, x, columnSize - margin)
 			context.moveTo(x, columnSize)
 			context.lineTo(x, canvas.height - margin)
@@ -89,6 +88,7 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 	useEffect(() => {
 		const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
+		ctx.clearRect(0, 0, canvas.width - 50, canvas.height - 50)
 		drawGraph(prices, ctx, canvas)
 	}, [drawGraph, prices])
 
@@ -96,14 +96,14 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		<Grid item xs="auto" sx={{ pt: 2, }}>
 			<canvas
 				ref={canvasRef}
-				width='900px'
-				height='600px'
+				width='1000px'
+				height='500px'
 			/>
-			<Typography variant="h5" alignText="center" sx={{ mt: 1 }}>
-				<Box component="span" sx={{ color: "#4a148c", mr: 3}}>
+			<Typography variant="h5" textAlign="center" sx={{ mt: 1 }}>
+				<Box component="span" sx={{ color: "#4a148c", mr: 5}}>
 					Closing Price
 				</Box>
-				<Box component="span" sx={{ color: "#880e4f", ml: 3}}>
+				<Box component="span" sx={{ color: "#880e4f", ml: 5}}>
 					20-Day Moving Average
 				</Box>
 			</Typography>

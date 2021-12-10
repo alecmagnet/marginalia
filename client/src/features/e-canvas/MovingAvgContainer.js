@@ -39,27 +39,7 @@ export default function MovingAvgContainer() {
 
 	useEffect(() => {
 		fetchPrices()
-		// const canvas = canvasRef.current
-    // const context = canvas.getContext('2d')
 	}, [fetchPrices])
-
-	
-
-	// const makeMaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
-	// 	let result = []
-	// 	// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
-	// 	for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
-	// 		let sum = 0
-	// 		for (let j = i; j < i + interval; j++) {
-	// 			sum += arr[j][1]
-	// 		}
-	// 		result.push([...arr[i], sum/interval])
-	// 	}
-	// 	return result
-	// }
-
-	// if (prices.length > 0) console.log("makeMaArr", makeMaArr(prices))
-
 
 
 	return (
