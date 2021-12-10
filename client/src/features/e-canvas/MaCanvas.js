@@ -11,34 +11,34 @@ export default function MaCanvas() {
 	// If my fetch request returned a lot more data, I would use 
 	// Object.entries (maybe with .slice?) to iterate over just 
 	// the graph's date-range instead of the whole object
-	const getClosingPricesArr = useCallback((obj) => {
+	const makeClosingPricesArr = useCallback((obj1, bool) => {
 		let result = []
+		let obj = obj1["Time Series (Daily)"]
 		for (const property in obj) {
 			result.push([property, Number(obj[property]["4. close"])])
 		}
-		return result
+		setPrices(result)
+		setError(bool)
 	}, [])
 
 	const fetchPrices = useCallback(() => {
 		fetch('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=7TC1O17DDEZ7SVWO')
 		.then(response => response.json())
 		.then(data => {
-			setPrices(getClosingPricesArr(data["Time Series (Daily)"]))
-			setError(false)
+			makeClosingPricesArr(data, false)
 		})
-		.catch(error => {
+		.catch(error => { // CHANGE IF IF RESPONSE.OK!!!!
 			console.log(error)
-			setPrices(getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
-			setError(true)
+			makeClosingPricesArr(defaultPricesObj, true)
 		})
-	}, [getClosingPricesArr])
+	}, [makeClosingPricesArr])
 
 	useEffect(() => {
 		// fetchPrices()
-		setPrices(getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
+		makeClosingPricesArr(defaultPricesObj, false)
 		const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-	}, [fetchPrices, getClosingPricesArr])
+	}, [fetchPrices, makeClosingPricesArr])
 
 	
 
@@ -76,7 +76,6 @@ export default function MaCanvas() {
 						width: '800px', 
 						height: '500px', 
 						borderStyle: "solid", 
-						// borderColor: ""
 					}}
 				>
 
