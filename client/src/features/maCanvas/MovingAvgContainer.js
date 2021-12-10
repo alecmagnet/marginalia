@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Grid, Typography, IconButton } from '@mui/material'
-// import { ArrowBackIosIcon, ArrowForwardIosIcon } from '@mui/icons-material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { defaultPricesObj } from './defaultPrices'
@@ -39,7 +38,6 @@ export default function MovingAvgContainer() {
 		.catch(error => { 
 			if (error) {makeClosingPricesArr(defaultPricesObj, true)} 	
 		}) 	
-		// makeClosingPricesArr(defaultPricesObj, false)
 	}, [makeClosingPricesArr])
 
 	useEffect(() => {
@@ -51,6 +49,19 @@ export default function MovingAvgContainer() {
 		setDaysAgo(prev => prev + addend)
 	}
 
+	const buttonArr = [
+		{
+			val: 'back',
+			icon: <ArrowBackIosNewIcon />,
+			limit: daysAgo >= 59,
+		},
+		{
+			val: 'forward',
+			icon: <ArrowForwardIosIcon />,
+			limit: daysAgo === 0,
+		},
+	]
+
 	return (
 		<Grid container justifyContent='center' spacing={1}>
 			<Grid item xs={12}>
@@ -58,19 +69,17 @@ export default function MovingAvgContainer() {
 					IBM Closing Prices
 				</Typography>
 			</Grid>
+
 			<Grid item xs={12} textAlign='center' >
-				<IconButton
-					disabled={daysAgo >= 59}
-					onClick={() => handleDayClick("back")}
-				>
-					<ArrowBackIosNewIcon />
-				</IconButton>
-				<IconButton
-					disabled={daysAgo === 0}
-					onClick={() => handleDayClick("forward")}
-				>
-					<ArrowForwardIosIcon />
-				</IconButton>
+				{buttonArr.map((elem, index) => 
+					<IconButton
+						key={index}
+						disabled={elem.limit}
+						onClick={() => handleDayClick(elem.val)}
+					>
+						{elem.icon}
+					</IconButton>				
+				)}
 			</Grid>
 
 			{error ? 
