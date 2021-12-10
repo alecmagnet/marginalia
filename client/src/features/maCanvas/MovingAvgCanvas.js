@@ -1,12 +1,17 @@
-import { useRef, useEffect, useCallback } from 'react'
-import { Typography, Box, Grid } from '@mui/material'
+import { useRef, useEffect, useCallback, useState } from 'react'
+import { Typography, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material'
 
 export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interval = 20 }) {
 	// TO MAKE THIS COMPONANT MORE DYNAMIC, I WOULD SET STATE FOR THE DATE-RANGE
 	// OF THE GRAPH AND THE INTERVAL OF THE MOVING AVERAGE, THEN INCLUDE INPUTS 
 	// TO SET THOSE STATES
-
+	const initialState = () => ['closing', 'mAvg']
+	const [whichLines, setWhichLines] = useState(() => initialState())
 	const canvasRef = useRef()
+
+	const handleWhichLines = (event, newLines) => {
+		setWhichLines(newLines)
+	} 
 
 	const drawGraph = useCallback((arr, context, canvas) => {
 		let dataArr = []
@@ -38,7 +43,7 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		// BASED ON THE SIZE OF THE DIFF BETWEEN MAX & MIN.
 		const valMax = Math.ceil(maxVal/step)*step + step
 		const valMin = Math.floor(minVal/step)*step - step
-		context.font = "17px Roboto"
+		context.font = '17px Roboto'
 
 		const columnSize = 50
 		const rowSize = 50
@@ -47,11 +52,14 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		const yScale = (canvas.height - columnSize - margin) / (valMax - valMin)
 		const xScale = (canvas.width - rowSize) / days
 
-		context.strokeStyle="#cfd8dc"; 
-		context.beginPath();
-		for (let i=1; i<=days; i++) {
-			const x = i * xScale
-			const monthDay = dataArr[i-1].date
+		context.setTransform(1,0,0,1,0,0)
+		context.clearRect(0, 0, canvas.width, canvas.height)
+
+		context.strokeStyle='#cfd8dc'
+		context.beginPath()
+		for (let k=1; k<=days; k++) {
+			const x = k * xScale
+			const monthDay = dataArr[k-1].date
 			context.fillText(monthDay, x, columnSize - margin)
 			context.moveTo(x, columnSize)
 			context.lineTo(x, canvas.height - margin)
@@ -79,34 +87,50 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 			context.stroke()
 		}
 
-		context.strokeStyle="#4a148c";
-		plotData("price");
-		context.strokeStyle="#880e4f";
-		plotData("movAvg");
-	}, [days, daysAgo, interval])
+		if (whichLines.includes('closing')) {
+			context.strokeStyle='#4a148c'
+			plotData('price')
+		}
+		if (whichLines.includes('mAvg')) {
+			context.strokeStyle='#880e4f';
+			plotData('movAvg');
+		}
+	}, [days, daysAgo, interval, whichLines])
 
 	useEffect(() => {
-		const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-		ctx.clearRect(0, 0, canvas.width - 50, canvas.height - 50)
-		drawGraph(prices, ctx, canvas)
+		const cnvs = canvasRef.current
+    const ctx = cnvs.getContext('2d')
+		drawGraph(prices, ctx, cnvs)
 	}, [drawGraph, prices])
 
 	return (
-		<Grid item xs="auto" sx={{ pt: 2, }}>
-			<canvas
-				ref={canvasRef}
-				width='1000px'
-				height='500px'
-			/>
-			<Typography variant="h5" textAlign="center" sx={{ mt: 1 }}>
-				<Box component="span" sx={{ color: "#4a148c", mr: 5}}>
-					Closing Price
-				</Box>
-				<Box component="span" sx={{ color: "#880e4f", ml: 5}}>
-					20-Day Moving Average
-				</Box>
-			</Typography>
+		<Grid item container xs={12} justifyContent="center" >
+			<Grid item xs='auto' sx={{ pt: 2, }}>
+				<canvas
+					ref={canvasRef}
+					width='1000px'
+					height='500px'
+				/>
+			</Grid>
+			<Grid item container xs={12} justifyContent="center" >
+				<ToggleButtonGroup
+					value={whichLines}
+					onChange={handleWhichLines}
+					aria-label='select which lines to graph'
+					sx={{ my: 4, }}
+				>
+					<ToggleButton value='closing' aria-label='closing prices' sx={{ px:4 }}>
+						<Typography variant='h5' textAlign='center' sx={{ color: '#4a148c', }}>
+							Closing Price
+						</Typography>
+					</ToggleButton>
+					<ToggleButton value='mAvg' aria-label='moving averages' sx={{ px:4 }}>
+						<Typography variant='h5' textAlign='center' sx={{ color: '#880e4f', }}>
+							20-Day Moving Average
+						</Typography>					
+					</ToggleButton>
+				</ToggleButtonGroup>
+			</Grid>
 		</Grid>
 	)
 }
