@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Grid, Typography, } from '@mui/material'
 import { defaultPricesObj } from './defaultPrices'
+import ErrorMessage from './ErrorMessage'
 
 export default function MaCanvas() {
 	const [prices, setPrices] = useState([])
@@ -22,26 +23,26 @@ export default function MaCanvas() {
 		fetch('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=7TC1O17DDEZ7SVWO')
 		.then(response => response.json())
 		.then(data => {
-			setPrices(() => getClosingPricesArr(data["Time Series (Daily)"]))
-			setError(() => false)
+			setPrices(getClosingPricesArr(data["Time Series (Daily)"]))
+			setError(false)
 		})
 		.catch(error => {
 			console.log(error)
-			setPrices(() => getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
-			setError(() => true)
+			setPrices(getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
+			setError(true)
 		})
 	}, [getClosingPricesArr])
 
 	useEffect(() => {
 		// fetchPrices()
-		setPrices(() => getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
+		setPrices(getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
 		const canvas = canvasRef.current
     const context = canvas.getContext('2d')
 	}, [fetchPrices, getClosingPricesArr])
 
 	
 
-	const makeSmaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
+	const makeMaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
 		let result = []
 		// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
 		for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
@@ -54,20 +55,8 @@ export default function MaCanvas() {
 		return result
 	}
 
-	if (prices.length > 0) console.log("makeSmaArr", makeSmaArr(prices))
+	if (prices.length > 0) console.log("makeMaArr", makeMaArr(prices))
 
-	const displayErrorMessage = () => {
-		return (
-			<Grid item xs={12}>
-				<Typography variant="h5" textAlign="center">
-					We could not fetch the latest data 
-				</Typography>
-				<Typography variant="subtitle2" textAlign="center">	
-					We’re sorry. Please try again in 5 minutes. Until then, here is our most recent stored data
-				</Typography>
-			</Grid>
-		)
-	}
 
 
 	return (
@@ -79,7 +68,7 @@ export default function MaCanvas() {
 			</Grid>
 			<Grid item xs="auto" sx={{ pt: 2, }}>
 
-				{error ? displayErrorMessage() : null}
+				{error ? <ErrorMessage/> : null}
 
 				<canvas
 					ref={canvasRef}
