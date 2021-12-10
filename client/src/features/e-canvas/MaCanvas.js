@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Grid, } from '@mui/material'
+import { Grid, Typography, } from '@mui/material'
 import { defaultPricesObj } from './defaultPrices'
 
 export default function MaCanvas() {
 	const [prices, setPrices] = useState([])
+	const [error, setError] = useState(false)
 	const canvasRef = useRef()
 
 	// If my fetch request returned a lot more data, I would use 
@@ -22,8 +23,13 @@ export default function MaCanvas() {
 		.then(response => response.json())
 		.then(data => {
 			setPrices(() => getClosingPricesArr(data["Time Series (Daily)"]))
+			setError(() => false)
 		})
-		.catch(error => console.log(error))
+		.catch(error => {
+			console.log(error)
+			setPrices(() => getClosingPricesArr(defaultPricesObj["Time Series (Daily)"]))
+			setError(() => true)
+		})
 	}, [getClosingPricesArr])
 
 	useEffect(() => {
@@ -50,11 +56,31 @@ export default function MaCanvas() {
 
 	if (prices.length > 0) console.log("makeSmaArr", makeSmaArr(prices))
 
+	const displayErrorMessage = () => {
+		return (
+			<Grid item xs={12}>
+				<Typography variant="h5" textAlign="center">
+					We could not fetch the latest data 
+				</Typography>
+				<Typography variant="subtitle2" textAlign="center">	
+					We’re sorry. Please try again in 5 minutes. Until then, here is our most recent stored data
+				</Typography>
+			</Grid>
+		)
+	}
 
 
 	return (
 		<Grid container justifyContent="center" spacing={2}>
-			<Grid item justifyContent="center" sx={{ pt: 2, }}>
+			<Grid iten xs={12}>
+				<Typography variant="h3" textAlign="center" sx={{ mt: 4 }}>
+					IBM Closing Prices
+				</Typography>
+			</Grid>
+			<Grid item xs="auto" sx={{ pt: 2, }}>
+
+				{error ? displayErrorMessage() : null}
+
 				<canvas
 					ref={canvasRef}
 					style={{ 
