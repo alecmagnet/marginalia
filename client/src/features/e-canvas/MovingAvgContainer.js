@@ -2,8 +2,9 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { Grid, Typography, } from '@mui/material'
 import { defaultPricesObj } from './defaultPrices'
 import ErrorMessage from './ErrorMessage'
+// import MovingAvgCanvas from './MovingAvgCanvas'
 
-export default function MaCanvas() {
+export default function MovingAvgContainer() {
 	const [prices, setPrices] = useState([])
 	const [error, setError] = useState(false)
 	const canvasRef = useRef()
@@ -15,30 +16,33 @@ export default function MaCanvas() {
 		let result = []
 		let obj = obj1["Time Series (Daily)"]
 		for (const property in obj) {
-			result.push([property, Number(obj[property]["4. close"])])
+			result.push({
+				date: property, 
+				close: Number(obj[property]["4. close"])
+			})
 		}
 		setPrices(result)
 		setError(bool)
 	}, [])
 
 	const fetchPrices = useCallback(() => {
-		fetch('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=7TC1O17DDEZ7SVWO')
-		.then(response => response.json())
-		.then(data => {
-			makeClosingPricesArr(data, false)
-		})
-		.catch(error => { // CHANGE IF IF RESPONSE.OK!!!!
-			console.log(error)
-			makeClosingPricesArr(defaultPricesObj, true)
-		})
+		// fetch('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=7TC1O17DDEZ7SVWO')
+		// .then(response => response.json())
+		// .then(data => {
+		// 	makeClosingPricesArr(data, false)
+		// })
+		// .catch(error => { // CHANGE TO IF RESPONSE.OK!!!!
+		// 	console.log(error)
+		// 	makeClosingPricesArr(defaultPricesObj, true)
+		// })
+		makeClosingPricesArr(defaultPricesObj, false)
 	}, [makeClosingPricesArr])
 
 	useEffect(() => {
-		// fetchPrices()
-		makeClosingPricesArr(defaultPricesObj, false)
+		fetchPrices()
 		const canvas = canvasRef.current
     const context = canvas.getContext('2d')
-	}, [fetchPrices, makeClosingPricesArr])
+	}, [fetchPrices])
 
 	
 
@@ -48,7 +52,7 @@ export default function MaCanvas() {
 		for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
 			let sum = 0
 			for (let j = i; j < i + interval; j++) {
-				sum += Number(arr[j][1])
+				sum += arr[j][1]
 			}
 			result.push([...arr[i], sum/interval])
 		}

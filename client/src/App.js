@@ -13,12 +13,13 @@ import UsersContainer from './features/users/UsersContainer'
 import UserShow from './features/users/UserShow';
 import Homepage from './features/homepage/Homepage';
 import AboutPage from './features/homepage/AboutPage';
-import MaCanvas from './features/e-canvas/MaCanvas';
+import MovingAvgContainer from './features/e-canvas/MovingAvgContainer';
 
 import { fetchLitTexts } from './features/litTexts/litTextsSlice';
 import { fetchAllUsers } from './features/users/allUsersSlice'
 import { fetchComments } from './features/comments/commentsSlice';
 import { addLoginUser } from './features/users/userSlice'
+
 
 export default function App() {
   const commentsState = useSelector((state) => state.comments)  
@@ -106,7 +107,7 @@ export default function App() {
                 </Route>
 
                 <Route exact path="/canvas">
-                  <MaCanvas />
+                  <MovingAvgContainer />
                 </Route>
 
                 <Route exact path='/texts'>
