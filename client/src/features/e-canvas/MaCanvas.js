@@ -731,23 +731,6 @@ export default function MaCanvas() {
 		return result
 	}, [])
 
-
-	const makeSmaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
-		let result = []
-		// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
-		for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
-			let sum = 0
-			for (let j = i; j < i + interval; j++) {
-				sum += Number(arr[j][1])
-			}
-			result.push([...arr[i], sum/interval])
-		}
-		return result
-	}
-
-	
-
-
 	const fetchPrices = useCallback(() => {
 		fetch('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=7TC1O17DDEZ7SVWO')
 		.then(response => response.json())
@@ -763,9 +746,26 @@ export default function MaCanvas() {
 		const canvas = canvasRef.current
     const context = canvas.getContext('2d')
 	}, [fetchPrices, getClosingPricesArr])
+
 	
+
+	const makeSmaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
+		let result = []
+		// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
+		for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
+			let sum = 0
+			for (let j = i; j < i + interval; j++) {
+				sum += Number(arr[j][1])
+			}
+			result.push([...arr[i], sum/interval])
+		}
+		return result
+	}
+
 	if (prices.length > 0) console.log("makeSmaArr", makeSmaArr(prices))
 
+
+	
 	return (
 		<Grid container justifyContent="center" spacing={2}>
 			<Grid item justifyContent="center" sx={{ pt: 2, }}>
