@@ -103,6 +103,19 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 		drawGraph(prices, ctx, cnvs)
 	}, [drawGraph, prices])
 
+	const toggleArr = [
+		{
+			val: 'closing',
+			color: '#4a148c',
+			message: 'Closing Price',
+		},
+		{
+			val: 'mAvg',
+			color: '#880e4f',
+			message: '20-Day Moving Average',
+		},
+	]
+
 	return (
 		<Grid item container xs={12} justifyContent="center" >
 			<Grid item xs='auto' >
@@ -112,23 +125,20 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 					height='450px'
 				/>
 			</Grid>
+
 			<Grid item container xs={12} justifyContent="center" >
 				<ToggleButtonGroup
 					value={whichLines}
 					onChange={handleWhichLines}
-					aria-label='select which lines to graph'
 					sx={{ my: 4, }}
 				>
-					<ToggleButton value='closing' aria-label='closing prices' sx={{ px:4 }}>
-						<Typography variant='h5' textAlign='center' sx={{ color: '#4a148c', }}>
-							Closing Price
-						</Typography>
-					</ToggleButton>
-					<ToggleButton value='mAvg' aria-label='moving averages' sx={{ px:4 }}>
-						<Typography variant='h5' textAlign='center' sx={{ color: '#880e4f', }}>
-							20-Day Moving Average
-						</Typography>					
-					</ToggleButton>
+					{toggleArr.map((elem, index) => 
+						<ToggleButton value={elem.val} sx={{ px:4 }}>
+							<Typography variant='h5' textAlign='center' sx={{ color: elem.color, }}>
+								{elem.message}
+							</Typography>
+						</ToggleButton>					
+					)}
 				</ToggleButtonGroup>
 			</Grid>
 		</Grid>
