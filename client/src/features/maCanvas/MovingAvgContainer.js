@@ -52,9 +52,9 @@ export default function MovingAvgContainer() {
 	}
 
 	return (
-		<Grid container justifyContent='center' spacing={2}>
+		<Grid container justifyContent='center' spacing={1}>
 			<Grid item xs={12}>
-				<Typography variant='h3' textAlign='center' sx={{ mt: 4 }}>
+				<Typography variant='h3' textAlign='center' sx={{ mt: 4, mb: 1 }}>
 					IBM Closing Prices
 				</Typography>
 			</Grid>

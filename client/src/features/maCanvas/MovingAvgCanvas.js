@@ -105,11 +105,11 @@ export default function MovingAvgCanvas({ prices, daysAgo = 0, days = 20, interv
 
 	return (
 		<Grid item container xs={12} justifyContent="center" >
-			<Grid item xs='auto' sx={{ pt: 2, }}>
+			<Grid item xs='auto' >
 				<canvas
 					ref={canvasRef}
 					width='1000px'
-					height='500px'
+					height='450px'
 				/>
 			</Grid>
 			<Grid item container xs={12} justifyContent="center" >
