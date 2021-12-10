@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Grid, Typography, } from '@mui/material'
 import { defaultPricesObj } from './defaultPrices'
 import ErrorMessage from './ErrorMessage'
-// import MovingAvgCanvas from './MovingAvgCanvas'
+import MovingAvgCanvas from './MovingAvgCanvas'
 
 export default function MovingAvgContainer() {
 	const [prices, setPrices] = useState([])
 	const [error, setError] = useState(false)
-	const canvasRef = useRef()
 
 	// If my fetch request returned a lot more data, I would use 
 	// Object.entries (maybe with .slice?) to iterate over just 
@@ -18,7 +17,7 @@ export default function MovingAvgContainer() {
 		for (const property in obj) {
 			result.push({
 				date: property, 
-				close: Number(obj[property]["4. close"])
+				price: Number(obj[property]["4. close"])
 			})
 		}
 		setPrices(result)
@@ -40,53 +39,38 @@ export default function MovingAvgContainer() {
 
 	useEffect(() => {
 		fetchPrices()
-		const canvas = canvasRef.current
-    const context = canvas.getContext('2d')
+		// const canvas = canvasRef.current
+    // const context = canvas.getContext('2d')
 	}, [fetchPrices])
 
 	
 
-	const makeMaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
-		let result = []
-		// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
-		for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
-			let sum = 0
-			for (let j = i; j < i + interval; j++) {
-				sum += arr[j][1]
-			}
-			result.push([...arr[i], sum/interval])
-		}
-		return result
-	}
+	// const makeMaArr = (arr, daysAgo = 0, window = 20, interval = 20) => {
+	// 	let result = []
+	// 	// I'm using this for-loop + push instead of splice + reverse + map because the time complexity is O(n), versus 0(n)*3 
+	// 	for (let i = window + daysAgo - 1; i >= daysAgo; i--) {
+	// 		let sum = 0
+	// 		for (let j = i; j < i + interval; j++) {
+	// 			sum += arr[j][1]
+	// 		}
+	// 		result.push([...arr[i], sum/interval])
+	// 	}
+	// 	return result
+	// }
 
-	if (prices.length > 0) console.log("makeMaArr", makeMaArr(prices))
+	// if (prices.length > 0) console.log("makeMaArr", makeMaArr(prices))
 
 
 
 	return (
 		<Grid container justifyContent="center" spacing={2}>
-			<Grid iten xs={12}>
+			<Grid item xs={12}>
 				<Typography variant="h3" textAlign="center" sx={{ mt: 4 }}>
 					IBM Closing Prices
 				</Typography>
-			</Grid>
-			<Grid item xs="auto" sx={{ pt: 2, }}>
-
 				{error ? <ErrorMessage/> : null}
-
-				<canvas
-					ref={canvasRef}
-					style={{ 
-						width: '800px', 
-						height: '500px', 
-						borderStyle: "solid", 
-					}}
-				>
-
-				</canvas>
 			</Grid>
+			{prices.length > 0 ? <MovingAvgCanvas prices={prices} /> : null}
 		</Grid>
 	)
-
-
 }
